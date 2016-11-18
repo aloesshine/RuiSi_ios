@@ -54,7 +54,7 @@ NSString *kSectionHeaderViewCell = @"SectionHeaderViewCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // 通过重用标识符获取cell
-    SectionCollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"SectionCollectionViewCell" forIndexPath:indexPath];
+    SectionCollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:kSectionCollectionViewCell forIndexPath:indexPath];
     [self configureCell:cell forItemAtIndexPath:indexPath];
     return cell;
 }
