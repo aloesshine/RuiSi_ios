@@ -10,5 +10,4 @@
 
 @interface SectionViewController : UICollectionViewController 
 
-
 @end
