@@ -14,9 +14,9 @@
 		7A997B9A1DDD74DC00D383B5 /* RuiSiUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A997B991DDD74DC00D383B5 /* RuiSiUITests.m */; };
 		7AB4ACBE1DDD7DCA00842D6C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4ACAB1DDD7DCA00842D6C /* AppDelegate.m */; };
 		7AB4ACBF1DDD7DCA00842D6C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4ACAC1DDD7DCA00842D6C /* main.m */; };
-		7AB4ACC01DDD7DCA00842D6C /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4ACB51DDD7DCA00842D6C /* Info.plist */; };
 		7AB4ACC31DDD9C6000842D6C /* SectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4ACC21DDD9C6000842D6C /* SectionViewController.m */; };
 		7AB4ACC91DDDDDFE00842D6C /* SectionCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4ACC81DDDDDFE00842D6C /* SectionCollectionViewCell.m */; };
+		BB17BB831DE0A85600315E4D /* SectionHeaderViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB17BB821DE0A85600315E4D /* SectionHeaderViewCell.xib */; };
 		BB72A3321DDF55F1007192FE /* SectionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB72A3311DDF55F1007192FE /* SectionCollectionViewCell.xib */; };
 		BB72A3351DDF68C8007192FE /* SectionHeaderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */; };
 /* End PBXBuildFile section */
@@ -57,6 +57,7 @@
 		7AB4ACC21DDD9C6000842D6C /* SectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionViewController.m; sourceTree = "<group>"; };
 		7AB4ACC71DDDDDFE00842D6C /* SectionCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionCollectionViewCell.h; sourceTree = "<group>"; };
 		7AB4ACC81DDDDDFE00842D6C /* SectionCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionCollectionViewCell.m; sourceTree = "<group>"; };
+		BB17BB821DE0A85600315E4D /* SectionHeaderViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionHeaderViewCell.xib; sourceTree = "<group>"; };
 		BB72A3311DDF55F1007192FE /* SectionCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionCollectionViewCell.xib; sourceTree = "<group>"; };
 		BB72A3331DDF68C8007192FE /* SectionHeaderViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionHeaderViewCell.h; sourceTree = "<group>"; };
 		BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionHeaderViewCell.m; sourceTree = "<group>"; };
@@ -343,6 +344,7 @@
 				BB72A3311DDF55F1007192FE /* SectionCollectionViewCell.xib */,
 				BB72A3331DDF68C8007192FE /* SectionHeaderViewCell.h */,
 				BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */,
+				BB17BB821DE0A85600315E4D /* SectionHeaderViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -462,8 +464,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A997B841DDD74DC00D383B5 /* LaunchScreen.storyboard in Resources */,
-				7AB4ACC01DDD7DCA00842D6C /* Info.plist in Resources */,
 				BB72A3321DDF55F1007192FE /* SectionCollectionViewCell.xib in Resources */,
+				BB17BB831DE0A85600315E4D /* SectionHeaderViewCell.xib in Resources */,
 				7A997B811DDD74DC00D383B5 /* Assets.xcassets in Resources */,
 				7A997B7F1DDD74DC00D383B5 /* Main.storyboard in Resources */,
 			);
@@ -567,6 +569,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -614,6 +617,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
