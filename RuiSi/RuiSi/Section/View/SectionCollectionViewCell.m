@@ -21,4 +21,7 @@
     return self;
 }
 
+- (void)configureImageViewForIndexPath:(NSIndexPath *)indexPath {
+    
+}
 @end

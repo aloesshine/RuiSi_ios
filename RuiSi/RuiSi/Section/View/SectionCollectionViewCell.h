@@ -13,4 +13,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *titleLable;
 @property (nonatomic, weak) IBOutlet UILabel *countLable;
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
+
+- (void) configureImageViewForIndexPath:(NSIndexPath *) indexPath;
+
 @end
