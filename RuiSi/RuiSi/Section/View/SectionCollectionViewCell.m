@@ -28,5 +28,6 @@
    // NSLog(@"%ld_%ld.png",(indexPath.section+1),(indexPath.row+1));
     
     self.iconImageView.image = [UIImage imageNamed:fileName];
+    //NSLog(@"%@",self.iconImageView.image);
 }
 @end

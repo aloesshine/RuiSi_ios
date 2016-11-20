@@ -65,7 +65,6 @@ NSString *kSectionHeaderViewCell = @"SectionHeaderViewCell";
     collectionCell.titleLable.text = _forumArray[indexPath.section][indexPath.row];
     collectionCell.titleLable.font = [UIFont systemFontOfSize:12];
     collectionCell.backgroundColor = [UIColor colorWithRed:1.0 green:1.0  blue:1.0 alpha:1];
-    collectionCell.iconImageView = nil;
     collectionCell.countLable.text = @"0";
     collectionCell.countLable.font = [UIFont systemFontOfSize:15];
     [collectionCell configureImageViewForIndexPath:indexPath];
