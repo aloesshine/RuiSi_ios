@@ -1,0 +1,15 @@
+PODS:
+  - AFNetworking (0.10.1)
+  - Objective-C-HMTL-Parser (0.0.1)
+
+DEPENDENCIES:
+  - AFNetworking
+  - Objective-C-HMTL-Parser
+
+SPEC CHECKSUMS:
+  AFNetworking: 560d6b9394bf2f80c1efac9141e0d36739e0ff6d
+  Objective-C-HMTL-Parser: cc468311d0ae434646c56aae3b62426977f19ca0
+
+PODFILE CHECKSUM: c82cef477ce208d8d7c03396cedd4a44192b2031
+
+COCOAPODS: 1.2.0.beta.1

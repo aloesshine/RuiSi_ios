@@ -1,0 +1,5 @@
+platform :ios 
+target 'RuiSi' do
+        pod 'AFNetworking'
+	pod 'Objective-C-HMTL-Parser'
+ end
