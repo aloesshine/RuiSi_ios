@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<array>
+		<string>文章天地</string>
+		<string>心灵花园</string>
+		<string>校园交易</string>
+		<string>我是女生</string>
+		<string>版聊专区</string>
+		<string>缘聚睿思</string>
+		<string>失物招领</string>
+		<string>西电问答</string>
+		<string>校园活动</string>
+		<string>我要毕业了</string>
+		<string>就业招聘</string>
+	</array>
+	<array>
+		<string>技术博客</string>
+		<string>学习交流</string>
+		<string>软件技术交流区</string>
+		<string>嵌入式技术交流区</string>
+		<string>考研交流</string>
+		<string>竞赛交流</string>
+		<string>Abroad &amp; English</string>
+	</array>
+	<array>
+		<string>灌水专区</string>
+		<string>摄影天地</string>
+		<string>原创精品</string>
+		<string>西电后街</string>
+		<string>我爱运动</string>
+		<string>音乐纵贯线</string>
+		<string>绝对漫域</string>
+		<string>游间客栈</string>
+		<string>大话体坛</string>
+		<string>邀请专区</string>
+	</array>
+	<array>
+		<string>腾讯创新俱乐部</string>
+		<string>华为创新俱乐部</string>
+	</array>
+	<array>
+		<string>电影</string>
+		<string>剧集</string>
+		<string>音乐</string>
+		<string>动漫</string>
+		<string>游戏</string>
+		<string>综艺</string>
+		<string>体育</string>
+		<string>软件</string>
+		<string>学习</string>
+		<string>纪录片</string>
+		<string>其他</string>
+		<string>西电</string>
+		<string>求种专区</string>
+		<string>新手试种专区</string>
+		<string>资源回收站</string>
+	</array>
+</array>
+</plist>

@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--板块-->
+        <!--手机睿思-->
         <scene sceneID="rcr-Cj-gV7">
             <objects>
                 <collectionViewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="NA6-iF-SmQ" customClass="SectionViewController" sceneMemberID="viewController">
@@ -42,12 +42,14 @@
                             <outlet property="delegate" destination="NA6-iF-SmQ" id="CVa-f6-LdQ"/>
                         </connections>
                     </collectionView>
-                    <tabBarItem key="tabBarItem" title="板块" id="yR5-Xt-kBQ"/>
+                    <navigationItem key="navigationItem" title="手机睿思" id="z1Q-Fh-xjj">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="Mu1-d3-BMK"/>
+                    </navigationItem>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E3I-5E-uod" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="984.79999999999995" y="98.50074962518741"/>
+            <point key="canvasLocation" x="1924" y="98.50074962518741"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="UQj-ud-3di">
@@ -60,12 +62,31 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="NA6-iF-SmQ" kind="relationship" relationship="viewControllers" id="zA4-0N-hNO"/>
+                        <segue destination="UfE-ud-zCL" kind="relationship" relationship="viewControllers" id="zA4-0N-hNO"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sXL-tw-RT6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="45.600000000000001" y="98.50074962518741"/>
+        </scene>
+        <!--板块-->
+        <scene sceneID="tX0-m3-FZH">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UfE-ud-zCL" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="板块" id="yR5-Xt-kBQ"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="DE8-4E-kjY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="NA6-iF-SmQ" kind="relationship" relationship="rootViewController" id="geh-Or-cSo"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="21a-qN-CoT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="984.79999999999995" y="98.50074962518741"/>
         </scene>
     </scenes>
 </document>
