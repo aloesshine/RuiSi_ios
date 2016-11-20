@@ -1,0 +1,20 @@
+PODS:
+  - AFNetworking (0.10.1)
+  - Objective-C-HMTL-Parser (0.0.1)
+  - SDWebImage (3.0):
+    - SDWebImage/Main (= 3.0)
+  - SDWebImage/Main (3.0)
+
+DEPENDENCIES:
+  - AFNetworking
+  - Objective-C-HMTL-Parser
+  - SDWebImage
+
+SPEC CHECKSUMS:
+  AFNetworking: 560d6b9394bf2f80c1efac9141e0d36739e0ff6d
+  Objective-C-HMTL-Parser: cc468311d0ae434646c56aae3b62426977f19ca0
+  SDWebImage: d101fefa22e62f0b34f91adb39c39e29c2f8d543
+
+PODFILE CHECKSUM: 51b8c34b1c326426d805f9160f422333294d4a2b
+
+COCOAPODS: 1.2.0.beta.1

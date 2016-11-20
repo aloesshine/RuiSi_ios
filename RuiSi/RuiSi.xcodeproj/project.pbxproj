@@ -16,6 +16,7 @@
 		7AB4ACBF1DDD7DCA00842D6C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4ACAC1DDD7DCA00842D6C /* main.m */; };
 		7AB4ACC31DDD9C6000842D6C /* SectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4ACC21DDD9C6000842D6C /* SectionViewController.m */; };
 		7AB4ACC91DDDDDFE00842D6C /* SectionCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4ACC81DDDDDFE00842D6C /* SectionCollectionViewCell.m */; };
+		906B3FCCEFAB9F0902D662E8 /* libPods-RuiSi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7D095EC90ED6A2807A21590 /* libPods-RuiSi.a */; };
 		BB17BB831DE0A85600315E4D /* SectionHeaderViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB17BB821DE0A85600315E4D /* SectionHeaderViewCell.xib */; };
 		BB72A3321DDF55F1007192FE /* SectionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB72A3311DDF55F1007192FE /* SectionCollectionViewCell.xib */; };
 		BB72A3351DDF68C8007192FE /* SectionHeaderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		73D689DA16F5C3C1B2394D2D /* Pods-RuiSi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RuiSi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RuiSi/Pods-RuiSi.debug.xcconfig"; sourceTree = "<group>"; };
 		7A997B711DDD74DC00D383B5 /* RuiSi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RuiSi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A997B7E1DDD74DC00D383B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7A997B801DDD74DC00D383B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -57,10 +59,12 @@
 		7AB4ACC21DDD9C6000842D6C /* SectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionViewController.m; sourceTree = "<group>"; };
 		7AB4ACC71DDDDDFE00842D6C /* SectionCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionCollectionViewCell.h; sourceTree = "<group>"; };
 		7AB4ACC81DDDDDFE00842D6C /* SectionCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionCollectionViewCell.m; sourceTree = "<group>"; };
+		B6EE0C2ED2D7690ED42DA80B /* Pods-RuiSi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RuiSi.release.xcconfig"; path = "Pods/Target Support Files/Pods-RuiSi/Pods-RuiSi.release.xcconfig"; sourceTree = "<group>"; };
 		BB17BB821DE0A85600315E4D /* SectionHeaderViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionHeaderViewCell.xib; sourceTree = "<group>"; };
 		BB72A3311DDF55F1007192FE /* SectionCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionCollectionViewCell.xib; sourceTree = "<group>"; };
 		BB72A3331DDF68C8007192FE /* SectionHeaderViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionHeaderViewCell.h; sourceTree = "<group>"; };
 		BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionHeaderViewCell.m; sourceTree = "<group>"; };
+		E7D095EC90ED6A2807A21590 /* libPods-RuiSi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RuiSi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				906B3FCCEFAB9F0902D662E8 /* libPods-RuiSi.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +100,8 @@
 				7A997B8D1DDD74DC00D383B5 /* RuiSiTests */,
 				7A997B981DDD74DC00D383B5 /* RuiSiUITests */,
 				7A997B721DDD74DC00D383B5 /* Products */,
+				C27B575588EF4B0586C6109E /* Pods */,
+				85DDF76F41BC55E570369D57 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -356,6 +363,23 @@
 			path = Vender;
 			sourceTree = "<group>";
 		};
+		85DDF76F41BC55E570369D57 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E7D095EC90ED6A2807A21590 /* libPods-RuiSi.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C27B575588EF4B0586C6109E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				73D689DA16F5C3C1B2394D2D /* Pods-RuiSi.debug.xcconfig */,
+				B6EE0C2ED2D7690ED42DA80B /* Pods-RuiSi.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -363,9 +387,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7A997B9E1DDD74DC00D383B5 /* Build configuration list for PBXNativeTarget "RuiSi" */;
 			buildPhases = (
+				8DC237EA0024040658A4D11D /* [CP] Check Pods Manifest.lock */,
 				7A997B6D1DDD74DB00D383B5 /* Sources */,
 				7A997B6E1DDD74DB00D383B5 /* Frameworks */,
 				7A997B6F1DDD74DB00D383B5 /* Resources */,
+				F6369F596A7FAC8549D0ACA7 /* [CP] Embed Pods Frameworks */,
+				CF0518682871D58A4FF44113 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -486,6 +513,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8DC237EA0024040658A4D11D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		CF0518682871D58A4FF44113 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RuiSi/Pods-RuiSi-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F6369F596A7FAC8549D0ACA7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RuiSi/Pods-RuiSi-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7A997B6D1DDD74DB00D383B5 /* Sources */ = {
@@ -643,6 +718,7 @@
 		};
 		7A997B9F1DDD74DC00D383B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 73D689DA16F5C3C1B2394D2D /* Pods-RuiSi.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 97RJ92JQE4;
@@ -657,6 +733,7 @@
 		};
 		7A997BA01DDD74DC00D383B5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B6EE0C2ED2D7690ED42DA80B /* Pods-RuiSi.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 97RJ92JQE4;

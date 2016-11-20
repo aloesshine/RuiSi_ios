@@ -1,6 +1,6 @@
 platform :ios 
-
-pod 'AFNetworking' '~>3.0'
-pod 'SDWebImage'
-pod 'Objective-C-HMTL-Parser'
-
+target 'RuiSi' do
+        pod 'AFNetworking'
+	pod 'SDWebImage'
+	pod 'Objective-C-HMTL-Parser'
+ end
