@@ -23,7 +23,9 @@
 
 - (void)configureImageViewForIndexPath:(NSIndexPath *)indexPath {
     
-    NSString *fileName = [NSString stringWithFormat:@"%ld_%ld.png",(long)(indexPath.section+1),(long)(indexPath.row+1)];
+    NSString *fileName = [NSString stringWithFormat:@"%ld_%ld.png",(indexPath.section+1),(indexPath.row+1)];
+    
+   // NSLog(@"%ld_%ld.png",(indexPath.section+1),(indexPath.row+1));
     
     [self.iconImageView setImage:[UIImage imageNamed:fileName]];
 }

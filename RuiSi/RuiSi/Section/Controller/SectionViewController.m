@@ -28,10 +28,13 @@ NSString *kSectionHeaderViewCell = @"SectionHeaderViewCell";
    
     [self.collectionView registerNib:[UINib nibWithNibName:kSectionCollectionViewCell bundle:nil] forCellWithReuseIdentifier:kSectionCollectionViewCell];
     [self.collectionView registerNib:[UINib nibWithNibName:kSectionHeaderViewCell bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kSectionHeaderViewCell];
+    self.collectionView.backgroundColor = [UIColor colorWithRed:0.91 green:0.93 blue:0.93 alpha:1];
     UICollectionViewLayout *layout = self.collectionView.collectionViewLayout;
     UICollectionViewFlowLayout *flow = (UICollectionViewFlowLayout *)layout;
-    flow.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
-    flow.headerReferenceSize = CGSizeMake(100, 25);
+    flow.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    flow.headerReferenceSize = CGSizeMake(100, 35);
+    flow.minimumLineSpacing = 1.0;
+    flow.minimumInteritemSpacing = 1.0;
     UIEdgeInsets contentInsets = self.collectionView.contentInset;
     contentInsets.top = 20;
     [self.collectionView setContentInset:contentInsets];
@@ -60,13 +63,16 @@ NSString *kSectionHeaderViewCell = @"SectionHeaderViewCell";
 
 - (void) configureCell:(SectionCollectionViewCell *)collectionCell forItemAtIndexPath:(NSIndexPath *)indexPath {
     collectionCell.titleLable.text = _forumArray[indexPath.section][indexPath.row];
+    collectionCell.titleLable.font = [UIFont systemFontOfSize:12];
+    collectionCell.backgroundColor = [UIColor colorWithRed:1.0 green:1.0  blue:1.0 alpha:1];
     collectionCell.iconImageView = nil;
     collectionCell.countLable.text = @"0";
+    collectionCell.countLable.font = [UIFont systemFontOfSize:15];
     [collectionCell configureImageViewForIndexPath:indexPath];
 }
 
 - (CGSize) collectionView :(UICollectionView *)collectionView layout:(nonnull UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    int width = self.collectionView.frame.size.width/4;
+    CGFloat width = (self.collectionView.frame.size.width - 3) /4.0;
     CGSize size = CGSizeMake(width, width);
     return size;
 }
@@ -75,6 +81,9 @@ NSString *kSectionHeaderViewCell = @"SectionHeaderViewCell";
     if ([kind isEqual:UICollectionElementKindSectionHeader]) {
         SectionHeaderViewCell *header = [self.collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:kSectionHeaderViewCell forIndexPath:indexPath];
         header.headerTitleLabel.text = _sectionArray[indexPath.section];
+        header.headerTitleLabel.font = [UIFont systemFontOfSize:12];
+        header.headerTitleLabel.textColor = [UIColor colorWithRed:0.67 green:0.12 blue:0.13 alpha:1];
+        header.backgroundColor = [UIColor colorWithRed:0.91 green:0.93 blue:0.93 alpha:1];
         return header;
     }
     return nil;
