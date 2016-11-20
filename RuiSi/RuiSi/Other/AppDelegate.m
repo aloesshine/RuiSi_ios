@@ -19,14 +19,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    
-    SectionViewController *section = [[SectionViewController alloc] initWithCollectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
-    
-    self.window.rootViewController = section;
-    
-    [self.window makeKeyAndVisible];
-    
     
     return YES;
 }
