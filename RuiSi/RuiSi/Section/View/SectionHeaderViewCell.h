@@ -10,4 +10,6 @@
 
 @interface SectionHeaderViewCell : UICollectionViewCell
 @property (nonatomic,weak) IBOutlet UILabel *headerTitleLabel;
+
+- (void) setUpFontAndBackground;
 @end

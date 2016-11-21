@@ -15,5 +15,5 @@
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 
 - (void) configureImageViewForIndexPath:(NSIndexPath *) indexPath;
-
+- (void) setUpFont;
 @end

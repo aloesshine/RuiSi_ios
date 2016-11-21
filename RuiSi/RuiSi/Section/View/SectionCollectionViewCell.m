@@ -10,13 +10,11 @@
 
 @implementation SectionCollectionViewCell
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (void)setUpFont
 {
-    if(self = [super initWithFrame:frame])
-    {
-        
-    }
-    return self;
+        self.titleLable.font = [UIFont systemFontOfSize:12];
+        self.countLable.font = [UIFont systemFontOfSize:15];
+        self.backgroundColor = [UIColor colorWithRed:1.0 green:1.0  blue:1.0 alpha:1];
 }
 
 - (void)configureImageViewForIndexPath:(NSIndexPath *)indexPath {

@@ -78,12 +78,11 @@ NSString *kSectionHeaderViewCell = @"SectionHeaderViewCell";
 
 - (void) configureCell:(SectionCollectionViewCell *)collectionCell forItemAtIndexPath:(NSIndexPath *)indexPath {
     collectionCell.titleLable.text = _itemArray[indexPath.section][indexPath.row];
-    collectionCell.titleLable.font = [UIFont systemFontOfSize:12];
-    collectionCell.countLable.font = [UIFont systemFontOfSize:15];
-    collectionCell.backgroundColor = [UIColor colorWithRed:1.0 green:1.0  blue:1.0 alpha:1];
+
     collectionCell.countLable.text = @"0";
     
     [collectionCell configureImageViewForIndexPath:indexPath];
+    [collectionCell setUpFont];
 }
 
 - (CGSize) collectionView :(UICollectionView *)collectionView layout:(nonnull UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -96,9 +95,7 @@ NSString *kSectionHeaderViewCell = @"SectionHeaderViewCell";
     if ([kind isEqual:UICollectionElementKindSectionHeader]) {
         SectionHeaderViewCell *header = [self.collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:kSectionHeaderViewCell forIndexPath:indexPath];
         header.headerTitleLabel.text = _sectionArray[indexPath.section];
-        header.headerTitleLabel.font = [UIFont systemFontOfSize:12];
-        header.headerTitleLabel.textColor = [UIColor colorWithRed:0.67 green:0.12 blue:0.13 alpha:1];
-        header.backgroundColor = [UIColor colorWithRed:0.91 green:0.93 blue:0.93 alpha:1];
+        [header setUpFontAndBackground];
         return header;
     }
     return nil;
