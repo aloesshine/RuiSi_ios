@@ -21,6 +21,7 @@
 		BB20FD101DE1FA57000CFB0E /* section.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB20FD0F1DE1FA57000CFB0E /* section.plist */; };
 		BB72A3321DDF55F1007192FE /* SectionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB72A3311DDF55F1007192FE /* SectionCollectionViewCell.xib */; };
 		BB72A3351DDF68C8007192FE /* SectionHeaderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */; };
+		BBCC066A1DE312DE0003A6B5 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCC06691DE312DE0003A6B5 /* libxml2.2.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		BB72A3311DDF55F1007192FE /* SectionCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionCollectionViewCell.xib; sourceTree = "<group>"; };
 		BB72A3331DDF68C8007192FE /* SectionHeaderViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionHeaderViewCell.h; sourceTree = "<group>"; };
 		BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionHeaderViewCell.m; sourceTree = "<group>"; };
+		BBCC06691DE312DE0003A6B5 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = ../../../../../../usr/lib/libxml2.2.dylib; sourceTree = "<group>"; };
 		E7D095EC90ED6A2807A21590 /* libPods-RuiSi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RuiSi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -75,6 +77,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				906B3FCCEFAB9F0902D662E8 /* libPods-RuiSi.a in Frameworks */,
+				BBCC066A1DE312DE0003A6B5 /* libxml2.2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +372,7 @@
 		85DDF76F41BC55E570369D57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BBCC06691DE312DE0003A6B5 /* libxml2.2.dylib */,
 				E7D095EC90ED6A2807A21590 /* libPods-RuiSi.a */,
 			);
 			name = Frameworks;

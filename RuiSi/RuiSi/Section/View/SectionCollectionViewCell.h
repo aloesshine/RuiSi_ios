@@ -14,6 +14,6 @@
 @property (nonatomic, weak) IBOutlet UILabel *countLable;
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 
-- (void) configureImageViewForIndexPath:(NSIndexPath *) indexPath;
 - (void) setUpFont;
+- (void) setUpIconImageAtIndexPath:(NSIndexPath *)indexPath;
 @end
