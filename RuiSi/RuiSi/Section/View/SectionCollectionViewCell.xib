@@ -54,9 +54,9 @@
                 <constraint firstItem="Dal-Y4-f2i" firstAttribute="leading" secondItem="K5N-6o-0nF" secondAttribute="leading" constant="2" id="y8S-E3-Lsa"/>
             </constraints>
             <connections>
-                <outlet property="countLable" destination="VXq-d5-KQ5" id="lfT-8R-LKA"/>
+                <outlet property="countLabel" destination="VXq-d5-KQ5" id="ILz-48-9iE"/>
                 <outlet property="iconImageView" destination="VN7-Tn-VwY" id="KOz-15-hQt"/>
-                <outlet property="titleLable" destination="Dal-Y4-f2i" id="O2o-Hr-GPu"/>
+                <outlet property="titleLabel" destination="Dal-Y4-f2i" id="Ejk-M3-mw9"/>
             </connections>
             <point key="canvasLocation" x="59" y="-135"/>
         </collectionViewCell>
