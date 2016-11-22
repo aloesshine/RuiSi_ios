@@ -10,8 +10,8 @@
 
 @interface SectionCollectionViewCell : UICollectionViewCell
 
-@property (nonatomic, weak) IBOutlet UILabel *titleLable;
-@property (nonatomic, weak) IBOutlet UILabel *countLable;
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak) IBOutlet UILabel *countLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 
 - (void) setUpFont;

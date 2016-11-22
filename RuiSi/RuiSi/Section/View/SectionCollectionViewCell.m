@@ -12,8 +12,8 @@
 
 - (void)setUpFont
 {
-        self.titleLable.font = [UIFont systemFontOfSize:12];
-        self.countLable.font = [UIFont systemFontOfSize:15];
+        self.titleLabel.font = [UIFont systemFontOfSize:12];
+        self.countLabel.font = [UIFont systemFontOfSize:15];
         self.backgroundColor = [UIColor colorWithRed:1.0 green:1.0  blue:1.0 alpha:1];
 }
 
