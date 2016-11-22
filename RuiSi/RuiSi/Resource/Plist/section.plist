@@ -57,5 +57,12 @@
 		<string>新手试种专区</string>
 		<string>资源回收站</string>
 	</array>
+	<array>
+		<string>举报专区</string>
+		<string>帮助专区</string>
+		<string>发展建议专区</string>
+		<string>邀请码申请专区</string>
+		<string>公告活动专区</string>
+	</array>
 </array>
 </plist>

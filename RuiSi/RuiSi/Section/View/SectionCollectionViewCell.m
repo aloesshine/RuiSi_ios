@@ -17,10 +17,8 @@
         self.backgroundColor = [UIColor colorWithRed:1.0 green:1.0  blue:1.0 alpha:1];
 }
 
-- (void)configureImageViewForIndexPath:(NSIndexPath *)indexPath {
-    
+- (void)setUpIconImageAtIndexPath:(NSIndexPath *)indexPath {
     NSString *fileName = [NSString stringWithFormat:@"%ld_%ld",(indexPath.section+1),(indexPath.row+1)];
-    
     self.iconImageView.image = [UIImage imageNamed:fileName];
 }
 @end
