@@ -27,6 +27,9 @@ NSString *kSectionHeaderViewCell = @"SectionHeaderViewCell";
 {
     [super viewDidLoad];
     
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backItem;
+    
     self.isLogin = false;
     [self setupArray];
     
@@ -127,7 +130,8 @@ NSString *kSectionHeaderViewCell = @"SectionHeaderViewCell";
 
 
 - (void) configureCell:(SectionCollectionViewCell *)collectionCell forItemAtIndexPath:(NSIndexPath *)indexPath {
-    collectionCell.titleLabel.text = _itemArray[indexPath.section][indexPath.row];
+    NSDictionary *titleDict = _itemArray[indexPath.section][indexPath.row];
+    collectionCell.titleLabel.text = titleDict[@"name"];
     collectionCell.countLabel.text = _countArray[indexPath.section][indexPath.row];
     
     
@@ -149,6 +153,21 @@ NSString *kSectionHeaderViewCell = @"SectionHeaderViewCell";
         return header;
     }
     return nil;
+}
+
+// 点击某个cell时
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *titleDict = _itemArray[indexPath.section][indexPath.row];
+    
+    //存储数据
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:titleDict forKey:@"title"];
+    
+    //设置同步
+    [defaults synchronize];
+    
+    [self performSegueWithIdentifier:@"ThreadList" sender:titleDict];
 }
 
 
