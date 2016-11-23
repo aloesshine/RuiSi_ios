@@ -58,12 +58,14 @@ NSString *kSectionHeaderViewCell = @"SectionHeaderViewCell";
 
 - (void)setupArray {
     
-    if (_isLogin) {
+    if (_isLogin)
+    {
         NSString *path = [[NSBundle mainBundle] pathForResource:@"sectionLogging" ofType:@"plist"];
         _itemArray = [NSArray arrayWithContentsOfFile:path];
         _sectionArray = @[@"西电生活",@"学术交流",@"休闲娱乐",@"社团风采专区",@"BT资源",@"站务管理"];
     }
-    else {
+    else
+    {
         NSString *path = [[NSBundle mainBundle] pathForResource:@"sectionNotLogging" ofType:@"plist"];
         _itemArray = [NSArray arrayWithContentsOfFile:path];
         _sectionArray = @[@"西电生活",@"学术交流",@"休闲娱乐",@"社团风采专区",@"站务管理"];
@@ -74,27 +76,35 @@ NSString *kSectionHeaderViewCell = @"SectionHeaderViewCell";
         NSError *error = nil;
         NSString *html = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
         
-        if (error) {
+        if (error)
+        {
             NSLog(@"Error is %@",error);
             return;
         }
         HTMLParser *parser = [[HTMLParser alloc] initWithString:html error:&error];
-        if (error) {
+        if (error)
+        {
             NSLog(@"Error is %@",error);
         }
         HTMLNode *bodyNode = [parser body];
         NSArray *divNodes = [bodyNode findChildrenWithAttribute:@"class" matchingName:@"sub_forum bm_c" allowPartial:NO];
         
-        for(HTMLNode *divNode in divNodes) {
+        for(HTMLNode *divNode in divNodes)
+        {
             NSArray *listNodes = [divNode findChildTags:@"li"];
             NSLog(@"%lu",(unsigned long)[listNodes count]);
             NSMutableArray *numMutableArray = [[NSMutableArray alloc] init];
-            for (HTMLNode *listNode in listNodes) {
-                if ( [listNode findChildTag:@"span"] == NULL) {
+            for (HTMLNode *listNode in listNodes)
+            {
+                if ( [listNode findChildTag:@"span"] == NULL)
+                {
                     [numMutableArray addObject:@"0"];
-                } else {
+                }
+                else
+                {
                     HTMLNode *node = [listNode findChildTag:@"span"];
-                    if ([[node getAttributeNamed:@"class"] isEqualToString:@"num"]) {
+                    if ([[node getAttributeNamed:@"class"] isEqualToString:@"num"])
+                    {
                         [numMutableArray addObject:[node contents]];
                     }
                 }
