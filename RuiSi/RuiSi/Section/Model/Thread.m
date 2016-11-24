@@ -7,8 +7,8 @@
 //  Copyright © 2016年 aloes. All rights reserved.
 //
 
-#import "Post.h"
+#import "Thread.h"
 
-@implementation Post
+@implementation Thread
 
 @end

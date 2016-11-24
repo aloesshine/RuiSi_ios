@@ -7,14 +7,16 @@
 //
 
 #import "ThreadListViewController.h"
-#import "Post.h"
+#import "Thread.h"
 #import "HTMLNode.h"
-#import "PostViewCell.h"
+#import "ThreadListCell.h"
 #import "HTMLParser.h"
+
+NSString *kThreadListCell = @"ThreadListCell";
 
 @interface ThreadListViewController ()
 
-@property (nonatomic,strong) NSArray *posts;
+@property (nonatomic,strong) NSArray *threads;
 
 @end
 
@@ -24,11 +26,8 @@
     [super viewDidLoad];
     
     // 设置标题
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *titleDict = [defaults valueForKey:@"title"];
-    self.navigationItem.title = titleDict[@"name"];
+    self.navigationItem.title = self.name;
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    self.url = titleDict[@"url"];
     
     // 解析xml
     [self setUpArray];
@@ -45,26 +44,26 @@
 {
     return 1;
 }
-
+/*
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _posts.count;
+    return _threads.count;
 }
 
 
-- (PostViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (ThreadListCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PostViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"thread" forIndexPath:indexPath];
+    ThreadListCell *cell = [tableView dequeueReusableCellWithIdentifier:kThreadListCell forIndexPath:indexPath];
     
-    Post *post = _posts[indexPath.row];
+    Thread *thread = _threads[indexPath.row];
     
-    cell.titleLabel.text = post.title;
-    cell.authorLabel.text = post.author;
-    cell.reviewCountLabel.text = post.reviewCount;
+    cell.titleLabel.text = thread.title;
+    cell.authorLabel.text = thread.author;
+    cell.reviewCountLabel.text = thread.reviewCount;
     
     return cell;
 }
-
+*/
 - (void) setUpArray
 {
     
@@ -97,18 +96,27 @@
 #warning 解析没完成
         for (HTMLNode *listNode in listNodes)
         {
-                HTMLNode *node = [listNode findChildTag:@"span"];
-                if ([[node getAttributeNamed:@"class"] isEqualToString:@"num"])
-                {
-                    
-                    [numMutableArray addObject:[node contents]];
-                }
+            Thread *thread = [[Thread alloc] init];
+            thread.hasPic = false;
+            HTMLNode *node = [listNode findChildTag:@"span"];
+            if ([[node getAttributeNamed:@"class"] isEqualToString:@"num"])
+            {
+                thread.reviewCount = [node contents];
+            }
+            if ([[node getAttributeNamed:@"class"] isEqualToString:@"icon_tu"])
+            {
+                thread.hasPic = true;
+            }
+            node = [listNode findChildTag:@"a"];
+            thread.titleURL = [node contents];
             
+            
+            [numMutableArray addObject: thread];
         }
         [countMutableArray addObject:numMutableArray];
     }
     
-     _posts = [NSArray arrayWithArray:countMutableArray];
+     _threads = [NSArray arrayWithArray:countMutableArray];
     
 }
 

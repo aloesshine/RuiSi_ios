@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PostViewCell : UITableViewCell
+@interface ThreadListCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *authorLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *hasPicImageView;

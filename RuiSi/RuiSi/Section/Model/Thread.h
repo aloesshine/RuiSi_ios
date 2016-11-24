@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Post : NSObject
+@interface Thread : NSObject
 
 @property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *titleURL;
 @property (nonatomic, copy) NSString *author;
 @property (nonatomic, copy) NSString *reviewCount;
 @property (nonatomic, assign) BOOL hasPic;

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A6563FB1DE719B300E3E1B5 /* Thread.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6563FA1DE719B300E3E1B5 /* Thread.m */; };
+		7A6563FF1DE719D500E3E1B5 /* ThreadListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6563FD1DE719D500E3E1B5 /* ThreadListCell.m */; };
+		7A6564001DE719D500E3E1B5 /* ThreadListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A6563FE1DE719D500E3E1B5 /* ThreadListCell.xib */; };
 		7A997B7F1DDD74DC00D383B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A997B7D1DDD74DC00D383B5 /* Main.storyboard */; };
 		7A997B811DDD74DC00D383B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A997B801DDD74DC00D383B5 /* Assets.xcassets */; };
 		7A997B841DDD74DC00D383B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A997B821DDD74DC00D383B5 /* LaunchScreen.storyboard */; };
@@ -18,9 +21,6 @@
 		7AB4ACC91DDDDDFE00842D6C /* SectionCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4ACC81DDDDDFE00842D6C /* SectionCollectionViewCell.m */; };
 		7ADE05B61DE56F4B00B7ABA5 /* ThreadListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ADE05B51DE56F4B00B7ABA5 /* ThreadListViewController.m */; };
 		7AE0918C1DE580210042D92E /* sectionNotLogging.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7AE0918B1DE580210042D92E /* sectionNotLogging.plist */; };
-		7AE091921DE5A51E0042D92E /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE091911DE5A51D0042D92E /* Post.m */; };
-		7AE091961DE5A8540042D92E /* PostViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE091941DE5A8540042D92E /* PostViewCell.m */; };
-		7AE091971DE5A8540042D92E /* PostViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AE091951DE5A8540042D92E /* PostViewCell.xib */; };
 		906B3FCCEFAB9F0902D662E8 /* libPods-RuiSi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7D095EC90ED6A2807A21590 /* libPods-RuiSi.a */; };
 		BB17BB831DE0A85600315E4D /* SectionHeaderViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB17BB821DE0A85600315E4D /* SectionHeaderViewCell.xib */; };
 		BB20FD101DE1FA57000CFB0E /* sectionLogging.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB20FD0F1DE1FA57000CFB0E /* sectionLogging.plist */; };
@@ -49,6 +49,11 @@
 
 /* Begin PBXFileReference section */
 		73D689DA16F5C3C1B2394D2D /* Pods-RuiSi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RuiSi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RuiSi/Pods-RuiSi.debug.xcconfig"; sourceTree = "<group>"; };
+		7A6563F91DE719B300E3E1B5 /* Thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Thread.h; sourceTree = "<group>"; };
+		7A6563FA1DE719B300E3E1B5 /* Thread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Thread.m; sourceTree = "<group>"; };
+		7A6563FC1DE719D500E3E1B5 /* ThreadListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadListCell.h; sourceTree = "<group>"; };
+		7A6563FD1DE719D500E3E1B5 /* ThreadListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadListCell.m; sourceTree = "<group>"; };
+		7A6563FE1DE719D500E3E1B5 /* ThreadListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThreadListCell.xib; sourceTree = "<group>"; };
 		7A997B711DDD74DC00D383B5 /* RuiSi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RuiSi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A997B7E1DDD74DC00D383B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7A997B801DDD74DC00D383B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -70,11 +75,6 @@
 		7ADE05B41DE56F4B00B7ABA5 /* ThreadListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadListViewController.h; sourceTree = "<group>"; };
 		7ADE05B51DE56F4B00B7ABA5 /* ThreadListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadListViewController.m; sourceTree = "<group>"; };
 		7AE0918B1DE580210042D92E /* sectionNotLogging.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sectionNotLogging.plist; sourceTree = "<group>"; };
-		7AE091901DE5A51D0042D92E /* Post.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
-		7AE091911DE5A51D0042D92E /* Post.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Post.m; sourceTree = "<group>"; };
-		7AE091931DE5A8540042D92E /* PostViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostViewCell.h; sourceTree = "<group>"; };
-		7AE091941DE5A8540042D92E /* PostViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostViewCell.m; sourceTree = "<group>"; };
-		7AE091951DE5A8540042D92E /* PostViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostViewCell.xib; sourceTree = "<group>"; };
 		B6EE0C2ED2D7690ED42DA80B /* Pods-RuiSi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RuiSi.release.xcconfig"; path = "Pods/Target Support Files/Pods-RuiSi/Pods-RuiSi.release.xcconfig"; sourceTree = "<group>"; };
 		BB17BB821DE0A85600315E4D /* SectionHeaderViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionHeaderViewCell.xib; sourceTree = "<group>"; };
 		BB20FD0F1DE1FA57000CFB0E /* sectionLogging.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sectionLogging.plist; sourceTree = "<group>"; };
@@ -359,8 +359,8 @@
 		7AB4ACB81DDD7DCA00842D6C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7AE091901DE5A51D0042D92E /* Post.h */,
-				7AE091911DE5A51D0042D92E /* Post.m */,
+				7A6563F91DE719B300E3E1B5 /* Thread.h */,
+				7A6563FA1DE719B300E3E1B5 /* Thread.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -381,9 +381,9 @@
 				BB72A3331DDF68C8007192FE /* SectionHeaderViewCell.h */,
 				BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */,
 				BB17BB821DE0A85600315E4D /* SectionHeaderViewCell.xib */,
-				7AE091931DE5A8540042D92E /* PostViewCell.h */,
-				7AE091941DE5A8540042D92E /* PostViewCell.m */,
-				7AE091951DE5A8540042D92E /* PostViewCell.xib */,
+				7A6563FC1DE719D500E3E1B5 /* ThreadListCell.h */,
+				7A6563FD1DE719D500E3E1B5 /* ThreadListCell.m */,
+				7A6563FE1DE719D500E3E1B5 /* ThreadListCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -530,12 +530,12 @@
 			files = (
 				7A997B841DDD74DC00D383B5 /* LaunchScreen.storyboard in Resources */,
 				BB72A3321DDF55F1007192FE /* SectionCollectionViewCell.xib in Resources */,
-				7AE091971DE5A8540042D92E /* PostViewCell.xib in Resources */,
 				BB20FD101DE1FA57000CFB0E /* sectionLogging.plist in Resources */,
 				BB17BB831DE0A85600315E4D /* SectionHeaderViewCell.xib in Resources */,
 				7A997B811DDD74DC00D383B5 /* Assets.xcassets in Resources */,
 				7A997B7F1DDD74DC00D383B5 /* Main.storyboard in Resources */,
 				7AE0918C1DE580210042D92E /* sectionNotLogging.plist in Resources */,
+				7A6564001DE719D500E3E1B5 /* ThreadListCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -611,12 +611,12 @@
 				7AB4ACBE1DDD7DCA00842D6C /* AppDelegate.m in Sources */,
 				BB3D470C1DE5FD960063B367 /* AboutMeViewController.m in Sources */,
 				7AB4ACC31DDD9C6000842D6C /* SectionViewController.m in Sources */,
-				7AE091961DE5A8540042D92E /* PostViewCell.m in Sources */,
+				7A6563FB1DE719B300E3E1B5 /* Thread.m in Sources */,
 				7ADE05B61DE56F4B00B7ABA5 /* ThreadListViewController.m in Sources */,
 				7AB4ACC91DDDDDFE00842D6C /* SectionCollectionViewCell.m in Sources */,
 				BB72A3351DDF68C8007192FE /* SectionHeaderViewCell.m in Sources */,
 				7AB4ACBF1DDD7DCA00842D6C /* main.m in Sources */,
-				7AE091921DE5A51E0042D92E /* Post.m in Sources */,
+				7A6563FF1DE719D500E3E1B5 /* ThreadListCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

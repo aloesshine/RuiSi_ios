@@ -6,9 +6,9 @@
 //  Copyright © 2016年 aloes. All rights reserved.
 //
 
-#import "PostViewCell.h"
+#import "ThreadListCell.h"
 
-@implementation PostViewCell
+@implementation ThreadListCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

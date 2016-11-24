@@ -11,6 +11,7 @@
 #import "SectionHeaderViewCell.h"
 #import "HTMLNode.h"
 #import "HTMLParser.h"
+#import "ThreadListViewController.h"
 NSString *kSectionCollectionViewCell = @"SectionCollectionViewCell";
 NSString *kSectionHeaderViewCell = @"SectionHeaderViewCell";
 
@@ -168,17 +169,22 @@ NSString *kSectionHeaderViewCell = @"SectionHeaderViewCell";
 // 点击某个cell时
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *titleDict = _itemArray[indexPath.section][indexPath.row];
-    
-    //存储数据
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:titleDict forKey:@"title"];
-    
-    //设置同步
-    [defaults synchronize];
-    
-    [self performSegueWithIdentifier:@"ThreadList" sender:titleDict];
+    [self performSegueWithIdentifier:@"ThreadList" sender:indexPath];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"ThreadList"])
+    {
+        NSIndexPath *indexPath = (NSIndexPath *)sender;
+        
+        NSDictionary *titleDict = _itemArray[indexPath.section][indexPath.row];
+        
+        ThreadListViewController *destViewController = segue.destinationViewController;
+        destViewController.url = titleDict[@"url"];
+        destViewController.name = titleDict[@"name"];
+    }
+    
+}
 
 @end
