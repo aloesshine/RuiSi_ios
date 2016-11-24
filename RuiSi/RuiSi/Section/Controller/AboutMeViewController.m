@@ -7,7 +7,7 @@
 //
 
 #import "AboutMeViewController.h"
-
+#import "AboutMeHeaderView.h"
 @interface AboutMeViewController ()
 
 @end
@@ -29,12 +29,25 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 0;
+    return 2;
+}
+
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    AboutMeHeaderView *headerView = [[AboutMeHeaderView alloc] init];
+    
+    return headerView;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return 0;
+    if (section == 0) {
+        return 4;
+    } else if (section == 1){
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 

@@ -27,6 +27,8 @@
 		BB3D470C1DE5FD960063B367 /* AboutMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3D470B1DE5FD960063B367 /* AboutMeViewController.m */; };
 		BB72A3321DDF55F1007192FE /* SectionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB72A3311DDF55F1007192FE /* SectionCollectionViewCell.xib */; };
 		BB72A3351DDF68C8007192FE /* SectionHeaderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */; };
+		BBBF83F61DE7334F00E53D9D /* AboutMeHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BBBF83F51DE7334F00E53D9D /* AboutMeHeaderView.m */; };
+		BBBF83F81DE733C100E53D9D /* AboutMeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBBF83F71DE733C100E53D9D /* AboutMeHeaderView.xib */; };
 		BBCC066A1DE312DE0003A6B5 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCC06691DE312DE0003A6B5 /* libxml2.2.dylib */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +85,9 @@
 		BB72A3311DDF55F1007192FE /* SectionCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionCollectionViewCell.xib; sourceTree = "<group>"; };
 		BB72A3331DDF68C8007192FE /* SectionHeaderViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionHeaderViewCell.h; sourceTree = "<group>"; };
 		BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionHeaderViewCell.m; sourceTree = "<group>"; };
+		BBBF83F41DE7334E00E53D9D /* AboutMeHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMeHeaderView.h; sourceTree = "<group>"; };
+		BBBF83F51DE7334F00E53D9D /* AboutMeHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMeHeaderView.m; sourceTree = "<group>"; };
+		BBBF83F71DE733C100E53D9D /* AboutMeHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutMeHeaderView.xib; sourceTree = "<group>"; };
 		BBCC06691DE312DE0003A6B5 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = ../../../../../../usr/lib/libxml2.2.dylib; sourceTree = "<group>"; };
 		E7D095EC90ED6A2807A21590 /* libPods-RuiSi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RuiSi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -384,6 +389,9 @@
 				7A6563FC1DE719D500E3E1B5 /* ThreadListCell.h */,
 				7A6563FD1DE719D500E3E1B5 /* ThreadListCell.m */,
 				7A6563FE1DE719D500E3E1B5 /* ThreadListCell.xib */,
+				BBBF83F41DE7334E00E53D9D /* AboutMeHeaderView.h */,
+				BBBF83F51DE7334F00E53D9D /* AboutMeHeaderView.m */,
+				BBBF83F71DE733C100E53D9D /* AboutMeHeaderView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -531,6 +539,7 @@
 				7A997B841DDD74DC00D383B5 /* LaunchScreen.storyboard in Resources */,
 				BB72A3321DDF55F1007192FE /* SectionCollectionViewCell.xib in Resources */,
 				BB20FD101DE1FA57000CFB0E /* sectionLogging.plist in Resources */,
+				BBBF83F81DE733C100E53D9D /* AboutMeHeaderView.xib in Resources */,
 				BB17BB831DE0A85600315E4D /* SectionHeaderViewCell.xib in Resources */,
 				7A997B811DDD74DC00D383B5 /* Assets.xcassets in Resources */,
 				7A997B7F1DDD74DC00D383B5 /* Main.storyboard in Resources */,
@@ -609,6 +618,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AB4ACBE1DDD7DCA00842D6C /* AppDelegate.m in Sources */,
+				BBBF83F61DE7334F00E53D9D /* AboutMeHeaderView.m in Sources */,
 				BB3D470C1DE5FD960063B367 /* AboutMeViewController.m in Sources */,
 				7AB4ACC31DDD9C6000842D6C /* SectionViewController.m in Sources */,
 				7A6563FB1DE719B300E3E1B5 /* Thread.m in Sources */,
