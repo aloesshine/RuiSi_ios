@@ -10,4 +10,6 @@
 
 @interface ThreadListViewController : UITableViewController
 
+@property (nonatomic, copy) NSString *url;
+
 @end

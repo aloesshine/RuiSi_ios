@@ -7,8 +7,14 @@
 //
 
 #import "ThreadListViewController.h"
+#import "Post.h"
+#import "HTMLNode.h"
+#import "PostViewCell.h"
+#import "HTMLParser.h"
 
 @interface ThreadListViewController ()
+
+@property (nonatomic,strong) NSArray *posts;
 
 @end
 
@@ -17,16 +23,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
     // 设置标题
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    self.navigationItem.title = [defaults valueForKey:@"title"][@"name"];
+    NSDictionary *titleDict = [defaults valueForKey:@"title"];
+    self.navigationItem.title = titleDict[@"name"];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.url = titleDict[@"url"];
+    
+    // 解析xml
+    [self setUpArray];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,25 +41,77 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return _posts.count;
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+
+- (PostViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    PostViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"thread" forIndexPath:indexPath];
     
-    // Configure the cell...
+    Post *post = _posts[indexPath.row];
+    
+    cell.titleLabel.text = post.title;
+    cell.authorLabel.text = post.author;
+    cell.reviewCountLabel.text = post.reviewCount;
     
     return cell;
 }
-*/
+
+- (void) setUpArray
+{
+    
+    NSMutableArray *countMutableArray = [[NSMutableArray alloc] init];
+    
+    NSURL *url = [NSURL URLWithString:self.url];
+    
+    NSError *error = nil;
+    NSString *html = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
+    
+    if (error)
+    {
+        NSLog(@"Error is %@",error);
+        return;
+    }
+    HTMLParser *parser = [[HTMLParser alloc] initWithString:html error:&error];
+    if (error)
+    {
+        NSLog(@"Error is %@",error);
+    }
+    
+    HTMLNode *bodyNode = [parser body];
+    NSArray *divNodes = [bodyNode findChildrenWithAttribute:@"class" matchingName:@"threadlist" allowPartial:NO];
+    
+    for(HTMLNode *divNode in divNodes)
+    {
+        NSArray *listNodes = [divNode findChildTags:@"li"];
+        NSLog(@"%lu",(unsigned long)[listNodes count]);
+        NSMutableArray *numMutableArray = [[NSMutableArray alloc] init];
+#warning 解析没完成
+        for (HTMLNode *listNode in listNodes)
+        {
+                HTMLNode *node = [listNode findChildTag:@"span"];
+                if ([[node getAttributeNamed:@"class"] isEqualToString:@"num"])
+                {
+                    
+                    [numMutableArray addObject:[node contents]];
+                }
+            
+        }
+        [countMutableArray addObject:numMutableArray];
+    }
+    
+     _posts = [NSArray arrayWithArray:countMutableArray];
+    
+}
+
 
 /*
 // Override to support conditional editing of the table view.
