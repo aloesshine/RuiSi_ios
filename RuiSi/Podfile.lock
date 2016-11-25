@@ -1,18 +1,35 @@
 PODS:
-  - AFNetworking (0.10.1)
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
+  - Masonry (1.0.2)
   - Objective-C-HMTL-Parser (0.0.1)
-  - SVProgressHUD (1.1)
+  - SVProgressHUD (2.0.3)
 
 DEPENDENCIES:
   - AFNetworking
+  - Masonry
   - Objective-C-HMTL-Parser
   - SVProgressHUD
 
 SPEC CHECKSUMS:
-  AFNetworking: 560d6b9394bf2f80c1efac9141e0d36739e0ff6d
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   Objective-C-HMTL-Parser: cc468311d0ae434646c56aae3b62426977f19ca0
-  SVProgressHUD: 54de4d9ab38aa3f688da401f5766a5738084e7fb
+  SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
 
-PODFILE CHECKSUM: 5900bdd25587af7c9c49f27ada1b15cf383806ea
+PODFILE CHECKSUM: cb66564c8c8ff3aaee262a04a7ab688fc594d54c
 
-COCOAPODS: 1.2.0.beta.1
+COCOAPODS: 1.0.0
