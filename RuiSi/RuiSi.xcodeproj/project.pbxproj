@@ -24,11 +24,14 @@
 		906B3FCCEFAB9F0902D662E8 /* libPods-RuiSi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7D095EC90ED6A2807A21590 /* libPods-RuiSi.a */; };
 		BB17BB831DE0A85600315E4D /* SectionHeaderViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB17BB821DE0A85600315E4D /* SectionHeaderViewCell.xib */; };
 		BB20FD101DE1FA57000CFB0E /* sectionLogging.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB20FD0F1DE1FA57000CFB0E /* sectionLogging.plist */; };
-		BB3D470C1DE5FD960063B367 /* AboutMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3D470B1DE5FD960063B367 /* AboutMeViewController.m */; };
+		BB31CCED1DE8B41300FB70A6 /* AboutMeHeaderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB31CCEC1DE8B41300FB70A6 /* AboutMeHeaderViewCell.m */; };
+		BB31CCEF1DE8B47A00FB70A6 /* AboutMeHeaderViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB31CCEE1DE8B47A00FB70A6 /* AboutMeHeaderViewCell.xib */; };
+		BB3713601DE915AC00F0A179 /* AboutMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB37135F1DE915AC00F0A179 /* AboutMeViewController.m */; };
+		BB3713631DE9163200F0A179 /* AboutMeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3713621DE9163200F0A179 /* AboutMeTableView.m */; };
+		BB3713661DE9230900F0A179 /* AboutMeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3713651DE9230900F0A179 /* AboutMeTableViewCell.m */; };
+		BB3713681DE9247000F0A179 /* AboutMeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB3713671DE9247000F0A179 /* AboutMeTableViewCell.xib */; };
 		BB72A3321DDF55F1007192FE /* SectionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB72A3311DDF55F1007192FE /* SectionCollectionViewCell.xib */; };
 		BB72A3351DDF68C8007192FE /* SectionHeaderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */; };
-		BBBF83F61DE7334F00E53D9D /* AboutMeHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BBBF83F51DE7334F00E53D9D /* AboutMeHeaderView.m */; };
-		BBBF83F81DE733C100E53D9D /* AboutMeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBBF83F71DE733C100E53D9D /* AboutMeHeaderView.xib */; };
 		BBCC066A1DE312DE0003A6B5 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCC06691DE312DE0003A6B5 /* libxml2.2.dylib */; };
 /* End PBXBuildFile section */
 
@@ -80,14 +83,19 @@
 		B6EE0C2ED2D7690ED42DA80B /* Pods-RuiSi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RuiSi.release.xcconfig"; path = "Pods/Target Support Files/Pods-RuiSi/Pods-RuiSi.release.xcconfig"; sourceTree = "<group>"; };
 		BB17BB821DE0A85600315E4D /* SectionHeaderViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionHeaderViewCell.xib; sourceTree = "<group>"; };
 		BB20FD0F1DE1FA57000CFB0E /* sectionLogging.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sectionLogging.plist; sourceTree = "<group>"; };
-		BB3D470A1DE5FD960063B367 /* AboutMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMeViewController.h; sourceTree = "<group>"; };
-		BB3D470B1DE5FD960063B367 /* AboutMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMeViewController.m; sourceTree = "<group>"; };
+		BB31CCEB1DE8B41300FB70A6 /* AboutMeHeaderViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMeHeaderViewCell.h; sourceTree = "<group>"; };
+		BB31CCEC1DE8B41300FB70A6 /* AboutMeHeaderViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMeHeaderViewCell.m; sourceTree = "<group>"; };
+		BB31CCEE1DE8B47A00FB70A6 /* AboutMeHeaderViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutMeHeaderViewCell.xib; sourceTree = "<group>"; };
+		BB37135E1DE915AC00F0A179 /* AboutMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMeViewController.h; sourceTree = "<group>"; };
+		BB37135F1DE915AC00F0A179 /* AboutMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMeViewController.m; sourceTree = "<group>"; };
+		BB3713611DE9163200F0A179 /* AboutMeTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMeTableView.h; sourceTree = "<group>"; };
+		BB3713621DE9163200F0A179 /* AboutMeTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMeTableView.m; sourceTree = "<group>"; };
+		BB3713641DE9230900F0A179 /* AboutMeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMeTableViewCell.h; sourceTree = "<group>"; };
+		BB3713651DE9230900F0A179 /* AboutMeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMeTableViewCell.m; sourceTree = "<group>"; };
+		BB3713671DE9247000F0A179 /* AboutMeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutMeTableViewCell.xib; sourceTree = "<group>"; };
 		BB72A3311DDF55F1007192FE /* SectionCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionCollectionViewCell.xib; sourceTree = "<group>"; };
 		BB72A3331DDF68C8007192FE /* SectionHeaderViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionHeaderViewCell.h; sourceTree = "<group>"; };
 		BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionHeaderViewCell.m; sourceTree = "<group>"; };
-		BBBF83F41DE7334E00E53D9D /* AboutMeHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMeHeaderView.h; sourceTree = "<group>"; };
-		BBBF83F51DE7334F00E53D9D /* AboutMeHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMeHeaderView.m; sourceTree = "<group>"; };
-		BBBF83F71DE733C100E53D9D /* AboutMeHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutMeHeaderView.xib; sourceTree = "<group>"; };
 		BBCC06691DE312DE0003A6B5 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = ../../../../../../usr/lib/libxml2.2.dylib; sourceTree = "<group>"; };
 		E7D095EC90ED6A2807A21590 /* libPods-RuiSi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RuiSi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -355,8 +363,8 @@
 				7AB4ACC21DDD9C6000842D6C /* SectionViewController.m */,
 				7ADE05B41DE56F4B00B7ABA5 /* ThreadListViewController.h */,
 				7ADE05B51DE56F4B00B7ABA5 /* ThreadListViewController.m */,
-				BB3D470A1DE5FD960063B367 /* AboutMeViewController.h */,
-				BB3D470B1DE5FD960063B367 /* AboutMeViewController.m */,
+				BB37135E1DE915AC00F0A179 /* AboutMeViewController.h */,
+				BB37135F1DE915AC00F0A179 /* AboutMeViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -389,9 +397,14 @@
 				7A6563FC1DE719D500E3E1B5 /* ThreadListCell.h */,
 				7A6563FD1DE719D500E3E1B5 /* ThreadListCell.m */,
 				7A6563FE1DE719D500E3E1B5 /* ThreadListCell.xib */,
-				BBBF83F41DE7334E00E53D9D /* AboutMeHeaderView.h */,
-				BBBF83F51DE7334F00E53D9D /* AboutMeHeaderView.m */,
-				BBBF83F71DE733C100E53D9D /* AboutMeHeaderView.xib */,
+				BB31CCEB1DE8B41300FB70A6 /* AboutMeHeaderViewCell.h */,
+				BB31CCEC1DE8B41300FB70A6 /* AboutMeHeaderViewCell.m */,
+				BB31CCEE1DE8B47A00FB70A6 /* AboutMeHeaderViewCell.xib */,
+				BB3713611DE9163200F0A179 /* AboutMeTableView.h */,
+				BB3713621DE9163200F0A179 /* AboutMeTableView.m */,
+				BB3713641DE9230900F0A179 /* AboutMeTableViewCell.h */,
+				BB3713651DE9230900F0A179 /* AboutMeTableViewCell.m */,
+				BB3713671DE9247000F0A179 /* AboutMeTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -428,12 +441,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7A997B9E1DDD74DC00D383B5 /* Build configuration list for PBXNativeTarget "RuiSi" */;
 			buildPhases = (
+				70264687526B433A42E20654 /* 📦 Check Pods Manifest.lock */,
 				8DC237EA0024040658A4D11D /* [CP] Check Pods Manifest.lock */,
 				7A997B6D1DDD74DB00D383B5 /* Sources */,
 				7A997B6E1DDD74DB00D383B5 /* Frameworks */,
 				7A997B6F1DDD74DB00D383B5 /* Resources */,
 				F6369F596A7FAC8549D0ACA7 /* [CP] Embed Pods Frameworks */,
 				CF0518682871D58A4FF44113 /* [CP] Copy Pods Resources */,
+				32131C5F7EADC482927B6A8A /* 📦 Embed Pods Frameworks */,
+				C99677E9330FF9167F835A01 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -539,12 +555,13 @@
 				7A997B841DDD74DC00D383B5 /* LaunchScreen.storyboard in Resources */,
 				BB72A3321DDF55F1007192FE /* SectionCollectionViewCell.xib in Resources */,
 				BB20FD101DE1FA57000CFB0E /* sectionLogging.plist in Resources */,
-				BBBF83F81DE733C100E53D9D /* AboutMeHeaderView.xib in Resources */,
 				BB17BB831DE0A85600315E4D /* SectionHeaderViewCell.xib in Resources */,
 				7A997B811DDD74DC00D383B5 /* Assets.xcassets in Resources */,
+				BB31CCEF1DE8B47A00FB70A6 /* AboutMeHeaderViewCell.xib in Resources */,
 				7A997B7F1DDD74DC00D383B5 /* Main.storyboard in Resources */,
 				7AE0918C1DE580210042D92E /* sectionNotLogging.plist in Resources */,
 				7A6564001DE719D500E3E1B5 /* ThreadListCell.xib in Resources */,
+				BB3713681DE9247000F0A179 /* AboutMeTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,6 +582,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		32131C5F7EADC482927B6A8A /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RuiSi/Pods-RuiSi-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		70264687526B433A42E20654 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		8DC237EA0024040658A4D11D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -578,6 +625,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C99677E9330FF9167F835A01 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RuiSi/Pods-RuiSi-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CF0518682871D58A4FF44113 /* [CP] Copy Pods Resources */ = {
@@ -617,14 +679,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB3713631DE9163200F0A179 /* AboutMeTableView.m in Sources */,
 				7AB4ACBE1DDD7DCA00842D6C /* AppDelegate.m in Sources */,
-				BBBF83F61DE7334F00E53D9D /* AboutMeHeaderView.m in Sources */,
-				BB3D470C1DE5FD960063B367 /* AboutMeViewController.m in Sources */,
 				7AB4ACC31DDD9C6000842D6C /* SectionViewController.m in Sources */,
+				BB31CCED1DE8B41300FB70A6 /* AboutMeHeaderViewCell.m in Sources */,
 				7A6563FB1DE719B300E3E1B5 /* Thread.m in Sources */,
+				BB3713601DE915AC00F0A179 /* AboutMeViewController.m in Sources */,
 				7ADE05B61DE56F4B00B7ABA5 /* ThreadListViewController.m in Sources */,
 				7AB4ACC91DDDDDFE00842D6C /* SectionCollectionViewCell.m in Sources */,
 				BB72A3351DDF68C8007192FE /* SectionHeaderViewCell.m in Sources */,
+				BB3713661DE9230900F0A179 /* AboutMeTableViewCell.m in Sources */,
 				7AB4ACBF1DDD7DCA00842D6C /* main.m in Sources */,
 				7A6563FF1DE719D500E3E1B5 /* ThreadListCell.m in Sources */,
 			);

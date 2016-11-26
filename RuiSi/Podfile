@@ -1,6 +1,7 @@
-platform :ios 
+platform :ios, "9.0" 
 target 'RuiSi' do
-        pod 'AFNetworking'
+    pod 'AFNetworking'
 	pod 'SVProgressHUD'
 	pod 'Objective-C-HMTL-Parser'
- end
+    pod 'Masonry'
+end

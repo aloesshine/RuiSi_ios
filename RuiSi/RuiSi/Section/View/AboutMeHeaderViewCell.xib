@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="AboutMeHeaderViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="50" height="80"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OMY-8g-Te4">
+                    <rect key="frame" x="234" y="425" width="42" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Xo-fz-FxI">
+                    <rect key="frame" x="5" y="10" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="410-ad-S4m"/>
+                        <constraint firstAttribute="height" constant="40" id="cMM-iA-NY0"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="XIW-bx-XfN">
+                    <rect key="frame" x="0.0" y="55" width="50" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="qgE-g4-YbN"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="XIW-bx-XfN" secondAttribute="trailing" id="9gb-dL-hJw"/>
+                <constraint firstItem="XIW-bx-XfN" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="A7B-rL-vmN"/>
+                <constraint firstAttribute="trailing" secondItem="6Xo-fz-FxI" secondAttribute="trailing" constant="5" id="X1Z-1P-kO5"/>
+                <constraint firstItem="XIW-bx-XfN" firstAttribute="top" secondItem="6Xo-fz-FxI" secondAttribute="bottom" constant="5" id="als-3L-DDH"/>
+                <constraint firstItem="6Xo-fz-FxI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="gcg-Ud-f30"/>
+                <constraint firstItem="6Xo-fz-FxI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="quj-bK-i5a"/>
+                <constraint firstItem="6Xo-fz-FxI" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="rhR-HU-4vA"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="iconImageView" destination="6Xo-fz-FxI" id="scd-mG-sxQ"/>
+                <outlet property="introLabel" destination="XIW-bx-XfN" id="nQ1-f6-Vta"/>
+            </connections>
+            <point key="canvasLocation" x="227" y="83"/>
+        </view>
+    </objects>
+</document>
