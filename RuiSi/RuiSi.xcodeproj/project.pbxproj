@@ -26,7 +26,10 @@
 		BB20FD101DE1FA57000CFB0E /* sectionLogging.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB20FD0F1DE1FA57000CFB0E /* sectionLogging.plist */; };
 		BB31CCED1DE8B41300FB70A6 /* AboutMeHeaderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB31CCEC1DE8B41300FB70A6 /* AboutMeHeaderViewCell.m */; };
 		BB31CCEF1DE8B47A00FB70A6 /* AboutMeHeaderViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB31CCEE1DE8B47A00FB70A6 /* AboutMeHeaderViewCell.xib */; };
-		BB3D470C1DE5FD960063B367 /* AboutMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3D470B1DE5FD960063B367 /* AboutMeViewController.m */; };
+		BB3713601DE915AC00F0A179 /* AboutMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB37135F1DE915AC00F0A179 /* AboutMeViewController.m */; };
+		BB3713631DE9163200F0A179 /* AboutMeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3713621DE9163200F0A179 /* AboutMeTableView.m */; };
+		BB3713661DE9230900F0A179 /* AboutMeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3713651DE9230900F0A179 /* AboutMeTableViewCell.m */; };
+		BB3713681DE9247000F0A179 /* AboutMeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB3713671DE9247000F0A179 /* AboutMeTableViewCell.xib */; };
 		BB72A3321DDF55F1007192FE /* SectionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB72A3311DDF55F1007192FE /* SectionCollectionViewCell.xib */; };
 		BB72A3351DDF68C8007192FE /* SectionHeaderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */; };
 		BBCC066A1DE312DE0003A6B5 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCC06691DE312DE0003A6B5 /* libxml2.2.dylib */; };
@@ -83,8 +86,13 @@
 		BB31CCEB1DE8B41300FB70A6 /* AboutMeHeaderViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMeHeaderViewCell.h; sourceTree = "<group>"; };
 		BB31CCEC1DE8B41300FB70A6 /* AboutMeHeaderViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMeHeaderViewCell.m; sourceTree = "<group>"; };
 		BB31CCEE1DE8B47A00FB70A6 /* AboutMeHeaderViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutMeHeaderViewCell.xib; sourceTree = "<group>"; };
-		BB3D470A1DE5FD960063B367 /* AboutMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMeViewController.h; sourceTree = "<group>"; };
-		BB3D470B1DE5FD960063B367 /* AboutMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMeViewController.m; sourceTree = "<group>"; };
+		BB37135E1DE915AC00F0A179 /* AboutMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMeViewController.h; sourceTree = "<group>"; };
+		BB37135F1DE915AC00F0A179 /* AboutMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMeViewController.m; sourceTree = "<group>"; };
+		BB3713611DE9163200F0A179 /* AboutMeTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMeTableView.h; sourceTree = "<group>"; };
+		BB3713621DE9163200F0A179 /* AboutMeTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMeTableView.m; sourceTree = "<group>"; };
+		BB3713641DE9230900F0A179 /* AboutMeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMeTableViewCell.h; sourceTree = "<group>"; };
+		BB3713651DE9230900F0A179 /* AboutMeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMeTableViewCell.m; sourceTree = "<group>"; };
+		BB3713671DE9247000F0A179 /* AboutMeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutMeTableViewCell.xib; sourceTree = "<group>"; };
 		BB72A3311DDF55F1007192FE /* SectionCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionCollectionViewCell.xib; sourceTree = "<group>"; };
 		BB72A3331DDF68C8007192FE /* SectionHeaderViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionHeaderViewCell.h; sourceTree = "<group>"; };
 		BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionHeaderViewCell.m; sourceTree = "<group>"; };
@@ -355,8 +363,8 @@
 				7AB4ACC21DDD9C6000842D6C /* SectionViewController.m */,
 				7ADE05B41DE56F4B00B7ABA5 /* ThreadListViewController.h */,
 				7ADE05B51DE56F4B00B7ABA5 /* ThreadListViewController.m */,
-				BB3D470A1DE5FD960063B367 /* AboutMeViewController.h */,
-				BB3D470B1DE5FD960063B367 /* AboutMeViewController.m */,
+				BB37135E1DE915AC00F0A179 /* AboutMeViewController.h */,
+				BB37135F1DE915AC00F0A179 /* AboutMeViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -392,6 +400,11 @@
 				BB31CCEB1DE8B41300FB70A6 /* AboutMeHeaderViewCell.h */,
 				BB31CCEC1DE8B41300FB70A6 /* AboutMeHeaderViewCell.m */,
 				BB31CCEE1DE8B47A00FB70A6 /* AboutMeHeaderViewCell.xib */,
+				BB3713611DE9163200F0A179 /* AboutMeTableView.h */,
+				BB3713621DE9163200F0A179 /* AboutMeTableView.m */,
+				BB3713641DE9230900F0A179 /* AboutMeTableViewCell.h */,
+				BB3713651DE9230900F0A179 /* AboutMeTableViewCell.m */,
+				BB3713671DE9247000F0A179 /* AboutMeTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -548,6 +561,7 @@
 				7A997B7F1DDD74DC00D383B5 /* Main.storyboard in Resources */,
 				7AE0918C1DE580210042D92E /* sectionNotLogging.plist in Resources */,
 				7A6564001DE719D500E3E1B5 /* ThreadListCell.xib in Resources */,
+				BB3713681DE9247000F0A179 /* AboutMeTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -665,14 +679,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB3713631DE9163200F0A179 /* AboutMeTableView.m in Sources */,
 				7AB4ACBE1DDD7DCA00842D6C /* AppDelegate.m in Sources */,
-				BB3D470C1DE5FD960063B367 /* AboutMeViewController.m in Sources */,
 				7AB4ACC31DDD9C6000842D6C /* SectionViewController.m in Sources */,
 				BB31CCED1DE8B41300FB70A6 /* AboutMeHeaderViewCell.m in Sources */,
 				7A6563FB1DE719B300E3E1B5 /* Thread.m in Sources */,
+				BB3713601DE915AC00F0A179 /* AboutMeViewController.m in Sources */,
 				7ADE05B61DE56F4B00B7ABA5 /* ThreadListViewController.m in Sources */,
 				7AB4ACC91DDDDDFE00842D6C /* SectionCollectionViewCell.m in Sources */,
 				BB72A3351DDF68C8007192FE /* SectionHeaderViewCell.m in Sources */,
+				BB3713661DE9230900F0A179 /* AboutMeTableViewCell.m in Sources */,
 				7AB4ACBF1DDD7DCA00842D6C /* main.m in Sources */,
 				7A6563FF1DE719D500E3E1B5 /* ThreadListCell.m in Sources */,
 			);

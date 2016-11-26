@@ -1,5 +1,5 @@
 //
-//  AboutMeViewController.h
+//  AboutMeTableView.h
 //  RuiSi
 //
 //  Created by 汪泽伟 on 2016/11/26.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AboutMeViewController : UIViewController
+@interface AboutMeTableView : UITableView
 
 @end

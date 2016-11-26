@@ -93,7 +93,6 @@ NSString *kSectionHeaderViewCell = @"SectionHeaderViewCell";
         for(HTMLNode *divNode in divNodes)
         {
             NSArray *listNodes = [divNode findChildTags:@"li"];
-            NSLog(@"%lu",(unsigned long)[listNodes count]);
             NSMutableArray *numMutableArray = [[NSMutableArray alloc] init];
             for (HTMLNode *listNode in listNodes)
             {
