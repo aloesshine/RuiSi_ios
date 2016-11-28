@@ -19,16 +19,12 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
 @property (nonatomic,strong) UIImageView *userIconImage;
 @property (nonatomic,strong) UILabel *nameLabel;
 @property (nonatomic,strong) UILabel *levelLabel;
-@property (nonatomic,assign) NSInteger width;
-@property (nonatomic,assign) NSInteger height;
 @end
 
 @implementation AboutMeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.width = [[UIScreen mainScreen] bounds].size.width;
-    self.height = [[UIScreen mainScreen] bounds].size.height;
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.85 green:0.13 blue:0.16 alpha:1.0];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     [self initUI];
@@ -36,10 +32,10 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
 
 
 - (void) initUI {
-    self.topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _width, 190)];
+    self.topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 190)];
     self.topView.backgroundColor = [UIColor colorWithRed:0.85 green:0.13 blue:0.16 alpha:1.0];
     
-    self.userIconImage = [[UIImageView alloc] initWithFrame:CGRectMake(_width/2-50, 20, 100, 100)];
+    self.userIconImage = [[UIImageView alloc] initWithFrame:CGRectMake(kScreen_Width/2-50, 20, 100, 100)];
     self.userIconImage.image = [UIImage imageNamed:@"tamarous_icon_middle"];
     self.userIconImage.contentMode = UIViewContentModeScaleAspectFill;
     self.userIconImage.layer.cornerRadius = 50;
@@ -47,7 +43,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     
     [self.topView addSubview:self.userIconImage];
     
-    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 130, _width, 20)];
+    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 130, kScreen_Width, 20)];
     self.nameLabel.text = @"Tamarous";
     self.nameLabel.textAlignment = NSTextAlignmentCenter;
     self.nameLabel.font = [UIFont systemFontOfSize:18];
@@ -55,7 +51,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     [self.topView addSubview:self.nameLabel];
     
     
-    self.levelLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 160, _width, 16)];
+    self.levelLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 160, kScreen_Width, 16)];
     self.levelLabel.textColor = [UIColor whiteColor];
     self.levelLabel.textAlignment = NSTextAlignmentCenter;
     self.levelLabel.text = @"西电研一";
@@ -63,9 +59,9 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     [self.topView addSubview:self.levelLabel];
     
     
-    self.secondView = [[UIView alloc] initWithFrame:CGRectMake(0, 190, _width, 90)];
+    self.secondView = [[UIView alloc] initWithFrame:CGRectMake(0, 190, kScreen_Width, 90)];
     self.secondView.backgroundColor = [UIColor whiteColor];
-    NSInteger spaceWidth = (_width-200)/5;
+    NSInteger spaceWidth = (kScreen_Width-200)/5;
     NSArray *nibContents1 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
     AboutMeHeaderViewCell *cell1 = [nibContents1 lastObject];
     cell1.frame = CGRectMake(spaceWidth, 5, 50, 80);
@@ -109,7 +105,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     [self.secondView addSubview:cell4];
     
     self.view.backgroundColor = [UIColor colorWithRed:0.91 green:0.93 blue:0.93 alpha:1.0];
-    self.tableView = [[AboutMeTableView alloc] initWithFrame:CGRectMake(0, 300, _width, 44*4)];
+    self.tableView = [[AboutMeTableView alloc] initWithFrame:CGRectMake(0, 300, kScreen_Width, 44*4)];
     [self.view addSubview:self.topView];
     [self.view addSubview:self.secondView];
     [self.view addSubview:self.tableView];
