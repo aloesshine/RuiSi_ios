@@ -18,45 +18,45 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lwg-n6-XNb" userLabel="标题">
-                        <rect key="frame" x="10" y="5" width="305" height="24"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lwg-n6-XNb" userLabel="标题">
+                        <rect key="frame" x="15" y="5" width="295" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="pYc-sW-sBJ"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eIm-JM-LAp" userLabel="作者">
-                        <rect key="frame" x="10" y="34" width="150" height="20.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eIm-JM-LAp" userLabel="作者">
+                        <rect key="frame" x="15" y="34" width="150" height="20.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="150" id="uv0-b3-qyh"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oq0-FL-rgp">
                         <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LXL-LU-bFc">
-                        <rect key="frame" x="273" y="34" width="42" height="20.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LXL-LU-bFc">
+                        <rect key="frame" x="283.5" y="34" width="26.5" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="LXL-LU-bFc" firstAttribute="top" secondItem="lwg-n6-XNb" secondAttribute="bottom" constant="5" id="Q95-Ox-sDL"/>
                     <constraint firstItem="lwg-n6-XNb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="c1S-vd-Ux3"/>
-                    <constraint firstItem="eIm-JM-LAp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="eKY-1b-8MS"/>
-                    <constraint firstItem="lwg-n6-XNb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="gH2-Ff-bqt"/>
+                    <constraint firstItem="eIm-JM-LAp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="eKY-1b-8MS"/>
+                    <constraint firstItem="lwg-n6-XNb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="gH2-Ff-bqt"/>
                     <constraint firstAttribute="bottom" secondItem="eIm-JM-LAp" secondAttribute="bottom" constant="5" id="gnn-vV-jki"/>
-                    <constraint firstAttribute="trailing" secondItem="lwg-n6-XNb" secondAttribute="trailing" constant="5" id="kWh-9Y-vgY"/>
+                    <constraint firstAttribute="trailing" secondItem="lwg-n6-XNb" secondAttribute="trailing" constant="10" id="kWh-9Y-vgY"/>
                     <constraint firstAttribute="bottom" secondItem="LXL-LU-bFc" secondAttribute="bottom" constant="5" id="mfb-P5-W01"/>
                     <constraint firstItem="eIm-JM-LAp" firstAttribute="top" secondItem="lwg-n6-XNb" secondAttribute="bottom" constant="5" id="tdI-gc-L3I"/>
-                    <constraint firstAttribute="trailing" secondItem="LXL-LU-bFc" secondAttribute="trailing" constant="5" id="yYg-x5-wJm"/>
+                    <constraint firstAttribute="trailing" secondItem="LXL-LU-bFc" secondAttribute="trailing" constant="10" id="yYg-x5-wJm"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -65,7 +65,7 @@
                 <outlet property="reviewCountLabel" destination="LXL-LU-bFc" id="zbX-xr-pMY"/>
                 <outlet property="titleLabel" destination="lwg-n6-XNb" id="1w9-r6-g0Z"/>
             </connections>
-            <point key="canvasLocation" x="18" y="43"/>
+            <point key="canvasLocation" x="-19" y="13"/>
         </tableViewCell>
     </objects>
 </document>
