@@ -14,6 +14,7 @@
 #import "ThreadListViewController.h"
 NSString *kSectionCollectionViewCell = @"SectionCollectionViewCell";
 NSString *kSectionHeaderViewCell = @"SectionHeaderViewCell";
+NSString *kPushThreadListSegue = @"pushThreadList";
 
 @interface SectionViewController()
 @property (nonatomic,strong) NSArray *itemArray;
@@ -168,12 +169,12 @@ NSString *kSectionHeaderViewCell = @"SectionHeaderViewCell";
 // 点击某个cell时
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSegueWithIdentifier:@"ThreadList" sender:indexPath];
+    [self performSegueWithIdentifier:kPushThreadListSegue sender:indexPath];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"ThreadList"])
+    if ([segue.identifier isEqualToString:kPushThreadListSegue])
     {
         NSIndexPath *indexPath = (NSIndexPath *)sender;
         

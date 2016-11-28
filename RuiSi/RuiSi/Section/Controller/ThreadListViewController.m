@@ -8,9 +8,9 @@
 
 #import "ThreadListViewController.h"
 #import "Thread.h"
-#import "HTMLNode.h"
 #import "ThreadListCell.h"
-#import "HTMLParser.h"
+#import "OCGumbo.h"
+#import "OCGumbo+Query.h"
 
 NSString *kThreadListCell = @"ThreadListCell";
 
@@ -29,6 +29,8 @@ NSString *kThreadListCell = @"ThreadListCell";
     self.navigationItem.title = self.name;
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
+    [self.tableView registerNib:[UINib nibWithNibName:kThreadListCell bundle:[NSBundle mainBundle]] forCellReuseIdentifier:kThreadListCell];
+    
     // 解析xml
     [self setUpArray];
 }
@@ -44,14 +46,14 @@ NSString *kThreadListCell = @"ThreadListCell";
 {
     return 1;
 }
-/*
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return _threads.count;
 }
 
 
-- (ThreadListCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ThreadListCell *cell = [tableView dequeueReusableCellWithIdentifier:kThreadListCell forIndexPath:indexPath];
     
@@ -60,64 +62,45 @@ NSString *kThreadListCell = @"ThreadListCell";
     cell.titleLabel.text = thread.title;
     cell.authorLabel.text = thread.author;
     cell.reviewCountLabel.text = thread.reviewCount;
+    cell.hasPicImageView.image = thread.hasPic == YES ? [UIImage imageNamed:@"icon_tu"] : NULL;
     
     return cell;
 }
-*/
+
 - (void) setUpArray
 {
-    
-    NSMutableArray *countMutableArray = [[NSMutableArray alloc] init];
-    
-    NSURL *url = [NSURL URLWithString:self.url];
-    
     NSError *error = nil;
-    NSString *html = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
+    NSURL *url = [NSURL URLWithString:self.url];
+    NSString *htmlString = [NSString stringWithContentsOfURL: url encoding:NSUTF8StringEncoding error:&error];
+    OCGumboDocument *document = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
     
-    if (error)
-    {
-        NSLog(@"Error is %@",error);
-        return;
-    }
-    HTMLParser *parser = [[HTMLParser alloc] initWithString:html error:&error];
-    if (error)
-    {
-        NSLog(@"Error is %@",error);
-    }
+    OCGumboNode *element = document.Query(@"body.bg").find(@"div.threadlist").first();
+    OCQueryObject *elementArrry = element.Query(@"li");
+    NSMutableArray *elements = [[NSMutableArray alloc] init];
     
-    HTMLNode *bodyNode = [parser body];
-    NSArray *divNodes = [bodyNode findChildrenWithAttribute:@"class" matchingName:@"threadlist" allowPartial:NO];
-    
-    for(HTMLNode *divNode in divNodes)
+    for (OCGumboNode *ele in elementArrry)
     {
-        NSArray *listNodes = [divNode findChildTags:@"li"];
-        NSLog(@"%lu",(unsigned long)[listNodes count]);
-        NSMutableArray *numMutableArray = [[NSMutableArray alloc] init];
-#warning 解析没完成
-        for (HTMLNode *listNode in listNodes)
-        {
-            Thread *thread = [[Thread alloc] init];
-            thread.hasPic = false;
-            HTMLNode *node = [listNode findChildTag:@"span"];
-            if ([[node getAttributeNamed:@"class"] isEqualToString:@"num"])
-            {
-                thread.reviewCount = [node contents];
-            }
-            if ([[node getAttributeNamed:@"class"] isEqualToString:@"icon_tu"])
-            {
-                thread.hasPic = true;
-            }
-            node = [listNode findChildTag:@"a"];
-            thread.titleURL = [node contents];
-            
-            
-            [numMutableArray addObject: thread];
-        }
-        [countMutableArray addObject:numMutableArray];
+        // 坑爹的初始化
+        Thread *thread = [[Thread alloc] init];
+        thread.reviewCount = (NSString *)ele.Query(@"span.num").text();
+        thread.titleURL = (NSString *)ele.Query(@"a").first().attr(@"href");
+        thread.author = (NSString *)ele.Query(@"a").first().Query(@"span.by").text();
+        NSString *title = (NSString *)ele.Query(@"a").text();
+        title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet ]];
+        thread.title = [title substringToIndex: title.length - thread.author.length];
+        thread.hasPic = ele.Query(@"span.icon_tu").count == 0 ? NO : YES;
+        
+        [elements addObject:thread];
+
     }
     
-     _threads = [NSArray arrayWithArray:countMutableArray];
+    self.threads = [NSArray arrayWithArray:elements];
     
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
 }
 
 

@@ -51,7 +51,11 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+<<<<<<< HEAD
                         <segue destination="QGe-DV-aFM" kind="show" identifier="ThreadList" id="QmD-4N-eMZ"/>
+=======
+                        <segue destination="QGe-DV-aFM" kind="push" identifier="pushThreadList" id="QmD-4N-eMZ"/>
+>>>>>>> gcx
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E3I-5E-uod" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -71,7 +75,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aQq-E4-eah" id="jVq-Es-c9f">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -151,11 +155,32 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+<<<<<<< HEAD
                     </view>
                     <navigationItem key="navigationItem" title="我" id="Dwt-Kp-JRJ"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0hP-h3-yot" userLabel="First Responder" sceneMemberID="firstResponder"/>
+=======
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Zxe-rq-OvC">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zxe-rq-OvC" id="KDm-QY-Zhe">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="kTM-vN-W9J" id="WuH-xO-JaS"/>
+                            <outlet property="delegate" destination="kTM-vN-W9J" id="kZH-rj-oH0"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="DR1-LN-Gc4"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kiA-BL-NyO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+>>>>>>> gcx
             </objects>
             <point key="canvasLocation" x="1964" y="983"/>
         </scene>
