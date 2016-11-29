@@ -1,0 +1,15 @@
+//
+//  RuiSi-Prefix.pch
+//  RuiSi
+//
+//  Created by 汪泽伟 on 2016/11/28.
+//  Copyright © 2016年 aloes. All rights reserved.
+//
+
+#ifndef RuiSi_Prefix_pch
+#define RuiSi_Prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#import "Constants.h"
+#endif /* RuiSi_Prefix_pch */

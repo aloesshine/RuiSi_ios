@@ -14,7 +14,7 @@
 #import "ThreadListViewController.h"
 NSString *kSectionCollectionViewCell = @"SectionCollectionViewCell";
 NSString *kSectionHeaderViewCell = @"SectionHeaderViewCell";
-NSString *kPushThreadListSegue = @"pushThreadList";
+NSString *kshowThreadListSegue = @"showThreadList";
 
 @interface SectionViewController()
 @property (nonatomic,strong) NSArray *itemArray;
@@ -115,8 +115,6 @@ NSString *kPushThreadListSegue = @"pushThreadList";
         
         _countArray = [NSArray arrayWithArray:countMutableArray];
     }
-    
-    
 }
 
 
@@ -169,12 +167,12 @@ NSString *kPushThreadListSegue = @"pushThreadList";
 // 点击某个cell时
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSegueWithIdentifier:kPushThreadListSegue sender:indexPath];
+    [self performSegueWithIdentifier:kshowThreadListSegue sender:indexPath];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:kPushThreadListSegue])
+    if ([segue.identifier isEqualToString:kshowThreadListSegue])
     {
         NSIndexPath *indexPath = (NSIndexPath *)sender;
         
