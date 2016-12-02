@@ -12,4 +12,5 @@
 
 @property (nonatomic, copy) NSString *url;
 @property (nonatomic, copy) NSString *name;
+@property (nonatomic,strong) NSString *fid;
 @end

@@ -182,6 +182,7 @@ NSString *kshowThreadListSegue = @"showThreadList";
         ThreadListViewController *destViewController = segue.destinationViewController;
         destViewController.url = titleDict[@"url"];
         destViewController.name = titleDict[@"name"];
+        destViewController.fid = titleDict[@"fid"];
     }
     
 }

@@ -7,7 +7,8 @@
 //
 
 #import "ThreadDetail.h"
-
+#import "OCGumbo.h"
+#import "OCGumbo+Query.h"
 @implementation ThreadDetail
 - (instancetype)initWithDictionary:(NSDictionary *)dict {
     if (self = [super init]) {
@@ -17,4 +18,41 @@
     }
     return self;
 }
+
+@end
+
+@implementation ThreadDetailList
+
+- (instancetype)initWithArray:(NSArray *)array {
+    if (self = [super init]) {
+        NSMutableArray *list = [[NSMutableArray alloc] init];
+        for( NSDictionary *dict in list) {
+            ThreadDetail *detail = [[ThreadDetail alloc] initWithDictionary:dict];
+            [list addObject:detail];
+        }
+        self.list = list;
+    }
+    return self;
+}
+
+- (NSInteger)countOfList {
+    return self.list.count;
+}
+
++ (ThreadDetailList *)getThreadDetailListWithURL:(NSString *)urlString {
+#warning "Todo"
+    NSMutableArray *elements = [[NSMutableArray alloc] init];
+    ThreadDetailList *list;
+    @autoreleasepool {
+        NSError *error = nil;
+        NSURL *url = [NSURL URLWithString:urlString];
+        NSString *htmlString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
+    }
+    if (elements.count) {
+        list = [[ThreadDetailList alloc] init];
+        list.list = elements;
+    }
+    return list;
+}
+
 @end

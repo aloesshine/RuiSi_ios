@@ -14,4 +14,16 @@
 @property (nonatomic,copy) NSString *threadContents;
 @property (nonatomic,strong) NSArray *threadImageURLs;
 @property (nonatomic,strong) NSString *threadID;
+
+
+
+
+@end
+
+
+@interface ThreadDetailList : BaseModel
+@property (nonatomic,strong) NSArray *list;
+- (instancetype) initWithArray:(NSArray *)array;
+- (NSInteger) countOfList;
++ (ThreadDetailList *)getThreadDetailListWithURL:(NSString *)urlString;
 @end

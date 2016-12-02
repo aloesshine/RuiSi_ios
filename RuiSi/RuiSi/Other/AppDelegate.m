@@ -18,6 +18,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
+    
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    
+    
+    
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
     
@@ -52,6 +57,12 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-
+- (BOOL) checkAndLogin {
+#warning Todo
+    if (nil == [DataManager manager].user) {
+        
+    }
+    return YES;
+}
 
 @end
