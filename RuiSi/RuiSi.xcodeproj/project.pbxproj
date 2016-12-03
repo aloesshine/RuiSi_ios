@@ -36,8 +36,11 @@
 		7ADE05B61DE56F4B00B7ABA5 /* ThreadListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ADE05B51DE56F4B00B7ABA5 /* ThreadListViewController.m */; };
 		7AE0918C1DE580210042D92E /* sectionNotLogging.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7AE0918B1DE580210042D92E /* sectionNotLogging.plist */; };
 		906B3FCCEFAB9F0902D662E8 /* libPods-RuiSi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7D095EC90ED6A2807A21590 /* libPods-RuiSi.a */; };
-		BB0BDE881DEC89DB001B2A89 /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0BDE871DEC89DB001B2A89 /* Login.m */; };
 		BB0BDE8B1DEC8A36001B2A89 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0BDE8A1DEC8A36001B2A89 /* User.m */; };
+		BB0F8C641DF06E29006D11E2 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0F8C631DF06E29006D11E2 /* BaseModel.m */; };
+		BB0F8C671DF06FD2006D11E2 /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0F8C661DF06FD2006D11E2 /* Member.m */; };
+		BB0F8C6A1DF07C68006D11E2 /* ThreadDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0F8C691DF07C68006D11E2 /* ThreadDetail.m */; };
+		BB0F8C701DF0852D006D11E2 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0F8C6F1DF0852D006D11E2 /* DataManager.m */; };
 		BB17BB831DE0A85600315E4D /* SectionHeaderViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB17BB821DE0A85600315E4D /* SectionHeaderViewCell.xib */; };
 		BB20FD101DE1FA57000CFB0E /* sectionLogging.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB20FD0F1DE1FA57000CFB0E /* sectionLogging.plist */; };
 		BB31CCED1DE8B41300FB70A6 /* AboutMeHeaderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB31CCEC1DE8B41300FB70A6 /* AboutMeHeaderViewCell.m */; };
@@ -50,6 +53,7 @@
 		BB72A3351DDF68C8007192FE /* SectionHeaderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */; };
 		BB928E8A1DEC62FC00855274 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB928E891DEC62FC00855274 /* Main.storyboard */; };
 		BBCC066A1DE312DE0003A6B5 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCC06691DE312DE0003A6B5 /* libxml2.2.dylib */; };
+		BBF3BFC11DF1B24F0014F20D /* ThreadDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF3BFC01DF1B24F0014F20D /* ThreadDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,11 +137,16 @@
 		7AE0918B1DE580210042D92E /* sectionNotLogging.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sectionNotLogging.plist; sourceTree = "<group>"; };
 		B6EE0C2ED2D7690ED42DA80B /* Pods-RuiSi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RuiSi.release.xcconfig"; path = "Pods/Target Support Files/Pods-RuiSi/Pods-RuiSi.release.xcconfig"; sourceTree = "<group>"; };
 		BB0BDE841DEC8017001B2A89 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		BB0BDE851DEC877F001B2A89 /* RuiSi-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RuiSi-Prefix.pch"; sourceTree = "<group>"; };
-		BB0BDE861DEC89DB001B2A89 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
-		BB0BDE871DEC89DB001B2A89 /* Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login.m; sourceTree = "<group>"; };
 		BB0BDE891DEC8A36001B2A89 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		BB0BDE8A1DEC8A36001B2A89 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		BB0F8C621DF06E29006D11E2 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
+		BB0F8C631DF06E29006D11E2 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
+		BB0F8C651DF06FD2006D11E2 /* Member.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Member.h; sourceTree = "<group>"; };
+		BB0F8C661DF06FD2006D11E2 /* Member.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Member.m; sourceTree = "<group>"; };
+		BB0F8C681DF07C68006D11E2 /* ThreadDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadDetail.h; sourceTree = "<group>"; };
+		BB0F8C691DF07C68006D11E2 /* ThreadDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadDetail.m; sourceTree = "<group>"; };
+		BB0F8C6E1DF0852D006D11E2 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataManager.h; path = RuiSi/Section/Model/DataManager.h; sourceTree = SOURCE_ROOT; };
+		BB0F8C6F1DF0852D006D11E2 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataManager.m; path = RuiSi/Section/Model/DataManager.m; sourceTree = SOURCE_ROOT; };
 		BB17BB821DE0A85600315E4D /* SectionHeaderViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionHeaderViewCell.xib; sourceTree = "<group>"; };
 		BB20FD0F1DE1FA57000CFB0E /* sectionLogging.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sectionLogging.plist; sourceTree = "<group>"; };
 		BB31CCEB1DE8B41300FB70A6 /* AboutMeHeaderViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMeHeaderViewCell.h; sourceTree = "<group>"; };
@@ -155,6 +164,8 @@
 		BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionHeaderViewCell.m; sourceTree = "<group>"; };
 		BB928E891DEC62FC00855274 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		BBCC06691DE312DE0003A6B5 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = ../../../../../../usr/lib/libxml2.2.dylib; sourceTree = "<group>"; };
+		BBF3BFBF1DF1B24F0014F20D /* ThreadDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadDetailViewController.h; sourceTree = "<group>"; };
+		BBF3BFC01DF1B24F0014F20D /* ThreadDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadDetailViewController.m; sourceTree = "<group>"; };
 		E7D095EC90ED6A2807A21590 /* libPods-RuiSi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RuiSi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -260,18 +271,13 @@
 		7A997B731DDD74DC00D383B5 /* RuiSi */ = {
 			isa = PBXGroup;
 			children = (
-				7AB4AC9E1DDD7DCA00842D6C /* Expand */,
-				7AB4AC9F1DDD7DCA00842D6C /* Me */,
-				7AB4ACA41DDD7DCA00842D6C /* News */,
 				7AB4ACA91DDD7DCA00842D6C /* Other */,
-				7AB4ACAD1DDD7DCA00842D6C /* Posts */,
 				7AB4ACB21DDD7DCA00842D6C /* Resource */,
 				7AB4ACB61DDD7DCA00842D6C /* Section */,
 				7AB4ACBB1DDD7DCA00842D6C /* Vender */,
 				7A997B801DDD74DC00D383B5 /* Assets.xcassets */,
 				7A997B821DDD74DC00D383B5 /* LaunchScreen.storyboard */,
 				BB928E891DEC62FC00855274 /* Main.storyboard */,
-				BB0BDE851DEC877F001B2A89 /* RuiSi-Prefix.pch */,
 			);
 			path = RuiSi;
 			sourceTree = "<group>";
@@ -294,91 +300,6 @@
 			path = RuiSiUITests;
 			sourceTree = "<group>";
 		};
-		7AB4AC9E1DDD7DCA00842D6C /* Expand */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Expand;
-			sourceTree = "<group>";
-		};
-		7AB4AC9F1DDD7DCA00842D6C /* Me */ = {
-			isa = PBXGroup;
-			children = (
-				7AB4ACA01DDD7DCA00842D6C /* Controller */,
-				7AB4ACA11DDD7DCA00842D6C /* Model */,
-				7AB4ACA21DDD7DCA00842D6C /* Other */,
-				7AB4ACA31DDD7DCA00842D6C /* View */,
-			);
-			path = Me;
-			sourceTree = "<group>";
-		};
-		7AB4ACA01DDD7DCA00842D6C /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		7AB4ACA11DDD7DCA00842D6C /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		7AB4ACA21DDD7DCA00842D6C /* Other */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Other;
-			sourceTree = "<group>";
-		};
-		7AB4ACA31DDD7DCA00842D6C /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		7AB4ACA41DDD7DCA00842D6C /* News */ = {
-			isa = PBXGroup;
-			children = (
-				7AB4ACA51DDD7DCA00842D6C /* Controller */,
-				7AB4ACA61DDD7DCA00842D6C /* Model */,
-				7AB4ACA71DDD7DCA00842D6C /* Other */,
-				7AB4ACA81DDD7DCA00842D6C /* View */,
-			);
-			path = News;
-			sourceTree = "<group>";
-		};
-		7AB4ACA51DDD7DCA00842D6C /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		7AB4ACA61DDD7DCA00842D6C /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		7AB4ACA71DDD7DCA00842D6C /* Other */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Other;
-			sourceTree = "<group>";
-		};
-		7AB4ACA81DDD7DCA00842D6C /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		7AB4ACA91DDD7DCA00842D6C /* Other */ = {
 			isa = PBXGroup;
 			children = (
@@ -387,45 +308,6 @@
 				7AB4ACAC1DDD7DCA00842D6C /* main.m */,
 			);
 			path = Other;
-			sourceTree = "<group>";
-		};
-		7AB4ACAD1DDD7DCA00842D6C /* Posts */ = {
-			isa = PBXGroup;
-			children = (
-				7AB4ACAE1DDD7DCA00842D6C /* Controller */,
-				7AB4ACAF1DDD7DCA00842D6C /* Model */,
-				7AB4ACB01DDD7DCA00842D6C /* Other */,
-				7AB4ACB11DDD7DCA00842D6C /* View */,
-			);
-			path = Posts;
-			sourceTree = "<group>";
-		};
-		7AB4ACAE1DDD7DCA00842D6C /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		7AB4ACAF1DDD7DCA00842D6C /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		7AB4ACB01DDD7DCA00842D6C /* Other */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Other;
-			sourceTree = "<group>";
-		};
-		7AB4ACB11DDD7DCA00842D6C /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		7AB4ACB21DDD7DCA00842D6C /* Resource */ = {
@@ -474,6 +356,8 @@
 				7ADE05B51DE56F4B00B7ABA5 /* ThreadListViewController.m */,
 				BB37135E1DE915AC00F0A179 /* AboutMeViewController.h */,
 				BB37135F1DE915AC00F0A179 /* AboutMeViewController.m */,
+				BBF3BFBF1DF1B24F0014F20D /* ThreadDetailViewController.h */,
+				BBF3BFC01DF1B24F0014F20D /* ThreadDetailViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -484,10 +368,14 @@
 				7A6563F91DE719B300E3E1B5 /* Thread.h */,
 				7A6563FA1DE719B300E3E1B5 /* Thread.m */,
 				BB0BDE841DEC8017001B2A89 /* Constants.h */,
-				BB0BDE861DEC89DB001B2A89 /* Login.h */,
-				BB0BDE871DEC89DB001B2A89 /* Login.m */,
 				BB0BDE891DEC8A36001B2A89 /* User.h */,
 				BB0BDE8A1DEC8A36001B2A89 /* User.m */,
+				BB0F8C621DF06E29006D11E2 /* BaseModel.h */,
+				BB0F8C631DF06E29006D11E2 /* BaseModel.m */,
+				BB0F8C651DF06FD2006D11E2 /* Member.h */,
+				BB0F8C661DF06FD2006D11E2 /* Member.m */,
+				BB0F8C681DF07C68006D11E2 /* ThreadDetail.h */,
+				BB0F8C691DF07C68006D11E2 /* ThreadDetail.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -495,6 +383,8 @@
 		7AB4ACB91DDD7DCA00842D6C /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				BB0F8C6E1DF0852D006D11E2 /* DataManager.h */,
+				BB0F8C6F1DF0852D006D11E2 /* DataManager.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -797,6 +687,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB3713631DE9163200F0A179 /* AboutMeTableView.m in Sources */,
+				BBF3BFC11DF1B24F0014F20D /* ThreadDetailViewController.m in Sources */,
+				BB0F8C6A1DF07C68006D11E2 /* ThreadDetail.m in Sources */,
 				7A6A80711DEABD2E00B81583 /* OCGumbo.m in Sources */,
 				BB0BDE8B1DEC8A36001B2A89 /* User.m in Sources */,
 				7AB4ACBE1DDD7DCA00842D6C /* AppDelegate.m in Sources */,
@@ -806,16 +698,18 @@
 				BB3713601DE915AC00F0A179 /* AboutMeViewController.m in Sources */,
 				7A6A80961DEABD4800B81583 /* parser.c in Sources */,
 				7A6A809B1DEABD4800B81583 /* tokenizer.c in Sources */,
+				BB0F8C641DF06E29006D11E2 /* BaseModel.m in Sources */,
 				7A6A80701DEABD2E00B81583 /* OCGumbo+Query.m in Sources */,
 				7ADE05B61DE56F4B00B7ABA5 /* ThreadListViewController.m in Sources */,
 				7A6A80981DEABD4800B81583 /* string_piece.c in Sources */,
+				BB0F8C671DF06FD2006D11E2 /* Member.m in Sources */,
 				7AB4ACC91DDDDDFE00842D6C /* SectionCollectionViewCell.m in Sources */,
 				7A6A809C1DEABD4800B81583 /* utf8.c in Sources */,
 				7A6A80951DEABD4800B81583 /* error.c in Sources */,
-				BB0BDE881DEC89DB001B2A89 /* Login.m in Sources */,
 				7A6A80931DEABD4800B81583 /* char_ref.c in Sources */,
 				7A6A80971DEABD4800B81583 /* string_buffer.c in Sources */,
 				BB72A3351DDF68C8007192FE /* SectionHeaderViewCell.m in Sources */,
+				BB0F8C701DF0852D006D11E2 /* DataManager.m in Sources */,
 				BB3713661DE9230900F0A179 /* AboutMeTableViewCell.m in Sources */,
 				7AB4ACBF1DDD7DCA00842D6C /* main.m in Sources */,
 				7A6A809E1DEABD4800B81583 /* vector.c in Sources */,
@@ -965,8 +859,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 97RJ92JQE4;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "RuiSi/Ruisi-Prefix.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/RuiSi/Resource/Plist/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -982,8 +876,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 97RJ92JQE4;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "RuiSi/Ruisi-Prefix.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/RuiSi/Resource/Plist/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

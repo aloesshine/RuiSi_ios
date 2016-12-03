@@ -8,66 +8,88 @@
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=549&amp;mobile=2</string>
 			<key>name</key>
 			<string>文章天地</string>
+			<key>fid</key>
+			<string>549</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=550&amp;mobile=2</string>
 			<key>name</key>
 			<string>心灵花园</string>
+			<key>fid</key>
+			<string>550</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=106&amp;mobile=2</string>
 			<key>name</key>
 			<string>校园交易</string>
+			<key>fid</key>
+			<string>106</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=108&amp;mobile=2</string>
 			<key>name</key>
 			<string>我是女生</string>
+			<key>fid</key>
+			<string>108</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=115&amp;mobile=2</string>
 			<key>name</key>
 			<string>版聊专区</string>
+			<key>fid</key>
+			<string>115</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=217&amp;mobile=2</string>
 			<key>name</key>
 			<string>缘聚睿思</string>
+			<key>fid</key>
+			<string>217</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=142&amp;mobile=2</string>
 			<key>name</key>
 			<string>失物招领</string>
+			<key>fid</key>
+			<string>142</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=551&amp;mobile=2</string>
 			<key>name</key>
 			<string>西电问答</string>
+			<key>fid</key>
+			<string>551</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=157&amp;mobile=2</string>
 			<key>name</key>
 			<string>校园活动</string>
+			<key>fid</key>
+			<string>157</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=552&amp;mobile=2</string>
 			<key>name</key>
 			<string>我要毕业了</string>
+			<key>fid</key>
+			<string>552</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=553&amp;mobile=2</string>
 			<key>name</key>
 			<string>就业招聘</string>
+			<key>fid</key>
+			<string>553</string>
 		</dict>
 	</array>
 	<array>
@@ -76,42 +98,56 @@
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=560&amp;mobile=2</string>
 			<key>name</key>
 			<string>技术博客</string>
+			<key>fid</key>
+			<string>560</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=548&amp;mobile=2</string>
 			<key>name</key>
 			<string>学习交流</string>
+			<key>fid</key>
+			<string>548</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=145&amp;mobile=2</string>
 			<key>name</key>
 			<string>软件技术交流区</string>
+			<key>fid</key>
+			<string>145</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=144&amp;mobile=2</string>
 			<key>name</key>
 			<string>嵌入式技术交流区</string>
+			<key>fid</key>
+			<string>144</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=91&amp;mobile=2</string>
 			<key>name</key>
 			<string>考研交流</string>
+			<key>fid</key>
+			<string>91</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=152&amp;mobile=2</string>
 			<key>name</key>
 			<string>竞赛交流</string>
+			<key>fid</key>
+			<string>152</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=134&amp;mobile=2</string>
 			<key>name</key>
 			<string>Abroad &amp; English</string>
+			<key>fid</key>
+			<string>134</string>
 		</dict>
 	</array>
 	<array>
@@ -120,60 +156,80 @@
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=72&amp;mobile=2</string>
 			<key>name</key>
 			<string>灌水专区</string>
+			<key>fid</key>
+			<string>72</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=561&amp;mobile=2</string>
 			<key>name</key>
 			<string>摄影天地</string>
+			<key>fid</key>
+			<string>561</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=147&amp;mobile=2</string>
 			<key>name</key>
 			<string>原创精品</string>
+			<key>fid</key>
+			<string>147</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=215&amp;mobile=2</string>
 			<key>name</key>
 			<string>西电后街</string>
+			<key>fid</key>
+			<string>215</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=216&amp;mobile=2</string>
 			<key>name</key>
 			<string>我爱运动</string>
+			<key>fid</key>
+			<string>216</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=125&amp;mobile=2</string>
 			<key>name</key>
 			<string>音乐纵贯线</string>
+			<key>fid</key>
+			<string>125</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=140&amp;mobile=2</string>
 			<key>name</key>
 			<string>绝对漫域</string>
+			<key>fid</key>
+			<string>140</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=139&amp;mobile=2</string>
 			<key>name</key>
 			<string>游间客栈</string>
+			<key>fid</key>
+			<string>139</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=122&amp;mobile=2</string>
 			<key>name</key>
 			<string>大话体坛</string>
+			<key>fid</key>
+			<string>122</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=563&amp;mobile=2</string>
 			<key>name</key>
 			<string>邀请专区</string>
+			<key>fid</key>
+			<string>563</string>
 		</dict>
 	</array>
 	<array>
@@ -182,12 +238,16 @@
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=138&amp;mobile=2</string>
 			<key>name</key>
 			<string>腾讯创新俱乐部</string>
+			<key>fid</key>
+			<string>138</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=150&amp;mobile=2</string>
 			<key>name</key>
 			<string>华为创新俱乐部</string>
+			<key>fid</key>
+			<string>150</string>
 		</dict>
 	</array>
 	<array>
@@ -196,90 +256,120 @@
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=13&amp;mobile=2</string>
 			<key>name</key>
 			<string>电影</string>
+			<key>fid</key>
+			<string>13</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=14&amp;mobile=2</string>
 			<key>name</key>
 			<string>剧集</string>
+			<key>fid</key>
+			<string>14</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=15&amp;mobile=2</string>
 			<key>name</key>
 			<string>音乐</string>
+			<key>fid</key>
+			<string>15</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=16&amp;mobile=2</string>
 			<key>name</key>
 			<string>动漫</string>
+			<key>fid</key>
+			<string>16</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=17&amp;mobile=2</string>
 			<key>name</key>
 			<string>游戏</string>
+			<key>fid</key>
+			<string>17</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=18&amp;mobile=2</string>
 			<key>name</key>
 			<string>综艺</string>
+			<key>fid</key>
+			<string>18</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=19&amp;mobile=2</string>
 			<key>name</key>
 			<string>体育</string>
+			<key>fid</key>
+			<string>19</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=20&amp;mobile=2</string>
 			<key>name</key>
 			<string>软件</string>
+			<key>fid</key>
+			<string>20</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=21&amp;mobile=2</string>
 			<key>name</key>
 			<string>学习</string>
+			<key>fid</key>
+			<string>21</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=214&amp;mobile=2</string>
 			<key>name</key>
 			<string>纪录片</string>
+			<key>fid</key>
+			<string>214</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=22&amp;mobile=2</string>
 			<key>name</key>
 			<string>其他</string>
+			<key>fid</key>
+			<string>22</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=557&amp;mobile=2</string>
 			<key>name</key>
 			<string>西电</string>
+			<key>fid</key>
+			<string>557</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=165&amp;mobile=2</string>
 			<key>name</key>
 			<string>求种专区</string>
+			<key>fid</key>
+			<string>165</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=534&amp;mobile=2</string>
 			<key>name</key>
 			<string>新手试种专区</string>
+			<key>fid</key>
+			<string>534</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=559&amp;mobile=2</string>
 			<key>name</key>
 			<string>资源回收站</string>
+			<key>fid</key>
+			<string>559</string>
 		</dict>
 	</array>
 	<array>
@@ -288,30 +378,40 @@
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=119&amp;mobile=2</string>
 			<key>name</key>
 			<string>举报专区</string>
+			<key>fid</key>
+			<string>119</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=2&amp;mobile=2</string>
 			<key>name</key>
 			<string>帮助专区</string>
+			<key>fid</key>
+			<string>2</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=141&amp;mobile=2</string>
 			<key>name</key>
 			<string>发展建议专区</string>
+			<key>fid</key>
+			<string>141</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=137&amp;mobile=2</string>
 			<key>name</key>
 			<string>邀请码申请专区</string>
+			<key>fid</key>
+			<string>137</string>
 		</dict>
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=94&amp;mobile=2</string>
 			<key>name</key>
 			<string>公告活动专区</string>
+			<key>fid</key>
+			<string>94</string>
 		</dict>
 	</array>
 </array>

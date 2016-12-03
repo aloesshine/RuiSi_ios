@@ -12,6 +12,7 @@
 #import "HTMLNode.h"
 #import "HTMLParser.h"
 #import "ThreadListViewController.h"
+#import "Constants.h"
 NSString *kSectionCollectionViewCell = @"SectionCollectionViewCell";
 NSString *kSectionHeaderViewCell = @"SectionHeaderViewCell";
 NSString *kshowThreadListSegue = @"showThreadList";
@@ -181,6 +182,7 @@ NSString *kshowThreadListSegue = @"showThreadList";
         ThreadListViewController *destViewController = segue.destinationViewController;
         destViewController.url = titleDict[@"url"];
         destViewController.name = titleDict[@"name"];
+        destViewController.fid = titleDict[@"fid"];
     }
     
 }
