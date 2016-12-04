@@ -11,13 +11,14 @@
 #import "ThreadListCell.h"
 #import "OCGumbo.h"
 #import "OCGumbo+Query.h"
-
+#import "EXTScope.h"
+#import "DataManager.h"
 NSString *kThreadListCell = @"ThreadListCell";
 
 @interface ThreadListViewController ()
 
 @property (nonatomic,strong) ThreadList *threadList;
-
+@property (nonatomic,copy) NSURLSessionDataTask* (^getThreadListBlock)();
 
 @end
 
@@ -30,10 +31,26 @@ NSString *kThreadListCell = @"ThreadListCell";
     self.navigationItem.title = self.name;
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
+    
+    [self configureBlocks];
     [self.tableView registerNib:[UINib nibWithNibName:kThreadListCell bundle:[NSBundle mainBundle]] forCellReuseIdentifier:kThreadListCell];
+    self.getThreadListBlock();
+}
+
+- (void) configureBlocks {
+    @weakify(self);
     
-    self.threadList = [ThreadList getThreadListWithURL:self.url];
-    
+    self.getThreadListBlock = ^{
+        @strongify(self);
+        
+        return [[DataManager manager] getThreadListWithFid:self.fid page:nil success:^(ThreadList *threadList) {
+            @strongify(self);
+            self.threadList = threadList;
+            [self.tableView reloadData];
+        } failure:^(NSError *error) {
+            ;
+        }];
+    };
 }
 
 - (void)didReceiveMemoryWarning {

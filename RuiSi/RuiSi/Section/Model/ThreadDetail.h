@@ -9,15 +9,15 @@
 #import "BaseModel.h"
 #import "Member.h"
 @interface ThreadDetail : BaseModel
-@property (nonatomic,strong) Member *threadCreator;
-@property (nonatomic,copy) NSString *threadCreateTime;
-@property (nonatomic,copy) NSString *threadContents;
-@property (nonatomic,strong) NSArray *threadImageURLs;
 @property (nonatomic,strong) NSString *threadID;
-
-
-
-
+@property (nonatomic,strong) NSString *creatorName;
+@property (nonatomic,copy) NSString *createTime;
+@property (nonatomic,copy) NSString *homepage;
+@property (nonatomic,strong) NSArray *quotoArray;
+@property (nonatomic,copy) NSAttributedString *attributeString;
+@property (nonatomic,strong) NSArray* contentsArray;
+@property (nonatomic,strong) NSArray *imageURLs;
+@property (nonatomic,strong) Member *threadCreator;
 @end
 
 
@@ -25,5 +25,5 @@
 @property (nonatomic,strong) NSArray *list;
 - (instancetype) initWithArray:(NSArray *)array;
 - (NSInteger) countOfList;
-+ (ThreadDetailList *)getThreadDetailListWithURL:(NSString *)urlString;
++ (ThreadDetailList *)getThreadDetailListFromResponseObject:(id) responseObject;
 @end

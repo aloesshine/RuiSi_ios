@@ -12,9 +12,6 @@
 @implementation ThreadDetail
 - (instancetype)initWithDictionary:(NSDictionary *)dict {
     if (self = [super init]) {
-        self.threadCreateTime = [dict objectForKey:@"thread_createtime"];
-        self.threadContents = [dict objectForKey:@"contents"];
-        self.threadID = [dict objectForKey:@"id"];
     }
     return self;
 }
@@ -39,18 +36,28 @@
     return self.list.count;
 }
 
-+ (ThreadDetailList *)getThreadDetailListWithURL:(NSString *)urlString {
-#warning "Todo"
-    NSMutableArray *elements = [[NSMutableArray alloc] init];
-    ThreadDetailList *list;
+
++ (ThreadDetailList *)getThreadDetailListFromResponseObject:(id)responseObject {
+    NSMutableArray *threadDetailArray = [[NSMutableArray alloc] init];
     @autoreleasepool {
-        NSError *error = nil;
-        NSURL *url = [NSURL URLWithString:urlString];
-        NSString *htmlString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
+        NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        OCGumboDocument *document = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
+        OCGumboNode *element = document.Query(@"body.bg").find(@"div.postlist").first();
+        OCQueryObject *elementArray = element.Query(@"div");
+        for(OCGumboNode *node in elementArray) {
+            ThreadDetail *detail = [[ThreadDetail alloc] init];
+            detail.threadID = (NSString *)node.Query(@"div.plc cl").first().attr(@"id");
+            detail.creatorName = (NSString *)node.Query(@"ul.authi").first().text();
+            detail.homepage = (NSString *)node.Query(@"a").first().attr(@"href");
+            detail.createTime = (NSString *)node.Query(@"li.grey rela").first().text();
+            [threadDetailArray addObject:detail];
+        }
     }
-    if (elements.count) {
+    
+    ThreadDetailList *list;
+    if (threadDetailArray.count) {
         list = [[ThreadDetailList alloc] init];
-        list.list = elements;
+        list.list = threadDetailArray;
     }
     return list;
 }

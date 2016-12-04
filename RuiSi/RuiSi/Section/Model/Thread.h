@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BaseModel.h"
+#import "Member.h"
 @interface Thread : BaseModel
 
 @property (nonatomic, copy) NSString *title;
@@ -16,6 +17,7 @@
 @property (nonatomic, copy) NSString *reviewCount;
 @property (nonatomic, assign) BOOL hasPic;
 @property (nonatomic,copy) NSString *tid;
+@property (nonatomic,copy) NSString *createTime;
 @end
 
 
@@ -25,6 +27,6 @@
 
 - (instancetype) initWithArray:(NSArray *)array;
 
-+ (ThreadList *)getThreadListWithURL:(NSString *)urlString;
++ (ThreadList *)getThreadListFromResponseObject:(id) responseObject;
 - (NSInteger) countOfList;
 @end

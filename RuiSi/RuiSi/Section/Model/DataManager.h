@@ -11,6 +11,7 @@
 #import <AFNetworking.h>
 #import "Thread.h"
 #import "ThreadDetail.h"
+#import "Reply.h"
 static NSString *const kUserIsLogin = @"UserIsLogin";
 static NSString *const kUserName = @"UserName";
 static NSString *const kUserID = @"UserID";
@@ -38,14 +39,11 @@ typedef NS_ENUM(NSInteger,RequestMethod) {
                                         failure:(void (^)(NSError *error))failure;
 
 
+
 - (NSURLSessionDataTask *) getThreadDetailListWithTid:(NSString *)tid
+                                                 page:(NSNumber *)page
                                               success:(void (^)(ThreadDetailList *threadDetailList))success
                                               failure:(void (^)(NSError *error))failure;
-
-- (NSURLSessionDataTask *) getMoreThreadDetailListWithTid:(NSString *)tid
-                                                     page:(NSNumber *)page
-                                                  success:(void (^)(ThreadDetailList *list))success
-                                                  failure:(void (^)(NSError *error))failure;
 
 
 - (NSURLSessionDataTask *) getMemberWithUid:(NSString *)uid

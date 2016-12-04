@@ -51,6 +51,7 @@
 		BB3713681DE9247000F0A179 /* AboutMeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB3713671DE9247000F0A179 /* AboutMeTableViewCell.xib */; };
 		BB72A3321DDF55F1007192FE /* SectionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB72A3311DDF55F1007192FE /* SectionCollectionViewCell.xib */; };
 		BB72A3351DDF68C8007192FE /* SectionHeaderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */; };
+		BB77FC881DF4629A00610731 /* Reply.m in Sources */ = {isa = PBXBuildFile; fileRef = BB77FC871DF4629A00610731 /* Reply.m */; };
 		BB928E8A1DEC62FC00855274 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB928E891DEC62FC00855274 /* Main.storyboard */; };
 		BBCC066A1DE312DE0003A6B5 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCC06691DE312DE0003A6B5 /* libxml2.2.dylib */; };
 		BBF3BFC11DF1B24F0014F20D /* ThreadDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF3BFC01DF1B24F0014F20D /* ThreadDetailViewController.m */; };
@@ -162,6 +163,9 @@
 		BB72A3311DDF55F1007192FE /* SectionCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionCollectionViewCell.xib; sourceTree = "<group>"; };
 		BB72A3331DDF68C8007192FE /* SectionHeaderViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionHeaderViewCell.h; sourceTree = "<group>"; };
 		BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionHeaderViewCell.m; sourceTree = "<group>"; };
+		BB77FC851DF4468300610731 /* RuiSi-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "RuiSi-Prefix.pch"; path = "RuiSi/Section/Controller/RuiSi-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		BB77FC861DF4629A00610731 /* Reply.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reply.h; sourceTree = "<group>"; };
+		BB77FC871DF4629A00610731 /* Reply.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reply.m; sourceTree = "<group>"; };
 		BB928E891DEC62FC00855274 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		BBCC06691DE312DE0003A6B5 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = ../../../../../../usr/lib/libxml2.2.dylib; sourceTree = "<group>"; };
 		BBF3BFBF1DF1B24F0014F20D /* ThreadDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadDetailViewController.h; sourceTree = "<group>"; };
@@ -376,6 +380,8 @@
 				BB0F8C661DF06FD2006D11E2 /* Member.m */,
 				BB0F8C681DF07C68006D11E2 /* ThreadDetail.h */,
 				BB0F8C691DF07C68006D11E2 /* ThreadDetail.m */,
+				BB77FC861DF4629A00610731 /* Reply.h */,
+				BB77FC871DF4629A00610731 /* Reply.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -385,6 +391,7 @@
 			children = (
 				BB0F8C6E1DF0852D006D11E2 /* DataManager.h */,
 				BB0F8C6F1DF0852D006D11E2 /* DataManager.m */,
+				BB77FC851DF4468300610731 /* RuiSi-Prefix.pch */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -700,6 +707,7 @@
 				7A6A809B1DEABD4800B81583 /* tokenizer.c in Sources */,
 				BB0F8C641DF06E29006D11E2 /* BaseModel.m in Sources */,
 				7A6A80701DEABD2E00B81583 /* OCGumbo+Query.m in Sources */,
+				BB77FC881DF4629A00610731 /* Reply.m in Sources */,
 				7ADE05B61DE56F4B00B7ABA5 /* ThreadListViewController.m in Sources */,
 				7A6A80981DEABD4800B81583 /* string_piece.c in Sources */,
 				BB0F8C671DF06FD2006D11E2 /* Member.m in Sources */,

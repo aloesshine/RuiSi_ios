@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ThreadDetailViewController : UITableViewController
-
+@property (nonatomic,copy) NSString *tid;
 @end

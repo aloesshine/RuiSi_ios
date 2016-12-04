@@ -46,12 +46,13 @@
 }
 
 
-+ (ThreadList *)getThreadListWithURL:(NSString *)urlString {
+
+
+
++ (ThreadList *) getThreadListFromResponseObject:(id)responseObject {
     NSMutableArray *elements = [[NSMutableArray alloc] init];
     @autoreleasepool {
-        NSError *error = nil;
-        NSURL *url = [NSURL URLWithString:urlString];
-        NSString *htmlString = [NSString stringWithContentsOfURL: url encoding:NSUTF8StringEncoding error:&error];
+        NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         OCGumboDocument *document = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
         OCGumboNode *element = document.Query(@"body.bg").find(@"div.threadlist").first();
         OCQueryObject *elementArrry = element.Query(@"li");
@@ -70,10 +71,9 @@
             
             [elements addObject:thread];
         }
-
-        
     }
-    ThreadList *list;
+    
+    ThreadList *list ;
     if (elements.count) {
         list = [[ThreadList alloc] init];
         list.list = elements;
