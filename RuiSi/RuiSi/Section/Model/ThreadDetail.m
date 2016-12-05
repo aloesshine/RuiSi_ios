@@ -16,6 +16,10 @@
     return self;
 }
 
+
+- (void)configureMember {
+    
+}
 @end
 
 @implementation ThreadDetailList

@@ -7,6 +7,7 @@
 //
 
 #import "ThreadListViewController.h"
+#import "ThreadDetailViewController.h"
 #import "Thread.h"
 #import "ThreadListCell.h"
 #import "OCGumbo.h"
@@ -15,7 +16,7 @@
 #import "DataManager.h"
 #import "MJRefresh.h"
 NSString *kThreadListCell = @"ThreadListCell";
-
+NSString *kShowThreadDetail = @"showThreadDetail";
 @interface ThreadListViewController ()
 
 @property (nonatomic,strong) ThreadList *threadList;
@@ -127,7 +128,20 @@ NSString *kThreadListCell = @"ThreadListCell";
     return cell;
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if (segue.identifier == kShowThreadDetail) {
+        UINavigationController *navController = segue.destinationViewController;
+        ThreadDetailViewController *threadDetailViewController =  [navController.viewControllers firstObject];
+        NSIndexPath *index = (NSIndexPath *)sender;
+        Thread *thread = [self.threadList.list objectAtIndex:index.row];
+        threadDetailViewController.tid = thread.tid;
+    }
+}
 
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:kShowThreadDetail sender:indexPath];
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

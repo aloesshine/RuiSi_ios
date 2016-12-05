@@ -13,7 +13,8 @@
 @interface ThreadDetailViewController ()
 
 @property (nonatomic,strong) ThreadDetailList *detailList;
-@property (nonatomic,strong) NSURLSessionDataTask* (^getThreadDetailListBlock)();
+@property (nonatomic,strong) NSURLSessionDataTask* (^getThreadDetailListBlock)(NSInteger page);
+@property (nonatomic,assign) NSInteger currentPage;
 @end
 
 @implementation ThreadDetailViewController
@@ -21,15 +22,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configueBlocks];
-    self.getThreadDetailListBlock();
+    self.getThreadDetailListBlock(1);
+    NSLog(@"%@",self.tid);
 }
-
 
 - (void) configueBlocks {
     @weakify(self);
-    self.getThreadDetailListBlock = ^{
+    self.getThreadDetailListBlock = ^(NSInteger page){
         @strongify(self);
-        return [[DataManager manager] getThreadDetailListWithTid:self.tid page:nil success:^(ThreadDetailList *threadDetailList) {
+        return [[DataManager manager] getThreadDetailListWithTid:self.tid page:page success:^(ThreadDetailList *threadDetailList) {
             self.detailList = threadDetailList;
             [self.tableView reloadData];
         } failure:^(NSError *error) {
@@ -54,7 +55,6 @@
 
     return [self.detailList countOfList];
 }
-
 
 
 @end

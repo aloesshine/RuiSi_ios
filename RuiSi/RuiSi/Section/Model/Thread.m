@@ -46,9 +46,6 @@
 }
 
 
-
-
-
 + (ThreadList *) getThreadListFromResponseObject:(id)responseObject {
     NSMutableArray *elements = [[NSMutableArray alloc] init];
     @autoreleasepool {
@@ -63,6 +60,12 @@
             Thread *thread = [[Thread alloc] init];
             thread.reviewCount = (NSString *)ele.Query(@"span.num").text();
             thread.titleURL = (NSString *)ele.Query(@"a").first().attr(@"href");
+            
+            NSString *s1 = @"tid=",*s2 = @"&extra=";
+            NSRange range1 = [thread.titleURL rangeOfString:s1];
+            NSRange range2 = [thread.titleURL rangeOfString:s2];
+            NSRange range = NSMakeRange(range1.location+range1.length, range2.location-range1.location-range1.length);
+            thread.tid = [thread.titleURL substringWithRange:range];
             thread.author = (NSString *)ele.Query(@"a").first().Query(@"span.by").text();
             NSString *title = (NSString *)ele.Query(@"a").text();
             title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet ]];

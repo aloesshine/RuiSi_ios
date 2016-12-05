@@ -166,7 +166,7 @@
         parameters = @{
                        @"mode":@"viewthread",
                        @"tid":tid,
-                       @"extra":[NSString stringWithFormat:@"page=%ld",(long)page],
+                       @"page":@(page),
                        @"mobile":@"2"
                        };
     } else {

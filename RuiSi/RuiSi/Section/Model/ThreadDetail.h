@@ -18,6 +18,8 @@
 @property (nonatomic,strong) NSArray* contentsArray;
 @property (nonatomic,strong) NSArray *imageURLs;
 @property (nonatomic,strong) Member *threadCreator;
+
+- (void) configureMember;
 @end
 
 
