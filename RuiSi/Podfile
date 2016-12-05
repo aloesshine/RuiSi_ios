@@ -2,6 +2,8 @@ platform :ios, "9.0"
 target 'RuiSi' do
     pod 'AFNetworking'
 	pod 'SVProgressHUD'
+    pod 'BlocksKit','~> 2.2.5'
+    pod 'MJRefresh','~> 3.1.12'
     pod 'libextobjc','~> 0.4.1'
 	pod 'Objective-C-HMTL-Parser'
     pod 'Masonry'

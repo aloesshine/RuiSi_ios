@@ -130,13 +130,13 @@
     return task;
 }
 
-- (NSURLSessionDataTask *)getThreadListWithFid:(NSString *)fid page:(NSNumber *)page success:(void (^)(ThreadList *))success failure:(void (^)(NSError *))failure {
+- (NSURLSessionDataTask *)getThreadListWithFid:(NSString *)fid page:(NSInteger )page success:(void (^)(ThreadList *))success failure:(void (^)(NSError *))failure {
     NSDictionary *parameters;
     if (page) {
         parameters = @{
                        @"mod":@"forumdisplay",
                        @"fid":fid,
-                       @"page":page,
+                       @"page":@(page),
                        @"mobile":@"2"
                        };
     } else {
@@ -160,13 +160,13 @@
 }
 
 
-- (NSURLSessionDataTask *)getThreadDetailListWithTid:(NSString *)tid page:(NSNumber *)page success:(void (^)(ThreadDetailList *))success failure:(void (^)(NSError *))failure {
+- (NSURLSessionDataTask *)getThreadDetailListWithTid:(NSString *)tid page:(NSInteger)page success:(void (^)(ThreadDetailList *))success failure:(void (^)(NSError *))failure {
     NSDictionary *parameters;
     if (page) {
         parameters = @{
                        @"mode":@"viewthread",
                        @"tid":tid,
-                       @"extra":[NSString stringWithFormat:@"page=%@",page],
+                       @"extra":[NSString stringWithFormat:@"page=%ld",(long)page],
                        @"mobile":@"2"
                        };
     } else {
@@ -202,7 +202,7 @@
     }];
 }
 
-- (NSURLSessionDataTask *)replyCreateWithFid:(NSString *)fid ThreadID:(NSString *)tid ThreadDetailID:(NSString *)pid page:(NSNumber *)page content:(NSString *)content success:(void (^)(ThreadDetail *))success failure:(void (^)(NSError *))failure {
+- (NSURLSessionDataTask *)replyCreateWithFid:(NSString *)fid ThreadID:(NSString *)tid ThreadDetailID:(NSString *)pid page:(NSInteger )page content:(NSString *)content success:(void (^)(ThreadDetail *))success failure:(void (^)(NSError *))failure {
     NSDictionary *parameters;
     parameters = @{
                    @"mod":@"post",
@@ -210,7 +210,7 @@
                    @"fid":fid,
                    @"tid":tid,
                    @"reppost":pid,
-                   @"page":[NSString stringWithFormat:@"%@",page],
+                   @"page":@(page),
                    @"mobile":@"2"
                    };
     return [self requestWithMethod:RequestMethodHTTPPost urlString:@"forum.php" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
