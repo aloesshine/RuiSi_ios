@@ -57,7 +57,6 @@
             [threadDetailArray addObject:detail];
         }
     }
-    
     ThreadDetailList *list;
     if (threadDetailArray.count) {
         list = [[ThreadDetailList alloc] init];
