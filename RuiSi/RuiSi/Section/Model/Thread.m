@@ -14,12 +14,6 @@
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict {
     if (self = [super initWithDictionary:dict]) {
-        self.title = [dict objectForKey:@"title"];
-        self.titleURL = [dict objectForKey:@"title_url"];
-        self.author = [dict objectForKey:@"author"];
-        self.hasPic = [dict objectForKey:@"has_pic"];
-        self.reviewCount = [dict objectForKey:@"review_count"];
-        self.tid = [dict objectForKey:@"tid"];
     }
     return self;
 }

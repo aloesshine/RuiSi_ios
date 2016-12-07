@@ -56,6 +56,8 @@
 		BB72A3351DDF68C8007192FE /* SectionHeaderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */; };
 		BB77FC881DF4629A00610731 /* Reply.m in Sources */ = {isa = PBXBuildFile; fileRef = BB77FC871DF4629A00610731 /* Reply.m */; };
 		BB928E8A1DEC62FC00855274 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB928E891DEC62FC00855274 /* Main.storyboard */; };
+		BB9C7EFF1DF853C200CC30AB /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB9C7EFE1DF853C200CC30AB /* ProfileViewController.m */; };
+		BB9C7F021DF8620400CC30AB /* ThreadDetailBodyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB9C7F011DF8620400CC30AB /* ThreadDetailBodyCell.m */; };
 		BBCC066A1DE312DE0003A6B5 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCC06691DE312DE0003A6B5 /* libxml2.2.dylib */; };
 		BBF3BFC11DF1B24F0014F20D /* ThreadDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF3BFC01DF1B24F0014F20D /* ThreadDetailViewController.m */; };
 /* End PBXBuildFile section */
@@ -176,6 +178,10 @@
 		BB77FC861DF4629A00610731 /* Reply.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reply.h; sourceTree = "<group>"; };
 		BB77FC871DF4629A00610731 /* Reply.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reply.m; sourceTree = "<group>"; };
 		BB928E891DEC62FC00855274 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		BB9C7EFD1DF853C200CC30AB /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		BB9C7EFE1DF853C200CC30AB /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		BB9C7F001DF8620400CC30AB /* ThreadDetailBodyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadDetailBodyCell.h; sourceTree = "<group>"; };
+		BB9C7F011DF8620400CC30AB /* ThreadDetailBodyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadDetailBodyCell.m; sourceTree = "<group>"; };
 		BBCC06691DE312DE0003A6B5 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = ../../../../../../usr/lib/libxml2.2.dylib; sourceTree = "<group>"; };
 		BBF3BFBF1DF1B24F0014F20D /* ThreadDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadDetailViewController.h; sourceTree = "<group>"; };
 		BBF3BFC01DF1B24F0014F20D /* ThreadDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadDetailViewController.m; sourceTree = "<group>"; };
@@ -371,6 +377,8 @@
 				BB37135F1DE915AC00F0A179 /* AboutMeViewController.m */,
 				BBF3BFBF1DF1B24F0014F20D /* ThreadDetailViewController.h */,
 				BBF3BFC01DF1B24F0014F20D /* ThreadDetailViewController.m */,
+				BB9C7EFD1DF853C200CC30AB /* ProfileViewController.h */,
+				BB9C7EFE1DF853C200CC30AB /* ProfileViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -480,6 +488,8 @@
 				BB0A95D61DF70A5E009B6F7D /* ThreadDetailTitleCell.m */,
 				BB0A95DB1DF7234B009B6F7D /* ThreadDetailInfoCell.h */,
 				BB0A95DC1DF7234B009B6F7D /* ThreadDetailInfoCell.m */,
+				BB9C7F001DF8620400CC30AB /* ThreadDetailBodyCell.h */,
+				BB9C7F011DF8620400CC30AB /* ThreadDetailBodyCell.m */,
 			);
 			name = Detail;
 			sourceTree = "<group>";
@@ -743,6 +753,7 @@
 				BB3713631DE9163200F0A179 /* AboutMeTableView.m in Sources */,
 				BBF3BFC11DF1B24F0014F20D /* ThreadDetailViewController.m in Sources */,
 				BB0F8C6A1DF07C68006D11E2 /* ThreadDetail.m in Sources */,
+				BB9C7F021DF8620400CC30AB /* ThreadDetailBodyCell.m in Sources */,
 				7A6A80711DEABD2E00B81583 /* OCGumbo.m in Sources */,
 				BB0BDE8B1DEC8A36001B2A89 /* User.m in Sources */,
 				BB0A95DA1DF71F84009B6F7D /* Helper.m in Sources */,
@@ -750,6 +761,7 @@
 				7AB4ACC31DDD9C6000842D6C /* SectionViewController.m in Sources */,
 				BB31CCED1DE8B41300FB70A6 /* AboutMeHeaderViewCell.m in Sources */,
 				7A6563FB1DE719B300E3E1B5 /* Thread.m in Sources */,
+				BB9C7EFF1DF853C200CC30AB /* ProfileViewController.m in Sources */,
 				BB3713601DE915AC00F0A179 /* AboutMeViewController.m in Sources */,
 				7A6A80961DEABD4800B81583 /* parser.c in Sources */,
 				7A6A809B1DEABD4800B81583 /* tokenizer.c in Sources */,

@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ThreadDetail.h"
 @interface ThreadDetailInfoCell : UITableViewCell
+@property (nonatomic,strong) ThreadDetail *threadDetail;
+@property (nonatomic,assign) UINavigationController *navi;
++ (CGFloat) getCellHeightWithThreadDetail:(ThreadDetail *)threadDetail;
 
 @end
