@@ -29,6 +29,23 @@ PODS:
   - BlocksKit/UIKit (2.2.5):
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
+  - DTCoreText (1.6.19):
+    - DTCoreText/Core (= 1.6.19)
+    - DTFoundation/Core (~> 1.7.5)
+    - DTFoundation/DTAnimatedGIF (~> 1.7.5)
+    - DTFoundation/DTHTMLParser (~> 1.7.5)
+    - DTFoundation/UIKit (~> 1.7.5)
+  - DTCoreText/Core (1.6.19):
+    - DTFoundation/Core (~> 1.7.5)
+    - DTFoundation/DTAnimatedGIF (~> 1.7.5)
+    - DTFoundation/DTHTMLParser (~> 1.7.5)
+    - DTFoundation/UIKit (~> 1.7.5)
+  - DTFoundation/Core (1.7.11)
+  - DTFoundation/DTAnimatedGIF (1.7.11)
+  - DTFoundation/DTHTMLParser (1.7.11):
+    - DTFoundation/Core
+  - DTFoundation/UIKit (1.7.11):
+    - DTFoundation/Core
   - libextobjc (0.4.1):
     - libextobjc/EXTADT (= 0.4.1)
     - libextobjc/EXTConcreteProtocol (= 0.4.1)
@@ -75,6 +92,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking
   - BlocksKit (~> 2.2.5)
+  - DTCoreText (~> 1.6.19)
   - libextobjc (~> 0.4.1)
   - Masonry
   - MJRefresh (~> 3.1.12)
@@ -85,6 +103,8 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
+  DTCoreText: 184cc2f460c2177108e8700dfb0eb1b1cb72c99d
+  DTFoundation: 0ef29c70a9814e15518694862bd739347abe2a50
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
@@ -92,6 +112,6 @@ SPEC CHECKSUMS:
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
 
-PODFILE CHECKSUM: 78eed9c8e484c02fed14a4a8e066b28a95c3735a
+PODFILE CHECKSUM: 03a7c26267d2792f058dc50b7971365530f86aa8
 
 COCOAPODS: 1.0.0
