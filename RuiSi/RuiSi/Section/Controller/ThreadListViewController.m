@@ -129,11 +129,11 @@ NSString *kShowThreadDetail = @"showThreadDetail";
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if (segue.identifier == kShowThreadDetail) {
+    if ([segue.identifier isEqualToString:kShowThreadDetail]) {
         UINavigationController *navController = segue.destinationViewController;
         ThreadDetailViewController *threadDetailViewController =  [navController.viewControllers firstObject];
-        NSIndexPath *index = (NSIndexPath *)sender;
-        Thread *thread = [self.threadList.list objectAtIndex:index.row];
+        NSIndexPath *index = [self.tableView indexPathForSelectedRow];
+        Thread *thread = [self.threadList.list objectAtIndex:[index row]];
         threadDetailViewController.tid = thread.tid;
     }
 }

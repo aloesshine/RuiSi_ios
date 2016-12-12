@@ -161,21 +161,12 @@
 
 
 - (NSURLSessionDataTask *)getThreadDetailListWithTid:(NSString *)tid page:(NSInteger)page success:(void (^)(ThreadDetailList *))success failure:(void (^)(NSError *))failure {
-    NSDictionary *parameters;
-    if (page) {
-        parameters = @{
+    NSDictionary *parameters = @{
                        @"mode":@"viewthread",
                        @"tid":tid,
                        @"page":@(page),
                        @"mobile":@"2"
                        };
-    } else {
-    parameters = @{
-                   @"mod":@"viewthread",
-                   @"tid":tid,
-                   @"mobile":@"2"
-                   };
-    }
     return [self requestWithMethod:RequestMethodHTTPGet urlString:@"forum.php" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         ThreadDetailList *detailList = [ThreadDetailList getThreadDetailListFromResponseObject:responseObject];
         success(detailList);

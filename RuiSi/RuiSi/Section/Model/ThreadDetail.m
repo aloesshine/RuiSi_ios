@@ -45,12 +45,13 @@
     NSMutableArray *threadDetailArray = [[NSMutableArray alloc] init];
     @autoreleasepool {
         NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        NSLog(@"%@",htmlString);
         OCGumboDocument *document = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
         OCGumboNode *element = document.Query(@"body.bg").find(@"div.postlist").first();
         OCQueryObject *elementArray = element.Query(@"div");
         for(OCGumboNode *node in elementArray) {
             ThreadDetail *detail = [[ThreadDetail alloc] init];
-            detail.threadID = (NSString *)node.Query(@"div.plc cl").first().attr(@"id");
+            detail.threadID = (NSString *)node.Query(@"div.plc").first().attr(@"id");
             detail.creatorName = (NSString *)node.Query(@"ul.authi").first().text();
             detail.homepage = (NSString *)node.Query(@"a").first().attr(@"href");
             detail.createTime = (NSString *)node.Query(@"li.grey rela").first().text();
