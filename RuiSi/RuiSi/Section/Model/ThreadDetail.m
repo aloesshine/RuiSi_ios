@@ -47,14 +47,16 @@
         NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         NSLog(@"%@",htmlString);
         OCGumboDocument *document = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
-        OCGumboNode *element = document.Query(@"body.bg").find(@"div.postlist").first();
-        OCQueryObject *elementArray = element.Query(@"div");
+        OCQueryObject *elementArray = document.Query(@"body").find(@".postlist").find(@".cl");
         for(OCGumboNode *node in elementArray) {
             ThreadDetail *detail = [[ThreadDetail alloc] init];
-            detail.threadID = (NSString *)node.Query(@"div.plc").first().attr(@"id");
-            detail.creatorName = (NSString *)node.Query(@"ul.authi").first().text();
-            detail.homepage = (NSString *)node.Query(@"a").first().attr(@"href");
-            detail.createTime = (NSString *)node.Query(@"li.grey rela").first().text();
+            NSString *idString = (NSString *)node.attr(@"id");
+            detail.threadID = [idString substringFromIndex:3];
+            detail.creatorName = (NSString *)node.Query(@".blue").first().text();
+            detail.homepage = (NSString *)node.Query(@".blue").first().attr(@"href");
+            detail.createTime = (NSString *)node.Query(@".rela").first().text();
+            detail.content = (NSString *)node.Query(@".message").first().text();
+            NSLog(@"%@",detail.content);
             [threadDetailArray addObject:detail];
         }
     }

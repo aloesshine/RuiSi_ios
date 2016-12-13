@@ -162,7 +162,7 @@
 
 - (NSURLSessionDataTask *)getThreadDetailListWithTid:(NSString *)tid page:(NSInteger)page success:(void (^)(ThreadDetailList *))success failure:(void (^)(NSError *))failure {
     NSDictionary *parameters = @{
-                       @"mode":@"viewthread",
+                       @"mod":@"viewthread",
                        @"tid":tid,
                        @"page":@(page),
                        @"mobile":@"2"
