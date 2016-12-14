@@ -55,7 +55,7 @@
             detail.creatorName = (NSString *)node.Query(@".blue").first().text();
             detail.homepage = (NSString *)node.Query(@".blue").first().attr(@"href");
             detail.createTime = (NSString *)node.Query(@".rela").first().text();
-            detail.content = (NSString *)node.Query(@".message").first().text();
+            detail.content = (NSString *)node.Query(@".message").first().html();
             NSLog(@"%@",detail.content);
             [threadDetailArray addObject:detail];
         }
