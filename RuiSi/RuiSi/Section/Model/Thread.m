@@ -14,12 +14,6 @@
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict {
     if (self = [super initWithDictionary:dict]) {
-        self.title = [dict objectForKey:@"title"];
-        self.titleURL = [dict objectForKey:@"title_url"];
-        self.author = [dict objectForKey:@"author"];
-        self.hasPic = [dict objectForKey:@"has_pic"];
-        self.reviewCount = [dict objectForKey:@"review_count"];
-        self.tid = [dict objectForKey:@"tid"];
     }
     return self;
 }
@@ -46,12 +40,10 @@
 }
 
 
-+ (ThreadList *)getThreadListWithURL:(NSString *)urlString {
++ (ThreadList *) getThreadListFromResponseObject:(id)responseObject {
     NSMutableArray *elements = [[NSMutableArray alloc] init];
     @autoreleasepool {
-        NSError *error = nil;
-        NSURL *url = [NSURL URLWithString:urlString];
-        NSString *htmlString = [NSString stringWithContentsOfURL: url encoding:NSUTF8StringEncoding error:&error];
+        NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         OCGumboDocument *document = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
         OCGumboNode *element = document.Query(@"body.bg").find(@"div.threadlist").first();
         OCQueryObject *elementArrry = element.Query(@"li");
@@ -62,6 +54,12 @@
             Thread *thread = [[Thread alloc] init];
             thread.reviewCount = (NSString *)ele.Query(@"span.num").text();
             thread.titleURL = (NSString *)ele.Query(@"a").first().attr(@"href");
+            
+            NSString *s1 = @"tid=",*s2 = @"&extra=";
+            NSRange range1 = [thread.titleURL rangeOfString:s1];
+            NSRange range2 = [thread.titleURL rangeOfString:s2];
+            NSRange range = NSMakeRange(range1.location+range1.length, range2.location-range1.location-range1.length);
+            thread.tid = [thread.titleURL substringWithRange:range];
             thread.author = (NSString *)ele.Query(@"a").first().Query(@"span.by").text();
             NSString *title = (NSString *)ele.Query(@"a").text();
             title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet ]];
@@ -70,10 +68,9 @@
             
             [elements addObject:thread];
         }
-
-        
     }
-    ThreadList *list;
+    
+    ThreadList *list ;
     if (elements.count) {
         list = [[ThreadList alloc] init];
         list.list = elements;

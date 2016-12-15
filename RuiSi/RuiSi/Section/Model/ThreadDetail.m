@@ -12,13 +12,14 @@
 @implementation ThreadDetail
 - (instancetype)initWithDictionary:(NSDictionary *)dict {
     if (self = [super init]) {
-        self.threadCreateTime = [dict objectForKey:@"thread_createtime"];
-        self.threadContents = [dict objectForKey:@"contents"];
-        self.threadID = [dict objectForKey:@"id"];
     }
     return self;
 }
 
+
+- (void)configureMember {
+    
+}
 @end
 
 @implementation ThreadDetailList
@@ -39,18 +40,30 @@
     return self.list.count;
 }
 
-+ (ThreadDetailList *)getThreadDetailListWithURL:(NSString *)urlString {
-#warning "Todo"
-    NSMutableArray *elements = [[NSMutableArray alloc] init];
-    ThreadDetailList *list;
+
++ (ThreadDetailList *)getThreadDetailListFromResponseObject:(id)responseObject {
+    NSMutableArray *threadDetailArray = [[NSMutableArray alloc] init];
     @autoreleasepool {
-        NSError *error = nil;
-        NSURL *url = [NSURL URLWithString:urlString];
-        NSString *htmlString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
+        NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        NSLog(@"%@",htmlString);
+        OCGumboDocument *document = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
+        OCQueryObject *elementArray = document.Query(@"body").find(@".postlist").find(@".cl");
+        for(OCGumboNode *node in elementArray) {
+            ThreadDetail *detail = [[ThreadDetail alloc] init];
+            NSString *idString = (NSString *)node.attr(@"id");
+            detail.threadID = [idString substringFromIndex:3];
+            detail.creatorName = (NSString *)node.Query(@".blue").first().text();
+            detail.homepage = (NSString *)node.Query(@".blue").first().attr(@"href");
+            detail.createTime = (NSString *)node.Query(@".rela").first().text();
+            detail.content = (NSString *)node.Query(@".message").first().text();
+            NSLog(@"%@",detail.content);
+            [threadDetailArray addObject:detail];
+        }
     }
-    if (elements.count) {
+    ThreadDetailList *list;
+    if (threadDetailArray.count) {
         list = [[ThreadDetailList alloc] init];
-        list.list = elements;
+        list.list = threadDetailArray;
     }
     return list;
 }

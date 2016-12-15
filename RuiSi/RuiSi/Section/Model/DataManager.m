@@ -10,6 +10,7 @@
 #import "User.h"
 #import "Member.h"
 #import "Constants.h"
+#import "ThreadDetail.h"
 @interface DataManager()
 @property (nonatomic,strong) AFHTTPSessionManager *sessionManager;
 @property (nonatomic,copy) NSString *userAgentMobile;
@@ -25,7 +26,8 @@
         self.userAgentMobile = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
         self.userAgentPC = @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/537.75.14";
         
-        BOOL isLogin = [[[NSUserDefaults standardUserDefaults] objectForKey:kUserIsLogin] boolValue];
+        //BOOL isLogin = [[[NSUserDefaults standardUserDefaults] objectForKey:kUserIsLogin] boolValue];
+        BOOL isLogin = false;
         if (isLogin) {
             User *user = [[User alloc] init];
             user.login = YES;
@@ -103,7 +105,7 @@
         AFHTTPResponseSerializer *responseSerializer = [AFHTTPResponseSerializer serializer];
         self.sessionManager.responseSerializer = responseSerializer;
         task = [self.sessionManager GET:urlString parameters:parameters progress:^(NSProgress *  downloadProgress) {
-            
+            ;
         } success:^(NSURLSessionDataTask *task, id responseObject) {
             responseHandleBlock(task,responseObject);
         }failure:^(NSURLSessionDataTask *task,NSError *error) {
@@ -116,7 +118,7 @@
         AFHTTPResponseSerializer *responseSerializer = [AFHTTPResponseSerializer serializer];
         self.sessionManager.responseSerializer = responseSerializer;
         task = [self.sessionManager POST:urlString parameters:parameters progress:^(NSProgress *  uploadProgress) {
-            
+            ;
         }  success:^(NSURLSessionDataTask *  task, id  responseObject) {
             responseHandleBlock(task,responseObject);
         } failure:^(NSURLSessionDataTask *  task, NSError *  error) {
@@ -128,48 +130,45 @@
     return task;
 }
 
-- (NSURLSessionDataTask *)getThreadListWithFid:(NSString *)fid page:(NSNumber *)page success:(void (^)(ThreadList *))success failure:(void (^)(NSError *))failure {
+- (NSURLSessionDataTask *)getThreadListWithFid:(NSString *)fid page:(NSInteger )page success:(void (^)(ThreadList *))success failure:(void (^)(NSError *))failure {
     NSDictionary *parameters;
-#warning 为每一个SectionCell添加一个fid属性
-    parameters = @{
-                   @"mod":@"forumdisplay",
-                   @"fid":fid,
-                   @"page":page,
-                   @"mobile":@"2"
-                   };
+    if (page) {
+        parameters = @{
+                       @"mod":@"forumdisplay",
+                       @"fid":fid,
+                       @"page":@(page),
+                       @"mobile":@"2"
+                       };
+    } else {
+        parameters = @{
+                       @"mod":@"forumdisplay",
+                       @"fid":fid,
+                       @"mobile":@"2"
+                       };
+    }
     return [self requestWithMethod:RequestMethodHTTPGet urlString:@"forum.php" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-        ThreadList *list = [[ThreadList alloc] initWithArray:responseObject];
-        success(list);
+        ThreadList *list = [ThreadList getThreadListFromResponseObject:responseObject];
+        if (list) {
+            success(list);
+        } else {
+            NSError *error = [[NSError alloc] initWithDomain:self.sessionManager.baseURL.absoluteString code:404 userInfo:nil ];
+            failure(error);
+        }
     } failure:^(NSError *error) {
         failure(error);
     }];
 }
 
-- (NSURLSessionDataTask *)getThreadDetailListWithTid:(NSString *)tid success:(void (^)(ThreadDetailList *))success failure:(void (^)(NSError *))failure {
-    NSDictionary *parameters;
-    parameters = @{
-                   @"mod":@"viewthread",
-                   @"tid":tid,
-                   @"mobile":@"2"
-                   };
-    return [self requestWithMethod:RequestMethodHTTPGet urlString:@"forum.php" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-        ThreadDetailList *detailList = [[ThreadDetailList alloc] initWithArray:responseObject];
-        success(detailList);
-    } failure:^(NSError *error) {
-        failure(error);
-    }];
-}
 
-- (NSURLSessionDataTask *)getMoreThreadDetailListWithTid:(NSString *)tid page:(NSNumber *)page success:(void (^)(ThreadDetailList *))success failure:(void (^)(NSError *))failure {
-    NSDictionary *parameters;
-    parameters = @{
-                   @"mod":@"viewthread",
-                   @"tid":tid,
-                   @"extra":[NSString stringWithFormat:@"page=%@",page],
-                   @"mobile":@"2"
-                   };
+- (NSURLSessionDataTask *)getThreadDetailListWithTid:(NSString *)tid page:(NSInteger)page success:(void (^)(ThreadDetailList *))success failure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{
+                       @"mod":@"viewthread",
+                       @"tid":tid,
+                       @"page":@(page),
+                       @"mobile":@"2"
+                       };
     return [self requestWithMethod:RequestMethodHTTPGet urlString:@"forum.php" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-        ThreadDetailList *detailList = [[ThreadDetailList alloc] initWithArray:responseObject];
+        ThreadDetailList *detailList = [ThreadDetailList getThreadDetailListFromResponseObject:responseObject];
         success(detailList);
     } failure:^(NSError *error) {
         failure(error);
@@ -186,7 +185,7 @@
                    @"mobile":@"2"
                    };
     return [self requestWithMethod:RequestMethodHTTPGet urlString:@"forum.php" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-#warning 为Member添加initWithURL方法
+#warning init member with url
         Member *member = [[Member alloc] init];
         success(member);
     } failure:^(NSError *error) {
@@ -194,7 +193,7 @@
     }];
 }
 
-- (NSURLSessionDataTask *)replyCreateWithFid:(NSString *)fid ThreadID:(NSString *)tid ThreadDetailID:(NSString *)pid page:(NSNumber *)page content:(NSString *)content success:(void (^)(ThreadDetail *))success failure:(void (^)(NSError *))failure {
+- (NSURLSessionDataTask *)replyCreateWithFid:(NSString *)fid ThreadID:(NSString *)tid ThreadDetailID:(NSString *)pid page:(NSInteger )page content:(NSString *)content success:(void (^)(ThreadDetail *))success failure:(void (^)(NSError *))failure {
     NSDictionary *parameters;
     parameters = @{
                    @"mod":@"post",
@@ -202,7 +201,7 @@
                    @"fid":fid,
                    @"tid":tid,
                    @"reppost":pid,
-                   @"page":[NSString stringWithFormat:@"%@",page],
+                   @"page":@(page),
                    @"mobile":@"2"
                    };
     return [self requestWithMethod:RequestMethodHTTPPost urlString:@"forum.php" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -215,6 +214,7 @@
 - (NSURLSessionDataTask *)userLoginWithUserName:(NSString *)username password:(NSString *)password success:(void (^)(NSString *))success failure:(void (^)(NSError *))error {
     return nil;
 }
+
 
 
 - (void)UserLogout {

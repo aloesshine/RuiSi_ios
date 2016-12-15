@@ -11,6 +11,7 @@
 #import <AFNetworking.h>
 #import "Thread.h"
 #import "ThreadDetail.h"
+#import "Reply.h"
 static NSString *const kUserIsLogin = @"UserIsLogin";
 static NSString *const kUserName = @"UserName";
 static NSString *const kUserID = @"UserID";
@@ -33,19 +34,16 @@ typedef NS_ENUM(NSInteger,RequestMethod) {
 
 
 - (NSURLSessionDataTask *) getThreadListWithFid:(NSString *)fid
-                                           page:(NSNumber *)page
+                                           page:(NSInteger )page
                                         success:(void (^)(ThreadList *threadList))success
                                         failure:(void (^)(NSError *error))failure;
 
 
+
 - (NSURLSessionDataTask *) getThreadDetailListWithTid:(NSString *)tid
+                                                 page:(NSInteger )page
                                               success:(void (^)(ThreadDetailList *threadDetailList))success
                                               failure:(void (^)(NSError *error))failure;
-
-- (NSURLSessionDataTask *) getMoreThreadDetailListWithTid:(NSString *)tid
-                                                     page:(NSNumber *)page
-                                                  success:(void (^)(ThreadDetailList *list))success
-                                                  failure:(void (^)(NSError *error))failure;
 
 
 - (NSURLSessionDataTask *) getMemberWithUid:(NSString *)uid
@@ -55,7 +53,7 @@ typedef NS_ENUM(NSInteger,RequestMethod) {
 - (NSURLSessionDataTask *) replyCreateWithFid:(NSString *)fid
                                      ThreadID:(NSString *)tid
                                ThreadDetailID:(NSString *)pid
-                                         page:(NSNumber *)page
+                                         page:(NSInteger )page
                                            content:(NSString *)content
                                            success:(void (^)(ThreadDetail *detail))success
                                            failure:(void (^)(NSError *error)) failure;
