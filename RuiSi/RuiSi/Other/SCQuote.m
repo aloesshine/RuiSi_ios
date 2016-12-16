@@ -51,6 +51,9 @@
         case SCQuoteTypeNode:
             typeString = @"node";
             break;
+        case SCQuoteTypeEmotion:
+            typeString = @"emotion";
+            break;
        default:
             break;
     }

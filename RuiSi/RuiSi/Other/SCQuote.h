@@ -18,6 +18,7 @@ typedef NS_ENUM(NSInteger, SCQuoteType) {
     SCQuoteTypeVedio,
     SCQuoteTypeTopic,
     SCQuoteTypeNode,
+    SCQuoteTypeEmotion,
 };
 
 @interface SCQuote : NSObject

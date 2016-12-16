@@ -89,6 +89,7 @@ PODS:
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
   - SVProgressHUD (2.0.3)
+  - TTTAttributedLabel (2.0.0)
 
 DEPENDENCIES:
   - AFNetworking
@@ -101,6 +102,7 @@ DEPENDENCIES:
   - RegexKitLite (~> 4.0)
   - SDWebImage (~> 3.8.2)
   - SVProgressHUD
+  - TTTAttributedLabel (~> 2.0.0)
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -114,7 +116,8 @@ SPEC CHECKSUMS:
   RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
+  TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: f87ff33363c27ca8e26e567401237e27dea2ef8b
+PODFILE CHECKSUM: 1ebaf1ee7b57cb688c602e8c39e239a01c5c3d98
 
 COCOAPODS: 1.0.0
