@@ -8,6 +8,14 @@
 
 #import "BaseModel.h"
 #import "Member.h"
+#import "SCQuote.h"
+
+typedef NS_ENUM(NSInteger,RSContentType) {
+    RSContentTypeString,
+    RSContentTypeImage,
+};
+
+
 @interface ThreadDetail : BaseModel
 @property (nonatomic,strong) NSString *threadID;
 @property (nonatomic,strong) NSString *creatorName;
@@ -29,4 +37,19 @@
 - (instancetype) initWithArray:(NSArray *)array;
 - (NSInteger) countOfList;
 + (ThreadDetailList *)getThreadDetailListFromResponseObject:(id) responseObject;
+@end
+
+
+@interface RSContentBaseModel : NSObject
+@property (nonatomic,assign) RSContentType contentType;
+@end
+
+@interface RSContentStringModel : RSContentBaseModel
+@property (nonatomic,copy) NSAttributedString *attributedString;
+@property (nonatomic,strong) NSArray *quoteArray;
+@end
+
+
+@interface RSContentImageModel : RSContentBaseModel
+@property (nonatomic,strong) SCQuote *imageQuote;
 @end
