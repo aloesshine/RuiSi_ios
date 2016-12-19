@@ -7,6 +7,7 @@
 //
 
 #import "ThreadDetail.h"
+#import "NSString+SCMention.h"
 #import "OCGumbo.h"
 #import "OCGumbo+Query.h"
 @implementation ThreadDetail
@@ -55,7 +56,10 @@
             detail.creatorName = (NSString *)node.Query(@".blue").first().text();
             detail.homepage = (NSString *)node.Query(@".blue").first().attr(@"href");
             detail.createTime = (NSString *)node.Query(@".rela").first().text();
-            detail.content = (NSString *)node.Query(@".message").first().text();
+            detail.content = (NSString *)node.Query(@".message").first().html();
+            detail.quoteArray = [detail.content quoteArray];
+            
+#warning Pase contentArray
             NSLog(@"%@",detail.content);
             [threadDetailArray addObject:detail];
         }
@@ -66,6 +70,41 @@
         list.list = threadDetailArray;
     }
     return list;
+}
+
+@end
+
+
+@implementation RSContentBaseModel
+
+- (instancetype) init {
+    if (self = [super init]) {
+        
+    }
+    return self;
+}
+
+@end
+
+@implementation RSContentStringModel
+
+- (instancetype) init {
+    if (self = [super init]) {
+        self.contentType = RSContentTypeString;
+    }
+    return self;
+}
+
+@end
+
+
+@implementation RSContentImageModel
+
+- (instancetype) init {
+    if (self = [super init]) {
+        self.contentType = RSContentTypeImage;
+    }
+    return self;
 }
 
 @end
