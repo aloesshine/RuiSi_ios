@@ -59,7 +59,27 @@
             detail.content = (NSString *)node.Query(@".message").first().html();
             detail.quoteArray = [detail.content quoteArray];
             
-#warning Pase contentArray
+            
+#warning Parse contentArray
+            NSString *mentionString = detail.content;
+            NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:mentionString];
+            [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, attributedString.length)];
+            [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16] range:NSMakeRange(0, attributedString.length)];
+            NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+            style.lineSpacing = 0.8;
+            [attributedString addAttributes:@{
+                                              NSParagraphStyleAttributeName:style
+                                              }range:NSMakeRange(0, attributedString.length)];
+            
+            NSMutableArray *imageURLs = [[NSMutableArray alloc] init];
+            for (SCQuote *quote in detail.quoteArray) {
+                NSRange range = [mentionString rangeOfString:quote.string];
+                if (range.location != NSNotFound) {
+                    
+                }
+            }
+            
+            
             NSLog(@"%@",detail.content);
             [threadDetailArray addObject:detail];
         }
@@ -70,6 +90,15 @@
         list.list = threadDetailArray;
     }
     return list;
+}
+
+
+- (NSString *) spaceWithLength:(NSUInteger) length {
+    NSString *spaceString = @"";
+    while (spaceString.length < length) {
+        spaceString = [spaceString stringByAppendingString:@" "];
+    }
+    return spaceString;
 }
 
 @end

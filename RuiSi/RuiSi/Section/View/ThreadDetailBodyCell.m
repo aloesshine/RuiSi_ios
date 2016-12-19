@@ -151,6 +151,7 @@ static CGFloat const kBodyFontSize = 16.0f;
                     imageView.contentMode = UIViewContentModeCenter;
 #warning Placeholder image
                     imageView.image = [UIImage imageNamed:@"threadDetail_placeHolder"];
+#warning Replace identifier as image's url
                     [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:imageModel.imageQuote.identifier] options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                         @strongify(self);
                         if (cacheType == SDImageCacheTypeNone && self.reloadCellBlock && finished) {
@@ -177,13 +178,28 @@ static CGFloat const kBodyFontSize = 16.0f;
 }
 
 + (CGSize) imageSizeForKey:(NSString *)key {
-    NSLog(@"imagesize is zero");
-    return CGSizeZero;
+    UIImage *cachedImage = [self imageForKey:key];
+    if (cachedImage) {
+        CGFloat height = cachedImage.size.height;
+        CGFloat width = cachedImage.size.width;
+        if (width > KBodyLabelWidth) {
+            height *= KBodyLabelWidth / width;
+            width = KBodyLabelWidth;
+        }
+        return CGSizeMake(width, height);
+    } else {
+        return CGSizeMake(KBodyLabelWidth, 60);
+    }
 }
 + (UIImage *)imageForKey:(NSString *)key {
-    NSLog(@"need to complete imageForkey");
-    return [[UIImage alloc] init];
+    UIImage *cachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:key];
+    if (!cachedImage) {
+        cachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:key];
+    }
+    return cachedImage;
 }
+
+
 + (CGFloat)getCellHeightWithThreadDetail:(ThreadDetail *)threadDetail {
     return 0;
 }
@@ -202,10 +218,19 @@ static CGFloat const kBodyFontSize = 16.0f;
     SCQuote *quote = [self quoteForIdentifier:url.absoluteString];
     if (quote) {
         if (quote.type == SCQuoteTypeUser) {
-            
+#warning ProfileVC
+        }
+        if (quote.type == SCQuoteTypeImage) {
+#warning ImageBrowser
+        }
+        if (quote.type == SCQuoteTypeLink) {
+#warning WebViewVC
         }
     }
+    
+    
 }
+
 
 
 @end
