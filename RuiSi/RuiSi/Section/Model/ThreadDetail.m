@@ -10,6 +10,10 @@
 #import "NSString+SCMention.h"
 #import "OCGumbo.h"
 #import "OCGumbo+Query.h"
+
+
+
+
 @implementation ThreadDetail
 - (instancetype)initWithDictionary:(NSDictionary *)dict {
     if (self = [super init]) {
@@ -21,6 +25,20 @@
 - (void)configureMember {
     
 }
+
+- (NSString *) spaceWithLength:(NSUInteger) length {
+    NSString *spaceString = @"";
+    while (spaceString.length < length) {
+        spaceString = [spaceString stringByAppendingString:@" "];
+    }
+    return spaceString;
+}
+
+@end
+
+
+@interface ThreadDetailList()
+
 @end
 
 @implementation ThreadDetailList
@@ -40,6 +58,7 @@
 - (NSInteger)countOfList {
     return self.list.count;
 }
+
 
 
 + (ThreadDetailList *)getThreadDetailListFromResponseObject:(id)responseObject {
@@ -75,12 +94,66 @@
             for (SCQuote *quote in detail.quoteArray) {
                 NSRange range = [mentionString rangeOfString:quote.string];
                 if (range.location != NSNotFound) {
-                    
+                    mentionString = [mentionString stringByReplacingOccurrencesOfString:quote.string withString:[detail spaceWithLength:range.length]];
+                    quote.range = range;
+                    if (quote.type == SCQuoteTypeUser) {
+                        [attributedString addAttribute:NSForegroundColorAttributeName value:(id)RGB(0x778087,0.8) range:NSMakeRange(range.location-1,1)];
+                    }
+                } else {
+                    NSString *string = [quote.string stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+                    NSRange range = [mentionString rangeOfString:string];
+                    if (range.location != NSNotFound) {
+                        mentionString = [mentionString stringByReplacingOccurrencesOfString:quote.string withString:[detail spaceWithLength:range.length]];
+                        quote.range = range;
+                    } else {
+                        quote.range = NSMakeRange(0, 0);
+                    }
+                }
+                if (quote.type == SCQuoteTypeImage) {
+                    [imageURLs addObject:quote.identifier];
                 }
             }
             
+            detail.imageURLs = imageURLs;
+            detail.attributedString = attributedString;
             
-            NSLog(@"%@",detail.content);
+            
+            NSMutableArray *contentArray = [[NSMutableArray alloc] init];
+            __block NSUInteger lastStringIndex = 0;
+            __block NSUInteger lastImageQuoteIndex = 0;
+            [detail.quoteArray enumerateObjectsUsingBlock:^(SCQuote *quote, NSUInteger idx, BOOL *stop){
+                if (quote.type == SCQuoteTypeImage) {
+                    if (quote.range.location > lastStringIndex) {
+                        RSContentStringModel *stringModel = [[RSContentStringModel alloc] init];
+                        NSAttributedString *subString = [detail.attributedString attributedSubstringFromRange:NSMakeRange(lastStringIndex, quote.range.location-lastStringIndex)];
+                        NSAttributedString *firstString = [subString attributedSubstringFromRange:NSMakeRange(0, 1)];
+                        NSInteger stringOffset = 0;
+                        if ([firstString.string isEqualToString:@"\n"]) {
+                            stringOffset = 1;
+                            subString = [attributedString attributedSubstringFromRange:NSMakeRange(lastStringIndex+stringOffset, quote.range.location-lastStringIndex)];
+                        }
+                        stringModel.attributedString = subString;
+                        
+                        NSMutableArray *quotes = [[NSMutableArray alloc] init];
+                        for (NSInteger i = lastImageQuoteIndex;i < idx;i++) {
+                            SCQuote *quote = detail.quoteArray[i];
+                            quote.range = NSMakeRange(quote.range.location-lastStringIndex, quote.range.length);
+                            [quotes addObject:quote];
+                        }
+                        if(quotes.count > 0) {
+                            stringModel.quoteArray = quotes;
+                        }
+                        [contentArray addObject:stringModel];
+                    }
+                    RSContentImageModel *imageModel = [[RSContentImageModel alloc] init];
+                    imageModel.imageQuote = quote;
+                    [contentArray addObject:imageModel];
+                    lastImageQuoteIndex = idx+1;
+                    lastStringIndex = quote.range.location+quote.range.length;
+                }
+            }];
+            
+            
             [threadDetailArray addObject:detail];
         }
     }
@@ -93,13 +166,7 @@
 }
 
 
-- (NSString *) spaceWithLength:(NSUInteger) length {
-    NSString *spaceString = @"";
-    while (spaceString.length < length) {
-        spaceString = [spaceString stringByAppendingString:@" "];
-    }
-    return spaceString;
-}
+
 
 @end
 

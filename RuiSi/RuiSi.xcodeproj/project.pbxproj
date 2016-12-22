@@ -185,6 +185,7 @@
 		BB9C7EFE1DF853C200CC30AB /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		BB9C7F001DF8620400CC30AB /* ThreadDetailBodyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadDetailBodyCell.h; sourceTree = "<group>"; };
 		BB9C7F011DF8620400CC30AB /* ThreadDetailBodyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadDetailBodyCell.m; sourceTree = "<group>"; };
+		BBC1E4061E08333D00199BAF /* RuiSi-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RuiSi-Prefix.pch"; sourceTree = "<group>"; };
 		BBCC06691DE312DE0003A6B5 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = ../../../../../../usr/lib/libxml2.2.dylib; sourceTree = "<group>"; };
 		BBF3BFBF1DF1B24F0014F20D /* ThreadDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadDetailViewController.h; sourceTree = "<group>"; };
 		BBF3BFC01DF1B24F0014F20D /* ThreadDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadDetailViewController.m; sourceTree = "<group>"; };
@@ -299,6 +300,7 @@
 		7A997B731DDD74DC00D383B5 /* RuiSi */ = {
 			isa = PBXGroup;
 			children = (
+				BBC1E4061E08333D00199BAF /* RuiSi-Prefix.pch */,
 				7AB4ACA91DDD7DCA00842D6C /* Other */,
 				7AB4ACB21DDD7DCA00842D6C /* Resource */,
 				7AB4ACB61DDD7DCA00842D6C /* Section */,
@@ -955,8 +957,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 97RJ92JQE4;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RuiSi/RuiSi-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/RuiSi/Resource/Plist/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -972,8 +974,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 97RJ92JQE4;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RuiSi/RuiSi-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/RuiSi/Resource/Plist/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

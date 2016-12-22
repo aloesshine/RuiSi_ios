@@ -29,6 +29,7 @@ typedef NS_ENUM(NSInteger,RSContentType) {
 @property (nonatomic,strong) Member *threadCreator;
 
 - (void) configureMember;
+- (NSString *) spaceWithLength:(NSUInteger) length;
 @end
 
 

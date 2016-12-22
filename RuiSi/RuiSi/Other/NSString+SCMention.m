@@ -237,11 +237,6 @@
         
         NSString *mentionString = self;
 
-//        mentionString = [self stringByReplacingOccurrencesOfString:@"<br />" withString:@"\n"];
-//        while ([mentionString rangeOfString:@"\n\n"].location != NSNotFound) {
-//            mentionString = [mentionString stringByReplacingOccurrencesOfString:@"\n\n" withString:@"\n"];
-//        }
-        
         NSError *error = nil;
         HTMLParser *parser = [[HTMLParser alloc] initWithString:[NSString stringWithFormat:@"<body>%@</body>", self] error:&error];
         
@@ -254,7 +249,6 @@
         
         NSArray *aNodes = [bodyNode findChildTags:@"a"];
         
-#warning Todo!!!
         for (HTMLNode *aNode in aNodes) {
             
             NSString *hrefString = [aNode getAttributeNamed:@"href"];
@@ -262,18 +256,16 @@
             SCQuote *quote = [[SCQuote alloc] init];
             
             
-            NSRange range1 = [hrefString rangeOfString:@"home.php?mod=space&uid="];
-            if (range1.location != NSNotFound) {
-                NSRange range2 = [hrefString rangeOfString:@"mobile=2"];
-                NSRange range = NSMakeRange(range1.location + range1.length, range2.location-range1.location);
-                NSString *identifier = [hrefString substringWithRange:range];
+            NSRange range = [hrefString rangeOfString:@"mod=space&uid="];
+            if (range.location != NSNotFound) {
+                NSString *identifier = [aNode getAttributeNamed:@"href"];
                 NSString *atUserName = [aNode rawContents];
                 quote.identifier = identifier;
                 quote.string = atUserName;
                 quote.type = SCQuoteTypeUser;
             }
             
-            NSRange range = [hrefString rangeOfString:@"from=album"];
+            range = [hrefString rangeOfString:@"from=album"];
             if (range.location != NSNotFound) {
                 HTMLNode *node = [aNode findChildTag:@"img"];
                 NSString *identifier = [node getAttributeNamed:@"src"];
@@ -282,148 +274,29 @@
                 quote.type = SCQuoteTypeImage;
             }
             
-            
-            
             if (quote.type == SCQuoteTypeNone) {
                 quote.identifier = hrefString;
                 quote.string = hrefString;
                 quote.type = SCQuoteTypeLink;
             }
             
-//            if ([hrefString hasPrefix:@"/member/"]) {
-//                NSString *identifier = [hrefString stringByReplacingOccurrencesOfString:@"/member/" withString:@""];
-//                quote.identifier = identifier;
-//                quote.string = identifier;
-//                quote.type = SCQuoteTypeUser;
-//                
-//            }
-//            
-//            if ([hrefString hasPrefix:@"/t/"]) {
-//                NSString *identifier = [hrefString stringByReplacingOccurrencesOfString:@"/t/" withString:@""];
-//                quote.identifier = identifier;
-//                quote.string = aNode.allContents;
-//                quote.type = SCQuoteTypeTopic;
-//                
-//            }
-//
-//            if ([hrefString hasPrefix:@"mailto:"]) {
-//                NSString *identifier = [hrefString stringByReplacingOccurrencesOfString:@"mailto:" withString:@""];
-//                quote.identifier = identifier;
-//                quote.string = identifier;
-//                quote.type = SCQuoteTypeEmail;
-//                
-//            }
-//            
-//            if ([hrefString hasSuffix:@"jpeg"] ||
-//                [hrefString hasSuffix:@"png"] ||
-//                [hrefString hasSuffix:@"jpg"] ||
-//                [hrefString hasSuffix:@"gif"]) {
-//                
-//                NSString *identifier = hrefString;
-//                
-//                HTMLNode *imageNode = [aNode findChildTag:@"img"];
-//                identifier = [imageNode getAttributeNamed:@"src"];
-//                
-//                if (!identifier) {
-//                    identifier = hrefString;
-//                }
-//                
-//                quote.string = identifier;
-//
-//                if ([identifier rangeOfString:@"http://www.v2ex.com/i/"].location != NSNotFound) {
-//                    identifier = [identifier stringByReplacingOccurrencesOfString:@"http://www.v2ex.com/i/" withString:@"http://i.v2ex.co/"];
-//                }
-//                
-//                quote.identifier = identifier;
-//                quote.type = SCQuoteTypeImage;
-//
-//            }
-//            
-//            if ([hrefString rangeOfString:@"v2ex.com/t/"].location != NSNotFound) {
-//                NSString *identifier = [hrefString componentsSeparatedByString:@"v2ex.com/t/"].lastObject;
-//                identifier = [identifier componentsSeparatedByString:@"#"].firstObject;
-//                
-//                quote.identifier = identifier;
-//                quote.string = aNode.allContents;
-//                quote.type = SCQuoteTypeTopic;
-//
-//            }
-//            
-////            if ([hrefString rangeOfString:@"v2ex.com/go/"].location != NSNotFound) {
-////                NSString *identifier = [hrefString componentsSeparatedByString:@"v2ex.com/go/"].lastObject;
-////                
-////                quote.identifier = identifier;
-////                quote.string = [NSString stringWithFormat:@"/go/%@", identifier];
-////                quote.type = SCQuoteTypeNode;
-////                
-////            }
-////
-//            if ([hrefString rangeOfString:@"itunes.apple.com"].location != NSNotFound) {
-//                quote.identifier = hrefString;
-//                quote.string = hrefString;
-//                quote.type = SCQuoteTypeAppStore;
-//            }
-//
-//            if (quote.type == SCQuoteTypeNone) {
-//                quote.identifier = hrefString;
-//                quote.string = hrefString;
-//                quote.type = SCQuoteTypeLink;
-//            }
-//            
-//            quote.identifier = [quote.identifier stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//            quote.string = [quote.string stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//            if (!quote.identifier) {
-//                quote.identifier = hrefString;
-//            }
-//            if (!quote.string) {
-//                quote.string = hrefString;
-//            }
             [array addObject:quote];
             
         }
-        
-        
+
         NSArray *emotionNodes = [bodyNode findChildTags:@"img"];
         for(HTMLNode *emotionNode in emotionNodes) {
-            SCQuote *quote = [[SCQuote alloc] init];
-            NSString *scrString = [emotionNode getAttributeNamed:@"src"];
-            quote.identifier = [emotionNode getAttributeNamed:@"smilieid"];
-            quote.string = scrString;
-            quote.type = SCQuoteTypeEmotion;
-            [array addObject:quote];
+            NSString *srcString = [emotionNode getAttributeNamed:@"src"];
+            NSRange range = [srcString rangeOfString:@"static/image/smiley"];
+            if (range.location != NSNotFound) {
+                SCQuote *quote = [[SCQuote alloc] init];
+                quote.identifier = srcString;
+                quote.string = srcString;
+                quote.type = SCQuoteTypeEmotion;
+                [array addObject:quote];
+            }
         }
-        
-//        NSArray *embedNodes = [bodyNode findChildTags:@"embed"];
-//
-//        for (HTMLNode *embedNode in embedNodes) {
-//            
-//            NSString *srcString = [embedNode getAttributeNamed:@"src"];
-//            srcString = [srcString componentsSeparatedByString:@"?"].firstObject;
-//            
-//            SCQuote *quote = [[SCQuote alloc] init];
-//            
-//            if (srcString.length >  0) {
-//                quote.identifier = srcString;
-//                quote.string = srcString;
-//                quote.type = SCQuoteTypeVedio;
-//                
-//            }
-//            
-//            if (quote.type == SCQuoteTypeNone) {
-//                quote.identifier = srcString;
-//                quote.string = srcString;
-//                quote.type = SCQuoteTypeLink;
-//            }
-//            
-//            quote.identifier = [quote.identifier stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//            quote.string = [quote.string stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//            [array addObject:quote];
-//            
-//        }
-        
     }
-    
-    
     return array;
     
 }
