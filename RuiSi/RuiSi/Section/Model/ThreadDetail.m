@@ -68,18 +68,27 @@
         NSLog(@"%@",htmlString);
         OCGumboDocument *document = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
         OCQueryObject *elementArray = document.Query(@"body").find(@".postlist").find(@".cl");
-        for(OCGumboNode *node in elementArray) {
+
+        NSInteger countOfArray = [elementArray count];
+        // 暂时移除最后一个元素
+        //for(OCGumboNode *node in elementArray)
+        for (int i = 0; i < countOfArray-1;i++)
+        {
+            OCGumboNode *node = [elementArray objectAtIndex:i];
+            NSInteger index = [elementArray indexOfObject:node];
+            if (index <= countOfArray-1 ) {
+                
+            }
             ThreadDetail *detail = [[ThreadDetail alloc] init];
             NSString *idString = (NSString *)node.attr(@"id");
             detail.threadID = [idString substringFromIndex:3];
             detail.creatorName = (NSString *)node.Query(@".blue").first().text();
             detail.homepage = (NSString *)node.Query(@".blue").first().attr(@"href");
-            detail.createTime = (NSString *)node.Query(@".rela").first().text();
+            detail.createTime = (NSString *)node.Query(@".rela").textArray().lastObject;
             detail.content = (NSString *)node.Query(@".message").first().html();
             detail.quoteArray = [detail.content quoteArray];
+            detail.threadCreator = [Member getMemberWithHomepage:detail.homepage];
             
-            
-#warning Parse contentArray
             NSString *mentionString = detail.content;
             NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:mentionString];
             [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, attributedString.length)];
@@ -110,6 +119,9 @@
                     }
                 }
                 if (quote.type == SCQuoteTypeImage) {
+                    [imageURLs addObject:quote.identifier];
+                }
+                if (quote.type == SCQuoteTypeEmotion) {
                     [imageURLs addObject:quote.identifier];
                 }
             }
@@ -153,7 +165,35 @@
                 }
             }];
             
+            if(lastStringIndex < attributedString.length) {
+                RSContentStringModel *stringModel = [[RSContentStringModel alloc] init];
+                NSAttributedString *subString = [attributedString attributedSubstringFromRange:NSMakeRange(lastStringIndex, attributedString.length-lastStringIndex)];
+                NSAttributedString *firstString = [subString attributedSubstringFromRange:NSMakeRange(0, 1)];
+                NSInteger stringOffset = 0;
+                if ([firstString.string isEqualToString:@"\n"]) {
+                    stringOffset = 1;
+                    subString = [attributedString attributedSubstringFromRange:NSMakeRange(lastStringIndex+stringOffset, attributedString.length-lastStringIndex-stringOffset)];
+                }
+                stringModel.attributedString = subString;
+                
+                NSMutableArray *quotes = [[NSMutableArray alloc] init];
+                for(NSInteger i = lastImageQuoteIndex;i < detail.quoteArray.count;i++) {
+                    SCQuote *otherQuote = detail.quoteArray[i];
+                    NSInteger location = otherQuote.range.location - lastStringIndex - stringOffset;
+                    if (location >= 0) {
+                        otherQuote.range = NSMakeRange(location, otherQuote.range.length);
+                    } else {
+                        otherQuote.range = NSMakeRange(0, 0);
+                    }
+                    [quotes addObject:detail.quoteArray[i]];
+                }
+                if (quotes.count > 0) {
+                    stringModel.quoteArray = quotes;
+                }
+                [contentArray addObject:stringModel];
+            }
             
+            detail.contentsArray = contentArray;
             [threadDetailArray addObject:detail];
         }
     }

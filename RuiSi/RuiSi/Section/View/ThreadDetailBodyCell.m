@@ -150,7 +150,7 @@ static CGFloat const kBodyFontSize = 16.0f;
                     imageView.backgroundColor = [UIColor whiteColor];
                     imageView.contentMode = UIViewContentModeCenter;
 #warning Placeholder image
-                    imageView.image = [UIImage imageNamed:@"threadDetail_placeHolder"];
+                    //imageView.image = [UIImage imageNamed:@"threadDetail_placeHolder"];
 #warning Replace identifier as image's url
                     [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:imageModel.imageQuote.identifier] options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                         @strongify(self);

@@ -11,7 +11,8 @@
 #import "SCQuote.h"
 #import <RegexKitLite.h>
 #import <HTMLParser.h>
-
+#import "Constants.h"
+#import "DataManager.h"
 @implementation NSString (SCMention)
 
 - (NSString *)enumerateMetionObjectsUsingBlock:(void (^)(id object, NSRange range))block {
@@ -245,7 +246,7 @@
         }
         
         HTMLNode *bodyNode = [parser body];
-        mentionString = bodyNode.allContents;
+        //mentionString = bodyNode.allContents;
         
         NSArray *aNodes = [bodyNode findChildTags:@"a"];
         
@@ -290,7 +291,13 @@
             NSRange range = [srcString rangeOfString:@"static/image/smiley"];
             if (range.location != NSNotFound) {
                 SCQuote *quote = [[SCQuote alloc] init];
-                quote.identifier = srcString;
+                NSString *imageSource;
+                if ([DataManager isSchoolNet]) {
+                    imageSource = [kSchoolNetURL stringByAppendingString:srcString];
+                } else {
+                    imageSource = [kPublicNetURL stringByAppendingString:srcString];
+                }
+                quote.identifier = imageSource;
                 quote.string = srcString;
                 quote.type = SCQuoteTypeEmotion;
                 [array addObject:quote];
