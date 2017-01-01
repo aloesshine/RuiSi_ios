@@ -41,7 +41,6 @@
 
 - (void)setThread:(Thread *)thread {
     self.thread = thread;
-    
     self.titleLabel.text = thread.title;
     self.titleHeight = [Helper getTextHeightWithText:thread.title Font:[UIFont systemFontOfSize:kTitleLabelFont] Width:kTitleLabelWidth] + 1;
 }

@@ -11,9 +11,14 @@
 #import "DataManager.h"
 #import "EXTScope.h"
 #import "MJRefresh.h"
+#import "ThreadDetailTitleCell.h"
+#import "ThreadDetailBodyCell.h"
+#import "Thread.h"
+#import "ThreadDetailInfoCell.h"
 @interface ThreadDetailViewController ()
 
 @property (nonatomic,strong) ThreadDetailList *detailList;
+@property (nonatomic,strong) Thread *thread;
 @property (nonatomic,strong) NSURLSessionDataTask* (^getThreadDetailListBlock)(NSInteger page);
 @property (nonatomic,strong) NSURLSessionDataTask* (^getMoreThreadDetailBlock)(NSInteger page);
 @property (nonatomic,assign) NSInteger currentPage;
@@ -93,5 +98,55 @@
     return [self.detailList countOfList];
 }
 
+- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *titleCellIdentifier = @"titleCellIdentifier";
+    ThreadDetailTitleCell *titleCell = (ThreadDetailTitleCell *)[tableView dequeueReusableCellWithIdentifier:titleCellIdentifier];
+    if (!titleCell) {
+        titleCell = [[ThreadDetailTitleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:titleCellIdentifier];
+        titleCell.navi = self.navigationController;
+    }
+    
+//    static NSString *infoCellIdentifier = @"infoCellIdentifier";
+//    ThreadDetailInfoCell *infoCell = (ThreadDetailInfoCell *)[tableView dequeueReusableCellWithIdentifier:infoCellIdentifier];
+//    if (!infoCell) {
+//        infoCell = [[ThreadDetailInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:infoCellIdentifier];
+//        infoCell.navi = self.navigationController;
+//    }
+    
+    static NSString *bodyCellIdentifier = @"bodyCellIdentifier";
+    ThreadDetailBodyCell *bodyCell = (ThreadDetailBodyCell *)[tableView dequeueReusableCellWithIdentifier:bodyCellIdentifier];
+    if (! bodyCell) {
+        bodyCell = [[ThreadDetailBodyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:bodyCellIdentifier];
+        bodyCell.navi = self.navigationController;
+    }
+    
+    if (indexPath.section == 0) {
+        return [self configureTitleCell:titleCell atIndexPath:indexPath];
+    }
+    
+    if (indexPath.section == 1) {
+        return [self configureBodyCell:bodyCell atIndexPath:indexPath];
+    }
+    return [UITableViewCell new];
+}
+
+#pragma mark - Configure TableViewCell
+- (ThreadDetailTitleCell *) configureTitleCell:(ThreadDetailTitleCell  *)titleCell atIndexPath:(NSIndexPath *)indexPath {
+    titleCell.thread = self.thread;
+    return titleCell;
+}
+
+- (ThreadDetailBodyCell *) configureBodyCell:(ThreadDetailBodyCell *) bodyCell atIndexPath:(NSIndexPath *)indexPath {
+    bodyCell.threadDetail = self.detailList.list[indexPath.row];
+    
+    @weakify(self);
+    [bodyCell setReloadCellBlock:^{
+        @strongify(self);
+        [self.tableView beginUpdates];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView endUpdates];
+    }];
+    return bodyCell;
+}
 
 @end

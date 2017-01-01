@@ -8,6 +8,7 @@
 
 #import "ThreadDetailBodyCell.h"
 
+
 @interface ThreadDetailBodyCell()
 
 @end
