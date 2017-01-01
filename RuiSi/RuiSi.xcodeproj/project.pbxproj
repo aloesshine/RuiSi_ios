@@ -60,6 +60,9 @@
 		BB9C7F021DF8620400CC30AB /* ThreadDetailBodyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB9C7F011DF8620400CC30AB /* ThreadDetailBodyCell.m */; };
 		BBCC066A1DE312DE0003A6B5 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCC06691DE312DE0003A6B5 /* libxml2.2.dylib */; };
 		BBF3BFC11DF1B24F0014F20D /* ThreadDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF3BFC01DF1B24F0014F20D /* ThreadDetailViewController.m */; };
+		BBF8D7511E01AFC80015D568 /* NSString+SCMention.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF8D74C1E01AFC80015D568 /* NSString+SCMention.m */; };
+		BBF8D7521E01AFC80015D568 /* SCMetionTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF8D74E1E01AFC80015D568 /* SCMetionTextView.m */; };
+		BBF8D7531E01AFC80015D568 /* SCQuote.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF8D7501E01AFC80015D568 /* SCQuote.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -182,9 +185,16 @@
 		BB9C7EFE1DF853C200CC30AB /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		BB9C7F001DF8620400CC30AB /* ThreadDetailBodyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadDetailBodyCell.h; sourceTree = "<group>"; };
 		BB9C7F011DF8620400CC30AB /* ThreadDetailBodyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadDetailBodyCell.m; sourceTree = "<group>"; };
+		BBC1E4061E08333D00199BAF /* RuiSi-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RuiSi-Prefix.pch"; sourceTree = "<group>"; };
 		BBCC06691DE312DE0003A6B5 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = ../../../../../../usr/lib/libxml2.2.dylib; sourceTree = "<group>"; };
 		BBF3BFBF1DF1B24F0014F20D /* ThreadDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadDetailViewController.h; sourceTree = "<group>"; };
 		BBF3BFC01DF1B24F0014F20D /* ThreadDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadDetailViewController.m; sourceTree = "<group>"; };
+		BBF8D74B1E01AFC80015D568 /* NSString+SCMention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SCMention.h"; sourceTree = "<group>"; };
+		BBF8D74C1E01AFC80015D568 /* NSString+SCMention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SCMention.m"; sourceTree = "<group>"; };
+		BBF8D74D1E01AFC80015D568 /* SCMetionTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMetionTextView.h; sourceTree = "<group>"; };
+		BBF8D74E1E01AFC80015D568 /* SCMetionTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMetionTextView.m; sourceTree = "<group>"; };
+		BBF8D74F1E01AFC80015D568 /* SCQuote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCQuote.h; sourceTree = "<group>"; };
+		BBF8D7501E01AFC80015D568 /* SCQuote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCQuote.m; sourceTree = "<group>"; };
 		E7D095EC90ED6A2807A21590 /* libPods-RuiSi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RuiSi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -290,6 +300,7 @@
 		7A997B731DDD74DC00D383B5 /* RuiSi */ = {
 			isa = PBXGroup;
 			children = (
+				BBC1E4061E08333D00199BAF /* RuiSi-Prefix.pch */,
 				7AB4ACA91DDD7DCA00842D6C /* Other */,
 				7AB4ACB21DDD7DCA00842D6C /* Resource */,
 				7AB4ACB61DDD7DCA00842D6C /* Section */,
@@ -322,6 +333,7 @@
 		7AB4ACA91DDD7DCA00842D6C /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				BBF8D7541E01AFD00015D568 /* SCMentionTextView */,
 				7AB4ACAA1DDD7DCA00842D6C /* AppDelegate.h */,
 				7AB4ACAB1DDD7DCA00842D6C /* AppDelegate.m */,
 				7AB4ACAC1DDD7DCA00842D6C /* main.m */,
@@ -492,6 +504,19 @@
 				BB9C7F011DF8620400CC30AB /* ThreadDetailBodyCell.m */,
 			);
 			name = Detail;
+			sourceTree = "<group>";
+		};
+		BBF8D7541E01AFD00015D568 /* SCMentionTextView */ = {
+			isa = PBXGroup;
+			children = (
+				BBF8D74B1E01AFC80015D568 /* NSString+SCMention.h */,
+				BBF8D74C1E01AFC80015D568 /* NSString+SCMention.m */,
+				BBF8D74D1E01AFC80015D568 /* SCMetionTextView.h */,
+				BBF8D74E1E01AFC80015D568 /* SCMetionTextView.m */,
+				BBF8D74F1E01AFC80015D568 /* SCQuote.h */,
+				BBF8D7501E01AFC80015D568 /* SCQuote.m */,
+			);
+			name = SCMentionTextView;
 			sourceTree = "<group>";
 		};
 		C27B575588EF4B0586C6109E /* Pods */ = {
@@ -757,6 +782,8 @@
 				7A6A80711DEABD2E00B81583 /* OCGumbo.m in Sources */,
 				BB0BDE8B1DEC8A36001B2A89 /* User.m in Sources */,
 				BB0A95DA1DF71F84009B6F7D /* Helper.m in Sources */,
+				BBF8D7521E01AFC80015D568 /* SCMetionTextView.m in Sources */,
+				BBF8D7531E01AFC80015D568 /* SCQuote.m in Sources */,
 				7AB4ACBE1DDD7DCA00842D6C /* AppDelegate.m in Sources */,
 				7AB4ACC31DDD9C6000842D6C /* SectionViewController.m in Sources */,
 				BB31CCED1DE8B41300FB70A6 /* AboutMeHeaderViewCell.m in Sources */,
@@ -766,6 +793,7 @@
 				7A6A80961DEABD4800B81583 /* parser.c in Sources */,
 				7A6A809B1DEABD4800B81583 /* tokenizer.c in Sources */,
 				BB0F8C641DF06E29006D11E2 /* BaseModel.m in Sources */,
+				BBF8D7511E01AFC80015D568 /* NSString+SCMention.m in Sources */,
 				7A6A80701DEABD2E00B81583 /* OCGumbo+Query.m in Sources */,
 				BB77FC881DF4629A00610731 /* Reply.m in Sources */,
 				BB0A95DD1DF7234B009B6F7D /* ThreadDetailInfoCell.m in Sources */,
@@ -929,8 +957,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 97RJ92JQE4;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RuiSi/RuiSi-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/RuiSi/Resource/Plist/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -946,8 +974,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 97RJ92JQE4;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RuiSi/RuiSi-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/RuiSi/Resource/Plist/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

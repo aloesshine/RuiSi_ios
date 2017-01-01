@@ -84,10 +84,12 @@ PODS:
   - Masonry (1.0.2)
   - MJRefresh (3.1.12)
   - Objective-C-HMTL-Parser (0.0.1)
+  - RegexKitLite (4.0)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
   - SVProgressHUD (2.0.3)
+  - TTTAttributedLabel (2.0.0)
 
 DEPENDENCIES:
   - AFNetworking
@@ -97,8 +99,10 @@ DEPENDENCIES:
   - Masonry
   - MJRefresh (~> 3.1.12)
   - Objective-C-HMTL-Parser
+  - RegexKitLite (~> 4.0)
   - SDWebImage (~> 3.8.2)
   - SVProgressHUD
+  - TTTAttributedLabel (~> 2.0.0)
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -109,9 +113,11 @@ SPEC CHECKSUMS:
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   Objective-C-HMTL-Parser: cc468311d0ae434646c56aae3b62426977f19ca0
+  RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
+  TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 03a7c26267d2792f058dc50b7971365530f86aa8
+PODFILE CHECKSUM: 1ebaf1ee7b57cb688c602e8c39e239a01c5c3d98
 
 COCOAPODS: 1.0.0

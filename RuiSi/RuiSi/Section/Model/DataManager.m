@@ -35,7 +35,7 @@
             user.member = member;
             user.member.memberName = [[NSUserDefaults standardUserDefaults] valueForKey:kUserName];
             user.member.memberUid = [[NSUserDefaults standardUserDefaults] valueForKey:kUserID];
-            user.member.memberAvatarMiddle = [[NSUserDefaults standardUserDefaults] valueForKey:kUserAvatarURL];
+            user.member.memberAvatarSmall = [[NSUserDefaults standardUserDefaults] valueForKey:kUserAvatarURL];
             _user = user;
         }
         [self setBaseURL];
@@ -62,7 +62,7 @@
         self.user.login = YES;
         [userDefaults setObject:user.member.memberName forKey:kUserName];
         [userDefaults setObject:user.member.memberUid forKey:kUserID];
-        [userDefaults setObject:user.member.memberAvatarMiddle forKey:kUserAvatarURL];
+        [userDefaults setObject:user.member.memberAvatarSmall forKey:kUserAvatarURL];
         [userDefaults setObject:@"YES" forKey:kUserIsLogin];
         [userDefaults synchronize];
     } else {
