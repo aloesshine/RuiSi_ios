@@ -134,12 +134,14 @@ NSString *kShowThreadDetail = @"showThreadDetail";
         ThreadDetailViewController *threadDetailViewController =  [navController.viewControllers firstObject];
         NSIndexPath *index = [self.tableView indexPathForSelectedRow];
         Thread *thread = [self.threadList.list objectAtIndex:[index row]];
+        threadDetailViewController.thread = thread;
         threadDetailViewController.tid = thread.tid;
     }
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self performSegueWithIdentifier:kShowThreadDetail sender:indexPath];
 }
 

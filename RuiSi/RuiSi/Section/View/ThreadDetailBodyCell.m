@@ -54,8 +54,11 @@ static CGFloat const kBodyFontSize = 16.0f;
     
 }
 
+- (void)configureTDWithThreadDetail:(ThreadDetail *)threadDetail {
+    self.threadDetail = threadDetail;
+}
 - (TTTAttributedLabel *) createAttributedLabel {
-    TTTAttributedLabel *attributedLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
+    TTTAttributedLabel *attributedLabel = [TTTAttributedLabel new];
     attributedLabel.textColor = [UIColor blackColor];
     attributedLabel.font = [UIFont systemFontOfSize:kBodyFontSize];
     attributedLabel.numberOfLines = 1;

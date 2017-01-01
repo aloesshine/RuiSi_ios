@@ -65,7 +65,7 @@
     NSMutableArray *threadDetailArray = [[NSMutableArray alloc] init];
     @autoreleasepool {
         NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        NSLog(@"%@",htmlString);
+        //NSLog(@"%@",htmlString);
         OCGumboDocument *document = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
         OCQueryObject *elementArray = document.Query(@"body").find(@".postlist").find(@".cl");
 

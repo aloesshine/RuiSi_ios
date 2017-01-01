@@ -18,7 +18,6 @@
 @interface ThreadDetailViewController ()
 
 @property (nonatomic,strong) ThreadDetailList *detailList;
-@property (nonatomic,strong) Thread *thread;
 @property (nonatomic,strong) NSURLSessionDataTask* (^getThreadDetailListBlock)(NSInteger page);
 @property (nonatomic,strong) NSURLSessionDataTask* (^getMoreThreadDetailBlock)(NSInteger page);
 @property (nonatomic,assign) NSInteger currentPage;
@@ -28,6 +27,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationController.navigationBar.translucent = NO;
+    
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.currentPage = 1;
     [self configureRefresh];
     [self configueBlocks];
@@ -74,33 +76,35 @@
             [detailLists addObjectsFromArray:threadDetailList.list];
             self.detailList.list = [NSArray arrayWithArray:detailLists];
             [self.tableView reloadData];
-
         } failure:^(NSError *error) {
             ;
         }];
     };
 }
 
+
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"tableViewCell"];
-    return cell;
-}
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return [self.detailList countOfList];
+    if (section == 0) {
+        return 1;
+    } else {
+        return self.detailList.countOfList;
+    }
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -111,13 +115,6 @@
         titleCell.navi = self.navigationController;
     }
     
-//    static NSString *infoCellIdentifier = @"infoCellIdentifier";
-//    ThreadDetailInfoCell *infoCell = (ThreadDetailInfoCell *)[tableView dequeueReusableCellWithIdentifier:infoCellIdentifier];
-//    if (!infoCell) {
-//        infoCell = [[ThreadDetailInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:infoCellIdentifier];
-//        infoCell.navi = self.navigationController;
-//    }
-    
     static NSString *bodyCellIdentifier = @"bodyCellIdentifier";
     ThreadDetailBodyCell *bodyCell = (ThreadDetailBodyCell *)[tableView dequeueReusableCellWithIdentifier:bodyCellIdentifier];
     if (! bodyCell) {
@@ -126,7 +123,7 @@
     }
     
     if (indexPath.section == 0) {
-        return [self configureTitleCell:titleCell atIndexPath:indexPath];
+            return [self configureTitleCell:titleCell atIndexPath:indexPath];
     }
     
     if (indexPath.section == 1) {
@@ -137,13 +134,15 @@
 
 #pragma mark - Configure TableViewCell
 - (ThreadDetailTitleCell *) configureTitleCell:(ThreadDetailTitleCell  *)titleCell atIndexPath:(NSIndexPath *)indexPath {
-    titleCell.thread = self.thread;
+    [titleCell configureTitlelabelWithThread:self.thread];
     return titleCell;
 }
 
 - (ThreadDetailBodyCell *) configureBodyCell:(ThreadDetailBodyCell *) bodyCell atIndexPath:(NSIndexPath *)indexPath {
-    bodyCell.threadDetail = self.detailList.list[indexPath.row];
-    
+
+    [bodyCell configureTDWithThreadDetail:self.detailList.list[indexPath.row]];
+    ThreadDetail *detail = self.detailList.list[indexPath.row];
+    NSLog(@"%@",detail.attributedString);
     @weakify(self);
     [bodyCell setReloadCellBlock:^{
         @strongify(self);
@@ -153,5 +152,6 @@
     }];
     return bodyCell;
 }
+
 
 @end
