@@ -139,9 +139,8 @@
 }
 
 - (ThreadDetailBodyCell *) configureBodyCell:(ThreadDetailBodyCell *) bodyCell atIndexPath:(NSIndexPath *)indexPath {
-
-    [bodyCell configureTDWithThreadDetail:self.detailList.list[indexPath.row]];
     ThreadDetail *detail = self.detailList.list[indexPath.row];
+    [bodyCell configureTDWithThreadDetail:detail];
     NSLog(@"%@",detail.attributedString);
     @weakify(self);
     [bodyCell setReloadCellBlock:^{

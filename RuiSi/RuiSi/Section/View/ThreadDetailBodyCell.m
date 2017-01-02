@@ -59,9 +59,10 @@ static CGFloat const kBodyFontSize = 16.0f;
 }
 - (TTTAttributedLabel *) createAttributedLabel {
     TTTAttributedLabel *attributedLabel = [TTTAttributedLabel new];
+    attributedLabel.backgroundColor = [UIColor clearColor];
     attributedLabel.textColor = [UIColor blackColor];
     attributedLabel.font = [UIFont systemFontOfSize:kBodyFontSize];
-    attributedLabel.numberOfLines = 1;
+    attributedLabel.numberOfLines = 0;
     attributedLabel.lineBreakMode = NSLineBreakByWordWrapping;
     attributedLabel.delegate = self;
     [self addSubview:attributedLabel];
@@ -69,7 +70,8 @@ static CGFloat const kBodyFontSize = 16.0f;
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.lineSpacing = 0.8;
     attributedLabel.linkAttributes = @{
-                                       NSForegroundColorAttributeName:[UIColor blueColor],                                       NSFontAttributeName: [UIFont systemFontOfSize:kBodyFontSize],
+                                       NSForegroundColorAttributeName:[UIColor blueColor],
+                                       NSFontAttributeName: [UIFont systemFontOfSize:kBodyFontSize],
                                        NSParagraphStyleAttributeName: style
                                        };
     attributedLabel.activeLinkAttributes = @{
@@ -85,6 +87,7 @@ static CGFloat const kBodyFontSize = 16.0f;
 - (UIImageView *) createImageView {
     UIImageView *imageView = [[UIImageView alloc] init];
     imageView.backgroundColor = [UIColor whiteColor];
+    imageView.contentMode = UIViewContentModeCenter;
     imageView.clipsToBounds = YES;
     [self addSubview:imageView];
     UIButton *button = [[UIButton alloc] init];
@@ -109,7 +112,6 @@ static CGFloat const kBodyFontSize = 16.0f;
         __block NSUInteger imageIndex = 0;
         __block CGFloat offsetY = 10;
         
-#warning init content array
         @weakify(self);
         [self.threadDetail.contentsArray enumerateObjectsUsingBlock:^(RSContentBaseModel  *baseModel, NSUInteger idx, BOOL * _Nonnull stop) {
             @strongify(self);
@@ -156,22 +158,22 @@ static CGFloat const kBodyFontSize = 16.0f;
                     imageView.contentMode = UIViewContentModeCenter;
 #warning Placeholder image
                     //imageView.image = [UIImage imageNamed:@"threadDetail_placeHolder"];
-#warning Replace identifier as image's url
                     [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:imageModel.imageQuote.identifier] options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                         @strongify(self);
                         if (cacheType == SDImageCacheTypeNone && self.reloadCellBlock && finished) {
                             imageView.image = nil;
                             self.reloadCellBlock();
+                        } else {
+                            
                         }
                     }];
                 }
                 offsetY += (imageView.frame.size.height + 7);
                 UIButton *button = self.imageButtonArray[imageIndex];
                 button.frame = imageView.frame;
-                NSUInteger imageIndexNoneBlock = imageIndex;
+                //NSUInteger imageIndexNoneBlock = imageIndex;
                 [button bk_removeAllBlockObservers];
                 [button bk_whenTapped:^{
-                    @strongify(self);
                     NSLog(@"Need to add an image browser.");
                     
                 }];
@@ -206,7 +208,28 @@ static CGFloat const kBodyFontSize = 16.0f;
 
 
 + (CGFloat)getCellHeightWithThreadDetail:(ThreadDetail *)threadDetail {
-    return 0;
+    __block NSInteger bodyHeight = 0;
+    if (threadDetail.contentsArray) {
+        [threadDetail.contentsArray enumerateObjectsUsingBlock:^(RSContentBaseModel *contentModel,NSUInteger idx,BOOL *stop){
+            if (contentModel.contentType == RSContentTypeString) {
+                RSContentStringModel *stringModel = (RSContentStringModel *)contentModel;
+                bodyHeight += [TTTAttributedLabel sizeThatFitsAttributedString:stringModel.attributedString withConstraints:CGSizeMake(KBodyLabelWidth, 0) limitedToNumberOfLines:0].height + 7;
+            }
+            
+            if (contentModel.contentType == RSContentTypeImage) {
+                RSContentImageModel *imageModel = (RSContentImageModel *)contentModel;
+                CGSize imageSize = [[self class] imageSizeForKey:imageModel.imageQuote.identifier];
+                //CGSize imageSize = CGSizeMake(KBodyLabelWidth, 60);
+                bodyHeight += (imageSize.height + 7);
+            }
+        }];
+    } else {
+        bodyHeight = [TTTAttributedLabel sizeThatFitsAttributedString:threadDetail.attributedString withConstraints:CGSizeMake(KBodyLabelWidth, 0) limitedToNumberOfLines:0].height;
+    }
+    if (! threadDetail.content.length) {
+        return 1;
+    }
+    return bodyHeight + 15;
 }
 
 

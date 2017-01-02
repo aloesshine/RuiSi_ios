@@ -55,7 +55,6 @@ static CGFloat const kAvatarHeight = 16.0f;
         
         @weakify(self);
         [self.avatarButton bk_addEventHandler:^(id sender) {
-#warning TODO
             @strongify(self);
             ProfileViewController *profileVC = [[ProfileViewController alloc] init];
             [self.navi pushViewController:profileVC animated:YES];

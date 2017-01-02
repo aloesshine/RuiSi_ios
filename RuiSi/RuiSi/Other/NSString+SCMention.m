@@ -246,7 +246,7 @@
         }
         
         HTMLNode *bodyNode = [parser body];
-        //mentionString = bodyNode.allContents;
+        mentionString = bodyNode.allContents;
         
         NSArray *aNodes = [bodyNode findChildTags:@"a"];
         

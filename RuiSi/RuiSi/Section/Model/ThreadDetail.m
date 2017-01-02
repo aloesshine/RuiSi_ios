@@ -59,13 +59,23 @@
     return self.list.count;
 }
 
-
++ (NSString *) formatHMTLString:(NSString *) htmlString {
+    NSString *string = htmlString;
+    string = [string stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@""];
+    string = [string stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+    string = [string stringByReplacingOccurrencesOfString:@"&quot;" withString:@"\""];
+    
+//    NSRange r ;
+//    while ((r = [string rangeOfString:@"<[^>]+>" options:NSRegularExpressionSearch]).location != NSNotFound) {
+//        string = [string stringByReplacingCharactersInRange:r withString:@""];
+//    }
+    return string;
+}
 
 + (ThreadDetailList *)getThreadDetailListFromResponseObject:(id)responseObject {
     NSMutableArray *threadDetailArray = [[NSMutableArray alloc] init];
     @autoreleasepool {
         NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        //NSLog(@"%@",htmlString);
         OCGumboDocument *document = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
         OCQueryObject *elementArray = document.Query(@"body").find(@".postlist").find(@".cl");
 
@@ -86,6 +96,9 @@
             detail.homepage = (NSString *)node.Query(@".blue").first().attr(@"href");
             detail.createTime = (NSString *)node.Query(@".rela").textArray().lastObject;
             detail.content = (NSString *)node.Query(@".message").first().html();
+            detail.content = [[self class] formatHMTLString:detail.content];
+            NSLog(@"%@",detail.content);
+            
             detail.quoteArray = [detail.content quoteArray];
             detail.threadCreator = [Member getMemberWithHomepage:detail.homepage];
             
