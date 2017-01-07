@@ -139,16 +139,18 @@
 }
 
 - (ThreadDetailBodyCell *) configureBodyCell:(ThreadDetailBodyCell *) bodyCell atIndexPath:(NSIndexPath *)indexPath {
-    ThreadDetail *detail = self.detailList.list[indexPath.row];
-    [bodyCell configureTDWithThreadDetail:detail];
-    NSLog(@"%@",detail.attributedString);
-    @weakify(self);
-    [bodyCell setReloadCellBlock:^{
-        @strongify(self);
-        [self.tableView beginUpdates];
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-        [self.tableView endUpdates];
-    }];
+    if (indexPath.section == 1) {
+        ThreadDetail *detail = self.detailList.list[indexPath.row];
+        [bodyCell configureTDWithThreadDetail:detail];
+        //NSLog(@"%@",detail.attributedString);
+        @weakify(self);
+        [bodyCell setReloadCellBlock:^{
+            @strongify(self);
+            [self.tableView beginUpdates];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            [self.tableView endUpdates];
+        }];
+    }
     return bodyCell;
 }
 

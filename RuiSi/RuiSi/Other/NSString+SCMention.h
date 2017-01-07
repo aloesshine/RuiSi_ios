@@ -16,7 +16,7 @@
 
 - (NSString *)mentionStringFromHtmlString:(NSString *)htmlString;
 
-- (NSArray *)quoteArray;
+- (NSMutableArray *)quoteArray;
 
 @end
 

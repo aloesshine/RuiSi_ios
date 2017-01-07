@@ -19,6 +19,7 @@ typedef NS_ENUM(NSInteger, SCQuoteType) {
     SCQuoteTypeTopic,
     SCQuoteTypeNode,
     SCQuoteTypeEmotion,
+    SCQuoteTypeQuote,
 };
 
 @interface SCQuote : NSObject

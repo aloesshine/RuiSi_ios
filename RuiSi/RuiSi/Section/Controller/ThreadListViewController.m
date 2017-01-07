@@ -132,7 +132,8 @@ NSString *kShowThreadDetail = @"showThreadDetail";
     if ([segue.identifier isEqualToString:kShowThreadDetail]) {
         UINavigationController *navController = segue.destinationViewController;
         ThreadDetailViewController *threadDetailViewController =  [navController.viewControllers firstObject];
-        NSIndexPath *index = [self.tableView indexPathForSelectedRow];
+        //NSIndexPath *index = [self.tableView indexPathForSelectedRow];
+        NSIndexPath *index = (NSIndexPath *)sender;
         Thread *thread = [self.threadList.list objectAtIndex:[index row]];
         threadDetailViewController.thread = thread;
         threadDetailViewController.tid = thread.tid;
