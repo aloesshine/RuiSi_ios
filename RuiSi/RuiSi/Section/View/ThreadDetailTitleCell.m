@@ -57,6 +57,5 @@
     } else {
         return 0;
     }
-    
 }
 @end

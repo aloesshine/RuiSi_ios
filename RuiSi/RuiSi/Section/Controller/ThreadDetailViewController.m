@@ -155,4 +155,16 @@
 }
 
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ThreadDetail *detail = self.detailList.list[indexPath.row];
+    if (indexPath.section == 0) {
+        return [ThreadDetailTitleCell getCellHeightWithThread:self.thread];
+    }
+    if (indexPath.section == 1) {
+        return [ThreadDetailBodyCell getCellHeightWithThreadDetail:detail];
+    }
+    
+    return 0;
+}
+
 @end

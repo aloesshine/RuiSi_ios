@@ -64,11 +64,9 @@
     string = [string stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@""];
     string = [string stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
     string = [string stringByReplacingOccurrencesOfString:@"&quot;" withString:@"\""];
-    
-//    NSRange r ;
-//    while ((r = [string rangeOfString:@"<[^>]+>" options:NSRegularExpressionSearch]).location != NSNotFound) {
-//        string = [string stringByReplacingCharactersInRange:r withString:@""];
-//    }
+    string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
     return string;
 }
 
@@ -85,7 +83,6 @@
         for (int i = 0; i < countOfArray-1;i++)
         {
             OCGumboNode *node = [elementArray objectAtIndex:i];
-            //NSInteger index = [elementArray indexOfObject:node];
 
             ThreadDetail *detail = [[ThreadDetail alloc] init];
             NSString *idString = (NSString *)node.attr(@"id");
@@ -100,6 +97,7 @@
                 detail.pstatus  = node.Query(@".message").find(@".pstatus").first().text();
             }
             detail.content = (NSString *)node.Query(@".message").text();
+            detail.content = [self formatHMTLString:detail.content];
             NSString *contentHTML = (NSString *)node.Query(@".message").first().html();
             
             detail.quoteArray = [contentHTML quoteArray];
@@ -117,23 +115,7 @@
             
             NSMutableArray *imageURLs = [[NSMutableArray alloc] init];
             for (SCQuote *quote in detail.quoteArray) {
-//                NSRange range = [mentionString rangeOfString:quote.string];
-//                if (range.location != NSNotFound) {
-//                    mentionString = [mentionString stringByReplacingOccurrencesOfString:quote.string withString:[detail spaceWithLength:range.length]];
-//                    quote.range = range;
-//                    if (quote.type == SCQuoteTypeUser) {
-//                        [attributedString addAttribute:NSForegroundColorAttributeName value:(id)RGB(0x778087,0.8) range:NSMakeRange(range.location-1,1)];
-//                    }
-//                } else {
-//                    NSString *string = [quote.string stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet  URLHostAllowedCharacterSet]];
-//                    NSRange range = [mentionString rangeOfString:string];
-//                    if (range.location != NSNotFound) {
-//                        mentionString = [mentionString stringByReplacingOccurrencesOfString:quote.string withString:[detail spaceWithLength:range.length]];
-//                        quote.range = range;
-//                    } else {
-//                        quote.range = NSMakeRange(0, 0);
-//                    }
-//                }
+
                 NSRange range = [contentHTML rangeOfString:quote.string];
                 if (range.location != NSNotFound) {
                     quote.range = range;
@@ -201,87 +183,26 @@
             detail.attributedString = attributedString;
             
             NSMutableArray *contentArray = [[NSMutableArray alloc] init];
-            //__block NSUInteger lastStringIndex = 0;
-            __block NSUInteger lastImageQuoteIndex = 0;
+
+            
+            RSContentStringModel *stringModel = [[RSContentStringModel alloc] init];
+            stringModel.attributedString = attributedString;
+            NSMutableArray *quotes = [[NSMutableArray alloc] init];
+            
             [detail.quoteArray enumerateObjectsUsingBlock:^(SCQuote *quote, NSUInteger idx, BOOL *stop){
-//                if (quote.type == SCQuoteTypeImage) {
-//                    if (quote.range.location > lastStringIndex) {
-//                        RSContentStringModel *stringModel = [[RSContentStringModel alloc] init];
-//                        NSAttributedString *subString = [detail.attributedString attributedSubstringFromRange:NSMakeRange(lastStringIndex, quote.range.location-lastStringIndex)];
-//                        NSAttributedString *firstString = [subString attributedSubstringFromRange:NSMakeRange(0, 1)];
-//                        NSInteger stringOffset = 0;
-//                        if ([firstString.string isEqualToString:@"\n"]) {
-//                            stringOffset = 1;
-//                            subString = [attributedString attributedSubstringFromRange:NSMakeRange(lastStringIndex+stringOffset, quote.range.location-lastStringIndex)];
-//                        }
-//                        stringModel.attributedString = subString;
-//                        
-//                        NSMutableArray *quotes = [[NSMutableArray alloc] init];
-//                        for (NSInteger i = lastImageQuoteIndex;i < idx;i++) {
-//                            SCQuote *quote = detail.quoteArray[i];
-//                            quote.range = NSMakeRange(quote.range.location-lastStringIndex, quote.range.length);
-//                            [quotes addObject:quote];
-//                        }
-//                        if(quotes.count > 0) {
-//                            stringModel.quoteArray = quotes;
-//                        }
-//                        [contentArray addObject:stringModel];
-//                    }
-//                    RSContentImageModel *imageModel = [[RSContentImageModel alloc] init];
-//                    imageModel.imageQuote = quote;
-//                    [contentArray addObject:imageModel];
-//                    lastImageQuoteIndex = idx+1;
-//                    lastStringIndex = quote.range.location+quote.range.length;
-//                }
+                if (quote.type == SCQuoteTypeUser) {
+                    [quotes addObject:quote];
+                }
 
                 if (quote.type == SCQuoteTypeImage || quote.type == SCQuoteTypeEmotion) {
                     RSContentImageModel *imageModel = [[RSContentImageModel alloc] init];
                     imageModel.imageQuote = quote;
-                    
-                    RSContentStringModel *stringModel = [[RSContentStringModel alloc] init];
-                    NSAttributedString *string = [[NSAttributedString alloc] initWithString:quote.identifier];
-                    stringModel.attributedString = string;
-                    NSMutableArray *quotes = [[NSMutableArray alloc] init];
-                    for(NSInteger i = lastImageQuoteIndex;i < idx;i++) {
-                        SCQuote *quote = detail.quoteArray[i];
-                        [quotes addObject:quote];
-                    }
-                    if (quotes.count > 0) {
-                        stringModel.quoteArray = quotes;
-                    }
-                    [contentArray addObject:stringModel];
                     [contentArray addObject:imageModel];
-                    lastImageQuoteIndex = idx+1;
                 }
             }];
             
-//            if(lastStringIndex < attributedString.length) {
-//                RSContentStringModel *stringModel = [[RSContentStringModel alloc] init];
-//                NSAttributedString *subString = [attributedString attributedSubstringFromRange:NSMakeRange(lastStringIndex, attributedString.length-lastStringIndex)];
-//                NSAttributedString *firstString = [subString attributedSubstringFromRange:NSMakeRange(0, 1)];
-//                NSInteger stringOffset = 0;
-//                if ([firstString.string isEqualToString:@"\n"]) {
-//                    stringOffset = 1;
-//                    subString = [attributedString attributedSubstringFromRange:NSMakeRange(lastStringIndex+stringOffset, attributedString.length-lastStringIndex-stringOffset)];
-//                }
-//                stringModel.attributedString = subString;
-//                
-//                NSMutableArray *quotes = [[NSMutableArray alloc] init];
-//                for(NSInteger i = lastImageQuoteIndex;i < detail.quoteArray.count;i++) {
-//                    SCQuote *otherQuote = detail.quoteArray[i];
-//                    NSInteger location = otherQuote.range.location - lastStringIndex - stringOffset;
-//                    if (location >= 0) {
-//                        otherQuote.range = NSMakeRange(location, otherQuote.range.length);
-//                    } else {
-//                        otherQuote.range = NSMakeRange(0, 0);
-//                    }
-//                    [quotes addObject:detail.quoteArray[i]];
-//                }
-//                if (quotes.count > 0) {
-//                    stringModel.quoteArray = quotes;
-//                }
-//                [contentArray addObject:stringModel];
-//            }
+            stringModel.quoteArray = quotes;
+            [contentArray addObject:stringModel];
             
             detail.contentsArray = contentArray;
             [threadDetailArray addObject:detail];
@@ -294,7 +215,6 @@
     }
     return list;
 }
-
 
 
 @end
