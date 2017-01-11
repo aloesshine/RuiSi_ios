@@ -10,15 +10,23 @@
 #import "SCQuote.h"
 #import "TTTAttributedLabel.h"
 #import "Constants.h"
+#import "BlocksKit+UIKit.h"
 #import "EXTScope.h"
 #import "SDWebImageManager.h"
 #import "BlocksKit.h"
 #import "UIView+BlocksKit.h"
+#import "UIImageView+WebCache.h"
 static CGFloat const kBodyFontSize = 16.0f;
 #define KBodyLabelWidth (kScreen_Width-20)
-
+static CGFloat const kAvatarHeight = 32.0f;
 
 @interface ThreadDetailBodyCell() <TTTAttributedLabelDelegate>
+@property (nonatomic,strong) UILabel *nameLabel;
+@property (nonatomic,strong) UILabel *timeLabel;
+@property (nonatomic,strong) UIImageView *avatarImageView;
+@property (nonatomic,strong) UIButton *avatarButton;
+
+
 @property (nonatomic,strong) TTTAttributedLabel *bodyLabel;
 @property (nonatomic,assign) NSInteger bodyHeight;
 @property (nonatomic,strong) NSMutableArray *attributedLabelArray;
@@ -38,6 +46,43 @@ static CGFloat const kBodyFontSize = 16.0f;
         self.clipsToBounds = YES;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.backgroundColor = [UIColor whiteColor];
+        
+//        self.avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, kAvatarHeight, kAvatarHeight)];
+        self.avatarImageView = [[UIImageView alloc] init];
+        self.avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
+        self.avatarImageView.layer.cornerRadius = 2;
+        self.avatarImageView.clipsToBounds = YES;
+        [self addSubview:self.avatarImageView];
+        
+        self.avatarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self addSubview:self.avatarButton];
+        
+        
+        //self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10+kAvatarHeight+30, 10, 80, 20)];
+        self.nameLabel = [[UILabel alloc] init];
+        self.nameLabel.backgroundColor = [UIColor clearColor];
+        self.nameLabel.textColor = [UIColor blackColor];
+        self.nameLabel.font = [UIFont boldSystemFontOfSize:14.0];
+        self.nameLabel.textAlignment = NSTextAlignmentCenter;
+        self.nameLabel.layer.cornerRadius = 3.0;
+        self.nameLabel.clipsToBounds = YES;
+        [self addSubview:self.nameLabel];
+        
+        //self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(10+kAvatarHeight+160, 10, 100, 20)];
+        
+        self.timeLabel = [[UILabel alloc] init];
+        self.timeLabel.backgroundColor = [UIColor clearColor];
+        self.timeLabel.textColor = [UIColor blackColor];
+        self.timeLabel.font = [UIFont boldSystemFontOfSize:14.0f];
+        self.nameLabel.textAlignment = NSTextAlignmentRight;
+        [self addSubview:self.nameLabel];
+        
+        @weakify(self);
+        [self.avatarButton bk_addEventHandler:^(id sender) {
+            @strongify(self);
+            NSLog(@"Need to add a profile VC");
+        } forControlEvents:UIControlEventTouchUpInside];
+        
         self.attributedLabelArray = [[NSMutableArray alloc] init];
         self.imageArray = [[NSMutableArray alloc] init];
         self.imageButtonArray = [[NSMutableArray alloc] init];
@@ -46,16 +91,47 @@ static CGFloat const kBodyFontSize = 16.0f;
     return self;
 }
 
-
 - (void) layoutSubviews {
     [super layoutSubviews];
-    self.borderLineView.frame = CGRectMake(10, self.frame.size.height-10, kScreen_Width-20, 0.5);
+    //self.borderLineView.frame = CGRectMake(10, self.frame.size.height-10, kScreen_Width-20, 0.5);
+    
+    self.avatarImageView.frame = (CGRect){10,10,kAvatarHeight,kAvatarHeight};
+    self.avatarButton.frame = (CGRect){0,0,kAvatarHeight+10,kAvatarHeight+10};
+    self.nameLabel.frame = (CGRect){50,12,80,20};
+    self.timeLabel.frame = (CGRect){self.nameLabel.frame.origin.x + self.nameLabel.frame.size.width + 10,12,50,20};
+    self.borderLineView.frame = (CGRect){0, self.frame.size.height-0.5, kScreen_Width, 0.5};
+    
+    @weakify(self);
+    if (self.threadDetail.contentsArray) {
+        [self.imageArray enumerateObjectsUsingBlock:^(UIImageView *imageView, NSUInteger idx, BOOL *  stop) {
+            @strongify(self);
+            if (idx < self.threadDetail.imageURLs.count) {
+                imageView.hidden = NO;
+            } else {
+                imageView.hidden = YES;
+            }
+        }];
+        [self.imageButtonArray enumerateObjectsUsingBlock:^(UIButton *button,NSUInteger idx,BOOL *stop){
+            @strongify(self);
+            if (idx < self.threadDetail.imageURLs.count) {
+                button.hidden = NO;
+            } else {
+                button.hidden = YES;
+            }
+        }];
+    }
+    
     [self layoutContent];
     
 }
 
 - (void)configureTDWithThreadDetail:(ThreadDetail *)threadDetail {
     self.threadDetail = threadDetail;
+    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString: self.threadDetail.threadCreator.memberAvatarSmall] placeholderImage:[UIImage imageNamed:@"noavatar_small"]];
+    [self.nameLabel setText:self.threadDetail.threadCreator.memberName];
+    [self.nameLabel sizeToFit];
+    [self.timeLabel setText:self.threadDetail.createTime];
+    [self.timeLabel sizeToFit];
 }
 - (TTTAttributedLabel *) createAttributedLabel {
     TTTAttributedLabel *attributedLabel = [TTTAttributedLabel new];
@@ -103,14 +179,14 @@ static CGFloat const kBodyFontSize = 16.0f;
         if (! self.bodyLabel.attributedText.length) {
             self.bodyHeight = 0;
         }
-        self.bodyLabel.frame = CGRectMake(10, 5, KBodyLabelWidth, self.bodyHeight);
+        self.bodyLabel.frame = CGRectMake(10, 75, KBodyLabelWidth, self.bodyHeight);
         for(SCQuote *quote in self.threadDetail.quoteArray) {
             [self.bodyLabel addLinkToURL:[NSURL URLWithString:quote.identifier] withRange:quote.range];
         }
     } else {
         __block NSUInteger labelIndex = 0;
         __block NSUInteger imageIndex = 0;
-        __block CGFloat offsetY = 10;
+        __block CGFloat offsetY = 50;
         
         @weakify(self);
         [self.threadDetail.contentsArray enumerateObjectsUsingBlock:^(RSContentBaseModel  *baseModel, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -123,6 +199,7 @@ static CGFloat const kBodyFontSize = 16.0f;
                 } else {
                     label = self.attributedLabelArray[labelIndex];
                 }
+                
                 label.attributedText = stringModel.attributedString;
                 CGFloat labelHeight = [TTTAttributedLabel sizeThatFitsAttributedString:stringModel.attributedString withConstraints:CGSizeMake(KBodyLabelWidth, 0) limitedToNumberOfLines:0].height;
                 if (stringModel.attributedString.length == 0) {
@@ -229,7 +306,13 @@ static CGFloat const kBodyFontSize = 16.0f;
     if (! threadDetail.content.length) {
         return 1;
     }
-    return bodyHeight + 15;
+    CGFloat cellHeight = 50;
+    cellHeight = cellHeight + bodyHeight + 8;
+    if (cellHeight < 60) {
+        return 60;
+    } else {
+        return cellHeight;
+    }
 }
 
 
