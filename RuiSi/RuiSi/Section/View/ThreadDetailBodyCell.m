@@ -16,6 +16,7 @@
 #import "BlocksKit.h"
 #import "UIView+BlocksKit.h"
 #import "UIImageView+WebCache.h"
+#import "ProfileViewController.h"
 static CGFloat const kBodyFontSize = 16.0f;
 #define KBodyLabelWidth (kScreen_Width-20)
 static CGFloat const kAvatarHeight = 32.0f;
@@ -62,8 +63,8 @@ static CGFloat const kAvatarHeight = 32.0f;
         self.nameLabel = [[UILabel alloc] init];
         self.nameLabel.backgroundColor = [UIColor clearColor];
         self.nameLabel.textColor = [UIColor blackColor];
-        self.nameLabel.font = [UIFont boldSystemFontOfSize:14.0];
-        self.nameLabel.textAlignment = NSTextAlignmentCenter;
+        self.nameLabel.font = [UIFont boldSystemFontOfSize:12.0];
+        self.nameLabel.textAlignment = NSTextAlignmentLeft;
         self.nameLabel.layer.cornerRadius = 3.0;
         self.nameLabel.clipsToBounds = YES;
         [self addSubview:self.nameLabel];
@@ -73,14 +74,16 @@ static CGFloat const kAvatarHeight = 32.0f;
         self.timeLabel = [[UILabel alloc] init];
         self.timeLabel.backgroundColor = [UIColor clearColor];
         self.timeLabel.textColor = [UIColor blackColor];
-        self.timeLabel.font = [UIFont boldSystemFontOfSize:14.0f];
+        self.timeLabel.font = [UIFont boldSystemFontOfSize:12.0f];
         self.nameLabel.textAlignment = NSTextAlignmentRight;
         [self addSubview:self.nameLabel];
         
         @weakify(self);
         [self.avatarButton bk_addEventHandler:^(id sender) {
             @strongify(self);
-            NSLog(@"Need to add a profile VC");
+            ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
+            profileViewController.homepage = self.threadDetail.threadCreator.memberHomepage;
+            [self.navi pushViewController:profileViewController animated:YES];
         } forControlEvents:UIControlEventTouchUpInside];
         
         self.attributedLabelArray = [[NSMutableArray alloc] init];
@@ -233,8 +236,6 @@ static CGFloat const kAvatarHeight = 32.0f;
                 } else {
                     imageView.backgroundColor = [UIColor whiteColor];
                     imageView.contentMode = UIViewContentModeCenter;
-#warning Placeholder image
-                    //imageView.image = [UIImage imageNamed:@"threadDetail_placeHolder"];
                     [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:imageModel.imageQuote.identifier] options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                         @strongify(self);
                         if (cacheType == SDImageCacheTypeNone && self.reloadCellBlock && finished) {
@@ -329,7 +330,9 @@ static CGFloat const kAvatarHeight = 32.0f;
     SCQuote *quote = [self quoteForIdentifier:url.absoluteString];
     if (quote) {
         if (quote.type == SCQuoteTypeUser) {
-#warning ProfileVC
+            ProfileViewController *profileVC = [[ProfileViewController alloc] init];
+            profileVC.homepage = quote.identifier;
+            [self.navi pushViewController:profileVC animated:YES];
         }
         if (quote.type == SCQuoteTypeImage) {
 #warning ImageBrowser

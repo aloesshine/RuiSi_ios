@@ -156,11 +156,12 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ThreadDetail *detail = self.detailList.list[indexPath.row];
+    
     if (indexPath.section == 0) {
         return [ThreadDetailTitleCell getCellHeightWithThread:self.thread];
     }
     if (indexPath.section == 1) {
+        ThreadDetail *detail = self.detailList.list[indexPath.row];
         return [ThreadDetailBodyCell getCellHeightWithThreadDetail:detail];
     }
     

@@ -180,11 +180,11 @@
             </objects>
             <point key="canvasLocation" x="1964" y="970"/>
         </scene>
-        <!--Item-->
+        <!--我-->
         <scene sceneID="TEb-YE-Mpa">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Pwc-xc-baa" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="pmN-qh-rDh"/>
+                    <tabBarItem key="tabBarItem" title="我" id="pmN-qh-rDh"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rPb-81-M8a">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>

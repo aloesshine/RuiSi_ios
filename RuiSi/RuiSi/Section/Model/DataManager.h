@@ -62,6 +62,9 @@ typedef NS_ENUM(NSInteger,RequestMethod) {
                                         password:(NSString *)password
                                          success:(void (^)(NSString *message))success
                                          failure:(void (^)(NSError *error)) error;
+
+
+
 - (void) UserLogout;
 
 @end
