@@ -41,8 +41,7 @@
     
     self.avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreen_Width/2-50, 20, 100, 100)];
     
-    NSString *imageURL = [self.user.memberAvatarSmall stringByReplacingOccurrencesOfString:@"size=small" withString:@"size=middle"];
-    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:imageURL] placeholderImage:[UIImage imageNamed:@"default_avatar_middle"]];
+    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:self.user.memberAvatarMiddle] placeholderImage:[UIImage imageNamed:@"default_avatar_middle"]];
     self.avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.avatarImageView.layer.cornerRadius = 50;
     self.avatarImageView.clipsToBounds = YES;

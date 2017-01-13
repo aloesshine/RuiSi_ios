@@ -52,6 +52,9 @@
 		BB3713631DE9163200F0A179 /* AboutMeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3713621DE9163200F0A179 /* AboutMeTableView.m */; };
 		BB3713661DE9230900F0A179 /* AboutMeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3713651DE9230900F0A179 /* AboutMeTableViewCell.m */; };
 		BB3713681DE9247000F0A179 /* AboutMeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB3713671DE9247000F0A179 /* AboutMeTableViewCell.xib */; };
+		BB3AB7791E2921DC001757A2 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3AB7781E2921DC001757A2 /* LogInViewController.m */; };
+		BB3AB77C1E2922D0001757A2 /* CollectionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3AB77B1E2922D0001757A2 /* CollectionsTableViewController.m */; };
+		BB3AB77F1E29396F001757A2 /* Collections.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3AB77E1E29396F001757A2 /* Collections.m */; };
 		BB72A3321DDF55F1007192FE /* SectionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB72A3311DDF55F1007192FE /* SectionCollectionViewCell.xib */; };
 		BB72A3351DDF68C8007192FE /* SectionHeaderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */; };
 		BB77FC881DF4629A00610731 /* Reply.m in Sources */ = {isa = PBXBuildFile; fileRef = BB77FC871DF4629A00610731 /* Reply.m */; };
@@ -174,6 +177,12 @@
 		BB3713641DE9230900F0A179 /* AboutMeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMeTableViewCell.h; sourceTree = "<group>"; };
 		BB3713651DE9230900F0A179 /* AboutMeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMeTableViewCell.m; sourceTree = "<group>"; };
 		BB3713671DE9247000F0A179 /* AboutMeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutMeTableViewCell.xib; sourceTree = "<group>"; };
+		BB3AB7771E2921DC001757A2 /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
+		BB3AB7781E2921DC001757A2 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
+		BB3AB77A1E2922D0001757A2 /* CollectionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionsTableViewController.h; sourceTree = "<group>"; };
+		BB3AB77B1E2922D0001757A2 /* CollectionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionsTableViewController.m; sourceTree = "<group>"; };
+		BB3AB77D1E29396F001757A2 /* Collections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Collections.h; sourceTree = "<group>"; };
+		BB3AB77E1E29396F001757A2 /* Collections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Collections.m; sourceTree = "<group>"; };
 		BB72A3311DDF55F1007192FE /* SectionCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionCollectionViewCell.xib; sourceTree = "<group>"; };
 		BB72A3331DDF68C8007192FE /* SectionHeaderViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionHeaderViewCell.h; sourceTree = "<group>"; };
 		BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionHeaderViewCell.m; sourceTree = "<group>"; };
@@ -391,6 +400,10 @@
 				BBF3BFC01DF1B24F0014F20D /* ThreadDetailViewController.m */,
 				BB9C7EFD1DF853C200CC30AB /* ProfileViewController.h */,
 				BB9C7EFE1DF853C200CC30AB /* ProfileViewController.m */,
+				BB3AB7771E2921DC001757A2 /* LogInViewController.h */,
+				BB3AB7781E2921DC001757A2 /* LogInViewController.m */,
+				BB3AB77A1E2922D0001757A2 /* CollectionsTableViewController.h */,
+				BB3AB77B1E2922D0001757A2 /* CollectionsTableViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -411,6 +424,8 @@
 				BB0F8C691DF07C68006D11E2 /* ThreadDetail.m */,
 				BB77FC861DF4629A00610731 /* Reply.h */,
 				BB77FC871DF4629A00610731 /* Reply.m */,
+				BB3AB77D1E29396F001757A2 /* Collections.h */,
+				BB3AB77E1E29396F001757A2 /* Collections.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -789,8 +804,10 @@
 				BB31CCED1DE8B41300FB70A6 /* AboutMeHeaderViewCell.m in Sources */,
 				7A6563FB1DE719B300E3E1B5 /* Thread.m in Sources */,
 				BB9C7EFF1DF853C200CC30AB /* ProfileViewController.m in Sources */,
+				BB3AB77F1E29396F001757A2 /* Collections.m in Sources */,
 				BB3713601DE915AC00F0A179 /* AboutMeViewController.m in Sources */,
 				7A6A80961DEABD4800B81583 /* parser.c in Sources */,
+				BB3AB77C1E2922D0001757A2 /* CollectionsTableViewController.m in Sources */,
 				7A6A809B1DEABD4800B81583 /* tokenizer.c in Sources */,
 				BB0F8C641DF06E29006D11E2 /* BaseModel.m in Sources */,
 				BBF8D7511E01AFC80015D568 /* NSString+SCMention.m in Sources */,
@@ -815,6 +832,7 @@
 				7A6A809D1DEABD4800B81583 /* util.c in Sources */,
 				7A6A80991DEABD4800B81583 /* tag.c in Sources */,
 				7A6A80921DEABD4800B81583 /* attribute.c in Sources */,
+				BB3AB7791E2921DC001757A2 /* LogInViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -26,6 +26,7 @@
     OCGumboDocument *document = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
     OCGumboNode *avatarNode = document.Query(@"body").find(@".user_avatar").first();
     member.memberAvatarSmall = (NSString *)avatarNode.Query(@".avatar_m").find(@"img").first().attr(@"src");
+    member.memberAvatarMiddle = [member.memberAvatarSmall stringByReplacingOccurrencesOfString:@"size=small" withString:@"size=middle"];
     member.memberHomepage = homepage;
     NSRange range1 = [homepage rangeOfString:@"uid="];
     NSRange range2 = [homepage rangeOfString:@"&mobile=2"];
