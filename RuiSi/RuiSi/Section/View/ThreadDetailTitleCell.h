@@ -10,6 +10,7 @@
 #import "Thread.h"
 @interface ThreadDetailTitleCell : UITableViewCell
 @property (nonatomic,strong) Thread *thread;
-
+@property (nonatomic,assign) UINavigationController *navi;
 +(CGFloat) getCellHeightWithThread:(Thread *)thread;
+- (void) configureTitlelabelWithThread:(Thread *)thread;
 @end

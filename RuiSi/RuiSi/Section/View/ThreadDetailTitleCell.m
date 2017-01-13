@@ -39,9 +39,9 @@
     return self;
 }
 
-- (void)setThread:(Thread *)thread {
+
+- (void) configureTitlelabelWithThread:(Thread *)thread {
     self.thread = thread;
-    
     self.titleLabel.text = thread.title;
     self.titleHeight = [Helper getTextHeightWithText:thread.title Font:[UIFont systemFontOfSize:kTitleLabelFont] Width:kTitleLabelWidth] + 1;
 }
@@ -57,6 +57,5 @@
     } else {
         return 0;
     }
-    
 }
 @end

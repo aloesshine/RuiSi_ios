@@ -28,16 +28,16 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     [super viewDidLoad];
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.85 green:0.13 blue:0.16 alpha:1.0];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    [self initUI];
+    [self setupSubviews];
 }
 
 
-- (void) initUI {
+- (void) setupSubviews {
     self.topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 190)];
     self.topView.backgroundColor = [UIColor colorWithRed:0.85 green:0.13 blue:0.16 alpha:1.0];
     
     self.userIconImage = [[UIImageView alloc] initWithFrame:CGRectMake(kScreen_Width/2-50, 20, 100, 100)];
-    self.userIconImage.image = [UIImage imageNamed:@"tamarous_icon_middle"];
+    self.userIconImage.image = [UIImage imageNamed:@"default_avatar_middle"];
     self.userIconImage.contentMode = UIViewContentModeScaleAspectFill;
     self.userIconImage.layer.cornerRadius = 50;
     self.userIconImage.clipsToBounds = YES;

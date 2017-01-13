@@ -14,4 +14,5 @@
 @property (nonatomic,copy) void (^reloadCellBlock)();
 
 + (CGFloat) getCellHeightWithThreadDetail:(ThreadDetail *)threadDetail;
+- (void) configureTDWithThreadDetail:(ThreadDetail *)threadDetail;
 @end

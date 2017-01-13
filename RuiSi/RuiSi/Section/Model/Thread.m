@@ -50,7 +50,7 @@
         
         for (OCGumboNode *ele in elementArrry)
         {
-            // 坑爹的初始化
+
             Thread *thread = [[Thread alloc] init];
             thread.reviewCount = (NSString *)ele.Query(@"span.num").text();
             thread.titleURL = (NSString *)ele.Query(@"a").first().attr(@"href");

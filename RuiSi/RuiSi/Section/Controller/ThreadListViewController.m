@@ -130,16 +130,17 @@ NSString *kShowThreadDetail = @"showThreadDetail";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:kShowThreadDetail]) {
-        UINavigationController *navController = segue.destinationViewController;
-        ThreadDetailViewController *threadDetailViewController =  [navController.viewControllers firstObject];
-        NSIndexPath *index = [self.tableView indexPathForSelectedRow];
+        ThreadDetailViewController *threadDetailViewController =  segue.destinationViewController;
+        NSIndexPath *index = (NSIndexPath *)sender;
         Thread *thread = [self.threadList.list objectAtIndex:[index row]];
+        threadDetailViewController.thread = thread;
         threadDetailViewController.tid = thread.tid;
     }
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self performSegueWithIdentifier:kShowThreadDetail sender:indexPath];
 }
 
