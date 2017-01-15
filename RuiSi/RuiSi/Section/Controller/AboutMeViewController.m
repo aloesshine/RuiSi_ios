@@ -48,10 +48,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     if (self.isLogged) {
         
     } else {
-        [SVProgressHUD showWithStatus:@"您还未登录，请登陆后再使用"];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD dismissWithDelay:1.2 * NSEC_PER_SEC];
-        });
+        [SVProgressHUD showErrorWithStatus:@"您还未登录，请登陆后再使用"];
     }
 }
 
@@ -76,8 +73,9 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
             profileVC.homepage = self.me.memberHomepage;
             [self.navigationController pushViewController:profileVC animated:YES];
         } else {
-            [self showUnloggedMessage];
-            NSLog(@"show login");
+            //[self showUnloggedMessage];
+            LogInViewController *loginViewController = [[LogInViewController alloc] init];
+            [self presentViewController:loginViewController animated:YES completion:nil];
         }
     }];
     [self.topView addSubview:self.avatarImage];
@@ -135,7 +133,9 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     cell2.iconImageView.image = [UIImage imageNamed:@"icon_mine_collect"];
     [cell2  bk_whenTapped:^{
         if (self.isLogged) {
-            //CollectionsTableViewController *collectionsVC = [[CollectionsTableViewController alloc] init];
+            CollectionsTableViewController *collectionsVC = [[CollectionsTableViewController alloc] init];
+            collectionsVC.uid = self.me.memberUid;
+            [self.navigationController pushViewController:collectionsVC animated:YES];
             NSLog(@"cell2 is tapped");
         } else {
             [self showUnloggedMessage];

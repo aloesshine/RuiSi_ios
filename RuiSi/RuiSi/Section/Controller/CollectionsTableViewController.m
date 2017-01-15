@@ -9,6 +9,9 @@
 #import "CollectionsTableViewController.h"
 #import "EXTScope.h"
 #import "DataManager.h"
+#import "Collections.h"
+#import "Collection.h"
+#import "ThreadDetailViewController.h"
 @interface CollectionsTableViewController ()
 @property (nonatomic,strong) NSArray *collections;
 @property (nonatomic,strong) NSURLSessionDataTask * ( ^ getCollectionsBlock)(NSString *uid);
@@ -45,12 +48,40 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return 0;
+    return self.collections.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *tableViewCell = [self.tableView dequeueReusableCellWithIdentifier:@"tableViewCell"];
+    if (! tableViewCell) {
+        tableViewCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"tableViewCell"];
+    }
+    Collection *collection = [self.collections objectAtIndex:indexPath.row];
+    tableViewCell.textLabel.text = collection.title;
+    tableViewCell.textLabel.font = [UIFont systemFontOfSize:16.0];
+    tableViewCell.textLabel.textAlignment = NSTextAlignmentLeft;
+    [tableViewCell.textLabel sizeToFit];
+    
+    
+    tableViewCell.detailTextLabel.text = collection.spanNum;
+    tableViewCell.detailTextLabel.textColor = [UIColor blueColor];
+    tableViewCell.detailTextLabel.textAlignment = NSTextAlignmentLeft;
+    [tableViewCell.detailTextLabel sizeToFit];
+    
+    return tableViewCell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    ThreadDetailViewController *detailViewController = [[ThreadDetailViewController alloc] init];
+    Collection *col = [self.collections objectAtIndex:indexPath.row];
+    detailViewController.tid = col.tid;
+    [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
 @end

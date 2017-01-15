@@ -10,6 +10,7 @@
 #import "OCGumbo.h"
 #import "OCGumbo+Query.h"
 #import "Constants.h"
+#import "Collection.h"
 @implementation Collections
 + (NSArray *)getCollectionsFromResponseObject:(id)responseObject {
     NSMutableArray *array = [[NSMutableArray alloc] init];
@@ -18,15 +19,20 @@
         OCGumboDocument *document = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
         OCQueryObject *elementArray = document.Query(@"body").find(@".threadlist").find(@"li");
         for (OCGumboNode *node in elementArray) {
-            NSString *string = [[NSString alloc] init];
-            string = (NSString *)node.Query(@"a").first().attr(@"href");
+            Collection *collection = [[Collection alloc] init];
+            NSString *string = (NSString *)node.Query(@"a").first().attr(@"href");
+            NSString *title = (NSString *)node.Query(@"a").first().text();
+            NSString *num = (NSString *)node.Query(@"span").first().text();
             if ([string rangeOfString:@"tid="].location != NSNotFound) {
                 
                 NSRange range1 = [string rangeOfString:@"&mobile=2"];
                 NSRange range2 = [string rangeOfString:@"tid="];
                 NSRange range = NSMakeRange(range1.location-range2.location-range2.length, range1.location-range2.location);
-                NSString *uid = [string substringWithRange:range];
-                [array addObject:uid];
+                NSString *tid = [string substringWithRange:range];
+                collection.tid = tid;
+                collection.title = title;
+                collection.spanNum = num;
+                [array addObject:collection];
             }
         }
     }

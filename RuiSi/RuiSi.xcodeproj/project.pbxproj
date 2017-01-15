@@ -57,6 +57,7 @@
 		BB3AB77F1E29396F001757A2 /* Collections.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3AB77E1E29396F001757A2 /* Collections.m */; };
 		BB72A3321DDF55F1007192FE /* SectionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB72A3311DDF55F1007192FE /* SectionCollectionViewCell.xib */; };
 		BB72A3351DDF68C8007192FE /* SectionHeaderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */; };
+		BB75B9041E2B5A7B00631DD7 /* Collection.m in Sources */ = {isa = PBXBuildFile; fileRef = BB75B9031E2B5A7B00631DD7 /* Collection.m */; };
 		BB77FC881DF4629A00610731 /* Reply.m in Sources */ = {isa = PBXBuildFile; fileRef = BB77FC871DF4629A00610731 /* Reply.m */; };
 		BB928E8A1DEC62FC00855274 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB928E891DEC62FC00855274 /* Main.storyboard */; };
 		BB9C7EFF1DF853C200CC30AB /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB9C7EFE1DF853C200CC30AB /* ProfileViewController.m */; };
@@ -186,6 +187,8 @@
 		BB72A3311DDF55F1007192FE /* SectionCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionCollectionViewCell.xib; sourceTree = "<group>"; };
 		BB72A3331DDF68C8007192FE /* SectionHeaderViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionHeaderViewCell.h; sourceTree = "<group>"; };
 		BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionHeaderViewCell.m; sourceTree = "<group>"; };
+		BB75B9021E2B5A7B00631DD7 /* Collection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Collection.h; sourceTree = "<group>"; };
+		BB75B9031E2B5A7B00631DD7 /* Collection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Collection.m; sourceTree = "<group>"; };
 		BB77FC851DF4468300610731 /* RuiSi-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "RuiSi-Prefix.pch"; path = "RuiSi/Section/Controller/RuiSi-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		BB77FC861DF4629A00610731 /* Reply.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reply.h; sourceTree = "<group>"; };
 		BB77FC871DF4629A00610731 /* Reply.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reply.m; sourceTree = "<group>"; };
@@ -426,6 +429,8 @@
 				BB77FC871DF4629A00610731 /* Reply.m */,
 				BB3AB77D1E29396F001757A2 /* Collections.h */,
 				BB3AB77E1E29396F001757A2 /* Collections.m */,
+				BB75B9021E2B5A7B00631DD7 /* Collection.h */,
+				BB75B9031E2B5A7B00631DD7 /* Collection.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -833,6 +838,7 @@
 				7A6A80991DEABD4800B81583 /* tag.c in Sources */,
 				7A6A80921DEABD4800B81583 /* attribute.c in Sources */,
 				BB3AB7791E2921DC001757A2 /* LogInViewController.m in Sources */,
+				BB75B9041E2B5A7B00631DD7 /* Collection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
