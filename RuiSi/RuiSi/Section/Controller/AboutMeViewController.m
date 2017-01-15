@@ -10,6 +10,13 @@
 #import "AboutMeTableView.h"
 #import "AboutMeHeaderViewCell.h"
 #import "Constants.h"
+#import "Member.h"
+#import "UIView+BlocksKit.h"
+#import "ProfileViewController.h"
+#import "SVProgressHUD.h"
+#import "LogInViewController.h"
+#import "CollectionsTableViewController.h"
+#import "UIImageView+WebCache.h"
 NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
 
 
@@ -17,9 +24,12 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
 @property (nonatomic,strong) AboutMeTableView *tableView;
 @property (nonatomic,strong) UIView *topView;
 @property (nonatomic,strong) UIView *secondView;
-@property (nonatomic,strong) UIImageView *userIconImage;
+@property (nonatomic,strong) UIImageView *avatarImage;
+@property (nonatomic,strong) UIButton *avatarButton;
 @property (nonatomic,strong) UILabel *nameLabel;
 @property (nonatomic,strong) UILabel *levelLabel;
+@property (nonatomic,strong) Member *me;
+@property (nonatomic,assign) BOOL isLogged;
 @end
 
 @implementation AboutMeViewController
@@ -28,7 +38,18 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     [super viewDidLoad];
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.85 green:0.13 blue:0.16 alpha:1.0];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
+    self.isLogged = NO;
     [self setupSubviews];
+    
+}
+
+- (void) showUnloggedMessage {
+    if (self.isLogged) {
+        
+    } else {
+        [SVProgressHUD showErrorWithStatus:@"您还未登录，请登陆后再使用"];
+    }
 }
 
 
@@ -36,16 +57,32 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     self.topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 190)];
     self.topView.backgroundColor = [UIColor colorWithRed:0.85 green:0.13 blue:0.16 alpha:1.0];
     
-    self.userIconImage = [[UIImageView alloc] initWithFrame:CGRectMake(kScreen_Width/2-50, 20, 100, 100)];
-    self.userIconImage.image = [UIImage imageNamed:@"default_avatar_middle"];
-    self.userIconImage.contentMode = UIViewContentModeScaleAspectFill;
-    self.userIconImage.layer.cornerRadius = 50;
-    self.userIconImage.clipsToBounds = YES;
+    self.avatarImage = [[UIImageView alloc] initWithFrame:CGRectMake(kScreen_Width/2-50, 20, 100, 100)];
+    //self.avatarImage.image = [UIImage imageNamed:@"default_avatar_middle"];
+    self.avatarImage.contentMode = UIViewContentModeScaleAspectFill;
+    self.avatarImage.layer.cornerRadius = 50;
+    self.avatarImage.clipsToBounds = YES;
     
-    [self.topView addSubview:self.userIconImage];
+    self.avatarButton = [[UIButton alloc] initWithFrame:self.avatarImage.frame];
+    self.avatarButton.backgroundColor = [UIColor clearColor];
+    [self.topView addSubview:self.avatarButton];
+    
+    [self.avatarButton bk_whenTapped:^{
+        if (self.isLogged) {
+            ProfileViewController *profileVC = [[ProfileViewController alloc] init];
+            profileVC.homepage = self.me.memberHomepage;
+            [self.navigationController pushViewController:profileVC animated:YES];
+        } else {
+            //[self showUnloggedMessage];
+            LogInViewController *loginViewController = [[LogInViewController alloc] init];
+            [self presentViewController:loginViewController animated:YES completion:nil];
+        }
+    }];
+    [self.topView addSubview:self.avatarImage];
     
     self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 130, kScreen_Width, 20)];
-    self.nameLabel.text = @"Tamarous";
+    
+    //self.nameLabel.text = @"Tamarous";
     self.nameLabel.textAlignment = NSTextAlignmentCenter;
     self.nameLabel.font = [UIFont systemFontOfSize:18];
     self.nameLabel.textColor = [UIColor whiteColor];
@@ -55,23 +92,36 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     self.levelLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 160, kScreen_Width, 16)];
     self.levelLabel.textColor = [UIColor whiteColor];
     self.levelLabel.textAlignment = NSTextAlignmentCenter;
-    self.levelLabel.text = @"西电研一";
+    //self.levelLabel.text = @"西电研一";
     self.levelLabel.font = [UIFont systemFontOfSize:16];
     [self.topView addSubview:self.levelLabel];
+    
+    
+    if (self.isLogged) {
+        [self.avatarImage sd_setImageWithURL:[NSURL URLWithString: self.me.memberAvatarMiddle] placeholderImage:[UIImage imageNamed:@"default_avatar_middle"]];
+        self.levelLabel.hidden = YES;
+        self.nameLabel.text = self.me.memberName;
+    } else {
+        self.avatarImage.image = [UIImage imageNamed:@"default_avatar_middle"];
+        self.nameLabel.text = @"请点击头像登录";
+        self.levelLabel.hidden = YES;
+    }
     
     
     self.secondView = [[UIView alloc] initWithFrame:CGRectMake(0, 190, kScreen_Width, 90)];
     self.secondView.backgroundColor = [UIColor whiteColor];
     NSInteger spaceWidth = (kScreen_Width-200)/5;
+    
     NSArray *nibContents1 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
     AboutMeHeaderViewCell *cell1 = [nibContents1 lastObject];
     cell1.frame = CGRectMake(spaceWidth, 5, 50, 80);
-    cell1.introLabel.text = @"浏览历史";
+    cell1.introLabel.text = @"我的消息";
     cell1.introLabel.textAlignment = NSTextAlignmentCenter;
     cell1.introLabel.font = [UIFont systemFontOfSize:16];
     [cell1.introLabel sizeToFit];
-    
     cell1.iconImageView.image = [UIImage imageNamed:@"icon_mine_history"];
+    
+    
     
     NSArray *nibContents2 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
     AboutMeHeaderViewCell *cell2 = [nibContents2 lastObject];
@@ -81,6 +131,18 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     cell2.introLabel.font = [UIFont systemFontOfSize:16];
     [cell2.introLabel sizeToFit];
     cell2.iconImageView.image = [UIImage imageNamed:@"icon_mine_collect"];
+    [cell2  bk_whenTapped:^{
+        if (self.isLogged) {
+            CollectionsTableViewController *collectionsVC = [[CollectionsTableViewController alloc] init];
+            collectionsVC.uid = self.me.memberUid;
+            [self.navigationController pushViewController:collectionsVC animated:YES];
+            NSLog(@"cell2 is tapped");
+        } else {
+            [self showUnloggedMessage];
+            NSLog(@"cell2 is tapped and unlogged");
+        }
+    }];
+    
     
     NSArray *nibContents3 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
     AboutMeHeaderViewCell *cell3 = [nibContents3 lastObject];
@@ -94,11 +156,22 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     NSArray *nibContents4 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
     AboutMeHeaderViewCell *cell4 = [nibContents4 lastObject];
     cell4.frame = CGRectMake(spaceWidth*4+3*50, 5, 50, 80);
-    cell4.introLabel.text = @"我的帖子";
+    cell4.introLabel.text = @"我的资料";
     cell4.introLabel.textAlignment = NSTextAlignmentCenter;
     cell4.introLabel.font = [UIFont systemFontOfSize:16];
     [cell4.introLabel sizeToFit];
     cell4.iconImageView.image = [UIImage imageNamed:@"icon_mine_info"];
+    [cell4 bk_whenTapped:^{
+        if (self.isLogged) {
+            ProfileViewController *profileVC = [[ProfileViewController alloc] init];
+            profileVC.homepage = self.me.memberHomepage;
+            [self.navigationController pushViewController:profileVC animated:YES];
+        } else {
+            [self showUnloggedMessage];
+            NSLog(@"show login.");
+            //[self presentViewController:[LogInViewController new] animated:YES completion:nil];
+        }
+    }];
     
     [self.secondView addSubview:cell1];
     [self.secondView addSubview:cell2];
@@ -110,8 +183,6 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     [self.view addSubview:self.topView];
     [self.view addSubview:self.secondView];
     [self.view addSubview:self.tableView];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {

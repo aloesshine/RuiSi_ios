@@ -65,6 +65,10 @@ typedef NS_ENUM(NSInteger,RequestMethod) {
 
 
 
+- (NSURLSessionDataTask *) getCollectionsWithUid:(NSString *)uid
+                                         success:(void (^)(NSArray *collections))success
+                                         failure:(void (^)(NSError *error))failure;
+
 - (void) UserLogout;
 
 @end
