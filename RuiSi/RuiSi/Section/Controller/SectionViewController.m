@@ -185,6 +185,7 @@ NSString *kshowThreadListSegue = @"showThreadList";
         destViewController.name = titleDict[@"name"];
         destViewController.fid = titleDict[@"fid"];
         destViewController.needToGetMore = YES;
+        destViewController.navigationItem.title = destViewController.name;
         __weak ThreadListViewController *destViewController_ = destViewController;
         destViewController.getThreadListBlock = ^(NSInteger page){
             

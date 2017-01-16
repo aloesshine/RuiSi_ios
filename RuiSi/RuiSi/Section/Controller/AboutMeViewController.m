@@ -138,13 +138,10 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     cell2.iconImageView.image = [UIImage imageNamed:@"icon_mine_collect"];
     [cell2  bk_whenTapped:^{
         if (self.isLogged) {
-//            CollectionsTableViewController *collectionsVC = [[CollectionsTableViewController alloc] init];
-//            collectionsVC.uid = self.me.memberUid;
-//            [self.navigationController pushViewController:collectionsVC animated:YES];
-//            NSLog(@"cell2 is tapped");
             ThreadListViewController *threadListViewController = [[ThreadListViewController alloc] init];
             __weak ThreadListViewController *threadListViewController_ = threadListViewController;
             threadListViewController.needToGetMore = NO;
+            threadListViewController.navigationItem.title = @"我的收藏";
             threadListViewController.getThreadListBlock = ^(NSInteger page) {
                 return [[DataManager manager] getFavoriteThreadListWithUid:self.me.memberUid success:^(ThreadList *threadList) {
                     threadListViewController_.threadList = threadList;
@@ -173,6 +170,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
             ThreadListViewController *threadListViewController = [[ThreadListViewController alloc] init];
             __weak ThreadListViewController *threadListViewController_ = threadListViewController;
             threadListViewController.needToGetMore = NO;
+            threadListViewController.navigationItem.title = @"我的帖子";
             threadListViewController.getThreadListBlock = ^(NSInteger page) {
                 return [[DataManager manager] getThreadListWithUid:self.me.memberUid success:^(ThreadList *threadList) {
                     threadListViewController_.threadList = threadList;

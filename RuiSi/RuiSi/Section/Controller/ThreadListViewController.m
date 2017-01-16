@@ -29,7 +29,7 @@ NSString *kShowThreadDetail = @"showThreadDetail";
     [super viewDidLoad];
     self.currentPage = 1;
     // 设置标题
-    self.navigationItem.title = self.name;
+    //self.navigationItem.title = self.name;
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self configureRefresh];
     
