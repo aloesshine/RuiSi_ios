@@ -20,6 +20,8 @@
 
 @implementation DataManager
 
+
+
 - (instancetype) init {
     if (self = [super init]) {
         
@@ -87,6 +89,8 @@
 + (BOOL)isSchoolNet {
     return false;
 }
+
+
 
 - (NSURLSessionDataTask *)requestWithMethod:(RequestMethod) method
                                   urlString:(NSString *)urlString
@@ -157,6 +161,21 @@
         }
     } failure:^(NSError *error) {
         failure(error);
+    }];
+}
+
+- (NSURLSessionDataTask *)getMessageListSuccess:(void (^)(MessageList *))success failure:(void (^)(NSError *))failure {
+    NSDictionary *parameters;
+    parameters = @{
+                   @"mod":@"space",
+                   @"do":@"pm",
+                   @"mobile":@"2",
+                   };
+    return [self requestWithMethod:RequestMethodHTTPGet urlString:@"home.php" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        MessageList *messageList = [MessageList getMessageListFromResponseObject:responseObject];
+        success(messageList);
+    } failure:^(NSError *error) {
+        
     }];
 }
 

@@ -12,6 +12,7 @@
 #import "Thread.h"
 #import "ThreadDetail.h"
 #import "Reply.h"
+#import "Message.h"
 static NSString *const kUserIsLogin = @"UserIsLogin";
 static NSString *const kUserName = @"UserName";
 static NSString *const kUserID = @"UserID";
@@ -31,7 +32,8 @@ typedef NS_ENUM(NSInteger,RequestMethod) {
 + (instancetype) manager;
 + (BOOL) isSchoolNet;
 
-
+- (NSURLSessionDataTask *) getMessageListSuccess:(void (^)(MessageList *messageList))success
+failure:(void (^)(NSError *error))failure;
 
 - (NSURLSessionDataTask *) getThreadListWithFid:(NSString *)fid
                                            page:(NSInteger )page
@@ -51,7 +53,6 @@ typedef NS_ENUM(NSInteger,RequestMethod) {
                                               success:(void (^)(ThreadDetailList *threadDetailList))success
                                               failure:(void (^)(NSError *error))failure;
 
-
 - (NSURLSessionDataTask *) getMemberWithUid:(NSString *)uid
                                     success:(void (^)(Member *member))success
                                     failure:(void (^)(NSError *error))failure;
@@ -69,8 +70,6 @@ typedef NS_ENUM(NSInteger,RequestMethod) {
                                          success:(void (^)(NSString *message))success
                                          failure:(void (^)(NSError *error)) error;
 
-
-#warning Will be removed
 - (NSURLSessionDataTask *) getCollectionsWithUid:(NSString *)uid
                                          success:(void (^)(NSArray *collections))success
                                          failure:(void (^)(NSError *error))failure;
