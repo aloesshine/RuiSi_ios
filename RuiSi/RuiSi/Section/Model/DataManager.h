@@ -38,7 +38,13 @@ typedef NS_ENUM(NSInteger,RequestMethod) {
                                         success:(void (^)(ThreadList *threadList))success
                                         failure:(void (^)(NSError *error))failure;
 
+- (NSURLSessionDataTask *) getThreadListWithUid:(NSString *)uid
+                                        success:(void (^)(ThreadList *threadList))success
+                                        failure:(void (^)(NSError *error)) failure;
 
+- (NSURLSessionDataTask *) getFavoriteThreadListWithUid:(NSString *)uid
+                                                success:(void (^)(ThreadList *threadList))success
+                                                         failure:(void (^)(NSError *error)) failure;
 
 - (NSURLSessionDataTask *) getThreadDetailListWithTid:(NSString *)tid
                                                  page:(NSInteger )page
@@ -64,7 +70,7 @@ typedef NS_ENUM(NSInteger,RequestMethod) {
                                          failure:(void (^)(NSError *error)) error;
 
 
-
+#warning Will be removed
 - (NSURLSessionDataTask *) getCollectionsWithUid:(NSString *)uid
                                          success:(void (^)(NSArray *collections))success
                                          failure:(void (^)(NSError *error))failure;

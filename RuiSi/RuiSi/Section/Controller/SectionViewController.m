@@ -13,6 +13,7 @@
 #import "HTMLParser.h"
 #import "ThreadListViewController.h"
 #import "Constants.h"
+#import "DataManager.h"
 NSString *kSectionCollectionViewCell = @"SectionCollectionViewCell";
 NSString *kSectionHeaderViewCell = @"SectionHeaderViewCell";
 NSString *kshowThreadListSegue = @"showThreadList";
@@ -183,6 +184,19 @@ NSString *kshowThreadListSegue = @"showThreadList";
         destViewController.url = titleDict[@"url"];
         destViewController.name = titleDict[@"name"];
         destViewController.fid = titleDict[@"fid"];
+        destViewController.needToGetMore = YES;
+        __weak ThreadListViewController *destViewController_ = destViewController;
+        destViewController.getThreadListBlock = ^(NSInteger page){
+            
+            //destViewController_.currentPage = page;
+            return [[DataManager manager] getThreadListWithFid:destViewController_.fid page:page success:^(ThreadList *threadList) {
+                //@strongify(self);
+                destViewController_.threadList = threadList;
+                [destViewController_.tableView reloadData];
+            } failure:^(NSError *error) {
+                ;
+            }];
+        };
     }
     
 }

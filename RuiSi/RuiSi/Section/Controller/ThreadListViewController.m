@@ -19,9 +19,6 @@ NSString *kThreadListCell = @"ThreadListCell";
 NSString *kShowThreadDetail = @"showThreadDetail";
 @interface ThreadListViewController ()
 
-@property (nonatomic,strong) ThreadList *threadList;
-@property (nonatomic,copy) NSURLSessionDataTask* (^getThreadListBlock)(NSInteger page);
-@property (nonatomic,copy) NSURLSessionDataTask* (^getMoreListBlock)(NSInteger page);
 @property (nonatomic,assign) NSInteger currentPage;
 
 @end
@@ -65,35 +62,36 @@ NSString *kShowThreadDetail = @"showThreadDetail";
 - (void) configureBlocks {
     @weakify(self);
     
-    self.getThreadListBlock = ^(NSInteger page){
-        @strongify(self);
-        
-        
-        self.currentPage = page;
-        return [[DataManager manager] getThreadListWithFid:self.fid page:page success:^(ThreadList *threadList) {
+    if (! self.getThreadListBlock) {
+        self.getThreadListBlock = ^(NSInteger page){
             @strongify(self);
-            self.threadList = threadList;
-            [self.tableView reloadData];
-        } failure:^(NSError *error) {
-            ;
-        }];
-    };
+            self.currentPage = page;
+            return [[DataManager manager] getThreadListWithFid:self.fid page:page success:^(ThreadList *threadList) {
+                @strongify(self);
+                self.threadList = threadList;
+                [self.tableView reloadData];
+            } failure:^(NSError *error) {
+                ;
+            }];
+        };
+    }
     
-    
-    self.getMoreListBlock = ^(NSInteger page) {
-        @strongify(self);
-        self.currentPage = page;
-        return [[DataManager manager] getThreadListWithFid:self.fid page:page success:^(ThreadList *threadList) {
+    if (! self.getMoreListBlock && self.needToGetMore) {
+        self.getMoreListBlock = ^(NSInteger page) {
             @strongify(self);
-            
-            NSMutableArray *threadLists = [[NSMutableArray alloc] initWithArray:self.threadList.list];
-            [threadLists addObjectsFromArray:threadList.list];
-            self.threadList.list = [NSArray arrayWithArray:threadLists];
-            [self.tableView reloadData];
-        } failure:^(NSError *error) {
-            ;
-        }];
-    };
+            self.currentPage = page;
+            return [[DataManager manager] getThreadListWithFid:self.fid page:page success:^(ThreadList *threadList) {
+                @strongify(self);
+                
+                NSMutableArray *threadLists = [[NSMutableArray alloc] initWithArray:self.threadList.list];
+                [threadLists addObjectsFromArray:threadList.list];
+                self.threadList.list = [NSArray arrayWithArray:threadLists];
+                [self.tableView reloadData];
+            } failure:^(NSError *error) {
+                ;
+            }];
+        };
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -121,7 +119,11 @@ NSString *kShowThreadDetail = @"showThreadDetail";
     Thread *thread = _threadList.list[indexPath.row];
     
     cell.titleLabel.text = thread.title;
-    cell.authorLabel.text = thread.author;
+    if (thread.author == nil) {
+        cell.authorLabel.hidden = YES;
+    } else {
+        cell.authorLabel.text = thread.author;
+    }
     cell.reviewCountLabel.text = thread.reviewCount;
     cell.hasPicImageView.image = thread.hasPic == YES ? [UIImage imageNamed:@"icon_tu"] : NULL;
     

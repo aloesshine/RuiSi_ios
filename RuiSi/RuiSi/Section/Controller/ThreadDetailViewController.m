@@ -18,8 +18,8 @@
 @interface ThreadDetailViewController ()
 
 @property (nonatomic,strong) ThreadDetailList *detailList;
-@property (nonatomic,strong) NSURLSessionDataTask* (^getThreadDetailListBlock)(NSInteger page);
-@property (nonatomic,strong) NSURLSessionDataTask* (^getMoreThreadDetailBlock)(NSInteger page);
+@property (nonatomic,copy) NSURLSessionDataTask* (^getThreadDetailListBlock)(NSInteger page);
+@property (nonatomic,copy) NSURLSessionDataTask* (^getMoreThreadDetailBlock)(NSInteger page);
 @property (nonatomic,assign) NSInteger currentPage;
 @end
 

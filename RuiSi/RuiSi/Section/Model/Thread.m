@@ -59,13 +59,15 @@
             NSRange range1 = [thread.titleURL rangeOfString:s1];
             NSRange range2 = [thread.titleURL rangeOfString:s2];
             NSRange range = NSMakeRange(range1.location+range1.length, range2.location-range1.location-range1.length);
+            
             thread.tid = [thread.titleURL substringWithRange:range];
-            thread.author = (NSString *)ele.Query(@"a").first().Query(@"span.by").text();
+            if (ele.Query(@"a").hasClass(@"span.by")) {
+                thread.author = (NSString *)ele.Query(@"a").first().Query(@"span.by").text();
+            }
             NSString *title = (NSString *)ele.Query(@"a").text();
             title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet ]];
             thread.title = [title substringToIndex: title.length - thread.author.length];
             thread.hasPic = ele.Query(@"span.icon_tu").count == 0 ? NO : YES;
-            
             [elements addObject:thread];
         }
     }

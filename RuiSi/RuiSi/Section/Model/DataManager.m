@@ -160,6 +160,40 @@
     }];
 }
 
+- (NSURLSessionDataTask *)getThreadListWithUid:(NSString *)uid success:(void (^)(ThreadList *))success failure:(void (^)(NSError *))failure {
+    NSDictionary *parameters;
+    parameters = @{
+                   @"mod":@"space",
+                   @"uid":uid,
+                   @"do":@"thread",
+                   @"view":@"me",
+                   @"mobile":@"2"
+                   };
+    return [self requestWithMethod:RequestMethodHTTPGet urlString:@"home.php" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        ThreadList *list = [ThreadList getThreadListFromResponseObject:responseObject];
+        success(list);
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+- (NSURLSessionDataTask *)getFavoriteThreadListWithUid:(NSString *)uid success:(void (^)(ThreadList *))success failure:(void (^)(NSError *))failure {
+    NSDictionary *parameters;
+    parameters = @{
+                   @"mod":@"space",
+                   @"uid":uid,
+                   @"do":@"favorite",
+                   @"view":@"me",
+                   @"type":@"thread",
+                   @"mobile":@"2"
+                   };
+    return [self requestWithMethod:RequestMethodHTTPGet urlString:@"home.php" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        ThreadList *list = [ThreadList getThreadListFromResponseObject:responseObject];
+        success(list);
+    } failure:^(NSError *error) {
+        
+    }];
+}
 
 - (NSURLSessionDataTask *)getThreadDetailListWithTid:(NSString *)tid page:(NSInteger)page success:(void (^)(ThreadDetailList *))success failure:(void (^)(NSError *))failure {
     NSDictionary *parameters = @{

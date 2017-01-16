@@ -14,7 +14,7 @@
 #import "ThreadDetailViewController.h"
 @interface CollectionsTableViewController ()
 @property (nonatomic,strong) NSArray *collections;
-@property (nonatomic,strong) NSURLSessionDataTask * ( ^ getCollectionsBlock)(NSString *uid);
+@property (nonatomic,copy) NSURLSessionDataTask * ( ^ getCollectionsBlock)(NSString *uid);
 @end
 
 @implementation CollectionsTableViewController

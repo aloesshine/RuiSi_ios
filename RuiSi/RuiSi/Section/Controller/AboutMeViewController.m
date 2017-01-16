@@ -17,6 +17,8 @@
 #import "LogInViewController.h"
 #import "CollectionsTableViewController.h"
 #import "UIImageView+WebCache.h"
+#import "ThreadListViewController.h"
+#import "DataManager.h"
 NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
 
 
@@ -49,6 +51,9 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
         
     } else {
         [SVProgressHUD showErrorWithStatus:@"您还未登录，请登陆后再使用"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+        });
     }
 }
 
@@ -133,10 +138,21 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     cell2.iconImageView.image = [UIImage imageNamed:@"icon_mine_collect"];
     [cell2  bk_whenTapped:^{
         if (self.isLogged) {
-            CollectionsTableViewController *collectionsVC = [[CollectionsTableViewController alloc] init];
-            collectionsVC.uid = self.me.memberUid;
-            [self.navigationController pushViewController:collectionsVC animated:YES];
-            NSLog(@"cell2 is tapped");
+//            CollectionsTableViewController *collectionsVC = [[CollectionsTableViewController alloc] init];
+//            collectionsVC.uid = self.me.memberUid;
+//            [self.navigationController pushViewController:collectionsVC animated:YES];
+//            NSLog(@"cell2 is tapped");
+            ThreadListViewController *threadListViewController = [[ThreadListViewController alloc] init];
+            __weak ThreadListViewController *threadListViewController_ = threadListViewController;
+            threadListViewController.needToGetMore = NO;
+            threadListViewController.getThreadListBlock = ^(NSInteger page) {
+                return [[DataManager manager] getFavoriteThreadListWithUid:self.me.memberUid success:^(ThreadList *threadList) {
+                    threadListViewController_.threadList = threadList;
+                } failure:^(NSError *error) {
+                    
+                }];
+            };
+            [self.navigationController pushViewController:threadListViewController animated:YES];
         } else {
             [self showUnloggedMessage];
             NSLog(@"cell2 is tapped and unlogged");
@@ -147,11 +163,28 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     NSArray *nibContents3 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
     AboutMeHeaderViewCell *cell3 = [nibContents3 lastObject];
     cell3.frame = CGRectMake(spaceWidth*3+2*50, 5, 50, 80);
-    cell3.introLabel.text = @"我的好友";
+    cell3.introLabel.text = @"我的帖子";
     cell3.introLabel.textAlignment = NSTextAlignmentCenter;
     cell3.introLabel.font = [UIFont systemFontOfSize:16];
     [cell3.introLabel sizeToFit];
     cell3.iconImageView.image = [UIImage imageNamed:@"icon_mine_friend"];
+    [cell3 bk_whenTapped:^{
+        if (self.isLogged) {
+            ThreadListViewController *threadListViewController = [[ThreadListViewController alloc] init];
+            __weak ThreadListViewController *threadListViewController_ = threadListViewController;
+            threadListViewController.needToGetMore = NO;
+            threadListViewController.getThreadListBlock = ^(NSInteger page) {
+                return [[DataManager manager] getThreadListWithUid:self.me.memberUid success:^(ThreadList *threadList) {
+                    threadListViewController_.threadList = threadList;
+                } failure:^(NSError *error) {
+                    
+                }];
+            };
+            [self.navigationController pushViewController:threadListViewController animated:YES];
+        } else {
+            [self showUnloggedMessage];
+        }
+    }];
     
     NSArray *nibContents4 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
     AboutMeHeaderViewCell *cell4 = [nibContents4 lastObject];
