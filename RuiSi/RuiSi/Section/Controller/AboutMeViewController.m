@@ -127,7 +127,6 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     cell1.iconImageView.image = [UIImage imageNamed:@"icon_mine_history"];
     
     
-    
     NSArray *nibContents2 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
     AboutMeHeaderViewCell *cell2 = [nibContents2 lastObject];
     cell2.frame = CGRectMake(spaceWidth*2+50, 5, 50, 80);
