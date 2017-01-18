@@ -14,7 +14,7 @@
 #import "UIView+BlocksKit.h"
 #import "ProfileViewController.h"
 #import "SVProgressHUD.h"
-#import "LogInViewController.h"
+#import "LoginViewController.h"
 #import "CollectionsTableViewController.h"
 #import "UIImageView+WebCache.h"
 #import "ThreadListViewController.h"
@@ -79,7 +79,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
             [self.navigationController pushViewController:profileVC animated:YES];
         } else {
             //[self showUnloggedMessage];
-            LogInViewController *loginViewController = [[LogInViewController alloc] init];
+            LoginViewController *loginViewController = [[LoginViewController alloc] init];
             [self presentViewController:loginViewController animated:YES completion:nil];
         }
     }];
@@ -125,7 +125,6 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     cell1.introLabel.font = [UIFont systemFontOfSize:16];
     [cell1.introLabel sizeToFit];
     cell1.iconImageView.image = [UIImage imageNamed:@"icon_mine_history"];
-    
     
     
     NSArray *nibContents2 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];

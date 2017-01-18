@@ -35,6 +35,9 @@
 		7AB4ACC91DDDDDFE00842D6C /* SectionCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4ACC81DDDDDFE00842D6C /* SectionCollectionViewCell.m */; };
 		7ADE05B61DE56F4B00B7ABA5 /* ThreadListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ADE05B51DE56F4B00B7ABA5 /* ThreadListViewController.m */; };
 		7AE0918C1DE580210042D92E /* sectionNotLogging.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7AE0918B1DE580210042D92E /* sectionNotLogging.plist */; };
+		7AE6E73E1E2E3E7B00F65DBE /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE6E73C1E2E3E7B00F65DBE /* LoginViewController.m */; };
+		7AE6E73F1E2E3E7B00F65DBE /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AE6E73D1E2E3E7B00F65DBE /* LoginViewController.xib */; };
+		7AE6E7421E2E4D6700F65DBE /* TextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE6E7411E2E4D6700F65DBE /* TextField.m */; };
 		906B3FCCEFAB9F0902D662E8 /* libPods-RuiSi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7D095EC90ED6A2807A21590 /* libPods-RuiSi.a */; };
 		BB0A95D71DF70A5E009B6F7D /* ThreadDetailTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0A95D61DF70A5E009B6F7D /* ThreadDetailTitleCell.m */; };
 		BB0A95DA1DF71F84009B6F7D /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0A95D91DF71F84009B6F7D /* Helper.m */; };
@@ -52,7 +55,6 @@
 		BB3713631DE9163200F0A179 /* AboutMeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3713621DE9163200F0A179 /* AboutMeTableView.m */; };
 		BB3713661DE9230900F0A179 /* AboutMeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3713651DE9230900F0A179 /* AboutMeTableViewCell.m */; };
 		BB3713681DE9247000F0A179 /* AboutMeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB3713671DE9247000F0A179 /* AboutMeTableViewCell.xib */; };
-		BB3AB7791E2921DC001757A2 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3AB7781E2921DC001757A2 /* LogInViewController.m */; };
 		BB3AB77C1E2922D0001757A2 /* CollectionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3AB77B1E2922D0001757A2 /* CollectionsTableViewController.m */; };
 		BB3AB77F1E29396F001757A2 /* Collections.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3AB77E1E29396F001757A2 /* Collections.m */; };
 		BB72A3321DDF55F1007192FE /* SectionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB72A3311DDF55F1007192FE /* SectionCollectionViewCell.xib */; };
@@ -153,6 +155,11 @@
 		7ADE05B41DE56F4B00B7ABA5 /* ThreadListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadListViewController.h; sourceTree = "<group>"; };
 		7ADE05B51DE56F4B00B7ABA5 /* ThreadListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadListViewController.m; sourceTree = "<group>"; };
 		7AE0918B1DE580210042D92E /* sectionNotLogging.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sectionNotLogging.plist; sourceTree = "<group>"; };
+		7AE6E73B1E2E3E7B00F65DBE /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		7AE6E73C1E2E3E7B00F65DBE /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		7AE6E73D1E2E3E7B00F65DBE /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		7AE6E7401E2E4D6700F65DBE /* TextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextField.h; path = RuiSi/Section/Controller/TextField.h; sourceTree = SOURCE_ROOT; };
+		7AE6E7411E2E4D6700F65DBE /* TextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextField.m; path = RuiSi/Section/Controller/TextField.m; sourceTree = SOURCE_ROOT; };
 		B6EE0C2ED2D7690ED42DA80B /* Pods-RuiSi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RuiSi.release.xcconfig"; path = "Pods/Target Support Files/Pods-RuiSi/Pods-RuiSi.release.xcconfig"; sourceTree = "<group>"; };
 		BB0A95D51DF70A5E009B6F7D /* ThreadDetailTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadDetailTitleCell.h; sourceTree = "<group>"; };
 		BB0A95D61DF70A5E009B6F7D /* ThreadDetailTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadDetailTitleCell.m; sourceTree = "<group>"; };
@@ -183,8 +190,6 @@
 		BB3713641DE9230900F0A179 /* AboutMeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMeTableViewCell.h; sourceTree = "<group>"; };
 		BB3713651DE9230900F0A179 /* AboutMeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMeTableViewCell.m; sourceTree = "<group>"; };
 		BB3713671DE9247000F0A179 /* AboutMeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutMeTableViewCell.xib; sourceTree = "<group>"; };
-		BB3AB7771E2921DC001757A2 /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
-		BB3AB7781E2921DC001757A2 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
 		BB3AB77A1E2922D0001757A2 /* CollectionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionsTableViewController.h; sourceTree = "<group>"; };
 		BB3AB77B1E2922D0001757A2 /* CollectionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionsTableViewController.m; sourceTree = "<group>"; };
 		BB3AB77D1E29396F001757A2 /* Collections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Collections.h; sourceTree = "<group>"; };
@@ -417,8 +422,9 @@
 				BBF3BFC01DF1B24F0014F20D /* ThreadDetailViewController.m */,
 				BB9C7EFD1DF853C200CC30AB /* ProfileViewController.h */,
 				BB9C7EFE1DF853C200CC30AB /* ProfileViewController.m */,
-				BB3AB7771E2921DC001757A2 /* LogInViewController.h */,
-				BB3AB7781E2921DC001757A2 /* LogInViewController.m */,
+				7AE6E73B1E2E3E7B00F65DBE /* LoginViewController.h */,
+				7AE6E73C1E2E3E7B00F65DBE /* LoginViewController.m */,
+				7AE6E73D1E2E3E7B00F65DBE /* LoginViewController.xib */,
 				BB3AB77A1E2922D0001757A2 /* CollectionsTableViewController.h */,
 				BB3AB77B1E2922D0001757A2 /* CollectionsTableViewController.m */,
 				BBD04CB71E2CFD63008466FC /* MessageListViewControllerTableViewController.h */,
@@ -463,6 +469,8 @@
 				BB77FC851DF4468300610731 /* RuiSi-Prefix.pch */,
 				BB0A95D81DF71F84009B6F7D /* Helper.h */,
 				BB0A95D91DF71F84009B6F7D /* Helper.m */,
+				7AE6E7401E2E4D6700F65DBE /* TextField.h */,
+				7AE6E7411E2E4D6700F65DBE /* TextField.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -699,6 +707,7 @@
 				BB17BB831DE0A85600315E4D /* SectionHeaderViewCell.xib in Resources */,
 				7A997B811DDD74DC00D383B5 /* Assets.xcassets in Resources */,
 				BB31CCEF1DE8B47A00FB70A6 /* AboutMeHeaderViewCell.xib in Resources */,
+				7AE6E73F1E2E3E7B00F65DBE /* LoginViewController.xib in Resources */,
 				7AE0918C1DE580210042D92E /* sectionNotLogging.plist in Resources */,
 				7A6564001DE719D500E3E1B5 /* ThreadListCell.xib in Resources */,
 				BB3713681DE9247000F0A179 /* AboutMeTableViewCell.xib in Resources */,
@@ -841,6 +850,7 @@
 				BB3AB77C1E2922D0001757A2 /* CollectionsTableViewController.m in Sources */,
 				7A6A809B1DEABD4800B81583 /* tokenizer.c in Sources */,
 				BB0F8C641DF06E29006D11E2 /* BaseModel.m in Sources */,
+				7AE6E73E1E2E3E7B00F65DBE /* LoginViewController.m in Sources */,
 				BBF8D7511E01AFC80015D568 /* NSString+SCMention.m in Sources */,
 				7A6A80701DEABD2E00B81583 /* OCGumbo+Query.m in Sources */,
 				BB77FC881DF4629A00610731 /* Reply.m in Sources */,
@@ -859,13 +869,13 @@
 				BB3713661DE9230900F0A179 /* AboutMeTableViewCell.m in Sources */,
 				BB0A95D71DF70A5E009B6F7D /* ThreadDetailTitleCell.m in Sources */,
 				BBD04CB91E2CFD63008466FC /* MessageListViewControllerTableViewController.m in Sources */,
+				7AE6E7421E2E4D6700F65DBE /* TextField.m in Sources */,
 				7AB4ACBF1DDD7DCA00842D6C /* main.m in Sources */,
 				7A6A809E1DEABD4800B81583 /* vector.c in Sources */,
 				7A6563FF1DE719D500E3E1B5 /* ThreadListCell.m in Sources */,
 				7A6A809D1DEABD4800B81583 /* util.c in Sources */,
 				7A6A80991DEABD4800B81583 /* tag.c in Sources */,
 				7A6A80921DEABD4800B81583 /* attribute.c in Sources */,
-				BB3AB7791E2921DC001757A2 /* LogInViewController.m in Sources */,
 				BB75B9041E2B5A7B00631DD7 /* Collection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
