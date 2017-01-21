@@ -67,6 +67,7 @@
 		BBD04CC01E2D05C9008466FC /* MessageListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD04CBE1E2D05C9008466FC /* MessageListTableViewCell.m */; };
 		BBD04CC11E2D05C9008466FC /* MessageListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBD04CBF1E2D05C9008466FC /* MessageListTableViewCell.xib */; };
 		BBD04CC41E2D1826008466FC /* MessageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD04CC31E2D1826008466FC /* MessageDetailViewController.m */; };
+		BBF31B0D1E33A0C3002C22BD /* ThreadDetailDTCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF31B0C1E33A0C3002C22BD /* ThreadDetailDTCell.m */; };
 		BBF3BFC11DF1B24F0014F20D /* ThreadDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF3BFC01DF1B24F0014F20D /* ThreadDetailViewController.m */; };
 		BBF8D7511E01AFC80015D568 /* NSString+SCMention.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF8D74C1E01AFC80015D568 /* NSString+SCMention.m */; };
 		BBF8D7521E01AFC80015D568 /* SCMetionTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF8D74E1E01AFC80015D568 /* SCMetionTextView.m */; };
@@ -209,6 +210,8 @@
 		BBD04CBF1E2D05C9008466FC /* MessageListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageListTableViewCell.xib; sourceTree = "<group>"; };
 		BBD04CC21E2D1826008466FC /* MessageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageDetailViewController.h; sourceTree = "<group>"; };
 		BBD04CC31E2D1826008466FC /* MessageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageDetailViewController.m; sourceTree = "<group>"; };
+		BBF31B0B1E33A0C3002C22BD /* ThreadDetailDTCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadDetailDTCell.h; sourceTree = "<group>"; };
+		BBF31B0C1E33A0C3002C22BD /* ThreadDetailDTCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadDetailDTCell.m; sourceTree = "<group>"; };
 		BBF3BFBF1DF1B24F0014F20D /* ThreadDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadDetailViewController.h; sourceTree = "<group>"; };
 		BBF3BFC01DF1B24F0014F20D /* ThreadDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadDetailViewController.m; sourceTree = "<group>"; };
 		BBF8D74B1E01AFC80015D568 /* NSString+SCMention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SCMention.h"; sourceTree = "<group>"; };
@@ -538,6 +541,8 @@
 				BB0A95DC1DF7234B009B6F7D /* ThreadDetailInfoCell.m */,
 				BB9C7F001DF8620400CC30AB /* ThreadDetailBodyCell.h */,
 				BB9C7F011DF8620400CC30AB /* ThreadDetailBodyCell.m */,
+				BBF31B0B1E33A0C3002C22BD /* ThreadDetailDTCell.h */,
+				BBF31B0C1E33A0C3002C22BD /* ThreadDetailDTCell.m */,
 			);
 			name = Detail;
 			sourceTree = "<group>";
@@ -858,6 +863,7 @@
 				7A6563FF1DE719D500E3E1B5 /* ThreadListCell.m in Sources */,
 				7A6A809D1DEABD4800B81583 /* util.c in Sources */,
 				7A6A80991DEABD4800B81583 /* tag.c in Sources */,
+				BBF31B0D1E33A0C3002C22BD /* ThreadDetailDTCell.m in Sources */,
 				7A6A80921DEABD4800B81583 /* attribute.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

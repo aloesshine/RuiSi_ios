@@ -90,16 +90,16 @@
                 detail.createTime = [detail.createTime stringByReplacingOccurrencesOfString:@"\n" withString:@""];
             }
             if (i == 0) {
-                detail.favoriteURL = (NSString *)node.Query(@".rela").find(@"a").first().attr(@"href");
+                //detail.favoriteURL = (NSString *)node.Query(@".rela").find(@"a").first().attr(@"href");
             } else {
-                detail.replyURL = (NSString *)node.Query(@".button").first().attr(@"href");
+                //detail.replyURL = (NSString *)node.Query(@".button").first().attr(@"href");
             }
-            detail.content = (NSString *)node.Query(@".message").text();
-            OCQueryObject *object = node.Query(@".message").textArray();
+            //detail.content = (NSString *)node.Query(@".message").text();
+            //OCQueryObject *sentences = node.Query(@".message").textArray();
             
-            detail.content = [self formatHMTLString:detail.content];
+            //detail.content = [self formatHMTLString:detail.content];
             NSString *contentHTML = (NSString *)node.Query(@".message").first().html();
-            
+            detail.content = contentHTML;
             detail.quoteArray = [contentHTML quoteArray];
             detail.threadCreator = [Member getMemberWithHomepage:detail.homepage];
             
