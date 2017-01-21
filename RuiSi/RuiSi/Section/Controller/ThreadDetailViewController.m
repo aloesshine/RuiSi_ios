@@ -21,6 +21,7 @@
 @property (nonatomic,copy) NSURLSessionDataTask* (^getThreadDetailListBlock)(NSInteger page);
 @property (nonatomic,copy) NSURLSessionDataTask* (^getMoreThreadDetailBlock)(NSInteger page);
 @property (nonatomic,assign) NSInteger currentPage;
+@property (nonatomic,strong) UIBarButtonItem *favoriteButtonItem;
 @end
 
 @implementation ThreadDetailViewController

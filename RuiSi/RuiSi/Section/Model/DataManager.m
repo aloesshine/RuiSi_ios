@@ -11,7 +11,6 @@
 #import "Member.h"
 #import "Constants.h"
 #import "ThreadDetail.h"
-#import "Collections.h"
 @interface DataManager()
 @property (nonatomic,strong) AFHTTPSessionManager *sessionManager;
 @property (nonatomic,copy) NSString *userAgentMobile;
@@ -265,22 +264,7 @@
     }];
 }
 
-- (NSURLSessionDataTask *)getCollectionsWithUid:(NSString *)uid success:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure {
-    NSDictionary *parameters;
-    parameters = @{
-                   @"mod":@"space",
-                   @"uid":uid,
-                   @"do":@"thread",
-                   @"view":@"me",
-                   @"mobile":@"2"
-                   };
-    return [self requestWithMethod:RequestMethodHTTPGet urlString:@"home.php" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSArray *array = [Collections getCollectionsFromResponseObject:responseObject];
-        success(array);
-    } failure:^(NSError *error){
-        
-    }];
-}
+
 
 - (NSURLSessionDataTask *)userLoginWithUserName:(NSString *)username password:(NSString *)password success:(void (^)(NSString *))success failure:(void (^)(NSError *))error {
     return nil;

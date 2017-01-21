@@ -70,9 +70,6 @@ failure:(void (^)(NSError *error))failure;
                                          success:(void (^)(NSString *message))success
                                          failure:(void (^)(NSError *error)) error;
 
-- (NSURLSessionDataTask *) getCollectionsWithUid:(NSString *)uid
-                                         success:(void (^)(NSArray *collections))success
-                                         failure:(void (^)(NSError *error))failure;
 
 - (void) UserLogout;
 

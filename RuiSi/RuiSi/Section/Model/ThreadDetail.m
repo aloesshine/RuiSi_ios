@@ -22,9 +22,7 @@
 }
 
 
-- (void)configureMember {
-    
-}
+
 
 - (NSString *) spaceWithLength:(NSUInteger) length {
     NSString *spaceString = @"";
@@ -78,8 +76,6 @@
         OCQueryObject *elementArray = document.Query(@"body").find(@".postlist").find(@".cl");
 
         NSInteger countOfArray = [elementArray count];
-        // 暂时移除最后一个元素
-        //for(OCGumboNode *node in elementArray)
         for (int i = 0; i < countOfArray-1;i++)
         {
             OCGumboNode *node = [elementArray objectAtIndex:i];
@@ -93,10 +89,14 @@
             if ([detail.createTime rangeOfString:@"\n"].location != NSNotFound) {
                 detail.createTime = [detail.createTime stringByReplacingOccurrencesOfString:@"\n" withString:@""];
             }
-            if (node.Query(@".message").find(@".pstatus").first() != nil) {
-                detail.pstatus  = node.Query(@".message").find(@".pstatus").first().text();
+            if (i == 0) {
+                detail.favoriteURL = (NSString *)node.Query(@".rela").find(@"a").first().attr(@"href");
+            } else {
+                detail.replyURL = (NSString *)node.Query(@".button").first().attr(@"href");
             }
             detail.content = (NSString *)node.Query(@".message").text();
+            OCQueryObject *object = node.Query(@".message").textArray();
+            
             detail.content = [self formatHMTLString:detail.content];
             NSString *contentHTML = (NSString *)node.Query(@".message").first().html();
             
@@ -183,8 +183,6 @@
             detail.attributedString = attributedString;
             
             NSMutableArray *contentArray = [[NSMutableArray alloc] init];
-
-            
             RSContentStringModel *stringModel = [[RSContentStringModel alloc] init];
             stringModel.attributedString = attributedString;
             NSMutableArray *quotes = [[NSMutableArray alloc] init];
@@ -207,6 +205,9 @@
             detail.contentsArray = contentArray;
             [threadDetailArray addObject:detail];
         }
+        ThreadDetail *detail = [threadDetailArray objectAtIndex:0];
+        OCGumboNode *node = [elementArray objectAtIndex:countOfArray-1];
+        detail.favoriteURL = (NSString *)node.Query(@"form").first().attr(@"action");
     }
     ThreadDetailList *list;
     if (threadDetailArray.count) {

@@ -52,7 +52,9 @@
         {
 
             Thread *thread = [[Thread alloc] init];
-            thread.reviewCount = (NSString *)ele.Query(@"span.num").text();
+            if (ele.Query(@"a").find(@"span.num")) {
+                thread.reviewCount = (NSString *)ele.Query(@"span.num").text();
+            }
             thread.titleURL = (NSString *)ele.Query(@"a").first().attr(@"href");
             
             NSString *s1 = @"tid=",*s2 = @"&extra=";
@@ -61,12 +63,16 @@
             NSRange range = NSMakeRange(range1.location+range1.length, range2.location-range1.location-range1.length);
             
             thread.tid = [thread.titleURL substringWithRange:range];
-            if (ele.Query(@"a").hasClass(@"span.by")) {
+            if (ele.Query(@"a").find(@"span.by")) {
                 thread.author = (NSString *)ele.Query(@"a").first().Query(@"span.by").text();
+                NSString *title = (NSString *)ele.Query(@"a").text();
+                title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet ]];
+                thread.title = [title substringToIndex: title.length - thread.author.length];
+            } else {
+                NSString *title = (NSString *)ele.Query(@"a").text();
+                title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                thread.title = title;
             }
-            NSString *title = (NSString *)ele.Query(@"a").text();
-            title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet ]];
-            thread.title = [title substringToIndex: title.length - thread.author.length];
             thread.hasPic = ele.Query(@"span.icon_tu").count == 0 ? NO : YES;
             [elements addObject:thread];
         }

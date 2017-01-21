@@ -247,31 +247,22 @@
         
         HTMLNode *bodyNode = [parser body];
         mentionString = bodyNode.allContents;
-        
-        
-        
+        NSLog(@"mentionString is %@",mentionString);
         
         NSArray *aNodes = [bodyNode findChildTags:@"a"];
-        
-        
-        
         for (HTMLNode *aNode in aNodes) {
             
             NSString *hrefString = [aNode getAttributeNamed:@"href"];
-            
             SCQuote *quote = [[SCQuote alloc] init];
-            
-            
             NSRange range = [hrefString rangeOfString:@"mod=space&uid="];
             if (range.location != NSNotFound) {
-                NSString *identifier = [aNode getAttributeNamed:@"href"];
+                NSString *identifier = hrefString;
                 NSString *atUserName = [aNode rawContents];
                 if ([DataManager isSchoolNet]) {
                     identifier = [kSchoolNetURL stringByAppendingString:identifier];
                 } else {
                     identifier = [kPublicNetURL stringByAppendingString:identifier];
                 }
-                identifier = [kPublicNetURL stringByAppendingString:identifier];
                 quote.identifier = identifier;
                 quote.string = atUserName;
                 quote.type = SCQuoteTypeUser;
@@ -279,8 +270,7 @@
             
             range = [hrefString rangeOfString:@"from=album"];
             if (range.location != NSNotFound) {
-                //HTMLNode *node = [aNode findChildTag:@"img"];
-                //NSString *identifier = [node getAttributeNamed:@"src"];
+                
                 NSString *identifier = hrefString;
                 quote.string = identifier;
                 if ([DataManager isSchoolNet]) {
@@ -289,8 +279,6 @@
                     identifier = [kPublicNetURL stringByAppendingString:identifier];
                 }
                 quote.identifier = identifier;
-                //quote.string = [aNode getAttributeNamed:@"id"];
-                
                 quote.type = SCQuoteTypeImage;
             }
             
@@ -309,7 +297,6 @@
                 quote.string = hrefString;
                 quote.type = SCQuoteTypeLink;
             }
-            
             
             [array addObject:quote];
             
@@ -335,7 +322,6 @@
         }
     }
     return array;
-    
 }
 
 

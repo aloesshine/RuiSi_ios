@@ -15,7 +15,6 @@
 #import "ProfileViewController.h"
 #import "SVProgressHUD.h"
 #import "LoginViewController.h"
-#import "CollectionsTableViewController.h"
 #import "UIImageView+WebCache.h"
 #import "ThreadListViewController.h"
 #import "DataManager.h"

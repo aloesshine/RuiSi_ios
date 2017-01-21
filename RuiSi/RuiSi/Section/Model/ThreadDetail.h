@@ -27,8 +27,8 @@ typedef NS_ENUM(NSInteger,RSContentType) {
 @property (nonatomic,strong) NSArray* contentsArray;
 @property (nonatomic,strong) NSArray *imageURLs;
 @property (nonatomic,strong) Member *threadCreator;
-@property (nonatomic,strong) NSString *pstatus;
-- (void) configureMember;
+@property (nonatomic,copy) NSString *favoriteURL;
+@property (nonatomic,copy) NSString *replyURL;
 - (NSString *) spaceWithLength:(NSUInteger) length;
 @end
 
