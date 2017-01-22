@@ -13,11 +13,20 @@
 @interface ThreadDetailDTCell : UITableViewCell
 @property (nonatomic,strong) ThreadDetail *detail;
 @property (nonatomic,strong) UINavigationController *navi;
+@property (nonatomic,strong) UILabel *nameLabel;
+@property (nonatomic,strong) UILabel *timeLabel;
+@property (nonatomic,strong) UIImageView *avatarImageView;
+@property (nonatomic,strong) UIButton *avatarButton;
+
 @property (nonatomic,strong) NSAttributedString *attributedString;
 @property (nonatomic,assign) BOOL hasFixedRowHeight;
-@property (nonatomic,DT_WEAK_PROPERTY) IBOutlet id<DTAttributedTextContentViewDelegate> textDelegate;
-@property (nonatomic,readonly) DTAttributedTextContentView *attributedTextContextView;
+@property (nonatomic,DT_WEAK_PROPERTY) id<DTAttributedTextContentViewDelegate> textDelegate;
+@property (nonatomic,readonly) DTAttributedTextContentView *attributedTextContentView;
+
+
+
 - (id) initWithReuseIdentifier:(NSString *)reuseIdentifier accessoryType:(UITableViewCellAccessoryType)accessoryType;
 - (void) setHTMLString:(NSString *)html;
 - (CGFloat) requiredRowHeightInTableView:(UITableView *)tableView;
+- (void) configureDetail:(ThreadDetail *)threadDetail;
 @end

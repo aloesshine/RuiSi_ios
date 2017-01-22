@@ -11,13 +11,13 @@
 #import "DTCSSStylesheet.h"
 #import "DTCoreText.h"
 #import <DTFoundation/DTLog.h>
-@interface ThreadDetailDTCell ()
-@property (nonatomic,strong) UILabel *nameLabel;
-@property (nonatomic,strong) UILabel *timeLabel;
-@property (nonatomic,strong) UIImageView *avatarImageView;
-@property (nonatomic,strong) UIButton *avatarButton;
-@end
-
+#import "BlocksKit+UIKit.h"
+#import "EXTScope.h"
+#import "UIView+BlocksKit.h"
+#import "ProfileViewController.h"
+#import "Constants.h"
+#import "UIImageView+WebCache.h"
+static CGFloat const kAvatarHeight = 32.0f;
 
 @implementation ThreadDetailDTCell
 {
@@ -30,7 +30,42 @@
 - (id)initWithReuseIdentifier:(NSString *)reuseIdentifier accessoryType:(UITableViewCellAccessoryType)accessoryType {
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.hasFixedRowHeight = NO;
         self.attributedTextContextView.edgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+        self.clipsToBounds = YES;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.avatarImageView = [[UIImageView alloc] init];
+        self.avatarImageView.contentMode = UIViewContentModeScaleAspectFit;
+        self.avatarImageView.layer.cornerRadius = 2;
+        self.avatarImageView.clipsToBounds = YES;
+        [self.contentView addSubview:self.avatarImageView];
+        
+        self.avatarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.contentView addSubview:self.avatarButton];
+        
+        self.nameLabel = [[UILabel alloc] init];
+        self.nameLabel.backgroundColor = [UIColor clearColor];
+        self.nameLabel.textColor = [UIColor blackColor];
+        self.nameLabel.font = [UIFont systemFontOfSize:12.0];
+        self.nameLabel.textAlignment = NSTextAlignmentLeft;
+        self.nameLabel.clipsToBounds = YES;
+        [self.contentView addSubview:self.nameLabel];
+        
+        self.timeLabel = [[UILabel alloc] init];
+        self.timeLabel.backgroundColor = [UIColor clearColor];
+        self.timeLabel.textColor = [UIColor blackColor];
+        self.timeLabel.font = [UIFont systemFontOfSize:10.0];
+        self.timeLabel.textAlignment = NSTextAlignmentLeft;
+        self.timeLabel.clipsToBounds = YES;
+        [self.contentView addSubview:self.timeLabel];
+        
+        @weakify(self);
+        [self.avatarButton bk_addEventHandler:^(id sender) {
+            @strongify(self);
+            ProfileViewController *profileVC = [[ProfileViewController alloc] init];
+            profileVC.homepage = self.detail.threadCreator.memberHomepage;
+            [self.navi pushViewController:profileVC animated:YES];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return self;
 }
@@ -49,6 +84,11 @@
     {
         return;
     }
+    self.avatarImageView.frame = (CGRect){10,10,kAvatarHeight,kAvatarHeight};
+    self.avatarButton.frame = (CGRect){0,0,kAvatarHeight+10,kAvatarHeight+10};
+    self.nameLabel.frame = (CGRect){50,8,kScreen_Width-50,16};
+    self.timeLabel.frame = (CGRect){50,32,kScreen_Width-50,10};
+    
     
     if (_hasFixedRowHeight)
     {
@@ -59,7 +99,8 @@
         CGFloat neededContentHeight = [self requiredRowHeightInTableView:_containingTableView];
         
         // after the first call here the content view size is correct
-        CGRect frame = CGRectMake(0, 0, self.contentView.bounds.size.width, neededContentHeight);
+        //CGRect frame = CGRectMake(0, 0, self.contentView.bounds.size.width, neededContentHeight);
+        CGRect frame = CGRectMake(0, 45, self.contentView.bounds.size.width, neededContentHeight);
         self.attributedTextContextView.frame = frame;
     }
 }
@@ -80,7 +121,15 @@
     
     return nil;
 }
-
+- (void) configureDetail:(ThreadDetail *)threadDetail {
+    self.detail = threadDetail;
+    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:self.detail.threadCreator.memberAvatarSmall] placeholderImage:[UIImage imageNamed:@"default_avatar_small"]];
+     [self.nameLabel setText:threadDetail.threadCreator.memberName];
+     [self.nameLabel sizeToFit];
+     [self.timeLabel setText:threadDetail.createTime];
+     [self.timeLabel sizeToFit];
+    [self setHTMLString:threadDetail.content];
+}
 - (void)didMoveToSuperview
 {
     [super didMoveToSuperview];
@@ -92,7 +141,7 @@
     {
         if (NSFoundationVersionNumber < DTNSFoundationVersionNumber_iOS_7_0)
         {
-            _attributedTextContextView.backgroundColor = [UIColor clearColor];
+            _attributedTextContentView.backgroundColor = [UIColor clearColor];
         }
     }
 }
@@ -180,7 +229,7 @@
     CGSize neededSize = [self.attributedTextContextView suggestedFrameSizeToFitEntireStringConstraintedToWidth:contentWidth];
     
     // note: non-integer row heights caused trouble < iOS 5.0
-    return neededSize.height;
+    return neededSize.height + 45;
 }
 
 #pragma mark Properties
@@ -225,24 +274,25 @@
 - (NSAttributedString *)attributedString
 {
     // passthrough
-    return _attributedTextContextView.attributedString;
+    return _attributedTextContentView.attributedString;
 }
 
 - (DTAttributedTextContentView *)attributedTextContextView
 {
-    if (!_attributedTextContextView)
+    if (!_attributedTextContentView)
     {
         // don't know size because there's no string in it
-        _attributedTextContextView = [[DTAttributedTextContentView alloc] initWithFrame:self.contentView.bounds];
         
-        _attributedTextContextView.edgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
-        _attributedTextContextView.layoutFrameHeightIsConstrainedByBounds = _hasFixedRowHeight;
-        _attributedTextContextView.delegate = _textDelegate;
-        
-        [self.contentView addSubview:_attributedTextContextView];
+        //_attributedTextContentView = [[DTAttributedTextContentView alloc] initWithFrame:self.contentView.bounds];
+        _attributedTextContentView = [[DTAttributedTextContentView alloc] initWithFrame:self.contentView.bounds];
+        _attributedTextContentView.edgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+        _attributedTextContentView.layoutFrameHeightIsConstrainedByBounds = _hasFixedRowHeight;
+        _attributedTextContentView.delegate = _textDelegate;
+        _attributedTextContentView.shouldDrawImages = YES;
+        [self.contentView addSubview:_attributedTextContentView];
     }
     
-    return _attributedTextContextView;
+    return _attributedTextContentView;
 }
 
 - (void)setHasFixedRowHeight:(BOOL)hasFixedRowHeight
@@ -258,12 +308,15 @@
 - (void)setTextDelegate:(id)textDelegate
 {
     _textDelegate = textDelegate;
-    _attributedTextContextView.delegate = _textDelegate;
+    _attributedTextContentView.delegate = _textDelegate;
 }
 
-@synthesize attributedTextContextView = _attributedTextContextView;
+@synthesize attributedTextContentView = _attributedTextContentView;
 @synthesize hasFixedRowHeight = _hasFixedRowHeight;
 @synthesize textDelegate = _textDelegate;
-
+@synthesize nameLabel;
+@synthesize timeLabel;
+@synthesize avatarImageView;
+@synthesize avatarButton;
 
 @end

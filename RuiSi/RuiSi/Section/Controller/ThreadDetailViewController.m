@@ -20,8 +20,9 @@
 #import "DTImageTextAttachment.h"
 #import "Constants.h"
 #import "UIImageView+WebCache.h"
-static NSString *DTCellIdentifier = @"DTCellIdentifier";
-
+#import "ThreadDetailDTCell.h"
+static NSString *kThreadDetailDTCell = @"ThreadDetailDTCell";
+static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 @interface ThreadDetailViewController () <DTAttributedTextContentViewDelegate,DTLazyImageViewDelegate>
 @property (nonatomic,strong) ThreadDetailList *detailList;
 @property (nonatomic,copy) NSURLSessionDataTask* (^getThreadDetailListBlock)(NSInteger page);
@@ -38,6 +39,8 @@ static NSString *DTCellIdentifier = @"DTCellIdentifier";
     self.navigationController.navigationBar.translucent = NO;
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    [self.tableView registerClass:[ThreadDetailTitleCell class] forCellReuseIdentifier:kThreadDetailTitleCell];
+    [self.tableView registerClass:[ThreadDetailDTCell class] forCellReuseIdentifier:kThreadDetailDTCell];
     self.currentPage = 1;
     [self configureRefresh];
     [self configueBlocks];
@@ -123,19 +126,19 @@ static NSString *DTCellIdentifier = @"DTCellIdentifier";
         titleCell.navi = self.navigationController;
     }
     
-    static NSString *bodyCellIdentifier = @"bodyCellIdentifier";
-    ThreadDetailBodyCell *bodyCell = (ThreadDetailBodyCell *)[tableView dequeueReusableCellWithIdentifier:bodyCellIdentifier];
-    if (! bodyCell) {
-        bodyCell = [[ThreadDetailBodyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:bodyCellIdentifier];
-        bodyCell.navi = self.navigationController;
-    }
+//    static NSString *bodyCellIdentifier = @"bodyCellIdentifier";
+//    ThreadDetailBodyCell *bodyCell = (ThreadDetailBodyCell *)[tableView dequeueReusableCellWithIdentifier:bodyCellIdentifier];
+//    if (! bodyCell) {
+//        bodyCell = [[ThreadDetailBodyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:bodyCellIdentifier];
+//        bodyCell.navi = self.navigationController;
+//    }
     
     if (indexPath.section == 0) {
             return [self configureTitleCell:titleCell atIndexPath:indexPath];
     }
     
     if (indexPath.section == 1) {
-        DTAttributedTextCell *cell = (DTAttributedTextCell *)[self tableView:tableView preparedCellForIndexPath:indexPath];
+        ThreadDetailDTCell *cell = (ThreadDetailDTCell *)[self tableView:tableView preparedCellForIndexPath:indexPath];
         return cell;
     }
     return [UITableViewCell new];
@@ -147,9 +150,9 @@ static NSString *DTCellIdentifier = @"DTCellIdentifier";
     return titleCell;
 }
 
-- (DTAttributedTextCell *) configureDTCell:(DTAttributedTextCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+- (ThreadDetailDTCell *) configureDTCell:(ThreadDetailDTCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     ThreadDetail *detail = self.detailList.list[indexPath.row];
-    [cell setHTMLString:detail.content];
+    [cell configureDetail:detail];
     return cell;
 }
 
@@ -191,21 +194,22 @@ static NSString *DTCellIdentifier = @"DTCellIdentifier";
         return [ThreadDetailTitleCell getCellHeightWithThread:self.thread];
     }
     if (indexPath.section == 1) {
-        DTAttributedTextCell *cell = (DTAttributedTextCell *)[self tableView:tableView preparedCellForIndexPath:indexPath];
+        ThreadDetailDTCell *cell = (ThreadDetailDTCell *)[self tableView:tableView preparedCellForIndexPath:indexPath];
         return [cell requiredRowHeightInTableView:tableView];
     }
     
     return 0;
 }
 
-- (DTAttributedTextCell *) tableView:(UITableView *)tableView preparedCellForIndexPath:(NSIndexPath *)indexPath {
+- (ThreadDetailDTCell *) tableView:(UITableView *)tableView preparedCellForIndexPath:(NSIndexPath *)indexPath {
     NSString *key = [NSString stringWithFormat:@"%ld-%ld",indexPath.section,(long)indexPath.row];
     if (!_cellCache) {
         self.cellCache = [[NSCache alloc] init];
     }
-    DTAttributedTextCell *cell = [_cellCache objectForKey:key];
+    ThreadDetailDTCell *cell = [_cellCache objectForKey:key];
     if (! cell) {
-        cell = [[DTAttributedTextCell alloc] initWithReuseIdentifier:DTCellIdentifier];
+        //cell = [[ThreadDetailDTCell alloc] initWithReuseIdentifier:kThreadDetailDTCell];
+        cell = [[ThreadDetailDTCell alloc] initWithReuseIdentifier:kThreadDetailDTCell accessoryType:UITableViewCellAccessoryNone];
         [_cellCache setObject:cell forKey:key];
     }
     return [self configureDTCell:cell atIndexPath:indexPath];
