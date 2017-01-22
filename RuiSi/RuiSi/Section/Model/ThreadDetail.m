@@ -15,13 +15,6 @@
 
 
 @implementation ThreadDetail
-- (instancetype)initWithDictionary:(NSDictionary *)dict {
-    if (self = [super init]) {
-    }
-    return self;
-}
-
-
 
 
 - (NSString *) spaceWithLength:(NSUInteger) length {
@@ -94,115 +87,10 @@
             } else {
                 //detail.replyURL = (NSString *)node.Query(@".button").first().attr(@"href");
             }
-            //detail.content = (NSString *)node.Query(@".message").text();
-            //OCQueryObject *sentences = node.Query(@".message").textArray();
-            
-            //detail.content = [self formatHMTLString:detail.content];
             NSString *contentHTML = (NSString *)node.Query(@".message").first().html();
             detail.content = contentHTML;
-            detail.quoteArray = [contentHTML quoteArray];
+        
             detail.threadCreator = [Member getMemberWithHomepage:detail.homepage];
-            
-            NSString *mentionString = detail.content;
-            NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:mentionString];
-            [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, attributedString.length)];
-            [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16] range:NSMakeRange(0, attributedString.length)];
-            NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-            style.lineSpacing = 0.8;
-            [attributedString addAttributes:@{
-                                              NSParagraphStyleAttributeName:style
-                                              }range:NSMakeRange(0, attributedString.length)];
-            
-            NSMutableArray *imageURLs = [[NSMutableArray alloc] init];
-            for (SCQuote *quote in detail.quoteArray) {
-
-                NSRange range = [contentHTML rangeOfString:quote.string];
-                if (range.location != NSNotFound) {
-                    quote.range = range;
-                } else {
-                    quote.range = NSMakeRange(0, 0);
-                }
-                if (quote.type == SCQuoteTypeUser) {
-                    range = [mentionString rangeOfString:quote.string];
-                    if (range.location != NSNotFound) {
-                        quote.range = range;
-                        [attributedString addAttribute:NSForegroundColorAttributeName value:(id)RGB(0x778087, 0.8) range:range];
-                    }
-                }
-                if (quote.type == SCQuoteTypeImage) {
-                    [imageURLs addObject:quote.identifier];
-                }
-                if (quote.type == SCQuoteTypeEmotion) {
-                    [imageURLs addObject:quote.identifier];
-                }
-            }
-            
-            if (node.Query(@".img_list").first() != nil) {
-                OCQueryObject *liArray = node.Query(@".img_list").find(@"li");
-                for(OCGumboNode *liNode in liArray) {
-                    
-                    SCQuote *quote = [[SCQuote alloc] init];
-                    NSString *identifier = liNode.Query(@"a").first().attr(@"href");
-                    NSRange range = [contentHTML rangeOfString:identifier];
-                    quote.range = range;
-                    
-                    if ([DataManager isSchoolNet]) {
-                        identifier = [kSchoolNetURL stringByAppendingString:identifier];
-                    } else {
-                        identifier = [kPublicNetURL stringByAppendingString:identifier];
-                    }
-                    quote.identifier = identifier;
-                    quote.string = identifier;
-                    quote.type = SCQuoteTypeImage;
-                    
-                    [imageURLs addObject:identifier];
-                    [detail.quoteArray addObject:quote];
-                }
-            }
-            
-            if (node.Query(@"img_one").first() != nil ) {
-                SCQuote *quote = [[SCQuote alloc] init];
-                NSString *identifier = node.Query(@".img_one").find(@"li").first().attr(@"href");
-                quote.range = [contentHTML rangeOfString:identifier];
-                if ([DataManager isSchoolNet]) {
-                    identifier = [kSchoolNetURL stringByAppendingString:identifier];
-                } else {
-                    identifier = [kPublicNetURL stringByAppendingString:identifier];
-                }
-                
-                quote.identifier = identifier;
-                quote.string = identifier;
-                quote.type = SCQuoteTypeImage;
-                [detail.quoteArray addObject:quote];
-                [imageURLs addObject:identifier];
-            }
-            
-            
-            
-            detail.imageURLs = imageURLs;
-            detail.attributedString = attributedString;
-            
-            NSMutableArray *contentArray = [[NSMutableArray alloc] init];
-            RSContentStringModel *stringModel = [[RSContentStringModel alloc] init];
-            stringModel.attributedString = attributedString;
-            NSMutableArray *quotes = [[NSMutableArray alloc] init];
-            
-            [detail.quoteArray enumerateObjectsUsingBlock:^(SCQuote *quote, NSUInteger idx, BOOL *stop){
-                if (quote.type == SCQuoteTypeUser) {
-                    [quotes addObject:quote];
-                }
-
-                if (quote.type == SCQuoteTypeImage || quote.type == SCQuoteTypeEmotion) {
-                    RSContentImageModel *imageModel = [[RSContentImageModel alloc] init];
-                    imageModel.imageQuote = quote;
-                    [contentArray addObject:imageModel];
-                }
-            }];
-            
-            stringModel.quoteArray = quotes;
-            [contentArray addObject:stringModel];
-            
-            detail.contentsArray = contentArray;
             [threadDetailArray addObject:detail];
         }
         ThreadDetail *detail = [threadDetailArray objectAtIndex:0];

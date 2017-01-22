@@ -60,7 +60,6 @@
 		BB77FC881DF4629A00610731 /* Reply.m in Sources */ = {isa = PBXBuildFile; fileRef = BB77FC871DF4629A00610731 /* Reply.m */; };
 		BB928E8A1DEC62FC00855274 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB928E891DEC62FC00855274 /* Main.storyboard */; };
 		BB9C7EFF1DF853C200CC30AB /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB9C7EFE1DF853C200CC30AB /* ProfileViewController.m */; };
-		BB9C7F021DF8620400CC30AB /* ThreadDetailBodyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB9C7F011DF8620400CC30AB /* ThreadDetailBodyCell.m */; };
 		BBCC066A1DE312DE0003A6B5 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCC06691DE312DE0003A6B5 /* libxml2.2.dylib */; };
 		BBD04CB91E2CFD63008466FC /* MessageListViewControllerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD04CB81E2CFD63008466FC /* MessageListViewControllerTableViewController.m */; };
 		BBD04CBC1E2D018B008466FC /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD04CBB1E2D018B008466FC /* Message.m */; };
@@ -197,8 +196,6 @@
 		BB928E891DEC62FC00855274 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		BB9C7EFD1DF853C200CC30AB /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		BB9C7EFE1DF853C200CC30AB /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
-		BB9C7F001DF8620400CC30AB /* ThreadDetailBodyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadDetailBodyCell.h; sourceTree = "<group>"; };
-		BB9C7F011DF8620400CC30AB /* ThreadDetailBodyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadDetailBodyCell.m; sourceTree = "<group>"; };
 		BBC1E4061E08333D00199BAF /* RuiSi-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RuiSi-Prefix.pch"; sourceTree = "<group>"; };
 		BBCC06691DE312DE0003A6B5 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = ../../../../../../usr/lib/libxml2.2.dylib; sourceTree = "<group>"; };
 		BBD04CB71E2CFD63008466FC /* MessageListViewControllerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageListViewControllerTableViewController.h; sourceTree = "<group>"; };
@@ -539,8 +536,6 @@
 				BB0A95D61DF70A5E009B6F7D /* ThreadDetailTitleCell.m */,
 				BB0A95DB1DF7234B009B6F7D /* ThreadDetailInfoCell.h */,
 				BB0A95DC1DF7234B009B6F7D /* ThreadDetailInfoCell.m */,
-				BB9C7F001DF8620400CC30AB /* ThreadDetailBodyCell.h */,
-				BB9C7F011DF8620400CC30AB /* ThreadDetailBodyCell.m */,
 				BBF31B0B1E33A0C3002C22BD /* ThreadDetailDTCell.h */,
 				BBF31B0C1E33A0C3002C22BD /* ThreadDetailDTCell.m */,
 			);
@@ -822,7 +817,6 @@
 				BBF3BFC11DF1B24F0014F20D /* ThreadDetailViewController.m in Sources */,
 				BB0F8C6A1DF07C68006D11E2 /* ThreadDetail.m in Sources */,
 				BBD04CC01E2D05C9008466FC /* MessageListTableViewCell.m in Sources */,
-				BB9C7F021DF8620400CC30AB /* ThreadDetailBodyCell.m in Sources */,
 				7A6A80711DEABD2E00B81583 /* OCGumbo.m in Sources */,
 				BB0BDE8B1DEC8A36001B2A89 /* User.m in Sources */,
 				BB0A95DA1DF71F84009B6F7D /* Helper.m in Sources */,

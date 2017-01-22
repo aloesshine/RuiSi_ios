@@ -22,10 +22,6 @@ typedef NS_ENUM(NSInteger,RSContentType) {
 @property (nonatomic,copy) NSString *createTime;
 @property (nonatomic,copy) NSString *homepage;
 @property (nonatomic,copy) NSString *content;
-@property (nonatomic,strong) NSMutableArray *quoteArray;
-@property (nonatomic,copy) NSAttributedString *attributedString;
-@property (nonatomic,strong) NSArray* contentsArray;
-@property (nonatomic,strong) NSArray *imageURLs;
 @property (nonatomic,strong) Member *threadCreator;
 @property (nonatomic,copy) NSString *favoriteURL;
 @property (nonatomic,copy) NSString *replyURL;

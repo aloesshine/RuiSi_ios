@@ -238,7 +238,6 @@
                    @"mobile":@"2"
                    };
     return [self requestWithMethod:RequestMethodHTTPGet urlString:@"forum.php" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-#warning init member with url
         Member *member = [[Member alloc] init];
         success(member);
     } failure:^(NSError *error) {

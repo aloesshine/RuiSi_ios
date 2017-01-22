@@ -12,18 +12,16 @@
 #import "EXTScope.h"
 #import "MJRefresh.h"
 #import "ThreadDetailTitleCell.h"
-#import "ThreadDetailBodyCell.h"
 #import "Thread.h"
 #import "ThreadDetailInfoCell.h"
-#import "DTAttributedTextCell.h"
-#import "DTLazyImageView.h"
-#import "DTImageTextAttachment.h"
+#import "ThreadDetailDTCell.h"
 #import "Constants.h"
 #import "UIImageView+WebCache.h"
 #import "ThreadDetailDTCell.h"
+#import "DTTextAttachment.h"
 static NSString *kThreadDetailDTCell = @"ThreadDetailDTCell";
 static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
-@interface ThreadDetailViewController () <DTAttributedTextContentViewDelegate,DTLazyImageViewDelegate>
+@interface ThreadDetailViewController ()
 @property (nonatomic,strong) ThreadDetailList *detailList;
 @property (nonatomic,copy) NSURLSessionDataTask* (^getThreadDetailListBlock)(NSInteger page);
 @property (nonatomic,copy) NSURLSessionDataTask* (^getMoreThreadDetailBlock)(NSInteger page);
@@ -126,12 +124,6 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
         titleCell.navi = self.navigationController;
     }
     
-//    static NSString *bodyCellIdentifier = @"bodyCellIdentifier";
-//    ThreadDetailBodyCell *bodyCell = (ThreadDetailBodyCell *)[tableView dequeueReusableCellWithIdentifier:bodyCellIdentifier];
-//    if (! bodyCell) {
-//        bodyCell = [[ThreadDetailBodyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:bodyCellIdentifier];
-//        bodyCell.navi = self.navigationController;
-//    }
     
     if (indexPath.section == 0) {
             return [self configureTitleCell:titleCell atIndexPath:indexPath];
@@ -154,38 +146,6 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     ThreadDetail *detail = self.detailList.list[indexPath.row];
     [cell configureDetail:detail];
     return cell;
-}
-
-- (ThreadDetailBodyCell *) configureBodyCell:(ThreadDetailBodyCell *) bodyCell atIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 1) {
-        ThreadDetail *detail = self.detailList.list[indexPath.row];
-        [bodyCell configureTDWithThreadDetail:detail];
-        //NSLog(@"%@",detail.attributedString);
-        @weakify(self);
-        [bodyCell setReloadCellBlock:^{
-            @strongify(self);
-            [self.tableView beginUpdates];
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-            [self.tableView endUpdates];
-        }];
-    }
-    return bodyCell;
-}
-
-- (UIView *)attributedTextContentView:(DTAttributedTextContentView *)attributedTextContentView viewForAttachment:(DTTextAttachment *)attachment frame:(CGRect)frame {
-    if ([attachment isKindOfClass:[DTImageTextAttachment class]]) {
-        CGFloat aspectRatio = frame.size.height / frame.size.width;
-        CGFloat width = kScreen_Width - 16*2;
-        CGFloat height = width * aspectRatio;
-        UIView *view = [[UIView alloc] initWithFrame:frame];
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
-        imageView.backgroundColor = [UIColor grayColor];
-        [imageView sd_setImageWithURL:attachment.contentURL placeholderImage:[UIImage imageNamed:@"default_avatar_middle"]];
-        imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [view addSubview:imageView];
-        return view;
-    }
-    return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
