@@ -19,8 +19,6 @@
 }
 
 @end
-
-
 @implementation ThreadList
 
 - (instancetype)initWithArray:(NSArray *)array {

@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "ThreadDetail.h"
 #import "DTAttributedTextContentView.h"
+#import "DTLazyImageView.h"
 #import <DTFoundation/DTWeakSupport.h>
-@interface ThreadDetailDTCell : UITableViewCell
+@interface ThreadDetailDTCell : UITableViewCell <DTAttributedTextContentViewDelegate,DTLazyImageViewDelegate>
 @property (nonatomic,strong) ThreadDetail *detail;
 @property (nonatomic,strong) UINavigationController *navi;
 @property (nonatomic,strong) UILabel *nameLabel;

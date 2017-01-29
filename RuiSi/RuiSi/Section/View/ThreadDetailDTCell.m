@@ -17,6 +17,7 @@
 #import "ProfileViewController.h"
 #import "Constants.h"
 #import "UIImageView+WebCache.h"
+#import "DTLazyImageView.h"
 static CGFloat const kAvatarHeight = 32.0f;
 
 @implementation ThreadDetailDTCell
@@ -30,6 +31,9 @@ static CGFloat const kAvatarHeight = 32.0f;
 - (id)initWithReuseIdentifier:(NSString *)reuseIdentifier accessoryType:(UITableViewCellAccessoryType)accessoryType {
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     if (self) {
+        
+        self.textDelegate = self;
+        
         self.hasFixedRowHeight = NO;
         self.attributedTextContextView.edgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
         self.clipsToBounds = YES;
@@ -243,7 +247,9 @@ static CGFloat const kAvatarHeight = 32.0f;
 
 - (void)setHTMLString:(NSString *)html
 {
-    [self setHTMLString:html options:nil];
+    NSMutableDictionary *options = [[NSMutableDictionary alloc] init];
+    [options setObject:[NSURL URLWithString:kPublicNetURL] forKey:NSBaseURLDocumentOption];
+    [self setHTMLString:html options:options];
 }
 
 - (void) setHTMLString:(NSString *)html options:(NSDictionary*) options {
@@ -283,7 +289,6 @@ static CGFloat const kAvatarHeight = 32.0f;
     {
         // don't know size because there's no string in it
         
-        //_attributedTextContentView = [[DTAttributedTextContentView alloc] initWithFrame:self.contentView.bounds];
         _attributedTextContentView = [[DTAttributedTextContentView alloc] initWithFrame:self.contentView.bounds];
         _attributedTextContentView.edgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
         _attributedTextContentView.layoutFrameHeightIsConstrainedByBounds = _hasFixedRowHeight;
@@ -310,6 +315,34 @@ static CGFloat const kAvatarHeight = 32.0f;
     _textDelegate = textDelegate;
     _attributedTextContentView.delegate = _textDelegate;
 }
+
+- (UIView *)attributedTextContentView:(DTAttributedTextContentView *)attributedTextContentView viewForAttachment:(DTTextAttachment *)attachment frame:(CGRect)frame {
+    if ([attachment isKindOfClass:[DTImageTextAttachment class]]) {
+        DTLazyImageView *imageView = [[DTLazyImageView alloc] initWithFrame:frame];
+        imageView.delegate = self;
+        imageView.image = [(DTImageTextAttachment *)attachment image];
+        imageView.url = attachment.contentURL;
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
+        self.attributedTextContentView.layouter = nil;
+        NSLog(@"%@",attachment.contentURL.absoluteString);
+        return imageView;
+    }
+    return nil;
+}
+
+- (void)lazyImageView:(DTLazyImageView *)lazyImageView didChangeImageSize:(CGSize)size {
+    NSURL *url = lazyImageView.url;
+    CGSize imageSize = size;
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"contentURL == %@",url];
+    for (DTTextAttachment *oneAttachment in [self.attributedTextContentView.layoutFrame textAttachmentsWithPredicate:pred]) {
+        oneAttachment.originalSize = imageSize;
+        if ( CGSizeEqualToSize(oneAttachment.originalSize , CGSizeZero)) {
+            oneAttachment.originalSize = imageSize;
+        }
+    }
+    [self.attributedTextContentView relayoutText];
+}
+
 
 @synthesize attributedTextContentView = _attributedTextContentView;
 @synthesize hasFixedRowHeight = _hasFixedRowHeight;

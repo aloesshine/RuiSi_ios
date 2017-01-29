@@ -145,6 +145,8 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 - (ThreadDetailDTCell *) configureDTCell:(ThreadDetailDTCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     ThreadDetail *detail = self.detailList.list[indexPath.row];
     [cell configureDetail:detail];
+    cell.attributedTextContentView.shouldDrawImages = YES;
+    cell.attributedTextContentView.shouldDrawLinks = YES;
     return cell;
 }
 
