@@ -1000,6 +1000,7 @@
 			baseConfigurationReference = 73D689DA16F5C3C1B2394D2D /* Pods-RuiSi.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 97RJ92JQE4;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RuiSi/RuiSi-Prefix.pch";
@@ -1017,6 +1018,7 @@
 			baseConfigurationReference = B6EE0C2ED2D7690ED42DA80B /* Pods-RuiSi.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 97RJ92JQE4;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RuiSi/RuiSi-Prefix.pch";

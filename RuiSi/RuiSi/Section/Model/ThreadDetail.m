@@ -82,20 +82,13 @@
             if ([detail.createTime rangeOfString:@"\n"].location != NSNotFound) {
                 detail.createTime = [detail.createTime stringByReplacingOccurrencesOfString:@"\n" withString:@""];
             }
-            if (i == 0) {
-                //detail.favoriteURL = (NSString *)node.Query(@".rela").find(@"a").first().attr(@"href");
-            } else {
-                //detail.replyURL = (NSString *)node.Query(@".button").first().attr(@"href");
-            }
+            
             NSString *contentHTML = (NSString *)node.Query(@".message").first().html();
             detail.content = contentHTML;
         
             detail.threadCreator = [Member getMemberWithHomepage:detail.homepage];
             [threadDetailArray addObject:detail];
         }
-        ThreadDetail *detail = [threadDetailArray objectAtIndex:0];
-        OCGumboNode *node = [elementArray objectAtIndex:countOfArray-1];
-        detail.favoriteURL = (NSString *)node.Query(@"form").first().attr(@"action");
     }
     ThreadDetailList *list;
     if (threadDetailArray.count) {

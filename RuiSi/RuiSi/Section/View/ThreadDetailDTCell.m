@@ -44,8 +44,6 @@ static CGFloat const kAvatarHeight = 32.0f;
         self.avatarImageView.clipsToBounds = YES;
         [self.contentView addSubview:self.avatarImageView];
         
-        self.avatarButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.contentView addSubview:self.avatarButton];
         
         self.nameLabel = [[UILabel alloc] init];
         self.nameLabel.backgroundColor = [UIColor clearColor];
@@ -63,13 +61,6 @@ static CGFloat const kAvatarHeight = 32.0f;
         self.timeLabel.clipsToBounds = YES;
         [self.contentView addSubview:self.timeLabel];
         
-        @weakify(self);
-        [self.avatarButton bk_addEventHandler:^(id sender) {
-            @strongify(self);
-            ProfileViewController *profileVC = [[ProfileViewController alloc] init];
-            profileVC.homepage = self.detail.threadCreator.memberHomepage;
-            [self.navi pushViewController:profileVC animated:YES];
-        } forControlEvents:UIControlEventTouchUpInside];
     }
     return self;
 }
@@ -89,7 +80,6 @@ static CGFloat const kAvatarHeight = 32.0f;
         return;
     }
     self.avatarImageView.frame = (CGRect){10,10,kAvatarHeight,kAvatarHeight};
-    self.avatarButton.frame = (CGRect){0,0,kAvatarHeight+10,kAvatarHeight+10};
     self.nameLabel.frame = (CGRect){50,8,kScreen_Width-50,16};
     self.timeLabel.frame = (CGRect){50,32,kScreen_Width-50,10};
     
@@ -350,6 +340,5 @@ static CGFloat const kAvatarHeight = 32.0f;
 @synthesize nameLabel;
 @synthesize timeLabel;
 @synthesize avatarImageView;
-@synthesize avatarButton;
 
 @end

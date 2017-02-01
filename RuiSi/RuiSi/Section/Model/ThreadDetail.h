@@ -23,8 +23,7 @@ typedef NS_ENUM(NSInteger,RSContentType) {
 @property (nonatomic,copy) NSString *homepage;
 @property (nonatomic,copy) NSString *content;
 @property (nonatomic,strong) Member *threadCreator;
-@property (nonatomic,copy) NSString *favoriteURL;
-@property (nonatomic,copy) NSString *replyURL;
+
 - (NSString *) spaceWithLength:(NSUInteger) length;
 @end
 

@@ -17,7 +17,6 @@
 @property (nonatomic,strong) UILabel *nameLabel;
 @property (nonatomic,strong) UILabel *timeLabel;
 @property (nonatomic,strong) UIImageView *avatarImageView;
-@property (nonatomic,strong) UIButton *avatarButton;
 
 @property (nonatomic,strong) NSAttributedString *attributedString;
 @property (nonatomic,assign) BOOL hasFixedRowHeight;
