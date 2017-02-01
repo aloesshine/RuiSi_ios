@@ -67,12 +67,10 @@
         NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         OCGumboDocument *document = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
         OCQueryObject *elementArray = document.Query(@"body").find(@".postlist").find(@".cl");
-
         NSInteger countOfArray = [elementArray count];
         for (int i = 0; i < countOfArray-1;i++)
         {
             OCGumboNode *node = [elementArray objectAtIndex:i];
-
             ThreadDetail *detail = [[ThreadDetail alloc] init];
             NSString *idString = (NSString *)node.attr(@"id");
             detail.threadID = [idString substringFromIndex:3];
@@ -82,11 +80,13 @@
             if ([detail.createTime rangeOfString:@"\n"].location != NSNotFound) {
                 detail.createTime = [detail.createTime stringByReplacingOccurrencesOfString:@"\n" withString:@""];
             }
-            
-            NSString *contentHTML = (NSString *)node.Query(@".message").first().html();
-            detail.content = contentHTML;
-        
+            detail.content = (NSString *)node.Query(@".message").first().html();
             detail.threadCreator = [Member getMemberWithHomepage:detail.homepage];
+            if (i != 0) {
+                if (node.Query(@".button").first()) {
+                    detail.replyUrlString = (NSString *)node.Query(@".button").first().attr(@"href");
+                }
+            }
             [threadDetailArray addObject:detail];
         }
     }
@@ -98,7 +98,20 @@
     return list;
 }
 
-
++ (NSDictionary *)getLinkDictionaryFromResponseObject:(id)responseObject {
+    @autoreleasepool {
+        NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        OCGumboDocument *document = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
+        OCGumboNode *node = document.Query(@"body").find(@".postlist").find(@".cl").first();
+        NSString *favorUrlString = (NSString *)node.Query(@".favbtn").first().attr(@"href");
+        NSString *creatorUrlString = (NSString *)document.Query(@"body").find(@".postlist").find(@"h2").find(@".blue").first().attr(@"href");
+        node = document.Query(@"body").find(@".postlist").find(@".cl").last();
+        NSString *replyUrlString = (NSString *)node.Query(@"form").first().attr(@"action");
+        NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:favorUrlString,@"favorite",creatorUrlString,@"creatorOnly",replyUrlString,@"reply", nil];
+        return dictionary;
+    }
+    return nil;
+}
 @end
 
 

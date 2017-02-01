@@ -228,6 +228,21 @@
     }];
 }
 
+-(NSURLSessionDataTask *)getLinkDictionaryWithTid:(NSString *)tid page:(NSInteger )page success:(void (^)(NSDictionary *))success failure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{
+                                 @"mod":@"viewthread",
+                                 @"tid":tid,
+                                 @"page":@(page),
+                                 @"mobile":@"2"
+                                 };
+    return [self requestWithMethod:RequestMethodHTTPGet urlString:@"forum.php" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSDictionary *result = [ThreadDetailList getLinkDictionaryFromResponseObject:responseObject];
+        success(result);
+    } failure:^(NSError *error) {
+        failure(error);
+    }];
+}
+
 
 - (NSURLSessionDataTask *)getMemberWithUid:(NSString *)uid success:(void (^)(Member *))success failure:(void (^)(NSError *))failure {
     NSDictionary *parameters;

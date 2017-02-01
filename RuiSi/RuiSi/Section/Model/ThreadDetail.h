@@ -23,7 +23,7 @@ typedef NS_ENUM(NSInteger,RSContentType) {
 @property (nonatomic,copy) NSString *homepage;
 @property (nonatomic,copy) NSString *content;
 @property (nonatomic,strong) Member *threadCreator;
-
+@property (nonatomic,copy) NSString *replyUrlString;
 - (NSString *) spaceWithLength:(NSUInteger) length;
 @end
 
@@ -33,6 +33,7 @@ typedef NS_ENUM(NSInteger,RSContentType) {
 - (instancetype) initWithArray:(NSArray *)array;
 - (NSInteger) countOfList;
 + (ThreadDetailList *)getThreadDetailListFromResponseObject:(id) responseObject;
++ (NSDictionary *) getLinkDictionaryFromResponseObject:(id) responseObject;
 @end
 
 

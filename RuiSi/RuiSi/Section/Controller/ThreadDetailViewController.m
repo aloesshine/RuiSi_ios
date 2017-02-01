@@ -26,10 +26,10 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 @property (nonatomic,strong) ThreadDetailList *detailList;
 @property (nonatomic,copy) NSURLSessionDataTask* (^getThreadDetailListBlock)(NSInteger page);
 @property (nonatomic,copy) NSURLSessionDataTask* (^getMoreThreadDetailBlock)(NSInteger page);
+@property (nonatomic,copy) NSURLSessionDataTask* (^getLinksBlock)();
 @property (nonatomic,assign) NSInteger currentPage;
 @property (nonatomic,strong) UIBarButtonItem *favorButtonItem;
-@property (nonatomic,strong) NSString *favorURLString;
-@property (nonatomic,copy) NSString *replyURLString;
+@property (nonatomic,strong) NSDictionary *linksDict;
 @property (nonatomic,strong) NSCache *cellCache;
 @end
 
@@ -37,15 +37,30 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBar.translucent = NO;
-    
-    self.edgesForExtendedLayout = UIRectEdgeNone;
     [self.tableView registerClass:[ThreadDetailTitleCell class] forCellReuseIdentifier:kThreadDetailTitleCell];
     [self.tableView registerClass:[ThreadDetailDTCell class] forCellReuseIdentifier:kThreadDetailDTCell];
     self.currentPage = 1;
     [self configureRefresh];
     [self configueBlocks];
     self.getThreadDetailListBlock(1);
+    self.getLinksBlock();
+    [self initializeUI];
+}
+
+- (void) initializeUI {
+    self.navigationController.navigationBar.translucent = NO;
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    UIBarButtonItem *favorButton = [[UIBarButtonItem alloc] initWithTitle:@"收藏" style:UIBarButtonItemStylePlain target:self action:@selector(favor)];
+    UIBarButtonItem *creatorOnlyButton = [[UIBarButtonItem alloc] initWithTitle:@"只看楼主" style:UIBarButtonItemStylePlain target:self action:@selector(lookOnly)];
+    self.navigationItem.rightBarButtonItems = @[favorButton,creatorOnlyButton];
+}
+
+- (void) favor {
+    NSLog(@"%@",[self.linksDict objectForKey:@"favorite"]);
+}
+
+- (void) lookOnly {
+    NSLog(@"%@",[self.linksDict objectForKey:@"creatorOnly"]);
 }
 
 
@@ -88,6 +103,15 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
             [detailLists addObjectsFromArray:threadDetailList.list];
             self.detailList.list = [NSArray arrayWithArray:detailLists];
             [self.tableView reloadData];
+        } failure:^(NSError *error) {
+            ;
+        }];
+    };
+    
+    self.getLinksBlock = ^(){
+        @strongify(self);
+        return [[DataManager manager] getLinkDictionaryWithTid:self.tid page:1 success:^(NSDictionary *links) {
+            self.linksDict = links;
         } failure:^(NSError *error) {
             ;
         }];

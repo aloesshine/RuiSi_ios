@@ -53,9 +53,15 @@ failure:(void (^)(NSError *error))failure;
                                               success:(void (^)(ThreadDetailList *threadDetailList))success
                                               failure:(void (^)(NSError *error))failure;
 
+- (NSURLSessionDataTask *) getLinkDictionaryWithTid:(NSString *)tid
+                                      page:(NSInteger )page
+                                   success:(void (^)(NSDictionary *links))success
+                                   failure:(void (^)(NSError *error))failure;
+
 - (NSURLSessionDataTask *) getMemberWithUid:(NSString *)uid
                                     success:(void (^)(Member *member))success
                                     failure:(void (^)(NSError *error))failure;
+
 
 - (NSURLSessionDataTask *) replyCreateWithFid:(NSString *)fid
                                      ThreadID:(NSString *)tid
