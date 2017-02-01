@@ -11,6 +11,7 @@
 #import "Member.h"
 #import "Constants.h"
 #import "ThreadDetail.h"
+#import "HTMLParser.h"
 @interface DataManager()
 @property (nonatomic,strong) AFHTTPSessionManager *sessionManager;
 @property (nonatomic,copy) NSString *userAgentMobile;
@@ -20,7 +21,7 @@
 @implementation DataManager
 
 
-
+#pragma mark - Base Methods
 - (instancetype) init {
     if (self = [super init]) {
         
@@ -134,6 +135,7 @@
     return task;
 }
 
+#pragma mark - Thread List
 - (NSURLSessionDataTask *)getThreadListWithFid:(NSString *)fid page:(NSInteger )page success:(void (^)(ThreadList *))success failure:(void (^)(NSError *))failure {
     NSDictionary *parameters;
     if (page) {
@@ -160,21 +162,6 @@
         }
     } failure:^(NSError *error) {
         failure(error);
-    }];
-}
-
-- (NSURLSessionDataTask *)getMessageListSuccess:(void (^)(MessageList *))success failure:(void (^)(NSError *))failure {
-    NSDictionary *parameters;
-    parameters = @{
-                   @"mod":@"space",
-                   @"do":@"pm",
-                   @"mobile":@"2",
-                   };
-    return [self requestWithMethod:RequestMethodHTTPGet urlString:@"home.php" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-        MessageList *messageList = [MessageList getMessageListFromResponseObject:responseObject];
-        success(messageList);
-    } failure:^(NSError *error) {
-        
     }];
 }
 
@@ -213,6 +200,24 @@
     }];
 }
 
+#pragma mark - Message List
+- (NSURLSessionDataTask *)getMessageListSuccess:(void (^)(MessageList *))success failure:(void (^)(NSError *))failure {
+    NSDictionary *parameters;
+    parameters = @{
+                   @"mod":@"space",
+                   @"do":@"pm",
+                   @"mobile":@"2",
+                   };
+    return [self requestWithMethod:RequestMethodHTTPGet urlString:@"home.php" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        MessageList *messageList = [MessageList getMessageListFromResponseObject:responseObject];
+        success(messageList);
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+
+#pragma mark - Detail
 - (NSURLSessionDataTask *)getThreadDetailListWithTid:(NSString *)tid page:(NSInteger)page success:(void (^)(ThreadDetailList *))success failure:(void (^)(NSError *))failure {
     NSDictionary *parameters = @{
                        @"mod":@"viewthread",
@@ -281,6 +286,26 @@
 
 
 - (NSURLSessionDataTask *)userLoginWithUserName:(NSString *)username password:(NSString *)password success:(void (^)(NSString *))success failure:(void (^)(NSError *))error {
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (NSHTTPCookie *cookie in [storage cookies]) {
+        [storage deleteCookie:cookie];
+    }
+    [self requestOnceWithURLString:@"member.php" success:^(NSString *onceString, id responseObject) {
+        NSDictionary *parameters;
+        parameters = @{
+                       @"formhash":@"",
+                       @"referer":@"",
+                       @"fastloginfield":@"",
+                       @"cookietime":@"",
+                       @"username":username,
+                       @"password":password,
+                       @"questionid":@"0"
+                       };
+    } failure:^(NSError *error) {
+        ;
+    }];
+    
+    
     return nil;
 }
 
@@ -288,6 +313,65 @@
 
 - (void)UserLogout {
     
+}
+
+#pragma mark - Private Methods
+//  得到唯一的一个登录地址
+- (NSURLSessionDataTask *)requestOnceWithURLString:(NSString *)urlString success:(void (^)(NSString *onceString, id responseObject))success
+                                           failure:(void (^)(NSError *error))failure {
+    NSDictionary *parameters = @{
+                                 @"mod":@"logging",
+                                 @"action":@"login",
+                                 @"mobile":@"2"
+                                 };
+    
+    
+    return [self requestWithMethod:RequestMethodHTTPGet urlString:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        NSString *onceString = [self getOnceStringFromHtmlResponseObject:responseObject];
+        if (onceString) {
+            success(onceString, responseObject);
+        } else {
+            NSError *error = [[NSError alloc] initWithDomain:self.sessionManager.baseURL.absoluteString code:200 userInfo:nil];
+            failure(error);
+        }
+        
+    } failure:^(NSError *error) {
+        failure(error);
+    }];
+
+    
+}
+
+- (NSString *)getOnceStringFromHtmlResponseObject:(id)responseObject {
+    
+    __block NSString *onceString;
+    
+    @autoreleasepool {
+        NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        
+        NSError *error = nil;
+        HTMLParser *parser = [[HTMLParser alloc] initWithString:htmlString error:&error];
+        
+        if (error) {
+            NSLog(@"Error: %@", error);
+        }
+        
+        HTMLNode *bodyNode = [parser body];
+        
+        NSArray *inputNodes = [bodyNode findChildTags:@"form"];
+        
+        [inputNodes enumerateObjectsUsingBlock:^(HTMLNode *aNode, NSUInteger idx, BOOL *stop) {
+            
+            if ([[aNode getAttributeNamed:@"method"] isEqualToString:@"post"]) {
+                onceString = [aNode getAttributeNamed:@"action"];
+            }
+            
+        }];
+        
+    }
+    
+    return onceString;
 }
 
 @end
