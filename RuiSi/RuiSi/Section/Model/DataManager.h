@@ -46,7 +46,7 @@ typedef NS_ENUM(NSInteger, RSErrorType) {
 
 + (instancetype) manager;
 + (BOOL) isSchoolNet;
-
++ (BOOL) isUserLogined;
 - (NSURLSessionDataTask *) getMessageListSuccess:(void (^)(MessageList *messageList))success
 failure:(void (^)(NSError *error))failure;
 

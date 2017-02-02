@@ -11,8 +11,23 @@
 
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
-
-
+#ifdef __OBJC__
+#import <UIKit/UIkit.h>
+#import "Constants.h"
+#import "DataManager.h"
+#import "OCGumbo.h"
+#import "OCGumbo+Query.h"
+#import "BlocksKit.h"
+#import "SVProgressHUD.h"
+#import "HTMLParser.h"
+#import "HTMLNode.h"
+#import "MJRefresh.h"
+#import "EXTScope.h"
+#import "UIView+BlocksKit.h"
+#import "UIImageView+WebCache.h"
+static NSString * const kLoginSuccessNotification = @"LoginSuccessNotification";
+static NSString * const kLogoutSuccessNotification = @"LogoutSuccessNotification";
+#endif
+#define RGB(c,a)    [UIColor colorWithRed:((c>>16)&0xFF)/256.0  green:((c>>8)&0xFF)/256.0   blue:((c)&0xFF)/256.0   alpha:a]
 
 #endif /* RuiSi_Prefix_pch */
-#define RGB(c,a)    [UIColor colorWithRed:((c>>16)&0xFF)/256.0  green:((c>>8)&0xFF)/256.0   blue:((c)&0xFF)/256.0   alpha:a]

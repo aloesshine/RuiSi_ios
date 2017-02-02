@@ -10,11 +10,11 @@
 #import "ThreadDetailViewController.h"
 #import "Thread.h"
 #import "ThreadListCell.h"
-#import "OCGumbo.h"
-#import "OCGumbo+Query.h"
-#import "EXTScope.h"
-#import "DataManager.h"
-#import "MJRefresh.h"
+//#import "OCGumbo.h"
+//#import "OCGumbo+Query.h"
+//#import "EXTScope.h"
+//#import "DataManager.h"
+//#import "MJRefresh.h"
 NSString *kThreadListCell = @"ThreadListCell";
 NSString *kShowThreadDetail = @"showThreadDetail";
 @interface ThreadListViewController ()

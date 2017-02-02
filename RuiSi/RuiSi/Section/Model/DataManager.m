@@ -35,7 +35,7 @@
         BOOL isLogin = false;
         if (isLogin) {
             User *user = [[User alloc] init];
-            user.login = YES;
+            user.isLogin = YES;
             Member *member = [[Member alloc] init];
             user.member = member;
             user.member.memberName = [[NSUserDefaults standardUserDefaults] valueForKey:kUserName];
@@ -64,7 +64,7 @@
 - (void) setUser:(User *)user {
     _user = user;
     if (user) {
-        self.user.login = YES;
+        self.user.isLogin = YES;
         [userDefaults setObject:user.member.memberName forKey:kUserName];
         [userDefaults setObject:user.member.memberUid forKey:kUserID];
         [userDefaults setObject:user.member.memberAvatarSmall forKey:kUserAvatarURL];
@@ -84,6 +84,9 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [[DataManager alloc] init];
+        [[NSNotificationCenter defaultCenter] addObserverForName:kLoginSuccessNotification object:manager queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+            manager.user.isLogin = YES;
+        }];
     });
     return manager;
 }
@@ -92,7 +95,9 @@
     return false;
 }
 
-
++ (BOOL)isUserLogined {
+    return [DataManager manager].user.isLogin;
+}
 
 - (NSURLSessionDataTask *)requestWithMethod:(RequestMethod) method
                                   urlString:(NSString *)urlString
@@ -296,18 +301,24 @@
         //NSDictionary *infoDictionary = [self getInfoDictionaryFromHtmlResponseObject:responseObject];
         NSDictionary *parameters = @{
                        @"formhash":[infoDictionary objectForKey:@"formhash"],
-                       @"referer":[infoDictionary objectForKey:@"referer"],
+                       //@"referer":[infoDictionary objectForKey:@"referer"],
+                       @"referer":@"http://bbs.rs.xidian.me/forum.php?mod=guide&view=hot&mobile=2",
                        @"fastloginfield":[infoDictionary objectForKey:@"fastloginfield"],
                        @"cookietime":[infoDictionary objectForKey:@"cookietime"],
                        @"username":username,
                        @"password":password,
                        @"questionid":@"0"
                        };
+        NSString *postUrlString = [infoDictionary objectForKey:@"postUrlString"];
         [self.sessionManager.requestSerializer setValue:@"http://bbs.rs.xidian.me/forum.php?mod=guide&view=hot&mobile=2" forHTTPHeaderField:@"Referer"];
-        [self requestWithMethod:RequestMethodHTTPPost urlString:@"member.php" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        [self requestWithMethod:RequestMethodHTTPPost urlString:postUrlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
             NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
             if ([htmlString rangeOfString:@"succeedhandle"].location != NSNotFound) {
-                success(username);
+                NSRange range1 = [htmlString rangeOfString:@"'uid':'"];
+                NSRange range2 = [htmlString rangeOfString:@"','groupid'"];
+                NSRange range = NSMakeRange(range1.location + range1.length+1, range2.location-range1.location);
+                NSString *uid = [htmlString substringWithRange:range];
+                success(uid);
                 NSLog(@"Login succeed!");
             } else {
                 NSError *error = [[NSError alloc] initWithDomain:self.sessionManager.baseURL.absoluteString code:RSErrorTypeLoginFailure userInfo:nil];
@@ -332,32 +343,6 @@
 
 #pragma mark - Private Methods
 //  得到唯一的一个登录地址
-- (NSURLSessionDataTask *)requestOnceWithURLString:(NSString *)urlString success:(void (^)(NSString *onceString, id responseObject))success
-                                           failure:(void (^)(NSError *error))failure {
-    NSDictionary *parameters = @{
-                                 @"mod":@"logging",
-                                 @"action":@"login",
-                                 @"mobile":@"2"
-                                 };
-    
-    
-    return [self requestWithMethod:RequestMethodHTTPGet urlString:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-        
-        NSString *onceString = [self getOnceStringFromHtmlResponseObject:responseObject];
-        if (onceString) {
-            success(onceString, responseObject);
-        } else {
-            NSError *error = [[NSError alloc] initWithDomain:self.sessionManager.baseURL.absoluteString code:200 userInfo:nil];
-            failure(error);
-        }
-        
-    } failure:^(NSError *error) {
-        failure(error);
-    }];
-
-    
-}
-
 - (NSURLSessionDataTask *) requestOnceWithUrlString:(NSString *)urlString success:(void (^)(NSDictionary *dictionary,id responseObject))success failure:(void (^)(NSError *error)) failure {
     NSDictionary *parameters = @{
                                  @"mod":@"logging",
@@ -369,7 +354,7 @@
         if (infoDictionary) {
             success(infoDictionary,responseObject);
         } else {
-            NSError *error = [[NSError alloc] initWithDomain:self.sessionManager.baseURL.absoluteString code:200 userInfo:nil];
+            NSError *error = [[NSError alloc] initWithDomain:self.sessionManager.baseURL.absoluteString code:RSErrorTypeRequestFailure userInfo:nil];
             failure(error);
         }
     } failure:^(NSError *error) {
@@ -384,7 +369,7 @@
     __block NSDictionary *result;
     @autoreleasepool {
         NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        NSError *error = nil;
+        //NSError *error = nil;
         OCGumboDocument *document = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
         OCGumboNode *node = document.Query(@".bg").find(@".loginbox").find(@"form").first();
         NSString *postUrlString = node.attr(@"action");
@@ -409,35 +394,6 @@
     return result;
 }
 
-- (NSString *)getOnceStringFromHtmlResponseObject:(id)responseObject {
-    
-    __block NSString *onceString;
-    
-    @autoreleasepool {
-        NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        
-        NSError *error = nil;
-        HTMLParser *parser = [[HTMLParser alloc] initWithString:htmlString error:&error];
-        
-        if (error) {
-            NSLog(@"Error: %@", error);
-        }
-        
-        HTMLNode *bodyNode = [parser body];
-        
-        NSArray *inputNodes = [bodyNode findChildTags:@"form"];
-        
-        [inputNodes enumerateObjectsUsingBlock:^(HTMLNode *aNode, NSUInteger idx, BOOL *stop) {
-            
-            if ([[aNode getAttributeNamed:@"method"] isEqualToString:@"post"]) {
-                onceString = [aNode getAttributeNamed:@"action"];
-            }
-            
-        }];
-        
-    }
-    
-    return onceString;
-}
+
 
 @end

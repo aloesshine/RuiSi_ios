@@ -190,7 +190,6 @@
 		BB72A3311DDF55F1007192FE /* SectionCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionCollectionViewCell.xib; sourceTree = "<group>"; };
 		BB72A3331DDF68C8007192FE /* SectionHeaderViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionHeaderViewCell.h; sourceTree = "<group>"; };
 		BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionHeaderViewCell.m; sourceTree = "<group>"; };
-		BB77FC851DF4468300610731 /* RuiSi-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "RuiSi-Prefix.pch"; path = "RuiSi/Section/Controller/RuiSi-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		BB77FC861DF4629A00610731 /* Reply.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reply.h; sourceTree = "<group>"; };
 		BB77FC871DF4629A00610731 /* Reply.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reply.m; sourceTree = "<group>"; };
 		BB928E891DEC62FC00855274 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -451,7 +450,6 @@
 			children = (
 				BB0F8C6E1DF0852D006D11E2 /* DataManager.h */,
 				BB0F8C6F1DF0852D006D11E2 /* DataManager.m */,
-				BB77FC851DF4468300610731 /* RuiSi-Prefix.pch */,
 				BB0A95D81DF71F84009B6F7D /* Helper.h */,
 				BB0A95D91DF71F84009B6F7D /* Helper.m */,
 				7AE6E7401E2E4D6700F65DBE /* TextField.h */,

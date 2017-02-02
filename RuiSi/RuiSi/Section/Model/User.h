@@ -10,5 +10,5 @@
 #import "Member.h"
 @interface User : NSObject
 @property (nonatomic,strong) Member *member;
-@property (nonatomic,assign,getter=isLogin) BOOL login;
+@property (nonatomic,assign) BOOL isLogin;
 @end

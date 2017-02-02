@@ -7,11 +7,11 @@
 //
 
 #import "ProfileViewController.h"
-#import "Constants.h"
+//#import "Constants.h"
 #import "Member.h"
-#import "DataManager.h"
-#import "EXTScope.h"
-#import "UIImageView+WebCache.h"
+//#import "DataManager.h"
+//#import "EXTScope.h"
+//#import "UIImageView+WebCache.h"
 @interface ProfileViewController () <UITableViewDelegate,UITableViewDataSource>
 @property (strong,nonatomic) UIImageView *avatarImageView;
 @property (strong,nonatomic) UILabel *nameLabel;
