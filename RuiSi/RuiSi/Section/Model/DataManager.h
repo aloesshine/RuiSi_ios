@@ -25,6 +25,21 @@ typedef NS_ENUM(NSInteger,RequestMethod) {
 };
 
 
+typedef NS_ENUM(NSInteger, RSErrorType) {
+    
+    RSErrorTypeNoOnceAndNext          = 700,
+    RSErrorTypeLoginFailure           = 701,
+    RSErrorTypeRequestFailure         = 702,
+    RSErrorTypeGetFeedURLFailure      = 703,
+    RSErrorTypeGetTopicListFailure    = 704,
+    RSErrorTypeGetNotificationFailure = 705,
+    RSErrorTypeGetFavUrlFailure       = 706,
+    RSErrorTypeGetMemberReplyFailure  = 707,
+    RSErrorTypeGetTopicTokenFailure   = 708,
+    RSErrorTypeGetCheckInURLFailure   = 709,
+    
+};
+
 @interface DataManager : NSObject
 
 @property (nonatomic,strong) User *user;
@@ -74,7 +89,7 @@ failure:(void (^)(NSError *error))failure;
 - (NSURLSessionDataTask *) userLoginWithUserName:(NSString *)username
                                         password:(NSString *)password
                                          success:(void (^)(NSString *message))success
-                                         failure:(void (^)(NSError *error)) error;
+                                         failure:(void (^)(NSError *error)) failure;
 
 
 - (void) UserLogout;

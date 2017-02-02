@@ -12,6 +12,8 @@
 #import "Constants.h"
 #import "ThreadDetail.h"
 #import "HTMLParser.h"
+#import "OCGumbo.h"
+#import "OCGumbo+Query.h"
 @interface DataManager()
 @property (nonatomic,strong) AFHTTPSessionManager *sessionManager;
 @property (nonatomic,copy) NSString *userAgentMobile;
@@ -285,26 +287,39 @@
 
 
 
-- (NSURLSessionDataTask *)userLoginWithUserName:(NSString *)username password:(NSString *)password success:(void (^)(NSString *))success failure:(void (^)(NSError *))error {
+- (NSURLSessionDataTask *)userLoginWithUserName:(NSString *)username password:(NSString *)password success:(void (^)(NSString *))success failure:(void (^)(NSError *error))failure {
     NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     for (NSHTTPCookie *cookie in [storage cookies]) {
         [storage deleteCookie:cookie];
     }
-    [self requestOnceWithURLString:@"member.php" success:^(NSString *onceString, id responseObject) {
-        NSDictionary *parameters;
-        parameters = @{
-                       @"formhash":@"",
-                       @"referer":@"",
-                       @"fastloginfield":@"",
-                       @"cookietime":@"",
+    [self requestOnceWithUrlString:@"member.php" success:^(NSDictionary *infoDictionary, id responseObject) {
+        //NSDictionary *infoDictionary = [self getInfoDictionaryFromHtmlResponseObject:responseObject];
+        NSDictionary *parameters = @{
+                       @"formhash":[infoDictionary objectForKey:@"formhash"],
+                       @"referer":[infoDictionary objectForKey:@"referer"],
+                       @"fastloginfield":[infoDictionary objectForKey:@"fastloginfield"],
+                       @"cookietime":[infoDictionary objectForKey:@"cookietime"],
                        @"username":username,
                        @"password":password,
                        @"questionid":@"0"
                        };
+        [self.sessionManager.requestSerializer setValue:@"http://bbs.rs.xidian.me/forum.php?mod=guide&view=hot&mobile=2" forHTTPHeaderField:@"Referer"];
+        [self requestWithMethod:RequestMethodHTTPPost urlString:@"member.php" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+            NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+            if ([htmlString rangeOfString:@"succeedhandle"].location != NSNotFound) {
+                success(username);
+                NSLog(@"Login succeed!");
+            } else {
+                NSError *error = [[NSError alloc] initWithDomain:self.sessionManager.baseURL.absoluteString code:RSErrorTypeLoginFailure userInfo:nil];
+                failure(error);
+            }
+        } failure:^(NSError *error) {
+            failure(error);
+        }];
+        
     } failure:^(NSError *error) {
         ;
     }];
-    
     
     return nil;
 }
@@ -341,6 +356,57 @@
     }];
 
     
+}
+
+- (NSURLSessionDataTask *) requestOnceWithUrlString:(NSString *)urlString success:(void (^)(NSDictionary *dictionary,id responseObject))success failure:(void (^)(NSError *error)) failure {
+    NSDictionary *parameters = @{
+                                 @"mod":@"logging",
+                                 @"action":@"login",
+                                 @"mobile":@"2"
+                                 };
+    return [self requestWithMethod:RequestMethodHTTPGet urlString:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSDictionary *infoDictionary = [self getInfoDictionaryFromHtmlResponseObject:responseObject];
+        if (infoDictionary) {
+            success(infoDictionary,responseObject);
+        } else {
+            NSError *error = [[NSError alloc] initWithDomain:self.sessionManager.baseURL.absoluteString code:200 userInfo:nil];
+            failure(error);
+        }
+    } failure:^(NSError *error) {
+        failure(error);
+    }];
+    return nil;
+}
+
+
+
+- (NSDictionary *) getInfoDictionaryFromHtmlResponseObject:(id) responseObject {
+    __block NSDictionary *result;
+    @autoreleasepool {
+        NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        NSError *error = nil;
+        OCGumboDocument *document = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
+        OCGumboNode *node = document.Query(@".bg").find(@".loginbox").find(@"form").first();
+        NSString *postUrlString = node.attr(@"action");
+        OCQueryObject *inputs = node.Query(@"input");
+        NSString *formhash,*referer,*fastloginfield,*cookietime;
+        for (OCGumboNode *input in inputs ) {
+            if ([input.attr(@"name") isEqualToString:@"formhash"]) {
+                formhash = (NSString *)input.attr(@"value");
+            }
+            if ([input.attr(@"name") isEqualToString:@"referer"]) {
+                referer = (NSString *)input.attr(@"value");
+            }
+            if ([input.attr(@"name") isEqualToString:@"fastloginfield"]) {
+                fastloginfield = (NSString *)input.attr(@"value");
+            }
+            if ([input.attr(@"name") isEqualToString:@"cookietime"]) {
+                cookietime = (NSString *)input.attr(@"value");
+            }
+        }
+        result = [[NSDictionary alloc] initWithObjectsAndKeys:postUrlString,@"postUrlString",formhash,@"formhash",referer,@"referer",fastloginfield,@"fastloginfield",cookietime,@"cookietime", nil];
+    }
+    return result;
 }
 
 - (NSString *)getOnceStringFromHtmlResponseObject:(id)responseObject {
