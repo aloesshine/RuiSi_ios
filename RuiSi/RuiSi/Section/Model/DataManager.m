@@ -61,23 +61,23 @@
     self.sessionManager.requestSerializer = serializer;
 }
 
-- (void) setUser:(User *)user {
-    _user = user;
-    if (user) {
-        self.user.isLogin = YES;
-        [userDefaults setObject:user.member.memberName forKey:kUserName];
-        [userDefaults setObject:user.member.memberUid forKey:kUserID];
-        [userDefaults setObject:user.member.memberAvatarSmall forKey:kUserAvatarURL];
-        [userDefaults setObject:@"YES" forKey:kUserIsLogin];
-        [userDefaults synchronize];
-    } else {
-        [userDefaults removeObjectForKey:kUserName];
-        [userDefaults removeObjectForKey:kUserID];
-        [userDefaults removeObjectForKey:kUserAvatarURL];
-        [userDefaults removeObjectForKey:kUserIsLogin];
-        [userDefaults synchronize];
-    }
-}
+//- (void) setUser:(User *)user {
+//    _user = user;
+//    if (user) {
+//        self.user.isLogin = YES;
+//        [userDefaults setObject:user.member.memberName forKey:kUserName];
+//        [userDefaults setObject:user.member.memberUid forKey:kUserID];
+//        [userDefaults setObject:user.member.memberAvatarSmall forKey:kUserAvatarURL];
+//        [userDefaults setObject:@"YES" forKey:kUserIsLogin];
+//        [userDefaults synchronize];
+//    } else {
+//        [userDefaults removeObjectForKey:kUserName];
+//        [userDefaults removeObjectForKey:kUserID];
+//        [userDefaults removeObjectForKey:kUserAvatarURL];
+//        [userDefaults removeObjectForKey:kUserIsLogin];
+//        [userDefaults synchronize];
+//    }
+//}
 
 + (instancetype) manager {
     static DataManager *manager = nil;
@@ -301,7 +301,7 @@
         //NSDictionary *infoDictionary = [self getInfoDictionaryFromHtmlResponseObject:responseObject];
         NSDictionary *parameters = @{
                        @"formhash":[infoDictionary objectForKey:@"formhash"],
-                       //@"referer":[infoDictionary objectForKey:@"referer"],
+//                       @"referer":[infoDictionary objectForKey:@"referer"],
                        @"referer":@"http://bbs.rs.xidian.me/forum.php?mod=guide&view=hot&mobile=2",
                        @"fastloginfield":[infoDictionary objectForKey:@"fastloginfield"],
                        @"cookietime":[infoDictionary objectForKey:@"cookietime"],
@@ -310,12 +310,13 @@
                        @"questionid":@"0"
                        };
         NSString *postUrlString = [infoDictionary objectForKey:@"postUrlString"];
-        [self.sessionManager.requestSerializer setValue:@"http://bbs.rs.xidian.me/forum.php?mod=guide&view=hot&mobile=2" forHTTPHeaderField:@"Referer"];
+        [self.sessionManager.requestSerializer setValue:@"http://bbs.rs.xidian.me/member.php?mod=logging&action=login&mobile=2" forHTTPHeaderField:@"Referer"];
+        
         [self requestWithMethod:RequestMethodHTTPPost urlString:postUrlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
             NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-            if ([htmlString rangeOfString:@"succeedhandle"].location != NSNotFound) {
-                NSRange range1 = [htmlString rangeOfString:@"'uid':'"];
-                NSRange range2 = [htmlString rangeOfString:@"','groupid'"];
+            if ([htmlString rangeOfString:@"欢迎您回来"].location != NSNotFound) {
+                NSRange range1 = [htmlString rangeOfString:@"uid="];
+                NSRange range2 = [htmlString rangeOfString:@"&do=profile"];
                 NSRange range = NSMakeRange(range1.location + range1.length+1, range2.location-range1.location);
                 NSString *uid = [htmlString substringWithRange:range];
                 success(uid);
