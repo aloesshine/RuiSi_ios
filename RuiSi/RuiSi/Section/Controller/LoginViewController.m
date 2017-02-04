@@ -99,7 +99,9 @@
             [self hideKeyboard];
             [[DataManager manager] userLoginWithUserName:self.usernameField.text password:self.passwordField.text success:^(NSString *uid) {
                 [[DataManager manager] getMemberWithUid:uid success:^(Member *member) {
-                    [DataManager manager].user.member = member;
+                    User *user = [[User alloc] init];
+                    user.member = member;
+                    [DataManager manager].user = user;
                     [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccessNotification object:nil];
                     [self endLogin];
                     [self dismissViewControllerAnimated:YES completion:nil];

@@ -264,8 +264,8 @@
                    @"do":@"profile",
                    @"mobile":@"2"
                    };
-    return [self requestWithMethod:RequestMethodHTTPGet urlString:@"forum.php" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-        Member *member = [[Member alloc] init];
+    return [self requestWithMethod:RequestMethodHTTPGet urlString:@"home.php" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        Member *member = [Member getMemberFromResponseObject:responseObject];
         success(member);
     } failure:^(NSError *error) {
         failure(error);
@@ -317,7 +317,7 @@
             if ([htmlString rangeOfString:@"欢迎您回来"].location != NSNotFound) {
                 NSRange range1 = [htmlString rangeOfString:@"uid="];
                 NSRange range2 = [htmlString rangeOfString:@"&do=profile"];
-                NSRange range = NSMakeRange(range1.location + range1.length+1, range2.location-range1.location);
+                NSRange range = NSMakeRange(range1.location + range1.length, range2.location-range1.location-range1.length);
                 NSString *uid = [htmlString substringWithRange:range];
                 success(uid);
                 NSLog(@"Login succeed!");

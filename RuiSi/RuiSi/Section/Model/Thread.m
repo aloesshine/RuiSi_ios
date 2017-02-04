@@ -55,12 +55,17 @@
             }
             thread.titleURL = (NSString *)ele.Query(@"a").first().attr(@"href");
             
-            NSString *s1 = @"tid=",*s2 = @"&extra=";
-            NSRange range1 = [thread.titleURL rangeOfString:s1];
-            NSRange range2 = [thread.titleURL rangeOfString:s2];
-            NSRange range = NSMakeRange(range1.location+range1.length, range2.location-range1.location-range1.length);
-            
+            NSRange range1 = [thread.titleURL rangeOfString:@"tid="];
+            NSRange range2;
+            if ([thread.titleURL rangeOfString:@"&extra="].location != NSNotFound) {
+                range2 = [thread.titleURL rangeOfString:@"&extra="];
+            } else {
+                range2 = [thread.titleURL rangeOfString:@"&mobile="];
+            }
+            NSRange range = NSMakeRange(range1.location+range1.length,range2.location-range1.location-range1.length);
             thread.tid = [thread.titleURL substringWithRange:range];
+            
+            
             if (ele.Query(@"a").find(@"span.by")) {
                 thread.author = (NSString *)ele.Query(@"a").first().Query(@"span.by").text();
                 NSString *title = (NSString *)ele.Query(@"a").text();

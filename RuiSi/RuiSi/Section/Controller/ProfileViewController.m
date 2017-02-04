@@ -36,10 +36,10 @@
 
 
 - (void) setupSubviews {
-    self.topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 180)];
+    self.topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 200)];
     self.topView.backgroundColor = [UIColor colorWithRed:0.85 green:0.13 blue:0.16 alpha:1.0];
     
-    self.avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreen_Width/2-50, 20, 100, 100)];
+    self.avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreen_Width/2-50, 40, 100, 100)];
     
     [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:self.user.memberAvatarMiddle] placeholderImage:[UIImage imageNamed:@"default_avatar_middle"]];
     self.avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -48,16 +48,16 @@
     [self.topView addSubview:self.avatarImageView];
     
     
-    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20+self.avatarImageView.frame.size.height + 10, kScreen_Width, 20)];
+    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 160, kScreen_Width, 20)];
     self.nameLabel.textAlignment = NSTextAlignmentCenter;
-    self.nameLabel.font = [UIFont systemFontOfSize:16];
+    self.nameLabel.font = [UIFont systemFontOfSize:18];
     self.nameLabel.textColor = [UIColor whiteColor];
     self.nameLabel.text = self.user.memberName;
     [self.topView addSubview:self.nameLabel];
     
     [self.view addSubview:self.topView];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.topView.frame.size.height, kScreen_Width, kScreen_Height-self.topView.frame.size.height)];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 200, kScreen_Width, kScreen_Height-self.topView.frame.size.height)];
     self.tableView.scrollEnabled = NO;
     [self.view addSubview:self.tableView];
 }

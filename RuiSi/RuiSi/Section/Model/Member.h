@@ -29,4 +29,5 @@
 
 
 + (Member *) getMemberWithHomepage:(NSString *)homepage;
++ (Member *) getMemberFromResponseObject:(id) responseObject;
 @end

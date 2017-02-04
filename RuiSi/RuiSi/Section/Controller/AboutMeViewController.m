@@ -29,7 +29,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
 @property (nonatomic,strong) UIImageView *avatarImage;
 @property (nonatomic,strong) UIButton *avatarButton;
 @property (nonatomic,strong) UILabel *nameLabel;
-@property (nonatomic,strong) UILabel *levelLabel;
+//@property (nonatomic,strong) UILabel *levelLabel;
 @property (nonatomic,strong) Member *me;
 @property (nonatomic,assign) BOOL isLogged;
 @end
@@ -43,9 +43,22 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     
     self.isLogged = NO;
     [self setupSubviews];
-    
+    [self configureNotifications];
 }
 
+
+- (void) configureNotifications {
+    @weakify(self);
+    [[NSNotificationCenter defaultCenter] addObserverForName:kLoginSuccessNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+        @strongify(self);
+        [self.avatarImage sd_setImageWithURL:[NSURL URLWithString:[DataManager manager].user.member.memberAvatarMiddle] placeholderImage:[UIImage imageNamed:@"default_avatar_middle"]];
+        self.nameLabel.hidden = NO;
+        self.isLogged = YES;
+        self.me = [DataManager manager].user.member;
+        self.nameLabel.text = self.me.memberName;
+        NSLog(@"%@",self.me.memberHomepage);
+    }];
+}
 - (void) showUnloggedMessage {
     if (self.isLogged) {
         
@@ -59,10 +72,10 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
 
 
 - (void) setupSubviews {
-    self.topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 190)];
+    self.topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 200)];
     self.topView.backgroundColor = [UIColor colorWithRed:0.85 green:0.13 blue:0.16 alpha:1.0];
     
-    self.avatarImage = [[UIImageView alloc] initWithFrame:CGRectMake(kScreen_Width/2-50, 20, 100, 100)];
+    self.avatarImage = [[UIImageView alloc] initWithFrame:CGRectMake(kScreen_Width/2-50,40, 100, 100)];
     //self.avatarImage.image = [UIImage imageNamed:@"default_avatar_middle"];
     self.avatarImage.contentMode = UIViewContentModeScaleAspectFill;
     self.avatarImage.layer.cornerRadius = 50;
@@ -85,8 +98,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     }];
     [self.topView addSubview:self.avatarImage];
     
-    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 130, kScreen_Width, 20)];
-    
+    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 160, kScreen_Width, 20)];
     //self.nameLabel.text = @"Tamarous";
     self.nameLabel.textAlignment = NSTextAlignmentCenter;
     self.nameLabel.font = [UIFont systemFontOfSize:18];
@@ -94,26 +106,26 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     [self.topView addSubview:self.nameLabel];
     
     
-    self.levelLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 160, kScreen_Width, 16)];
-    self.levelLabel.textColor = [UIColor whiteColor];
-    self.levelLabel.textAlignment = NSTextAlignmentCenter;
-    //self.levelLabel.text = @"西电研一";
-    self.levelLabel.font = [UIFont systemFontOfSize:16];
-    [self.topView addSubview:self.levelLabel];
+//    self.levelLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 160, kScreen_Width, 16)];
+//    self.levelLabel.textColor = [UIColor whiteColor];
+//    self.levelLabel.textAlignment = NSTextAlignmentCenter;
+//    //self.levelLabel.text = @"西电研一";
+//    self.levelLabel.font = [UIFont systemFontOfSize:16];
+//    [self.topView addSubview:self.levelLabel];
     
     
     if (self.isLogged) {
         [self.avatarImage sd_setImageWithURL:[NSURL URLWithString: self.me.memberAvatarMiddle] placeholderImage:[UIImage imageNamed:@"default_avatar_middle"]];
-        self.levelLabel.hidden = YES;
+        //self.levelLabel.hidden = YES;
         self.nameLabel.text = self.me.memberName;
     } else {
         self.avatarImage.image = [UIImage imageNamed:@"default_avatar_middle"];
         self.nameLabel.text = @"请点击头像登录";
-        self.levelLabel.hidden = YES;
+        //self.levelLabel.hidden = YES;
     }
     
     
-    self.secondView = [[UIView alloc] initWithFrame:CGRectMake(0, 190, kScreen_Width, 90)];
+    self.secondView = [[UIView alloc] initWithFrame:CGRectMake(0, 200, kScreen_Width, 90)];
     self.secondView.backgroundColor = [UIColor whiteColor];
     NSInteger spaceWidth = (kScreen_Width-200)/5;
     
@@ -144,6 +156,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
             threadListViewController.getThreadListBlock = ^(NSInteger page) {
                 return [[DataManager manager] getFavoriteThreadListWithUid:self.me.memberUid success:^(ThreadList *threadList) {
                     threadListViewController_.threadList = threadList;
+                    [threadListViewController_.tableView reloadData];
                 } failure:^(NSError *error) {
                     
                 }];
@@ -173,6 +186,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
             threadListViewController.getThreadListBlock = ^(NSInteger page) {
                 return [[DataManager manager] getThreadListWithUid:self.me.memberUid success:^(ThreadList *threadList) {
                     threadListViewController_.threadList = threadList;
+                    [threadListViewController_.tableView reloadData];
                 } failure:^(NSError *error) {
                     
                 }];
@@ -198,8 +212,8 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
             [self.navigationController pushViewController:profileVC animated:YES];
         } else {
             [self showUnloggedMessage];
-            NSLog(@"show login.");
-            //[self presentViewController:[LogInViewController new] animated:YES completion:nil];
+            LoginViewController *loginVC = [[LoginViewController alloc] init];
+            [self presentViewController:loginVC animated:YES completion:nil];
         }
     }];
     
