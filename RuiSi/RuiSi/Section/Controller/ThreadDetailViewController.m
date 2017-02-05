@@ -8,15 +8,10 @@
 
 #import "ThreadDetailViewController.h"
 #import "ThreadDetail.h"
-//#import "DataManager.h"
-//#import "EXTScope.h"
-//#import "MJRefresh.h"
 #import "ThreadDetailTitleCell.h"
 #import "Thread.h"
 #import "ThreadDetailInfoCell.h"
 #import "ThreadDetailDTCell.h"
-//#import "Constants.h"
-//#import "UIImageView+WebCache.h"
 #import "ThreadDetailDTCell.h"
 #import "DTTextAttachment.h"
 #import "ProfileViewController.h"
@@ -27,6 +22,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 @property (nonatomic,copy) NSURLSessionDataTask* (^getThreadDetailListBlock)(NSInteger page);
 @property (nonatomic,copy) NSURLSessionDataTask* (^getMoreThreadDetailBlock)(NSInteger page);
 @property (nonatomic,copy) NSURLSessionDataTask* (^getLinksBlock)();
+@property (nonatomic,copy) NSURLSessionDataTask* (^getCreatorOnlyDetailListBlock)(NSInteger page);
 @property (nonatomic,assign) NSInteger currentPage;
 @property (nonatomic,strong) UIBarButtonItem *favorButtonItem;
 @property (nonatomic,strong) NSDictionary *linksDict;
@@ -61,6 +57,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 
 - (void) lookOnly {
     NSLog(@"%@",[self.linksDict objectForKey:@"creatorOnly"]);
+    self.getCreatorOnlyDetailListBlock(1);
 }
 
 
@@ -112,6 +109,19 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
         @strongify(self);
         return [[DataManager manager] getLinkDictionaryWithTid:self.tid page:1 success:^(NSDictionary *links) {
             self.linksDict = links;
+        } failure:^(NSError *error) {
+            ;
+        }];
+    };
+    
+    self.getCreatorOnlyDetailListBlock = ^(NSInteger page) {
+        @strongify(self);
+        ThreadDetail *detail = [self.detailList.list objectAtIndex:0];
+        NSString *uid = detail.threadCreator.memberUid;
+        self.currentPage = page;
+        return [[DataManager manager] getCreatorOnlyThreadDetailListWithTid:self.thread.tid page:self.currentPage authorid:uid success:^(ThreadDetailList *threadDetailList) {
+            self.detailList = threadDetailList;
+            [self.tableView reloadData];
         } failure:^(NSError *error) {
             ;
         }];

@@ -35,7 +35,7 @@ NSString *kshowThreadListSegue = @"showThreadList";
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = backItem;
     
-    self.isLogin = false;
+    self.isLogin = [userDefaults objectForKey:kUserIsLogin];
     [self setupArray];
     
     [self.collectionView registerNib:[UINib nibWithNibName:kSectionCollectionViewCell bundle:nil] forCellWithReuseIdentifier:kSectionCollectionViewCell];

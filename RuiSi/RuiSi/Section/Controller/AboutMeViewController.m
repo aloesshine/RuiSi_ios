@@ -29,8 +29,6 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
 @property (nonatomic,strong) UIImageView *avatarImage;
 @property (nonatomic,strong) UIButton *avatarButton;
 @property (nonatomic,strong) UILabel *nameLabel;
-//@property (nonatomic,strong) UILabel *levelLabel;
-@property (nonatomic,strong) Member *me;
 @property (nonatomic,assign) BOOL isLogged;
 @end
 
@@ -41,7 +39,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.85 green:0.13 blue:0.16 alpha:1.0];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
-    self.isLogged = NO;
+    self.isLogged = [DataManager isUserLogined];
     [self setupSubviews];
     [self configureNotifications];
 }
@@ -54,9 +52,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
         [self.avatarImage sd_setImageWithURL:[NSURL URLWithString:[DataManager manager].user.member.memberAvatarMiddle] placeholderImage:[UIImage imageNamed:@"default_avatar_middle"]];
         self.nameLabel.hidden = NO;
         self.isLogged = YES;
-        self.me = [DataManager manager].user.member;
-        self.nameLabel.text = self.me.memberName;
-        NSLog(@"%@",self.me.memberHomepage);
+        self.nameLabel.text = [userDefaults objectForKey:kUserName];
     }];
 }
 - (void) showUnloggedMessage {
@@ -87,10 +83,9 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     [self.avatarButton bk_whenTapped:^{
         if (self.isLogged) {
             ProfileViewController *profileVC = [[ProfileViewController alloc] init];
-            profileVC.homepage = self.me.memberHomepage;
+            profileVC.homepage = [userDefaults objectForKey:kUserHomepage];
             [self.navigationController pushViewController:profileVC animated:YES];
         } else {
-            //[self showUnloggedMessage];
             LoginViewController *loginViewController = [[LoginViewController alloc] init];
             [self presentViewController:loginViewController animated:YES completion:nil];
         }
@@ -106,13 +101,11 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     
     
     if (self.isLogged) {
-        [self.avatarImage sd_setImageWithURL:[NSURL URLWithString: self.me.memberAvatarMiddle] placeholderImage:[UIImage imageNamed:@"default_avatar_middle"]];
-        //self.levelLabel.hidden = YES;
-        self.nameLabel.text = self.me.memberName;
+        [self.avatarImage sd_setImageWithURL:[NSURL URLWithString: [userDefaults objectForKey:kUserAvatarURL]] placeholderImage:[UIImage imageNamed:@"default_avatar_middle"]];
+        self.nameLabel.text = [userDefaults objectForKey:kUserName];
     } else {
         self.avatarImage.image = [UIImage imageNamed:@"default_avatar_middle"];
         self.nameLabel.text = @"请点击头像登录";
-        //self.levelLabel.hidden = YES;
     }
     
     
@@ -145,7 +138,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
             threadListViewController.needToGetMore = NO;
             threadListViewController.name = @"我的收藏";
             threadListViewController.getThreadListBlock = ^(NSInteger page) {
-                return [[DataManager manager] getFavoriteThreadListWithUid:self.me.memberUid success:^(ThreadList *threadList) {
+                return [[DataManager manager] getFavoriteThreadListWithUid:[userDefaults objectForKey:kUserID] success:^(ThreadList *threadList) {
                     threadListViewController_.threadList = threadList;
                     [threadListViewController_.tableView reloadData];
                 } failure:^(NSError *error) {
@@ -155,7 +148,6 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
             [self.navigationController pushViewController:threadListViewController animated:YES];
         } else {
             [self showUnloggedMessage];
-            NSLog(@"cell2 is tapped and unlogged");
         }
     }];
     
@@ -173,10 +165,9 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
             ThreadListViewController *threadListViewController = [[ThreadListViewController alloc] init];
             __weak ThreadListViewController *threadListViewController_ = threadListViewController;
             threadListViewController.needToGetMore = NO;
-            //threadListViewController.navigationItem.title = @"我的帖子";
             threadListViewController_.name = @"我的帖子";
             threadListViewController.getThreadListBlock = ^(NSInteger page) {
-                return [[DataManager manager] getThreadListWithUid:self.me.memberUid success:^(ThreadList *threadList) {
+                return [[DataManager manager] getThreadListWithUid:[userDefaults objectForKey:kUserID] success:^(ThreadList *threadList) {
                     threadListViewController_.threadList = threadList;
                     [threadListViewController_.tableView reloadData];
                 } failure:^(NSError *error) {
@@ -200,7 +191,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     [cell4 bk_whenTapped:^{
         if (self.isLogged) {
             ProfileViewController *profileVC = [[ProfileViewController alloc] init];
-            profileVC.homepage = self.me.memberHomepage;
+            profileVC.homepage = [userDefaults objectForKey:kUserHomepage];
             [self.navigationController pushViewController:profileVC animated:YES];
         } else {
             [self showUnloggedMessage];

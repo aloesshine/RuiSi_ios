@@ -17,7 +17,7 @@ static NSString *const kUserIsLogin = @"UserIsLogin";
 static NSString *const kUserName = @"UserName";
 static NSString *const kUserID = @"UserID";
 static NSString *const kUserAvatarURL = @"UserAvatarURL";
-
+static NSString *const kUserHomepage = @"UserHomepage";
 
 typedef NS_ENUM(NSInteger,RequestMethod) {
     RequestMethodHTTPPost = 1,
@@ -67,6 +67,12 @@ failure:(void (^)(NSError *error))failure;
                                                  page:(NSInteger )page
                                               success:(void (^)(ThreadDetailList *threadDetailList))success
                                               failure:(void (^)(NSError *error))failure;
+
+- (NSURLSessionDataTask *) getCreatorOnlyThreadDetailListWithTid:(NSString *)tid
+                                                            page:(NSInteger )page
+                                                        authorid:(NSString *)authorid
+                                                         success:(void (^)(ThreadDetailList *threadDetailList))success
+                                                         failure:(void (^)(NSError *error)) failure;
 
 - (NSURLSessionDataTask *) getLinkDictionaryWithTid:(NSString *)tid
                                       page:(NSInteger )page

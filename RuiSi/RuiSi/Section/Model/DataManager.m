@@ -31,8 +31,7 @@
         self.userAgentMobile = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
         self.userAgentPC = @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/537.75.14";
         
-        //BOOL isLogin = [[[NSUserDefaults standardUserDefaults] objectForKey:kUserIsLogin] boolValue];
-        BOOL isLogin = false;
+        BOOL isLogin = [[[NSUserDefaults standardUserDefaults] objectForKey:kUserIsLogin] boolValue];
         if (isLogin) {
             User *user = [[User alloc] init];
             user.isLogin = YES;
@@ -61,23 +60,25 @@
     self.sessionManager.requestSerializer = serializer;
 }
 
-//- (void) setUser:(User *)user {
-//    _user = user;
-//    if (user) {
-//        self.user.isLogin = YES;
-//        [userDefaults setObject:user.member.memberName forKey:kUserName];
-//        [userDefaults setObject:user.member.memberUid forKey:kUserID];
-//        [userDefaults setObject:user.member.memberAvatarSmall forKey:kUserAvatarURL];
-//        [userDefaults setObject:@"YES" forKey:kUserIsLogin];
-//        [userDefaults synchronize];
-//    } else {
-//        [userDefaults removeObjectForKey:kUserName];
-//        [userDefaults removeObjectForKey:kUserID];
-//        [userDefaults removeObjectForKey:kUserAvatarURL];
-//        [userDefaults removeObjectForKey:kUserIsLogin];
-//        [userDefaults synchronize];
-//    }
-//}
+- (void) setUser:(User *)user {
+    _user = user;
+    if (user) {
+        self.user.isLogin = YES;
+        [userDefaults setObject:user.member.memberName forKey:kUserName];
+        [userDefaults setObject:user.member.memberUid forKey:kUserID];
+        [userDefaults setObject:user.member.memberAvatarMiddle forKey:kUserAvatarURL];
+        [userDefaults setObject:@"YES" forKey:kUserIsLogin];
+        [userDefaults setObject:user.member.memberHomepage forKey:kUserHomepage];
+        [userDefaults synchronize];
+    } else {
+        [userDefaults removeObjectForKey:kUserName];
+        [userDefaults removeObjectForKey:kUserID];
+        [userDefaults removeObjectForKey:kUserAvatarURL];
+        [userDefaults removeObjectForKey:kUserIsLogin];
+        [userDefaults removeObjectForKey:kUserHomepage];
+        [userDefaults synchronize];
+    }
+}
 
 + (instancetype) manager {
     static DataManager *manager = nil;
@@ -240,6 +241,23 @@
     }];
 }
 
+
+- (NSURLSessionDataTask *)getCreatorOnlyThreadDetailListWithTid:(NSString *)tid page:(NSInteger)page authorid:(NSString *)authorid success:(void (^)(ThreadDetailList *))success failure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{
+                                 @"mod":@"viewthread",
+                                 @"tid":tid,
+                                 @"page":@(page),
+                                 @"authorid":authorid,
+                                 @"mobile":@"2"
+                                 };
+    return [self requestWithMethod:RequestMethodHTTPGet urlString:@"forum.php" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        ThreadDetailList *detailList = [ThreadDetailList getThreadDetailListFromResponseObject:responseObject];
+        success(detailList);
+    } failure:^(NSError *error) {
+        failure(error);
+    }];
+}
+
 -(NSURLSessionDataTask *)getLinkDictionaryWithTid:(NSString *)tid page:(NSInteger )page success:(void (^)(NSDictionary *))success failure:(void (^)(NSError *))failure {
     NSDictionary *parameters = @{
                                  @"mod":@"viewthread",
@@ -301,7 +319,6 @@
         //NSDictionary *infoDictionary = [self getInfoDictionaryFromHtmlResponseObject:responseObject];
         NSDictionary *parameters = @{
                        @"formhash":[infoDictionary objectForKey:@"formhash"],
-//                       @"referer":[infoDictionary objectForKey:@"referer"],
                        @"referer":@"http://bbs.rs.xidian.me/forum.php?mod=guide&view=hot&mobile=2",
                        @"fastloginfield":[infoDictionary objectForKey:@"fastloginfield"],
                        @"cookietime":[infoDictionary objectForKey:@"cookietime"],
