@@ -76,7 +76,6 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     self.topView.backgroundColor = [UIColor colorWithRed:0.85 green:0.13 blue:0.16 alpha:1.0];
     
     self.avatarImage = [[UIImageView alloc] initWithFrame:CGRectMake(kScreen_Width/2-50,40, 100, 100)];
-    //self.avatarImage.image = [UIImage imageNamed:@"default_avatar_middle"];
     self.avatarImage.contentMode = UIViewContentModeScaleAspectFill;
     self.avatarImage.layer.cornerRadius = 50;
     self.avatarImage.clipsToBounds = YES;
@@ -104,14 +103,6 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     self.nameLabel.font = [UIFont systemFontOfSize:18];
     self.nameLabel.textColor = [UIColor whiteColor];
     [self.topView addSubview:self.nameLabel];
-    
-    
-//    self.levelLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 160, kScreen_Width, 16)];
-//    self.levelLabel.textColor = [UIColor whiteColor];
-//    self.levelLabel.textAlignment = NSTextAlignmentCenter;
-//    //self.levelLabel.text = @"西电研一";
-//    self.levelLabel.font = [UIFont systemFontOfSize:16];
-//    [self.topView addSubview:self.levelLabel];
     
     
     if (self.isLogged) {
@@ -152,7 +143,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
             ThreadListViewController *threadListViewController = [[ThreadListViewController alloc] init];
             __weak ThreadListViewController *threadListViewController_ = threadListViewController;
             threadListViewController.needToGetMore = NO;
-            threadListViewController.navigationItem.title = @"我的收藏";
+            threadListViewController.name = @"我的收藏";
             threadListViewController.getThreadListBlock = ^(NSInteger page) {
                 return [[DataManager manager] getFavoriteThreadListWithUid:self.me.memberUid success:^(ThreadList *threadList) {
                     threadListViewController_.threadList = threadList;
@@ -182,7 +173,8 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
             ThreadListViewController *threadListViewController = [[ThreadListViewController alloc] init];
             __weak ThreadListViewController *threadListViewController_ = threadListViewController;
             threadListViewController.needToGetMore = NO;
-            threadListViewController.navigationItem.title = @"我的帖子";
+            //threadListViewController.navigationItem.title = @"我的帖子";
+            threadListViewController_.name = @"我的帖子";
             threadListViewController.getThreadListBlock = ^(NSInteger page) {
                 return [[DataManager manager] getThreadListWithUid:self.me.memberUid success:^(ThreadList *threadList) {
                     threadListViewController_.threadList = threadList;

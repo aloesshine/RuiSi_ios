@@ -186,13 +186,9 @@ NSString *kshowThreadListSegue = @"showThreadList";
         destViewController.name = titleDict[@"name"];
         destViewController.fid = titleDict[@"fid"];
         destViewController.needToGetMore = YES;
-        destViewController.navigationItem.title = destViewController.name;
         __weak ThreadListViewController *destViewController_ = destViewController;
         destViewController.getThreadListBlock = ^(NSInteger page){
-            
-            //destViewController_.currentPage = page;
             return [[DataManager manager] getThreadListWithFid:destViewController_.fid page:page success:^(ThreadList *threadList) {
-                //@strongify(self);
                 destViewController_.threadList = threadList;
                 [destViewController_.tableView reloadData];
             } failure:^(NSError *error) {

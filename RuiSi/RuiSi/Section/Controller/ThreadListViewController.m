@@ -18,9 +18,7 @@
 NSString *kThreadListCell = @"ThreadListCell";
 NSString *kShowThreadDetail = @"showThreadDetail";
 @interface ThreadListViewController ()
-
 @property (nonatomic,assign) NSInteger currentPage;
-
 @end
 
 @implementation ThreadListViewController
@@ -29,8 +27,7 @@ NSString *kShowThreadDetail = @"showThreadDetail";
     [super viewDidLoad];
     self.currentPage = 1;
     // 设置标题
-    //self.navigationItem.title = self.name;
-    //self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationItem.title = self.name;
     [self configureRefresh];
     
     [self configureBlocks];
@@ -143,7 +140,12 @@ NSString *kShowThreadDetail = @"showThreadDetail";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self performSegueWithIdentifier:kShowThreadDetail sender:indexPath];
+    //[self performSegueWithIdentifier:kShowThreadDetail sender:indexPath];
+    ThreadDetailViewController *threadDetailViewController = [[ThreadDetailViewController alloc] init];
+    Thread *thread = [self.threadList.list objectAtIndex:indexPath.row];
+    threadDetailViewController.thread = thread;
+    threadDetailViewController.tid = thread.tid;
+    [self.navigationController pushViewController:threadDetailViewController animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
