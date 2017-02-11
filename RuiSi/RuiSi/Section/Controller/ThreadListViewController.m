@@ -28,6 +28,7 @@ NSString *kShowThreadDetail = @"showThreadDetail";
     self.currentPage = 1;
     // 设置标题
     self.navigationItem.title = self.name;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     [self configureRefresh];
     
     [self configureBlocks];
@@ -123,7 +124,6 @@ NSString *kShowThreadDetail = @"showThreadDetail";
     }
     cell.reviewCountLabel.text = thread.reviewCount;
     cell.hasPicImageView.image = thread.hasPic == YES ? [UIImage imageNamed:@"icon_tu"] : NULL;
-    
     return cell;
 }
 
@@ -133,7 +133,6 @@ NSString *kShowThreadDetail = @"showThreadDetail";
         NSIndexPath *index = (NSIndexPath *)sender;
         Thread *thread = [self.threadList.list objectAtIndex:[index row]];
         threadDetailViewController.thread = thread;
-        threadDetailViewController.tid = thread.tid;
     }
 }
 
@@ -144,7 +143,6 @@ NSString *kShowThreadDetail = @"showThreadDetail";
     ThreadDetailViewController *threadDetailViewController = [[ThreadDetailViewController alloc] init];
     Thread *thread = [self.threadList.list objectAtIndex:indexPath.row];
     threadDetailViewController.thread = thread;
-    threadDetailViewController.tid = thread.tid;
     [self.navigationController pushViewController:threadDetailViewController animated:YES];
 }
 

@@ -10,13 +10,13 @@
 #import "ThreadDetail.h"
 #import "ThreadDetailTitleCell.h"
 #import "Thread.h"
-#import "ThreadDetailInfoCell.h"
 #import "ThreadDetailDTCell.h"
-#import "ThreadDetailDTCell.h"
+#import "ThreadDetailLoadingCell.h"
 #import "DTTextAttachment.h"
 #import "ProfileViewController.h"
 static NSString *kThreadDetailDTCell = @"ThreadDetailDTCell";
 static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
+static NSString *kThreadDetailLoadingCell = @"ThreadDetailLoadingCell";
 @interface ThreadDetailViewController ()
 @property (nonatomic,strong) ThreadDetailList *detailList;
 @property (nonatomic,copy) NSURLSessionDataTask* (^getThreadDetailListBlock)(NSInteger page);
@@ -24,9 +24,9 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 @property (nonatomic,copy) NSURLSessionDataTask* (^getLinksBlock)();
 @property (nonatomic,copy) NSURLSessionDataTask* (^getCreatorOnlyDetailListBlock)(NSInteger page);
 @property (nonatomic,assign) NSInteger currentPage;
-@property (nonatomic,strong) UIBarButtonItem *favorButtonItem;
 @property (nonatomic,strong) NSDictionary *linksDict;
 @property (nonatomic,strong) NSCache *cellCache;
+@property (nonatomic,assign) BOOL isLoading;
 @end
 
 @implementation ThreadDetailViewController
@@ -35,6 +35,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     [super viewDidLoad];
     [self.tableView registerClass:[ThreadDetailTitleCell class] forCellReuseIdentifier:kThreadDetailTitleCell];
     [self.tableView registerClass:[ThreadDetailDTCell class] forCellReuseIdentifier:kThreadDetailDTCell];
+    [self.tableView registerClass:[ThreadDetailLoadingCell class] forCellReuseIdentifier: kThreadDetailLoadingCell];
     self.currentPage = 1;
     [self configureRefresh];
     [self configueBlocks];
@@ -57,7 +58,9 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 
 - (void) lookOnly {
     NSLog(@"%@",[self.linksDict objectForKey:@"creatorOnly"]);
+    _isLoading = true;
     self.getCreatorOnlyDetailListBlock(1);
+    _isLoading = false;
 }
 
 
@@ -83,7 +86,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
         
         @strongify(self);
         self.currentPage = page;
-        return [[DataManager manager] getThreadDetailListWithTid:self.tid page:page success:^(ThreadDetailList *threadDetailList) {
+        return [[DataManager manager] getThreadDetailListWithTid:self.thread.tid page:page success:^(ThreadDetailList *threadDetailList) {
             self.detailList = threadDetailList;
             [self.tableView reloadData];
         } failure:^(NSError *error) {
@@ -95,7 +98,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     self.getMoreThreadDetailBlock = ^(NSInteger page){
         @strongify(self);
         self.currentPage = page;
-        return [[DataManager manager] getThreadDetailListWithTid:self.tid page:self.currentPage success:^(ThreadDetailList *threadDetailList) {
+        return [[DataManager manager] getThreadDetailListWithTid:self.thread.tid page:self.currentPage success:^(ThreadDetailList *threadDetailList) {
             NSMutableArray *detailLists = [[NSMutableArray alloc] initWithArray:self.detailList.list];
             [detailLists addObjectsFromArray:threadDetailList.list];
             self.detailList.list = [NSArray arrayWithArray:detailLists];
@@ -107,7 +110,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     
     self.getLinksBlock = ^(){
         @strongify(self);
-        return [[DataManager manager] getLinkDictionaryWithTid:self.tid page:1 success:^(NSDictionary *links) {
+        return [[DataManager manager] getLinkDictionaryWithTid:self.thread.tid page:1 success:^(NSDictionary *links) {
             self.linksDict = links;
         } failure:^(NSError *error) {
             ;
@@ -140,13 +143,16 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
-    return 2;
+    if (_isLoading) {
+        return 1;
+    } else {
+        return 2;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    if (section == 0) {
+    if (section == 0 || _isLoading) {
         return 1;
     } else {
         return self.detailList.countOfList;
@@ -154,21 +160,24 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *titleCellIdentifier = @"titleCellIdentifier";
-    ThreadDetailTitleCell *titleCell = (ThreadDetailTitleCell *)[tableView dequeueReusableCellWithIdentifier:titleCellIdentifier];
-    if (!titleCell) {
-        titleCell = [[ThreadDetailTitleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:titleCellIdentifier];
-        titleCell.navi = self.navigationController;
-    }
     
-    
-    if (indexPath.section == 0) {
-            return [self configureTitleCell:titleCell atIndexPath:indexPath];
-    }
-    
-    if (indexPath.section == 1) {
-        ThreadDetailDTCell *cell = (ThreadDetailDTCell *)[self tableView:tableView preparedCellForIndexPath:indexPath];
+    if (_isLoading) {
+        ThreadDetailLoadingCell *cell = (ThreadDetailLoadingCell *)[tableView dequeueReusableCellWithIdentifier:kThreadDetailLoadingCell];
         return cell;
+    } else {
+        if (indexPath.section == 0) {
+            ThreadDetailTitleCell *titleCell = (ThreadDetailTitleCell *)[tableView dequeueReusableCellWithIdentifier:kThreadDetailTitleCell];
+            if (!titleCell) {
+                titleCell = [[ThreadDetailTitleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kThreadDetailTitleCell];
+                titleCell.navi = self.navigationController;
+            }
+            return [self configureTitleCell:titleCell atIndexPath:indexPath];
+        }
+        
+        if (indexPath.section == 1) {
+            ThreadDetailDTCell *cell = (ThreadDetailDTCell *)[self tableView:tableView preparedCellForIndexPath:indexPath];
+            return cell;
+        }
     }
     return [UITableViewCell new];
 }
