@@ -47,6 +47,9 @@ typedef NS_ENUM(NSInteger, RSErrorType) {
 + (instancetype) manager;
 + (BOOL) isSchoolNet;
 + (BOOL) isUserLogined;
+
+
+
 - (NSURLSessionDataTask *) getMessageListSuccess:(void (^)(MessageList *messageList))success
 failure:(void (^)(NSError *error))failure;
 
@@ -74,6 +77,10 @@ failure:(void (^)(NSError *error))failure;
                                                          success:(void (^)(ThreadDetailList *threadDetailList))success
                                                          failure:(void (^)(NSError *error)) failure;
 
+- (NSURLSessionDataTask *) FavorThreadWithTid:(NSString *)tid
+                                      success:(void (^)(NSString *message)) success
+                                      failure:(void (^)(NSError *error)) failure;
+
 - (NSURLSessionDataTask *) getLinkDictionaryWithTid:(NSString *)tid
                                       page:(NSInteger )page
                                    success:(void (^)(NSDictionary *links))success
@@ -85,8 +92,8 @@ failure:(void (^)(NSError *error))failure;
 
 
 - (NSURLSessionDataTask *) replyCreateWithFid:(NSString *)fid
-                                     ThreadID:(NSString *)tid
-                               ThreadDetailID:(NSString *)pid
+                                     tid:(NSString *)tid
+                                    pid:(NSString *)pid
                                          page:(NSInteger )page
                                            content:(NSString *)content
                                            success:(void (^)(ThreadDetail *detail))success

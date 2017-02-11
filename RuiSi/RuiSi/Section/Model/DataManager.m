@@ -290,7 +290,7 @@
     }];
 }
 
-- (NSURLSessionDataTask *)replyCreateWithFid:(NSString *)fid ThreadID:(NSString *)tid ThreadDetailID:(NSString *)pid page:(NSInteger )page content:(NSString *)content success:(void (^)(ThreadDetail *))success failure:(void (^)(NSError *))failure {
+- (NSURLSessionDataTask *)replyCreateWithFid:(NSString *)fid tid:(NSString *)tid pid:(NSString *)pid page:(NSInteger )page content:(NSString *)content success:(void (^)(ThreadDetail *))success failure:(void (^)(NSError *))failure {
     NSDictionary *parameters;
     parameters = @{
                    @"mod":@"post",
@@ -309,14 +309,36 @@
 }
 
 
+- (NSURLSessionDataTask *) FavorThreadWithTid:(NSString *)tid
+                                      success:(void (^)(NSString *message)) success
+                                      failure:(void (^)(NSError *error)) failure {
+    NSDictionary *parameters;
+    parameters = @{
+                   @"mod":@"spacecp",
+                   @"ac":@"favorite",
+                   @"type":@"thread",
+                   @"id":tid,
+                   @"mobile":@"2",
+                   };
+    return [self requestWithMethod:RequestMethodHTTPPost urlString:@"home.php" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        if ([htmlString rangeOfString:@"信息收藏成功"].location != NSNotFound) {
+            NSLog(@"收藏成功！");
+            success(@"收藏成功");
+        }
+    } failure:^(NSError *error) {
+        ;
+    }];
+}
 
+
+#pragma mark - User
 - (NSURLSessionDataTask *)userLoginWithUserName:(NSString *)username password:(NSString *)password success:(void (^)(NSString *))success failure:(void (^)(NSError *error))failure {
     NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     for (NSHTTPCookie *cookie in [storage cookies]) {
         [storage deleteCookie:cookie];
     }
     [self requestOnceWithUrlString:@"member.php" success:^(NSDictionary *infoDictionary, id responseObject) {
-        //NSDictionary *infoDictionary = [self getInfoDictionaryFromHtmlResponseObject:responseObject];
         NSDictionary *parameters = @{
                        @"formhash":[infoDictionary objectForKey:@"formhash"],
                        @"referer":@"http://bbs.rs.xidian.me/forum.php?mod=guide&view=hot&mobile=2",
@@ -354,9 +376,13 @@
 }
 
 
-
 - (void)UserLogout {
-    
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (NSHTTPCookie *cookie in [storage cookies]) {
+        [storage deleteCookie:cookie];
+    }
+    self.user = nil;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kLogoutSuccessNotification object:nil];
 }
 
 #pragma mark - Private Methods
