@@ -11,12 +11,10 @@
 #import "ThreadDetailTitleCell.h"
 #import "Thread.h"
 #import "ThreadDetailDTCell.h"
-#import "ThreadDetailLoadingCell.h"
 #import "DTTextAttachment.h"
 #import "ProfileViewController.h"
 static NSString *kThreadDetailDTCell = @"ThreadDetailDTCell";
 static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
-static NSString *kThreadDetailLoadingCell = @"ThreadDetailLoadingCell";
 @interface ThreadDetailViewController ()
 @property (nonatomic,strong) ThreadDetailList *detailList;
 @property (nonatomic,copy) NSURLSessionDataTask* (^getThreadDetailListBlock)(NSInteger page);
@@ -26,7 +24,6 @@ static NSString *kThreadDetailLoadingCell = @"ThreadDetailLoadingCell";
 @property (nonatomic,assign) NSInteger currentPage;
 @property (nonatomic,strong) NSDictionary *linksDict;
 @property (nonatomic,strong) NSCache *cellCache;
-@property (nonatomic,assign) BOOL isLoading;
 @property (nonatomic,copy) NSString *formhash;
 @end
 
@@ -36,7 +33,7 @@ static NSString *kThreadDetailLoadingCell = @"ThreadDetailLoadingCell";
     [super viewDidLoad];
     [self.tableView registerClass:[ThreadDetailTitleCell class] forCellReuseIdentifier:kThreadDetailTitleCell];
     [self.tableView registerClass:[ThreadDetailDTCell class] forCellReuseIdentifier:kThreadDetailDTCell];
-    [self.tableView registerClass:[ThreadDetailLoadingCell class] forCellReuseIdentifier: kThreadDetailLoadingCell];
+    
     self.currentPage = 1;
     [self configureRefresh];
     [self configueBlocks];
@@ -74,9 +71,9 @@ static NSString *kThreadDetailLoadingCell = @"ThreadDetailLoadingCell";
 
 - (void) creatorOnly {
     NSLog(@"%@",[self.linksDict objectForKey:@"creatorOnly"]);
-    _isLoading = true;
+    
     self.getCreatorOnlyDetailListBlock(1);
-    _isLoading = false;
+    
 }
 
 
@@ -157,16 +154,13 @@ static NSString *kThreadDetailLoadingCell = @"ThreadDetailLoadingCell";
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (_isLoading) {
-        return 1;
-    } else {
+    
         return 2;
-    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    if (section == 0 || _isLoading) {
+    if (section == 0) {
         return 1;
     } else {
         return self.detailList.countOfList;
@@ -174,11 +168,7 @@ static NSString *kThreadDetailLoadingCell = @"ThreadDetailLoadingCell";
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (_isLoading) {
-        ThreadDetailLoadingCell *cell = (ThreadDetailLoadingCell *)[tableView dequeueReusableCellWithIdentifier:kThreadDetailLoadingCell];
-        return cell;
-    } else {
+
         if (indexPath.section == 0) {
             ThreadDetailTitleCell *titleCell = (ThreadDetailTitleCell *)[tableView dequeueReusableCellWithIdentifier:kThreadDetailTitleCell];
             if (!titleCell) {
@@ -192,7 +182,6 @@ static NSString *kThreadDetailLoadingCell = @"ThreadDetailLoadingCell";
             ThreadDetailDTCell *cell = (ThreadDetailDTCell *)[self tableView:tableView preparedCellForIndexPath:indexPath];
             return cell;
         }
-    }
     return [UITableViewCell new];
 }
 
