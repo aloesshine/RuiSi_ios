@@ -321,7 +321,6 @@
                    };
     return [self requestWithMethod:RequestMethodHTTPPost urlString:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        NSLog(@"%@",htmlString);
         if ([htmlString rangeOfString:@"信息收藏成功"].location != NSNotFound) {
             NSLog(@"收藏成功！");
             success(@"收藏成功");

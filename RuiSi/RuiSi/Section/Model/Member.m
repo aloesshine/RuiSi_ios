@@ -87,7 +87,6 @@
         NSRange range2 = [member.memberAvatarSmall rangeOfString:@"&size="];
         NSRange range = NSMakeRange(range1.length+range1.location, range2.location-range1.location-range1.length);
         NSString *uid = [member.memberAvatarSmall substringWithRange:range];
-        NSLog(@"uid = %@",uid);
         member.memberUid = uid;
         member.memberHomepage = [NSString stringWithFormat:@"home.php?mod=space&uid=%@&do=profile&mobile=2",uid];
         member.memberName = (NSString *)avatarNode.Query(@".name").text();

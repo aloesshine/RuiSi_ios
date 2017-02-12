@@ -314,7 +314,6 @@ static CGFloat const kAvatarHeight = 32.0f;
         imageView.url = attachment.contentURL;
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         self.attributedTextContentView.layouter = nil;
-        NSLog(@"%@",attachment.contentURL.absoluteString);
         return imageView;
     }
     return nil;

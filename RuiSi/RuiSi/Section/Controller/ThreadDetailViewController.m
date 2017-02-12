@@ -13,6 +13,7 @@
 #import "ThreadDetailDTCell.h"
 #import "DTTextAttachment.h"
 #import "ProfileViewController.h"
+#import "ReplyViewController.h"
 static NSString *kThreadDetailDTCell = @"ThreadDetailDTCell";
 static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 @interface ThreadDetailViewController ()
@@ -70,10 +71,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 }
 
 - (void) creatorOnly {
-    NSLog(@"%@",[self.linksDict objectForKey:@"creatorOnly"]);
-    
     self.getCreatorOnlyDetailListBlock(1);
-    
 }
 
 
@@ -231,7 +229,11 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     ThreadDetail *detail = [self.detailList.list objectAtIndex:indexPath.row];
     NSString *message = detail.threadCreator.memberName;
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:[NSString stringWithFormat:@"@%@",message] preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *replyAction = [UIAlertAction actionWithTitle:@"回复" style:UIAlertActionStyleDefault handler:nil];
+    UIAlertAction *replyAction = [UIAlertAction actionWithTitle:@"回复" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        ReplyViewController *replyViewController = [[ReplyViewController alloc] init];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:replyViewController];
+        [self presentViewController:navController animated:YES completion:nil];
+    }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         [self dismissViewControllerAnimated:alertController completion:nil];
     }];
@@ -245,4 +247,6 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     [alertController addAction:cancelAction];
     [self presentViewController:alertController animated:YES completion:nil];
 }
+
+
 @end

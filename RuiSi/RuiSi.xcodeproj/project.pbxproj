@@ -49,6 +49,7 @@
 		BB0F8C701DF0852D006D11E2 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0F8C6F1DF0852D006D11E2 /* DataManager.m */; };
 		BB17BB831DE0A85600315E4D /* SectionHeaderViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB17BB821DE0A85600315E4D /* SectionHeaderViewCell.xib */; };
 		BB20FD101DE1FA57000CFB0E /* sectionLogging.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB20FD0F1DE1FA57000CFB0E /* sectionLogging.plist */; };
+		BB2D3A491E503A67002D2200 /* ReplyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2D3A481E503A67002D2200 /* ReplyViewController.m */; };
 		BB31CCED1DE8B41300FB70A6 /* AboutMeHeaderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB31CCEC1DE8B41300FB70A6 /* AboutMeHeaderViewCell.m */; };
 		BB31CCEF1DE8B47A00FB70A6 /* AboutMeHeaderViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB31CCEE1DE8B47A00FB70A6 /* AboutMeHeaderViewCell.xib */; };
 		BB3713601DE915AC00F0A179 /* AboutMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB37135F1DE915AC00F0A179 /* AboutMeViewController.m */; };
@@ -177,6 +178,8 @@
 		BB0F8C6F1DF0852D006D11E2 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataManager.m; path = RuiSi/Section/Model/DataManager.m; sourceTree = SOURCE_ROOT; };
 		BB17BB821DE0A85600315E4D /* SectionHeaderViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionHeaderViewCell.xib; sourceTree = "<group>"; };
 		BB20FD0F1DE1FA57000CFB0E /* sectionLogging.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sectionLogging.plist; sourceTree = "<group>"; };
+		BB2D3A471E503A67002D2200 /* ReplyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplyViewController.h; sourceTree = "<group>"; };
+		BB2D3A481E503A67002D2200 /* ReplyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplyViewController.m; sourceTree = "<group>"; };
 		BB31CCEB1DE8B41300FB70A6 /* AboutMeHeaderViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMeHeaderViewCell.h; sourceTree = "<group>"; };
 		BB31CCEC1DE8B41300FB70A6 /* AboutMeHeaderViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMeHeaderViewCell.m; sourceTree = "<group>"; };
 		BB31CCEE1DE8B47A00FB70A6 /* AboutMeHeaderViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutMeHeaderViewCell.xib; sourceTree = "<group>"; };
@@ -419,6 +422,8 @@
 				BBD04CB81E2CFD63008466FC /* MessageListViewControllerTableViewController.m */,
 				BBD04CC21E2D1826008466FC /* MessageDetailViewController.h */,
 				BBD04CC31E2D1826008466FC /* MessageDetailViewController.m */,
+				BB2D3A471E503A67002D2200 /* ReplyViewController.h */,
+				BB2D3A481E503A67002D2200 /* ReplyViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -830,6 +835,7 @@
 				7A6A80961DEABD4800B81583 /* parser.c in Sources */,
 				7A6A809B1DEABD4800B81583 /* tokenizer.c in Sources */,
 				BB0F8C641DF06E29006D11E2 /* BaseModel.m in Sources */,
+				BB2D3A491E503A67002D2200 /* ReplyViewController.m in Sources */,
 				7AE6E73E1E2E3E7B00F65DBE /* LoginViewController.m in Sources */,
 				BBF8D7511E01AFC80015D568 /* NSString+SCMention.m in Sources */,
 				7A6A80701DEABD2E00B81583 /* OCGumbo+Query.m in Sources */,
