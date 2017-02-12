@@ -290,7 +290,7 @@
     }];
 }
 
-- (NSURLSessionDataTask *)replyCreateWithFid:(NSString *)fid tid:(NSString *)tid pid:(NSString *)pid page:(NSInteger )page content:(NSString *)content success:(void (^)(ThreadDetail *))success failure:(void (^)(NSError *))failure {
+- (NSURLSessionDataTask *)createReplyWithfid:(NSString *)fid tid:(NSString *)tid pid:(NSString *)pid page:(NSInteger )page content:(NSString *)content success:(void (^)(ThreadDetail *))success failure:(void (^)(NSError *))failure {
     NSDictionary *parameters;
     parameters = @{
                    @"mod":@"post",
@@ -309,19 +309,19 @@
 }
 
 
-- (NSURLSessionDataTask *) FavorThreadWithTid:(NSString *)tid
+- (NSURLSessionDataTask *) favorThreadWithTid:(NSString *)tid
+                                     formhash:(NSString *)formhash
                                       success:(void (^)(NSString *message)) success
                                       failure:(void (^)(NSError *error)) failure {
+    NSString *urlString = [NSString stringWithFormat:@"home.php?mod=spacecp&ac=favorite&type=thread&id=%@&mobile=2",tid];
     NSDictionary *parameters;
     parameters = @{
-                   @"mod":@"spacecp",
-                   @"ac":@"favorite",
-                   @"type":@"thread",
-                   @"id":tid,
-                   @"mobile":@"2",
+                   @"favoritesubmit":@"true",
+                   @"formhash":formhash,
                    };
-    return [self requestWithMethod:RequestMethodHTTPPost urlString:@"home.php" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+    return [self requestWithMethod:RequestMethodHTTPPost urlString:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        NSLog(@"%@",htmlString);
         if ([htmlString rangeOfString:@"信息收藏成功"].location != NSNotFound) {
             NSLog(@"收藏成功！");
             success(@"收藏成功");

@@ -77,7 +77,8 @@ failure:(void (^)(NSError *error))failure;
                                                          success:(void (^)(ThreadDetailList *threadDetailList))success
                                                          failure:(void (^)(NSError *error)) failure;
 
-- (NSURLSessionDataTask *) FavorThreadWithTid:(NSString *)tid
+- (NSURLSessionDataTask *) favorThreadWithTid:(NSString *)tid
+                                     formhash:(NSString *)formhash
                                       success:(void (^)(NSString *message)) success
                                       failure:(void (^)(NSError *error)) failure;
 
@@ -91,7 +92,7 @@ failure:(void (^)(NSError *error))failure;
                                     failure:(void (^)(NSError *error))failure;
 
 
-- (NSURLSessionDataTask *) replyCreateWithFid:(NSString *)fid
+- (NSURLSessionDataTask *) createReplyWithfid:(NSString *)fid
                                      tid:(NSString *)tid
                                     pid:(NSString *)pid
                                          page:(NSInteger )page

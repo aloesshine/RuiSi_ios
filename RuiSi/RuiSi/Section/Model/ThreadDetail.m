@@ -100,6 +100,7 @@
 
 + (NSDictionary *)getLinkDictionaryFromResponseObject:(id)responseObject {
     @autoreleasepool {
+        NSDictionary *dictionary;
         NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         OCGumboDocument *document = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
         OCGumboNode *node = document.Query(@"body").find(@".postlist").find(@".cl").first();
@@ -107,7 +108,8 @@
         NSString *creatorUrlString = (NSString *)document.Query(@"body").find(@".postlist").find(@"h2").find(@".blue").first().attr(@"href");
         node = document.Query(@"body").find(@".postlist").find(@".cl").last();
         NSString *replyUrlString = (NSString *)node.Query(@"form").first().attr(@"action");
-        NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:favorUrlString,@"favorite",creatorUrlString,@"creatorOnly",replyUrlString,@"reply", nil];
+        NSString *formhash = (NSString *)node.Query(@"input").first().attr(@"value");
+        dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:favorUrlString,@"favorite",creatorUrlString,@"creatorOnly",replyUrlString,@"reply",formhash,@"formhash", nil];
         return dictionary;
     }
     return nil;

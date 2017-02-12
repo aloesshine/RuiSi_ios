@@ -27,6 +27,7 @@ static NSString *kThreadDetailLoadingCell = @"ThreadDetailLoadingCell";
 @property (nonatomic,strong) NSDictionary *linksDict;
 @property (nonatomic,strong) NSCache *cellCache;
 @property (nonatomic,assign) BOOL isLoading;
+@property (nonatomic,copy) NSString *formhash;
 @end
 
 @implementation ThreadDetailViewController
@@ -47,16 +48,31 @@ static NSString *kThreadDetailLoadingCell = @"ThreadDetailLoadingCell";
 - (void) initializeUI {
     self.navigationController.navigationBar.translucent = NO;
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    UIBarButtonItem *favorButton = [[UIBarButtonItem alloc] initWithTitle:@"收藏" style:UIBarButtonItemStylePlain target:self action:@selector(favor)];
-    UIBarButtonItem *creatorOnlyButton = [[UIBarButtonItem alloc] initWithTitle:@"只看楼主" style:UIBarButtonItemStylePlain target:self action:@selector(lookOnly)];
+    UIBarButtonItem *favorButton = [[UIBarButtonItem alloc] initWithTitle:@"收藏" style:UIBarButtonItemStylePlain target:self action:@selector(favorThread)];
+    UIBarButtonItem *creatorOnlyButton = [[UIBarButtonItem alloc] initWithTitle:@"只看楼主" style:UIBarButtonItemStylePlain target:self action:@selector(creatorOnly)];
     self.navigationItem.rightBarButtonItems = @[favorButton,creatorOnlyButton];
 }
 
-- (void) favor {
-    NSLog(@"%@",[self.linksDict objectForKey:@"favorite"]);
+- (void) takeActionBlock:(void (^)())block {
+    block();
 }
 
-- (void) lookOnly {
+
+- (void) favorThread {
+    [self takeActionBlock:^{
+       [[DataManager manager] favorThreadWithTid:self.thread.tid formhash:self.formhash success:^(NSString *message) {
+           if ([message isEqualToString:@"收藏成功"]) {
+               [SVProgressHUD showSuccessWithStatus:message];
+           } else {
+               [SVProgressHUD showErrorWithStatus:@"操作失败"];
+           }
+       } failure:^(NSError *error) {
+           ;
+       }];
+    }];
+}
+
+- (void) creatorOnly {
     NSLog(@"%@",[self.linksDict objectForKey:@"creatorOnly"]);
     _isLoading = true;
     self.getCreatorOnlyDetailListBlock(1);
@@ -112,6 +128,7 @@ static NSString *kThreadDetailLoadingCell = @"ThreadDetailLoadingCell";
         @strongify(self);
         return [[DataManager manager] getLinkDictionaryWithTid:self.thread.tid page:1 success:^(NSDictionary *links) {
             self.linksDict = links;
+            self.formhash = [self.linksDict objectForKey:@"formhash"];
         } failure:^(NSError *error) {
             ;
         }];
@@ -130,9 +147,6 @@ static NSString *kThreadDetailLoadingCell = @"ThreadDetailLoadingCell";
         }];
     };
 }
-
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
