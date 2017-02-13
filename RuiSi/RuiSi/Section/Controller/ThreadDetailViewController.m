@@ -231,8 +231,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:[NSString stringWithFormat:@"@%@",message] preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *replyAction = [UIAlertAction actionWithTitle:@"回复" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         ReplyViewController *replyViewController = [[ReplyViewController alloc] init];
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:replyViewController];
-        [self presentViewController:navController animated:YES completion:nil];
+        [self.navigationController pushViewController:replyViewController animated:YES];
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         [self dismissViewControllerAnimated:alertController completion:nil];

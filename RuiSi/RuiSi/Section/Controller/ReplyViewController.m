@@ -16,7 +16,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"回复";
+    self.navigationController.title = @"回复";
     [self.replyTextField becomeFirstResponder];
 }
 
@@ -48,7 +48,8 @@
     self.navigationItem.leftBarButtonItem = cancelBarButtonItem;
 }
 - (void) cancel {
-    [self dismissViewControllerAnimated:self completion:nil];
+    [self.replyTextField resignFirstResponder];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (void) publish {
     NSLog(@"published!");
