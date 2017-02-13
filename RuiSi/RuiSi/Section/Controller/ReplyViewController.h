@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ReplyViewController : UIViewController
-
+@property (nonatomic,copy) NSString *postUrlString;
+@property (nonatomic,copy) NSString *formhash;
 @end

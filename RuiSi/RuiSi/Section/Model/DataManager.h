@@ -100,6 +100,13 @@ failure:(void (^)(NSError *error))failure;
                                            success:(void (^)(ThreadDetail *detail))success
                                            failure:(void (^)(NSError *error)) failure;
 
+
+- (NSURLSessionDataTask *) createReplyWithUrlString:(NSString *)urlString
+                                           formhash:(NSString *)formhash
+                                            message:(NSString *)message
+                                            success:(void (^)(NSString *message)) success
+                                            failure:(void (^)(NSError *error)) failure;
+
 - (NSURLSessionDataTask *) userLoginWithUserName:(NSString *)username
                                         password:(NSString *)password
                                          success:(void (^)(NSString *message))success

@@ -309,6 +309,26 @@
 }
 
 
+- (NSURLSessionDataTask *)createReplyWithUrlString:(NSString *)urlString formhash:(NSString *)formhash message:(NSString *)message success:(void (^)(NSString *))success failure:(void (^)(NSError *))failure {
+    NSDictionary *parameters;
+    parameters = @{
+                   @"formhash":formhash,
+                   @"message":message
+                   };
+    return [self requestWithMethod:RequestMethodHTTPPost urlString:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+//        NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+//        NSLog(@"%@",htmlString);
+//        if ([htmlString rangeOfString:@"信息发布成功"].location != NSNotFound) {
+//            NSLog(@"发布成功");
+//            success(@"发布成功");
+//        }
+        success(@"发布成功");
+    } failure:^(NSError *error) {
+        ;
+    }];
+    return nil;
+}
+
 - (NSURLSessionDataTask *) favorThreadWithTid:(NSString *)tid
                                      formhash:(NSString *)formhash
                                       success:(void (^)(NSString *message)) success

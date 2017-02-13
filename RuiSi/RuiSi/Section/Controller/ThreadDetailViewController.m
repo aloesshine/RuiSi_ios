@@ -231,7 +231,14 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:[NSString stringWithFormat:@"@%@",message] preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *replyAction = [UIAlertAction actionWithTitle:@"回复" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         ReplyViewController *replyViewController = [[ReplyViewController alloc] init];
+        if (indexPath.row == 0) {
+            replyViewController.postUrlString = [self.linksDict objectForKey:@"reply"];
+        } else {
+            replyViewController.postUrlString = detail.replyUrlString;
+        }
+        replyViewController.formhash = self.formhash;
         [self.navigationController pushViewController:replyViewController animated:YES];
+        
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         [self dismissViewControllerAnimated:alertController completion:nil];
