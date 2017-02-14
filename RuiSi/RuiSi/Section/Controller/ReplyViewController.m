@@ -8,7 +8,7 @@
 
 #import "ReplyViewController.h"
 @interface ReplyViewController () <UITextFieldDelegate>
-@property (nonatomic,strong) IBOutlet UITextField *replyTextField;
+
 @end
 
 @implementation ReplyViewController
@@ -53,20 +53,27 @@
     self.navigationItem.leftBarButtonItem = cancelBarButtonItem;
 }
 - (void) cancel {
-    [self.replyTextField resignFirstResponder];
-    [self.navigationController popViewControllerAnimated:YES];
+//    [self.replyTextField resignFirstResponder];
+//    [self.navigationController popViewControllerAnimated:YES];
+    [self.delegate replyViewControllerDidCancel:self];
 }
 - (void) publish {
-    [self takeActionBlock:^{
-        [[DataManager manager] createReplyWithUrlString:self.postUrlString formhash:self.formhash message:self.replyTextField.text success:^(NSString *message) {
-            if ([message isEqualToString:@"发布成功"]) {
-                [SVProgressHUD showSuccessWithStatus:@"回复成功！"];
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-        } failure:^(NSError *error) {
-            ;
-        }];
-    }];
+    if ([DataManager isUserLogined]) {
+        ThreadDetail *detail = [[ThreadDetail alloc] init];
+        Member *me = [DataManager manager].user.member;
+        NSDate *date = [NSDate date];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        NSString *currentDateString = [dateFormatter stringFromDate:date];
+        detail.createTime = currentDateString;
+        detail.content = self.replyTextField.text;
+        detail.threadCreator = me;
+        [self.delegate replyViewController:self didPublishThreadDetail:detail];
+    } else {
+        [self.delegate replyViewControllerHaveNotLogin:self];
+    }
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

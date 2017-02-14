@@ -8,7 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@class ReplyViewController;
+@protocol ReplyViewControllerDelegate <NSObject>
+- (void) replyViewControllerDidCancel:(ReplyViewController *)replyViewController;
+- (void) replyViewController:(ReplyViewController *)replyViewController didPublishThreadDetail:(ThreadDetail *)threadDetail;
+- (void) replyViewControllerHaveNotLogin:(ReplyViewController *)replyViewController;
+@end
+
 @interface ReplyViewController : UIViewController
 @property (nonatomic,copy) NSString *postUrlString;
 @property (nonatomic,copy) NSString *formhash;
+@property (nonatomic,weak) id<ReplyViewControllerDelegate> delegate;
+@property (nonatomic,strong) IBOutlet UITextField *replyTextField;
 @end
+

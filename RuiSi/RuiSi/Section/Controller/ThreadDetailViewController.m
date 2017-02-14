@@ -16,7 +16,7 @@
 #import "ReplyViewController.h"
 static NSString *kThreadDetailDTCell = @"ThreadDetailDTCell";
 static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
-@interface ThreadDetailViewController ()
+@interface ThreadDetailViewController () <ReplyViewControllerDelegate>
 @property (nonatomic,strong) ThreadDetailList *detailList;
 @property (nonatomic,copy) NSURLSessionDataTask* (^getThreadDetailListBlock)(NSInteger page);
 @property (nonatomic,copy) NSURLSessionDataTask* (^getMoreThreadDetailBlock)(NSInteger page);
@@ -231,12 +231,15 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:[NSString stringWithFormat:@"@%@",message] preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *replyAction = [UIAlertAction actionWithTitle:@"回复" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         ReplyViewController *replyViewController = [[ReplyViewController alloc] init];
+        replyViewController.delegate = self;
         if (indexPath.row == 0) {
             replyViewController.postUrlString = [self.linksDict objectForKey:@"reply"];
         } else {
             replyViewController.postUrlString = detail.replyUrlString;
         }
         replyViewController.formhash = self.formhash;
+//        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:replyViewController];
+//        [self presentViewController:navController animated:YES completion:nil];
         [self.navigationController pushViewController:replyViewController animated:YES];
         
     }];
@@ -255,4 +258,36 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 }
 
 
+
+#pragma mark - ReplyViewControllerDelegate
+- (void)replyViewControllerDidCancel:(ReplyViewController *)replyViewController {
+    [replyViewController.replyTextField resignFirstResponder];
+    [self.navigationController popViewControllerAnimated:YES];
+    //[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)replyViewController:(ReplyViewController *)replyViewController didPublishThreadDetail:(ThreadDetail *)threadDetail {
+        [self takeActionBlock:^{
+            [[DataManager manager] createReplyWithUrlString:replyViewController.postUrlString formhash:replyViewController.formhash message:replyViewController.replyTextField.text success:^(NSString *message) {
+                if ([message isEqualToString:@"发布成功"]) {
+                    
+                    [self.navigationController popViewControllerAnimated:YES];
+                    [SVProgressHUD showSuccessWithStatus:@"回复成功！"];
+                    NSInteger newRowIndex = [self.detailList countOfList];
+                    NSMutableArray *list = [[NSMutableArray alloc] initWithArray:self.detailList.list];
+                    [list addObject:threadDetail];
+                    self.detailList.list = [NSArray arrayWithArray:list];
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:newRowIndex inSection:1];
+                    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                }
+            } failure:^(NSError *error) {
+                ;
+            }];
+        }];
+}
+
+- (void)replyViewControllerHaveNotLogin:(ReplyViewController *)replyViewController {
+    [self.navigationController popViewControllerAnimated:YES];
+    [SVProgressHUD showErrorWithStatus:@"由于您未登录，信息尚未发出，请登陆后再试！"];
+}
 @end
