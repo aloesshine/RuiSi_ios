@@ -32,9 +32,9 @@ NSString *kshowThreadListSegue = @"showThreadList";
 {
     [super viewDidLoad];
     
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-    self.navigationItem.backBarButtonItem = backItem;
-    
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.85 green:0.13 blue:0.16 alpha:1.0];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    self.navigationItem.title = @"手机睿思";
     self.isLogin = [userDefaults objectForKey:kUserIsLogin];
     [self setupArray];
     
@@ -170,7 +170,24 @@ NSString *kshowThreadListSegue = @"showThreadList";
 // 点击某个cell时
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSegueWithIdentifier:kshowThreadListSegue sender:indexPath];
+    //[self performSegueWithIdentifier:kshowThreadListSegue sender:indexPath];
+    NSDictionary *titleDict = _itemArray[indexPath.section][indexPath.row];
+    
+    ThreadListViewController *destViewController = [[ThreadListViewController alloc] init];
+    destViewController.url = titleDict[@"url"];
+    destViewController.name = titleDict[@"name"];
+    destViewController.fid = titleDict[@"fid"];
+    destViewController.needToGetMore = YES;
+    __weak ThreadListViewController *destViewController_ = destViewController;
+    destViewController.getThreadListBlock = ^(NSInteger page){
+        return [[DataManager manager] getThreadListWithFid:destViewController_.fid page:page success:^(ThreadList *threadList) {
+            destViewController_.threadList = threadList;
+            [destViewController_.tableView reloadData];
+        } failure:^(NSError *error) {
+            ;
+        }];
+    };
+    [self.navigationController pushViewController:destViewController animated:YES];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

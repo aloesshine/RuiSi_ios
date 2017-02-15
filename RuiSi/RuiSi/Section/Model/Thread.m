@@ -50,8 +50,8 @@
         {
 
             Thread *thread = [[Thread alloc] init];
-            if (ele.Query(@"a").find(@"span.num")) {
-                thread.reviewCount = (NSString *)ele.Query(@"span.num").text();
+            if (ele.Query(@"a").find(@".num")) {
+                thread.reviewCount = (NSString *)ele.Query(@"span.num").first().text();
             }
             thread.titleURL = (NSString *)ele.Query(@"a").first().attr(@"href");
             
@@ -66,13 +66,14 @@
             thread.tid = [thread.titleURL substringWithRange:range];
             
             
-            if (ele.Query(@"a").find(@"span.by")) {
-                thread.author = (NSString *)ele.Query(@"a").first().Query(@"span.by").text();
-                NSString *title = (NSString *)ele.Query(@"a").text();
+            if (ele.Query(@"a").find(@".by")) {
+                thread.author = (NSString *)ele.Query(@"a").find(@".by").first().text();
+                NSString *title = (NSString *)ele.Query(@"a").textArray().firstObject;
                 title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet ]];
-                thread.title = [title substringToIndex: title.length - thread.author.length];
+                //thread.title = [title substringToIndex: title.length - thread.author.length];
+                thread.title = title;
             } else {
-                NSString *title = (NSString *)ele.Query(@"a").text();
+                NSString *title = (NSString *)ele.Query(@"a").first().text();
                 title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                 thread.title = title;
             }

@@ -23,7 +23,8 @@
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
     self.tabBarController = [[UITabBarController alloc] init];
-    SectionViewController *sectionViewController = [[SectionViewController alloc] init];
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    SectionViewController *sectionViewController = [[SectionViewController alloc] initWithCollectionViewLayout:layout];
     AboutMeViewController *aboutMeViewController = [[AboutMeViewController alloc] init];
     ThreadListViewController *hotThreadListViewController = [[ThreadListViewController alloc] init];
     hotThreadListViewController.needToGetMore = YES;
@@ -31,15 +32,22 @@
     UINavigationController *nav1 = [[UINavigationController alloc] initWithRootViewController:sectionViewController];
     UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:hotThreadListViewController];
     UINavigationController *nav3 = [[UINavigationController alloc] initWithRootViewController:aboutMeViewController];
-    
+    nav1.tabBarItem.title = @"板块";
+    nav2.tabBarItem.title = @"热帖";
+    nav3.tabBarItem.title = @"我";
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:nav1,nav2,nav3, nil];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
+    
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
     [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName, nil]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setTranslucent:NO];
+    
+    [[UITabBar appearance] setBackgroundImage:[UIImage new]];
+    [[UITabBar appearance] setTranslucent:NO];
+    [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
     return YES;
 }
 
