@@ -6,18 +6,18 @@
 //  Copyright © 2017年 aloes. All rights reserved.
 //
 
-#import "MessageListViewControllerTableViewController.h"
+#import "MessageListViewController.h"
 #import "Message.h"
 #import "DataManager.h"
 #import "MessageListTableViewCell.h"
 #import "UIImageView+WebCache.h"
 NSString *kMessageListTableViewCell = @"MessageListTableViewCell";
-@interface MessageListViewControllerTableViewController ()
+@interface MessageListViewController ()
 @property (nonatomic,strong) MessageList *messageList;
 @property (nonatomic,strong) NSURLSessionDataTask * (^ getMessageListBlock)();
 @end
 
-@implementation MessageListViewControllerTableViewController
+@implementation MessageListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
