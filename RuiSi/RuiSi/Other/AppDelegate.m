@@ -9,8 +9,9 @@
 #import "AppDelegate.h"
 #import "SectionViewController.h"
 #import "AboutMeViewController.h"
+#import "ThreadListViewController.h"
 @interface AppDelegate ()
-
+@property (nonatomic,strong) UITabBarController *tabBarController;
 @end
 
 @implementation AppDelegate
@@ -21,8 +22,19 @@
     
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
+    self.tabBarController = [[UITabBarController alloc] init];
+    SectionViewController *sectionViewController = [[SectionViewController alloc] init];
+    AboutMeViewController *aboutMeViewController = [[AboutMeViewController alloc] init];
+    ThreadListViewController *hotThreadListViewController = [[ThreadListViewController alloc] init];
+    hotThreadListViewController.needToGetMore = YES;
+    hotThreadListViewController.name = @"精彩热帖";
+    UINavigationController *nav1 = [[UINavigationController alloc] initWithRootViewController:sectionViewController];
+    UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:hotThreadListViewController];
+    UINavigationController *nav3 = [[UINavigationController alloc] initWithRootViewController:aboutMeViewController];
     
-    
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:nav1,nav2,nav3, nil];
+    self.window.rootViewController = self.tabBarController;
+    [self.window makeKeyAndVisible];
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
     [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName, nil]];

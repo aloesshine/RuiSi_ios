@@ -26,11 +26,15 @@ NSString *kShowThreadDetail = @"showThreadDetail";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.currentPage = 1;
-    // 设置标题
-    self.navigationItem.title = self.name;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    [self configureRefresh];
     
+    // 设置标题
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.85 green:0.13 blue:0.16 alpha:1.0];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    self.navigationItem.title = self.name;
+    
+    
+    [self configureRefresh];
     [self configureBlocks];
     [self.tableView registerNib:[UINib nibWithNibName:kThreadListCell bundle:[NSBundle mainBundle]] forCellReuseIdentifier:kThreadListCell];
     self.getThreadListBlock(1);
@@ -64,7 +68,7 @@ NSString *kShowThreadDetail = @"showThreadDetail";
         self.getThreadListBlock = ^(NSInteger page){
             @strongify(self);
             self.currentPage = page;
-            return [[DataManager manager] getThreadListWithFid:self.fid page:page success:^(ThreadList *threadList) {
+            return [[DataManager manager] getHotThreadListWithPage:page success:^(ThreadList *threadList) {
                 @strongify(self);
                 self.threadList = threadList;
                 [self.tableView reloadData];
@@ -78,9 +82,8 @@ NSString *kShowThreadDetail = @"showThreadDetail";
         self.getMoreListBlock = ^(NSInteger page) {
             @strongify(self);
             self.currentPage = page;
-            return [[DataManager manager] getThreadListWithFid:self.fid page:page success:^(ThreadList *threadList) {
+            return [[DataManager manager] getHotThreadListWithPage:page success:^(ThreadList *threadList) {
                 @strongify(self);
-                
                 NSMutableArray *threadLists = [[NSMutableArray alloc] initWithArray:self.threadList.list];
                 [threadLists addObjectsFromArray:threadList.list];
                 self.threadList.list = [NSArray arrayWithArray:threadLists];

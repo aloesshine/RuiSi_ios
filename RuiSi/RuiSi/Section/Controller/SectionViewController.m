@@ -63,7 +63,7 @@ NSString *kshowThreadListSegue = @"showThreadList";
 
 - (void)setupArray {
     
-    if (_isLogin)
+    if ([DataManager isUserLogined])
     {
         NSString *path = [[NSBundle mainBundle] pathForResource:@"sectionLogging" ofType:@"plist"];
         _itemArray = [NSArray arrayWithContentsOfFile:path];

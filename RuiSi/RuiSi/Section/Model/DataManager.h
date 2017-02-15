@@ -66,6 +66,11 @@ failure:(void (^)(NSError *error))failure;
                                                 success:(void (^)(ThreadList *threadList))success
                                                          failure:(void (^)(NSError *error)) failure;
 
+- (NSURLSessionDataTask *) getHotThreadListWithPage:(NSInteger )page
+                                            success:(void (^)(ThreadList *threadList))success
+                                               failure:(void (^)(NSError *error)) failure;
+
+
 - (NSURLSessionDataTask *) getThreadDetailListWithTid:(NSString *)tid
                                                  page:(NSInteger )page
                                               success:(void (^)(ThreadDetailList *threadDetailList))success
