@@ -13,12 +13,7 @@
 #import "LoginViewController.h"
 #import "ProfileViewController.h"
 #import "Member.h"
-
-//#import "Constants.h"
-//#import "UIView+BlocksKit.h"
-//#import "SVProgressHUD.h"
-//#import "UIImageView+WebCache.h"
-//#import "DataManager.h"
+#import "SettingsViewController.h"
 NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
 
 
@@ -207,6 +202,13 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     
     self.view.backgroundColor = [UIColor colorWithRed:0.91 green:0.93 blue:0.93 alpha:1.0];
     self.tableView = [[AboutMeTableView alloc] initWithFrame:CGRectMake(0, 300, kScreen_Width, 44*4)];
+    __weak typeof(self) weakSelf = self;
+    self.tableView.selectCellHandler = ^(AboutMeTableViewCell *cell,NSIndexPath *indexPath) {
+        if (indexPath.row == 1) {
+            SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
+            [weakSelf.navigationController pushViewController:settingsViewController animated:YES];
+        }
+    };
     [self.view addSubview:self.topView];
     [self.view addSubview:self.secondView];
     [self.view addSubview:self.tableView];

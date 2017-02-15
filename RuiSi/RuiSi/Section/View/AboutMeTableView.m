@@ -77,4 +77,11 @@ NSString *kAboutMeTableViewCell = @"AboutMeTableViewCell";
     return 4;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    AboutMeTableViewCell *cell = (AboutMeTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    if (self.selectCellHandler) {
+        self.selectCellHandler(cell,indexPath);
+    }
+}
+
 @end

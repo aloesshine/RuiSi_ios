@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class AboutMeTableViewCell;
 @interface AboutMeTableView : UITableView
-
+@property (nonatomic,copy) void (^selectCellHandler) (AboutMeTableViewCell *cell,NSIndexPath *indexPath);
 @end
