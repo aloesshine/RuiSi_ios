@@ -49,6 +49,15 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
         self.isLogged = YES;
         self.nameLabel.text = [userDefaults objectForKey:kUserName];
     }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:kLogoutSuccessNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+        @strongify(self);
+        self.avatarImage.image = [UIImage imageNamed:@"default_avatar_middle"];
+        self.isLogged =  NO;
+        self.nameLabel.text = @"请点击头像登录";
+    }];
+    
+    
 }
 - (void) showUnloggedMessage {
     if (self.isLogged) {
@@ -60,6 +69,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
         });
     }
 }
+
 
 
 - (void) setupSubviews {
@@ -205,7 +215,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     __weak typeof(self) weakSelf = self;
     self.tableView.selectCellHandler = ^(AboutMeTableViewCell *cell,NSIndexPath *indexPath) {
         if (indexPath.row == 1) {
-            SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
+            SettingsViewController *settingsViewController = [[SettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
             [weakSelf.navigationController pushViewController:settingsViewController animated:YES];
         }
     };

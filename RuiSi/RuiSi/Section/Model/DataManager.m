@@ -208,6 +208,22 @@
     }];
 }
 
+- (NSURLSessionDataTask *)getHotThreadListWithPage:(NSInteger)page success:(void (^)(ThreadList *))success failure:(void (^)(NSError *))failure {
+    NSDictionary *parameters;
+    parameters = @{
+                   @"mod":@"guide",
+                   @"view":@"hot",
+                   @"page":@(page),
+                   @"mobile":@"2"
+                   };
+    return [self requestWithMethod:RequestMethodHTTPGet urlString:@"forum.php" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        ThreadList *list = [ThreadList getThreadListFromResponseObject:responseObject];
+        success(list);
+    } failure:^(NSError *error) {
+        ;
+    }];
+}
+
 #pragma mark - Message List
 - (NSURLSessionDataTask *)getMessageListSuccess:(void (^)(MessageList *))success failure:(void (^)(NSError *))failure {
     NSDictionary *parameters;
@@ -237,6 +253,9 @@
         ThreadDetailList *detailList = [ThreadDetailList getThreadDetailListFromResponseObject:responseObject];
         success(detailList);
     } failure:^(NSError *error) {
+        NSLog(@"error discription:%@",error.localizedDescription);
+        NSLog(@"error code:%ld",error.code);
+        NSLog(@"error domain:%@",error.domain);
         failure(error);
     }];
 }

@@ -23,10 +23,8 @@
 @property (nonatomic,DT_WEAK_PROPERTY) id<DTAttributedTextContentViewDelegate> textDelegate;
 @property (nonatomic,readonly) DTAttributedTextContentView *attributedTextContentView;
 
-
-
+- (void) configureDetail:(ThreadDetail *)detail;
 - (id) initWithReuseIdentifier:(NSString *)reuseIdentifier accessoryType:(UITableViewCellAccessoryType)accessoryType;
 - (void) setHTMLString:(NSString *)html;
 - (CGFloat) requiredRowHeightInTableView:(UITableView *)tableView;
-- (void) configureDetail:(ThreadDetail *)threadDetail;
 @end

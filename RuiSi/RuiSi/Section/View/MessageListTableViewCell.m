@@ -26,4 +26,16 @@
     // Configure the view for the selected state
 }
 
+
+- (void)setMessage:(Message *)message {
+    _message = message;
+    self.titleLabel.text = message.title;
+    self.titleLabel.font = [UIFont systemFontOfSize:16.0];
+    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:message.friendAvatarURL] placeholderImage:[UIImage imageNamed:@"default_avatar_small"]];
+    self.messageLabel.text = message.messageContent;
+    self.messageLabel.font = [UIFont systemFontOfSize:14.0];
+    self.timeLabel.text = message.messageTime;
+    self.timeLabel.font = [UIFont systemFontOfSize:14.0];
+}
+
 @end

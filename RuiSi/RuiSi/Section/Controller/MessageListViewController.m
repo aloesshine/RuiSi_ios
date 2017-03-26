@@ -49,20 +49,13 @@ NSString *kMessageListTableViewCell = @"MessageListTableViewCell";
 
 
 - (MessageListTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MessageListTableViewCell *tableViewCell = [tableView dequeueReusableCellWithIdentifier:kMessageListTableViewCell];
-    
-    return tableViewCell;
-}
-
-
-- (void) configureCell:(MessageListTableViewCell *)cell AtIndexPath:(NSIndexPath *)indexPath {
+    MessageListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kMessageListTableViewCell];
+    if (! cell) {
+        cell = [[MessageListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kMessageListTableViewCell];
+    }
     Message *message = self.messageList.list[indexPath.row];
-    cell.titleLabel.text = message.title;
-    cell.titleLabel.font = [UIFont systemFontOfSize:16.0];
-    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:message.friendAvatarURL] placeholderImage:[UIImage imageNamed:@"default_avatar_small"]];
-    cell.messageLabel.text = message.messageContent;
-    cell.messageLabel.font = [UIFont systemFontOfSize:14.0];
-    cell.timeLabel.text = message.messageTime;
-    cell.timeLabel.font = [UIFont systemFontOfSize:14.0];
+    cell.message = message;
+    return cell;
 }
+
 @end

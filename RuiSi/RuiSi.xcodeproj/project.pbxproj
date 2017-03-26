@@ -49,7 +49,6 @@
 		BB0F8C701DF0852D006D11E2 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0F8C6F1DF0852D006D11E2 /* DataManager.m */; };
 		BB17BB831DE0A85600315E4D /* SectionHeaderViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB17BB821DE0A85600315E4D /* SectionHeaderViewCell.xib */; };
 		BB1DD7EA1E54791D00A58E89 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD7E81E54791D00A58E89 /* SettingsViewController.m */; };
-		BB1DD7EB1E54791D00A58E89 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB1DD7E91E54791D00A58E89 /* SettingsViewController.xib */; };
 		BB20FD101DE1FA57000CFB0E /* sectionLogging.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB20FD0F1DE1FA57000CFB0E /* sectionLogging.plist */; };
 		BB2D3A491E503A67002D2200 /* ReplyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2D3A481E503A67002D2200 /* ReplyViewController.m */; };
 		BB31CCED1DE8B41300FB70A6 /* AboutMeHeaderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB31CCEC1DE8B41300FB70A6 /* AboutMeHeaderViewCell.m */; };
@@ -181,7 +180,6 @@
 		BB17BB821DE0A85600315E4D /* SectionHeaderViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionHeaderViewCell.xib; sourceTree = "<group>"; };
 		BB1DD7E71E54791D00A58E89 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		BB1DD7E81E54791D00A58E89 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
-		BB1DD7E91E54791D00A58E89 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		BB20FD0F1DE1FA57000CFB0E /* sectionLogging.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sectionLogging.plist; sourceTree = "<group>"; };
 		BB2D3A471E503A67002D2200 /* ReplyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplyViewController.h; sourceTree = "<group>"; };
 		BB2D3A481E503A67002D2200 /* ReplyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplyViewController.m; sourceTree = "<group>"; };
@@ -431,7 +429,6 @@
 				BB2D3A481E503A67002D2200 /* ReplyViewController.m */,
 				BB1DD7E71E54791D00A58E89 /* SettingsViewController.h */,
 				BB1DD7E81E54791D00A58E89 /* SettingsViewController.m */,
-				BB1DD7E91E54791D00A58E89 /* SettingsViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -697,7 +694,6 @@
 				7A997B841DDD74DC00D383B5 /* LaunchScreen.storyboard in Resources */,
 				BB72A3321DDF55F1007192FE /* SectionCollectionViewCell.xib in Resources */,
 				BB20FD101DE1FA57000CFB0E /* sectionLogging.plist in Resources */,
-				BB1DD7EB1E54791D00A58E89 /* SettingsViewController.xib in Resources */,
 				BB928E8A1DEC62FC00855274 /* Main.storyboard in Resources */,
 				7A6A80941DEABD4800B81583 /* char_ref.rl in Resources */,
 				7A6A809A1DEABD4800B81583 /* tag.in in Resources */,

@@ -38,9 +38,17 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     self.currentPage = 1;
     [self configureRefresh];
     [self configueBlocks];
-    self.getThreadDetailListBlock(1);
-    self.getLinksBlock();
+    
     [self initializeUI];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        self.getThreadDetailListBlock(1);
+        self.getLinksBlock();
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    });
+    
+    self.getLinksBlock();
 }
 
 - (void) initializeUI {
@@ -99,9 +107,8 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
         self.currentPage = page;
         return [[DataManager manager] getThreadDetailListWithTid:self.thread.tid page:page success:^(ThreadDetailList *threadDetailList) {
             self.detailList = threadDetailList;
-            [self.tableView reloadData];
         } failure:^(NSError *error) {
-            ;
+            NSLog(@"an error occurs at:%s",__func__);
         }];
     };
     
@@ -113,7 +120,6 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
             NSMutableArray *detailLists = [[NSMutableArray alloc] initWithArray:self.detailList.list];
             [detailLists addObjectsFromArray:threadDetailList.list];
             self.detailList.list = [NSArray arrayWithArray:detailLists];
-            [self.tableView reloadData];
         } failure:^(NSError *error) {
             ;
         }];
@@ -166,39 +172,26 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-        if (indexPath.section == 0) {
-            ThreadDetailTitleCell *titleCell = (ThreadDetailTitleCell *)[tableView dequeueReusableCellWithIdentifier:kThreadDetailTitleCell];
-            if (!titleCell) {
-                titleCell = [[ThreadDetailTitleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kThreadDetailTitleCell];
-                titleCell.navi = self.navigationController;
-            }
-            return [self configureTitleCell:titleCell atIndexPath:indexPath];
+    if (indexPath.section == 0) {
+        ThreadDetailTitleCell *titleCell = (ThreadDetailTitleCell *)[tableView dequeueReusableCellWithIdentifier:kThreadDetailTitleCell];
+        if (!titleCell) {
+            titleCell = [[ThreadDetailTitleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kThreadDetailTitleCell];
+            titleCell.navi = self.navigationController;
         }
-        
-        if (indexPath.section == 1) {
-            ThreadDetailDTCell *cell = (ThreadDetailDTCell *)[self tableView:tableView preparedCellForIndexPath:indexPath];
-            return cell;
-        }
+        titleCell.thread = self.thread;
+        return titleCell;
+    }
+    if (indexPath.section == 1) {
+        ThreadDetailDTCell *cell = [self tableView:tableView preparedCellForIndexPath:indexPath];
+        return cell;
+    }
     return [UITableViewCell new];
 }
 
 #pragma mark - Configure TableViewCell
-- (ThreadDetailTitleCell *) configureTitleCell:(ThreadDetailTitleCell  *)titleCell atIndexPath:(NSIndexPath *)indexPath {
-    [titleCell configureTitlelabelWithThread:self.thread];
-    return titleCell;
-}
 
-- (ThreadDetailDTCell *) configureDTCell:(ThreadDetailDTCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    ThreadDetail *detail = self.detailList.list[indexPath.row];
-    [cell configureDetail:detail];
-    cell.attributedTextContentView.shouldDrawImages = YES;
-    cell.attributedTextContentView.shouldDrawLinks = YES;
-    return cell;
-}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     if (indexPath.section == 0) {
         return [ThreadDetailTitleCell getCellHeightWithThread:self.thread];
     }
@@ -217,11 +210,15 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     }
     ThreadDetailDTCell *cell = [_cellCache objectForKey:key];
     if (! cell) {
-        //cell = [[ThreadDetailDTCell alloc] initWithReuseIdentifier:kThreadDetailDTCell];
         cell = [[ThreadDetailDTCell alloc] initWithReuseIdentifier:kThreadDetailDTCell accessoryType:UITableViewCellAccessoryNone];
         [_cellCache setObject:cell forKey:key];
     }
-    return [self configureDTCell:cell atIndexPath:indexPath];
+    ThreadDetail *detail = self.detailList.list[indexPath.row];
+    //cell.detail = detail;
+    [cell configureDetail:detail];
+    cell.attributedTextContentView.shouldDrawLinks = YES;
+    cell.attributedTextContentView.shouldDrawImages = YES;
+    return cell;
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

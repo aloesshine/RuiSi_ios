@@ -26,14 +26,23 @@ NSString *kShowThreadDetail = @"showThreadDetail";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.currentPage = 1;
-    // 设置标题
-    self.navigationItem.title = self.name;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    [self configureRefresh];
     
+    // 设置标题
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.85 green:0.13 blue:0.16 alpha:1.0];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    self.navigationItem.title = self.name;
+    
+    
+    [self configureRefresh];
     [self configureBlocks];
     [self.tableView registerNib:[UINib nibWithNibName:kThreadListCell bundle:[NSBundle mainBundle]] forCellReuseIdentifier:kThreadListCell];
-    self.getThreadListBlock(1);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        self.getThreadListBlock(1);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    });
 }
 
 - (void) configureRefresh {
@@ -64,10 +73,9 @@ NSString *kShowThreadDetail = @"showThreadDetail";
         self.getThreadListBlock = ^(NSInteger page){
             @strongify(self);
             self.currentPage = page;
-            return [[DataManager manager] getThreadListWithFid:self.fid page:page success:^(ThreadList *threadList) {
+            return [[DataManager manager] getHotThreadListWithPage:page success:^(ThreadList *threadList) {
                 @strongify(self);
                 self.threadList = threadList;
-                [self.tableView reloadData];
             } failure:^(NSError *error) {
                 ;
             }];
@@ -78,13 +86,11 @@ NSString *kShowThreadDetail = @"showThreadDetail";
         self.getMoreListBlock = ^(NSInteger page) {
             @strongify(self);
             self.currentPage = page;
-            return [[DataManager manager] getThreadListWithFid:self.fid page:page success:^(ThreadList *threadList) {
+            return [[DataManager manager] getHotThreadListWithPage:page success:^(ThreadList *threadList) {
                 @strongify(self);
-                
                 NSMutableArray *threadLists = [[NSMutableArray alloc] initWithArray:self.threadList.list];
                 [threadLists addObjectsFromArray:threadList.list];
                 self.threadList.list = [NSArray arrayWithArray:threadLists];
-                [self.tableView reloadData];
             } failure:^(NSError *error) {
                 ;
             }];
@@ -116,14 +122,7 @@ NSString *kShowThreadDetail = @"showThreadDetail";
     
     Thread *thread = _threadList.list[indexPath.row];
     
-    cell.titleLabel.text = thread.title;
-    if (thread.author == nil) {
-        cell.authorLabel.hidden = YES;
-    } else {
-        cell.authorLabel.text = thread.author;
-    }
-    cell.reviewCountLabel.text = thread.reviewCount;
-    cell.hasPicImageView.image = thread.hasPic == YES ? [UIImage imageNamed:@"icon_tu"] : NULL;
+    cell.thread = thread;
     return cell;
 }
 

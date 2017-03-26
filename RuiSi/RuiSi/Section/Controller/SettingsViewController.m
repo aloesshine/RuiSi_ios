@@ -8,7 +8,7 @@
 
 #import "SettingsViewController.h"
 
-@interface SettingsViewController ()
+@interface SettingsViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @end
 
@@ -16,7 +16,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,6 +31,7 @@
     return 1;
 }
 
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
     return 1;
@@ -40,15 +42,23 @@
     if (! cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
-    [cell.detailTextLabel setText:@"退出登录"];
-    cell.detailTextLabel.textColor = [UIColor blackColor];
-    cell.detailTextLabel.font = [UIFont systemFontOfSize:18.0];
+    cell.textLabel.text = @"退出登录";
+    cell.textLabel.font = [UIFont systemFontOfSize:18.0];
+    cell.textLabel.textAlignment = NSTextAlignmentCenter;
+    [cell.textLabel sizeToFit];
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSLog(@"This cell is selected");
+    [[DataManager manager] UserLogout];
+    [SVProgressHUD showSuccessWithStatus:@"您已退出登录"];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [SVProgressHUD dismiss];
+        [self.navigationController popViewControllerAnimated:YES];
+    });
+    
 }
 
 @end
