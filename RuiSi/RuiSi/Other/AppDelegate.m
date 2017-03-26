@@ -47,7 +47,7 @@
     
     [[UITabBar appearance] setBackgroundImage:[UIImage new]];
     [[UITabBar appearance] setTranslucent:NO];
-    [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UITabBar appearance] setTintColor:[UIColor blackColor]];
     return YES;
 }
 
