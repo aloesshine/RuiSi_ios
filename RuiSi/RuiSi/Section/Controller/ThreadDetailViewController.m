@@ -38,17 +38,10 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     self.currentPage = 1;
     [self configureRefresh];
     [self configueBlocks];
-    
     [self initializeUI];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        self.getThreadDetailListBlock(1);
-        self.getLinksBlock();
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
-    });
-    
+    [self loadData];
     self.getLinksBlock();
+    
 }
 
 - (void) initializeUI {
@@ -79,13 +72,37 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 }
 
 - (void) creatorOnly {
-    self.getCreatorOnlyDetailListBlock(1);
+    [SVProgressHUD showSuccessWithStatus:@"只看楼主"];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        self.getCreatorOnlyDetailListBlock(1);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismissWithDelay:1.2];
+            [self.tableView reloadData];
+        });
+    });
 }
 
+- (void) loadMoreData {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        self.getMoreThreadDetailBlock(self.currentPage);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    });
+}
+
+- (void) loadData {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        self.getThreadDetailListBlock(1);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    });
+}
 
 - (void) configureRefresh {
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        self.getThreadDetailListBlock(self.currentPage);
+        [self loadData];
         if (self.detailList) {
             [self.tableView.mj_header endRefreshing];
         }
@@ -93,7 +110,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         self.currentPage = self.currentPage+1;
-        self.getMoreThreadDetailBlock(self.currentPage);
+        [self loadMoreData];
         if (self.detailList) {
             [self.tableView.mj_footer endRefreshing];
         }
@@ -107,6 +124,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
         self.currentPage = page;
         return [[DataManager manager] getThreadDetailListWithTid:self.thread.tid page:page success:^(ThreadDetailList *threadDetailList) {
             self.detailList = threadDetailList;
+            [self.tableView reloadData];
         } failure:^(NSError *error) {
             NSLog(@"an error occurs at:%s",__func__);
         }];
@@ -142,7 +160,6 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
         self.currentPage = page;
         return [[DataManager manager] getCreatorOnlyThreadDetailListWithTid:self.thread.tid page:self.currentPage authorid:uid success:^(ThreadDetailList *threadDetailList) {
             self.detailList = threadDetailList;
-            [self.tableView reloadData];
         } failure:^(NSError *error) {
             ;
         }];
@@ -180,8 +197,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
         }
         titleCell.thread = self.thread;
         return titleCell;
-    }
-    if (indexPath.section == 1) {
+    } else if (indexPath.section == 1) {
         ThreadDetailDTCell *cell = [self tableView:tableView preparedCellForIndexPath:indexPath];
         return cell;
     }
@@ -199,11 +215,11 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
         ThreadDetailDTCell *cell = (ThreadDetailDTCell *)[self tableView:tableView preparedCellForIndexPath:indexPath];
         return [cell requiredRowHeightInTableView:tableView];
     }
-    
     return 0;
 }
 
 - (ThreadDetailDTCell *) tableView:(UITableView *)tableView preparedCellForIndexPath:(NSIndexPath *)indexPath {
+    
     NSString *key = [NSString stringWithFormat:@"%ld-%ld",indexPath.section,(long)indexPath.row];
     if (!_cellCache) {
         self.cellCache = [[NSCache alloc] init];
@@ -214,14 +230,12 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
         [_cellCache setObject:cell forKey:key];
     }
     ThreadDetail *detail = self.detailList.list[indexPath.row];
-    //cell.detail = detail;
-    [cell configureDetail:detail];
-    cell.attributedTextContentView.shouldDrawLinks = YES;
-    cell.attributedTextContentView.shouldDrawImages = YES;
+    cell.detail = detail;
     return cell;
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     ThreadDetail *detail = [self.detailList.list objectAtIndex:indexPath.row];
     NSString *message = detail.threadCreator.memberName;
