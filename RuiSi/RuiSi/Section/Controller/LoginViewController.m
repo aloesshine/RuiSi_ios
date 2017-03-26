@@ -25,6 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.title = @"登录";
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.navigationController.navigationBar.translucent = NO;
     self.isLogining = NO;
     self.isKeyboardShowing = NO;
     [self.usernameField becomeFirstResponder];
@@ -103,8 +105,12 @@
                     user.member = member;
                     [DataManager manager].user = user;
                     [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccessNotification object:nil];
+                    [SVProgressHUD showSuccessWithStatus:@"登录成功"];
                     [self endLogin];
-                    [self dismissViewControllerAnimated:YES completion:nil];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self dismissViewControllerAnimated:YES completion:nil];
+                        [SVProgressHUD dismiss];
+                    });
                 } failure:^(NSError *error) {
                     [self endLogin];
                 }];

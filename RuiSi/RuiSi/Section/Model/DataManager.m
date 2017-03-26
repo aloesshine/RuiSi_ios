@@ -253,6 +253,9 @@
         ThreadDetailList *detailList = [ThreadDetailList getThreadDetailListFromResponseObject:responseObject];
         success(detailList);
     } failure:^(NSError *error) {
+        NSLog(@"error discription:%@",error.localizedDescription);
+        NSLog(@"error code:%ld",error.code);
+        NSLog(@"error domain:%@",error.domain);
         failure(error);
     }];
 }

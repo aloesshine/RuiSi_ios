@@ -115,15 +115,28 @@ static CGFloat const kAvatarHeight = 32.0f;
     
     return nil;
 }
-- (void) configureDetail:(ThreadDetail *)threadDetail {
-    self.detail = threadDetail;
-    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:self.detail.threadCreator.memberAvatarSmall] placeholderImage:[UIImage imageNamed:@"default_avatar_small"]];
-     [self.nameLabel setText:threadDetail.threadCreator.memberName];
-     [self.nameLabel sizeToFit];
-     [self.timeLabel setText:threadDetail.createTime];
-     [self.timeLabel sizeToFit];
-    [self setHTMLString:threadDetail.content];
+//- (void) setDetail:(ThreadDetail *)threadDetail {
+//    _detail = threadDetail;
+//    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:self.detail.threadCreator.memberAvatarSmall] placeholderImage:[UIImage imageNamed:@"default_avatar_small"]];
+//    [self.nameLabel setText:threadDetail.threadCreator.memberName];
+//    [self.nameLabel sizeToFit];
+//    [self.timeLabel setText:threadDetail.createTime];
+//    [self.timeLabel sizeToFit];
+//    [self setHTMLString:threadDetail.content];
+//    [self setNeedsLayout];
+//}
+
+
+- (void)configureDetail:(ThreadDetail *)detail {
+    self.detail = detail;
+    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:detail.threadCreator.memberAvatarSmall] placeholderImage:[UIImage imageNamed:@"default_avatar_small"]];
+    [self.nameLabel setText:detail.threadCreator.memberName];
+    [self.nameLabel sizeToFit];
+    [self.timeLabel setText:detail.createTime];
+    [self.timeLabel sizeToFit];
+    [self setHTMLString:detail.content];
 }
+
 - (void)didMoveToSuperview
 {
     [super didMoveToSuperview];

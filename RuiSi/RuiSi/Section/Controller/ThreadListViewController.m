@@ -37,7 +37,12 @@ NSString *kShowThreadDetail = @"showThreadDetail";
     [self configureRefresh];
     [self configureBlocks];
     [self.tableView registerNib:[UINib nibWithNibName:kThreadListCell bundle:[NSBundle mainBundle]] forCellReuseIdentifier:kThreadListCell];
-    self.getThreadListBlock(1);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        self.getThreadListBlock(1);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    });
 }
 
 - (void) configureRefresh {
@@ -71,7 +76,6 @@ NSString *kShowThreadDetail = @"showThreadDetail";
             return [[DataManager manager] getHotThreadListWithPage:page success:^(ThreadList *threadList) {
                 @strongify(self);
                 self.threadList = threadList;
-                [self.tableView reloadData];
             } failure:^(NSError *error) {
                 ;
             }];
@@ -87,7 +91,6 @@ NSString *kShowThreadDetail = @"showThreadDetail";
                 NSMutableArray *threadLists = [[NSMutableArray alloc] initWithArray:self.threadList.list];
                 [threadLists addObjectsFromArray:threadList.list];
                 self.threadList.list = [NSArray arrayWithArray:threadLists];
-                [self.tableView reloadData];
             } failure:^(NSError *error) {
                 ;
             }];
@@ -119,14 +122,7 @@ NSString *kShowThreadDetail = @"showThreadDetail";
     
     Thread *thread = _threadList.list[indexPath.row];
     
-    cell.titleLabel.text = thread.title;
-    if (thread.author == nil) {
-        cell.authorLabel.hidden = YES;
-    } else {
-        cell.authorLabel.text = thread.author;
-    }
-    cell.reviewCountLabel.text = thread.reviewCount;
-    cell.hasPicImageView.image = thread.hasPic == YES ? [UIImage imageNamed:@"icon_tu"] : NULL;
+    cell.thread = thread;
     return cell;
 }
 

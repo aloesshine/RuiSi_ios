@@ -40,10 +40,13 @@
 }
 
 
-- (void) configureTitlelabelWithThread:(Thread *)thread {
-    self.thread = thread;
+
+- (void)setThread:(Thread *)thread {
+    _thread = thread;
     self.titleLabel.text = thread.title;
+    [self.titleLabel sizeToFit];
     self.titleHeight = [Helper getTextHeightWithText:thread.title Font:[UIFont systemFontOfSize:kTitleLabelFont] Width:kTitleLabelWidth] + 1;
+    [self setNeedsLayout];
 }
 
 - (void) layoutSubviews {

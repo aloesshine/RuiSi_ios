@@ -21,4 +21,18 @@
     // Configure the view for the selected state
 }
 
+- (void)setThread:(Thread *)thread {
+    _thread = thread;
+    self.titleLabel.text = thread.title;
+    if (thread.author == nil) {
+        self.authorLabel.hidden = YES;
+    } else {
+        self.authorLabel.text = thread.author;
+    }
+    self.reviewCountLabel.text = thread.reviewCount;
+    if (thread.hasPic) {
+        self.hasPicImageView.image = [UIImage imageNamed:@"icon_tu"];
+    }
+}
+
 @end
