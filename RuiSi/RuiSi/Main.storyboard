@@ -61,7 +61,7 @@
         <!--Thread List View Controller-->
         <scene sceneID="bX7-Ml-gOX">
             <objects>
-                <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="QGe-DV-aFM" customClass="ThreadListViewController" sceneMemberID="viewController">
+                <tableViewController autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" id="QGe-DV-aFM" customClass="ThreadListViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="wEZ-JT-97c">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

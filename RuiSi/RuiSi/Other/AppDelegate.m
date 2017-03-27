@@ -27,6 +27,9 @@
     SectionViewController *sectionViewController = [[SectionViewController alloc] initWithCollectionViewLayout:layout];
     AboutMeViewController *aboutMeViewController = [[AboutMeViewController alloc] init];
     ThreadListViewController *hotThreadListViewController = [[ThreadListViewController alloc] init];
+    
+    
+    
     hotThreadListViewController.needToGetMore = YES;
     hotThreadListViewController.name = @"精彩热帖";
     UINavigationController *nav1 = [[UINavigationController alloc] initWithRootViewController:sectionViewController];
@@ -36,6 +39,8 @@
     nav2.tabBarItem.title = @"热帖";
     nav3.tabBarItem.title = @"我";
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:nav1,nav2,nav3, nil];
+    
+    
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     

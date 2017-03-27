@@ -34,7 +34,12 @@
 
 - (IBAction)back:(UIButton *)sender
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.4f;
+    transition.type = kCATransitionReveal;
+    transition.subtype = kCATransitionFromBottom;
+    [self.navigationController.view.layer addAnimation:transition forKey:kCATransition];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 
