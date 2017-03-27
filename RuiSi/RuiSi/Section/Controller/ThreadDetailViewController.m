@@ -251,7 +251,14 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
         replyViewController.formhash = self.formhash;
 //        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:replyViewController];
 //        [self presentViewController:navController animated:YES completion:nil];
-        [self.navigationController pushViewController:replyViewController animated:YES];
+        
+        CATransition* transition = [CATransition animation];
+        transition.duration = 0.5f;
+        transition.type = kCATransitionFade;
+        transition.subtype = kCATransitionFromTop;
+        [self.navigationController.view.layer addAnimation:transition
+                                                    forKey:kCATransition];
+        [self.navigationController pushViewController:replyViewController animated:NO];
         
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {

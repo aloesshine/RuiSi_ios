@@ -8,15 +8,14 @@
 
 #import "ReplyViewController.h"
 @interface ReplyViewController () <UITextFieldDelegate>
-
+@property (nonatomic,strong) UIBarButtonItem *publishBarButtonItem;
+@property (nonatomic,strong) UIBarButtonItem *cancelBarButtonItem;
 @end
 
 @implementation ReplyViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"%@",self.postUrlString);
-    self.navigationController.title = @"回复";
     self.replyTextField.delegate = self;
     [self.replyTextField becomeFirstResponder];
 }
@@ -47,11 +46,12 @@
 }
 
 - (void) congifureNavigationBarItems {
-    UIBarButtonItem *publishBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(publish)];
-    UIBarButtonItem *cancelBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(cancel)];
-    self.navigationItem.rightBarButtonItem = publishBarButtonItem;
-    self.navigationItem.leftBarButtonItem = cancelBarButtonItem;
+    self.publishBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(publish)];
+    self.cancelBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(cancel)];
+    self.navigationItem.rightBarButtonItem = self.publishBarButtonItem;
+    self.navigationItem.leftBarButtonItem = self.cancelBarButtonItem;
 }
+
 - (void) cancel {
 //    [self.replyTextField resignFirstResponder];
 //    [self.navigationController popViewControllerAnimated:YES];
