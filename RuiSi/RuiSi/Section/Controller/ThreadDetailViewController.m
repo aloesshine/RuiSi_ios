@@ -35,6 +35,8 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     [self.tableView registerClass:[ThreadDetailTitleCell class] forCellReuseIdentifier:kThreadDetailTitleCell];
     [self.tableView registerClass:[ThreadDetailDTCell class] forCellReuseIdentifier:kThreadDetailDTCell];
     
+
+    
     self.currentPage = 1;
     [self configureRefresh];
     [self configueBlocks];

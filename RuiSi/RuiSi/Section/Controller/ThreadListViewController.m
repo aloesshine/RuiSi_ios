@@ -27,6 +27,7 @@ NSString *kShowThreadDetail = @"showThreadDetail";
     [super viewDidLoad];
     self.currentPage = 1;
     
+    
     // 设置标题
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.85 green:0.13 blue:0.16 alpha:1.0];
@@ -140,6 +141,7 @@ NSString *kShowThreadDetail = @"showThreadDetail";
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     //[self performSegueWithIdentifier:kShowThreadDetail sender:indexPath];
     ThreadDetailViewController *threadDetailViewController = [[ThreadDetailViewController alloc] init];
+    threadDetailViewController.hidesBottomBarWhenPushed = YES;
     Thread *thread = [self.threadList.list objectAtIndex:indexPath.row];
     threadDetailViewController.thread = thread;
     [self.navigationController pushViewController:threadDetailViewController animated:YES];

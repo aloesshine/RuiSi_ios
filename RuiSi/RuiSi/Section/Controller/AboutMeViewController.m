@@ -70,7 +70,20 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     }
 }
 
-
+- (void) askIfWillLogin {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"您尚未登陆" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *gotoLogin = [UIAlertAction actionWithTitle:@"前往登陆" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        LoginViewController *loginViewController = [[LoginViewController alloc] init];
+        loginViewController.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:loginViewController animated:YES];
+    }];
+    UIAlertAction *cancelLogin = [UIAlertAction actionWithTitle:@"暂时不登陆" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        ;
+    }];
+    [alertController addAction:gotoLogin];
+    [alertController addAction:cancelLogin];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
 
 - (void) setupSubviews {
     self.topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 200)];
@@ -93,6 +106,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
         } else {
             LoginViewController *loginViewController = [[LoginViewController alloc] init];
             [self presentViewController:loginViewController animated:YES completion:nil];
+            
         }
     }];
     [self.topView addSubview:self.avatarImage];
@@ -139,6 +153,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     [cell2  bk_whenTapped:^{
         if (self.isLogged) {
             ThreadListViewController *threadListViewController = [[ThreadListViewController alloc] init];
+            threadListViewController.hidesBottomBarWhenPushed = YES;
             __weak ThreadListViewController *threadListViewController_ = threadListViewController;
             threadListViewController.needToGetMore = NO;
             threadListViewController.name = @"我的收藏";
@@ -168,6 +183,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     [cell3 bk_whenTapped:^{
         if (self.isLogged) {
             ThreadListViewController *threadListViewController = [[ThreadListViewController alloc] init];
+            threadListViewController.hidesBottomBarWhenPushed = YES;
             __weak ThreadListViewController *threadListViewController_ = threadListViewController;
             threadListViewController.needToGetMore = NO;
             threadListViewController_.name = @"我的帖子";
@@ -182,6 +198,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
             [self.navigationController pushViewController:threadListViewController animated:YES];
         } else {
             [self showUnloggedMessage];
+            
         }
     }];
     
@@ -195,13 +212,12 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     cell4.iconImageView.image = [UIImage imageNamed:@"icon_mine_info"];
     [cell4 bk_whenTapped:^{
         if (self.isLogged) {
-            ProfileViewController *profileVC = [[ProfileViewController alloc] init];
-            profileVC.homepage = [userDefaults objectForKey:kUserHomepage];
-            [self.navigationController pushViewController:profileVC animated:YES];
+            ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
+            profileViewController.hidesBottomBarWhenPushed = YES;
+            profileViewController.homepage = [userDefaults objectForKey:kUserHomepage];
+            [self.navigationController pushViewController:profileViewController animated:YES];
         } else {
             [self showUnloggedMessage];
-            LoginViewController *loginVC = [[LoginViewController alloc] init];
-            [self presentViewController:loginVC animated:YES completion:nil];
         }
     }];
     
@@ -216,6 +232,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     self.tableView.selectCellHandler = ^(AboutMeTableViewCell *cell,NSIndexPath *indexPath) {
         if (indexPath.row == 1) {
             SettingsViewController *settingsViewController = [[SettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            settingsViewController.hidesBottomBarWhenPushed = YES;
             [weakSelf.navigationController pushViewController:settingsViewController animated:YES];
         }
     };

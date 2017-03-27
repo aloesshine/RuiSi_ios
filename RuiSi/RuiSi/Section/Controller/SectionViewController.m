@@ -174,6 +174,7 @@ NSString *kshowThreadListSegue = @"showThreadList";
     NSDictionary *titleDict = _itemArray[indexPath.section][indexPath.row];
     
     ThreadListViewController *destViewController = [[ThreadListViewController alloc] init];
+    destViewController.hidesBottomBarWhenPushed = YES;
     destViewController.url = titleDict[@"url"];
     destViewController.name = titleDict[@"name"];
     destViewController.fid = titleDict[@"fid"];
@@ -199,6 +200,7 @@ NSString *kshowThreadListSegue = @"showThreadList";
         NSDictionary *titleDict = _itemArray[indexPath.section][indexPath.row];
         
         ThreadListViewController *destViewController = segue.destinationViewController;
+        destViewController.hidesBottomBarWhenPushed = YES;
         destViewController.url = titleDict[@"url"];
         destViewController.name = titleDict[@"name"];
         destViewController.fid = titleDict[@"fid"];
