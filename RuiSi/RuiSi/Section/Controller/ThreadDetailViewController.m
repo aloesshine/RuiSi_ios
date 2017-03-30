@@ -40,10 +40,12 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     self.currentPage = 1;
     [self configureRefresh];
     [self configueBlocks];
+    
     [self initializeUI];
-    [self loadData];
     self.getLinksBlock();
     
+    [self loadData];
+    [self reloadVisibleCells];
 }
 
 - (void) initializeUI {
@@ -58,6 +60,13 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     block();
 }
 
+
+- (void) reloadVisibleCells {
+    NSArray *indexPaths = [self.tableView indexPathsForVisibleRows];
+    [self.tableView beginUpdates];
+    [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView endUpdates];
+}
 
 - (void) favorThread {
     [self takeActionBlock:^{
@@ -277,6 +286,13 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    //NSArray *indexPaths = [self.tableView indexPathsForVisibleRows];
+    [self reloadVisibleCells];
+}
 
 
 #pragma mark - ReplyViewControllerDelegate
