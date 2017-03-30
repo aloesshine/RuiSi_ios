@@ -21,10 +21,19 @@
     Member *member = [[Member alloc] init];
     NSError *error = nil;
     NSString *urlString;
+    
     if ([DataManager isSchoolNet]) {
-        urlString = [kSchoolNetURL stringByAppendingString:homepage];
+        if ([homepage containsString:kSchoolNetURL]) {
+            urlString = homepage;
+        } else {
+            urlString = [kSchoolNetURL stringByAppendingString:homepage];
+        }
     } else {
-        urlString = [kPublicNetURL stringByAppendingString:homepage];
+        if ([homepage containsString:kPublicNetURL]) {
+            urlString = homepage;
+        } else {
+            urlString = [kPublicNetURL stringByAppendingString:homepage];
+        }
     }
     NSString *htmlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:urlString] encoding:NSUTF8StringEncoding error:&error];
     OCGumboDocument *document = [[OCGumboDocument alloc] initWithHTMLString:htmlString];

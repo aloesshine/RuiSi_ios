@@ -18,6 +18,8 @@
 #import "Constants.h"
 #import "UIImageView+WebCache.h"
 #import "DTLazyImageView.h"
+#import "ProfileViewController.h"
+
 static CGFloat const kAvatarHeight = 32.0f;
 
 @implementation ThreadDetailDTCell
@@ -337,10 +339,27 @@ static CGFloat const kAvatarHeight = 32.0f;
 }
 
 - (UIView *) attributedTextContentView:(DTAttributedTextContentView *)attributedTextContentView viewForLink:(NSURL *)url identifier:(NSString *)identifier frame:(CGRect)frame {
-    DTLinkButton *linkButton = [[DTLinkButton alloc] initWithFrame:frame];
-    linkButton.URL = url;
-    [linkButton addTarget:self action:@selector(linkButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    return linkButton;
+    NSString *urlString = url.absoluteString;
+    if ([urlString containsString:@"mod=space&uid="]) {
+        DTLinkButton *showUserInfoButton = [[DTLinkButton alloc] initWithFrame:frame];
+        [showUserInfoButton addTarget:self action:@selector(showUserInfo:) forControlEvents:UIControlEventTouchUpInside];
+        NSString *fixedUrlString = [urlString stringByAppendingString:@"do=profile&mobile=2"];
+        NSURL *fixedUrl = [NSURL URLWithString:fixedUrlString];
+        showUserInfoButton.URL = fixedUrl;
+        return showUserInfoButton;
+    } else {
+        DTLinkButton *linkButton = [[DTLinkButton alloc] initWithFrame:frame];
+        linkButton.URL = url;
+        [linkButton addTarget:self action:@selector(linkButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        return linkButton;
+    }
+}
+
+- (void) showUserInfo:(DTLinkButton *)sender {
+    ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
+    profileViewController.homepage = sender.URL.absoluteString;
+    UITableViewController *controller = (UITableViewController *)_containingTableView.dataSource;
+    [controller.navigationController pushViewController:profileViewController animated:YES];
 }
 
 - (void) linkButtonClicked:(DTLinkButton *)sender {

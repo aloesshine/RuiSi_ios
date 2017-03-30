@@ -84,13 +84,13 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 
 - (void) creatorOnly {
     [SVProgressHUD showSuccessWithStatus:@"只看楼主"];
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        self.getCreatorOnlyDetailListBlock(1);
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            //[SVProgressHUD dismissWithDelay:1.2];
-//            [self.tableView reloadData];
-//        });
-//    });
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        self.getCreatorOnlyDetailListBlock(1);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //[SVProgressHUD dismissWithDelay:1.2];
+            [self.tableView reloadData];
+        });
+    });
 }
 
 - (void) loadMoreData {
@@ -289,10 +289,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 
 
 #pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    //NSArray *indexPaths = [self.tableView indexPathsForVisibleRows];
-    //[self reloadVisibleCells];
-}
+
 
 
 #pragma mark - ReplyViewControllerDelegate
