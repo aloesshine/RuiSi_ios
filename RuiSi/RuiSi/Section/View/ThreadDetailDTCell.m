@@ -300,6 +300,7 @@ static CGFloat const kAvatarHeight = 32.0f;
         _attributedTextContentView.layoutFrameHeightIsConstrainedByBounds = _hasFixedRowHeight;
         _attributedTextContentView.delegate = _textDelegate;
         _attributedTextContentView.shouldDrawImages = YES;
+        
         [self.contentView addSubview:_attributedTextContentView];
     }
     
@@ -333,6 +334,17 @@ static CGFloat const kAvatarHeight = 32.0f;
         return imageView;
     }
     return nil;
+}
+
+- (UIView *) attributedTextContentView:(DTAttributedTextContentView *)attributedTextContentView viewForLink:(NSURL *)url identifier:(NSString *)identifier frame:(CGRect)frame {
+    DTLinkButton *linkButton = [[DTLinkButton alloc] initWithFrame:frame];
+    linkButton.URL = url;
+    [linkButton addTarget:self action:@selector(linkButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    return linkButton;
+}
+
+- (void) linkButtonClicked:(DTLinkButton *)sender {
+    [[UIApplication sharedApplication] openURL:sender.URL];
 }
 
 - (void)lazyImageView:(DTLazyImageView *)lazyImageView didChangeImageSize:(CGSize)size {

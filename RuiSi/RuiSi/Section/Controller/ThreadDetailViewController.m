@@ -34,14 +34,13 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     [super viewDidLoad];
     [self.tableView registerClass:[ThreadDetailTitleCell class] forCellReuseIdentifier:kThreadDetailTitleCell];
     [self.tableView registerClass:[ThreadDetailDTCell class] forCellReuseIdentifier:kThreadDetailDTCell];
-    
 
-    
     self.currentPage = 1;
+    
     [self configureRefresh];
     [self configueBlocks];
-    
     [self initializeUI];
+    
     self.getLinksBlock();
     
     [self loadData];
@@ -71,6 +70,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 - (void) favorThread {
     [self takeActionBlock:^{
        [[DataManager manager] favorThreadWithTid:self.thread.tid formhash:self.formhash success:^(NSString *message) {
+           NSLog(@"message is %@",message);
            if ([message isEqualToString:@"收藏成功"]) {
                [SVProgressHUD showSuccessWithStatus:message];
            } else {
@@ -84,17 +84,17 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 
 - (void) creatorOnly {
     [SVProgressHUD showSuccessWithStatus:@"只看楼主"];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        self.getCreatorOnlyDetailListBlock(1);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD dismissWithDelay:1.2];
-            [self.tableView reloadData];
-        });
-    });
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        self.getCreatorOnlyDetailListBlock(1);
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            //[SVProgressHUD dismissWithDelay:1.2];
+//            [self.tableView reloadData];
+//        });
+//    });
 }
 
 - (void) loadMoreData {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         self.getMoreThreadDetailBlock(self.currentPage);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
@@ -291,7 +291,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     //NSArray *indexPaths = [self.tableView indexPathsForVisibleRows];
-    [self reloadVisibleCells];
+    //[self reloadVisibleCells];
 }
 
 
@@ -324,6 +324,6 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 
 - (void)replyViewControllerHaveNotLogin:(ReplyViewController *)replyViewController {
     [self.navigationController popViewControllerAnimated:YES];
-    [SVProgressHUD showErrorWithStatus:@"由于您未登录，信息尚未发出，请登陆后再试！"];
+    [SVProgressHUD showErrorWithStatus:@"请登陆后再试！"];
 }
 @end
