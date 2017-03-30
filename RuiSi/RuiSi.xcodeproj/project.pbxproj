@@ -47,6 +47,10 @@
 		BB0F8C671DF06FD2006D11E2 /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0F8C661DF06FD2006D11E2 /* Member.m */; };
 		BB0F8C6A1DF07C68006D11E2 /* ThreadDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0F8C691DF07C68006D11E2 /* ThreadDetail.m */; };
 		BB0F8C701DF0852D006D11E2 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0F8C6F1DF0852D006D11E2 /* DataManager.m */; };
+		BB1577771E8A1B540013F4A0 /* TREmotionKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1577761E8A1B540013F4A0 /* TREmotionKeyboard.m */; };
+		BB15777A1E8A1B750013F4A0 /* TREmotionAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1577791E8A1B750013F4A0 /* TREmotionAttachment.m */; };
+		BB15777D1E8A1BBF0013F4A0 /* TREmotionMap.m in Sources */ = {isa = PBXBuildFile; fileRef = BB15777C1E8A1BBF0013F4A0 /* TREmotionMap.m */; };
+		BB1577801E8A1C890013F4A0 /* TRInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB15777F1E8A1C890013F4A0 /* TRInputAccessoryView.m */; };
 		BB17BB831DE0A85600315E4D /* SectionHeaderViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB17BB821DE0A85600315E4D /* SectionHeaderViewCell.xib */; };
 		BB1DD7EA1E54791D00A58E89 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1DD7E81E54791D00A58E89 /* SettingsViewController.m */; };
 		BB20FD101DE1FA57000CFB0E /* sectionLogging.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB20FD0F1DE1FA57000CFB0E /* sectionLogging.plist */; };
@@ -177,6 +181,14 @@
 		BB0F8C691DF07C68006D11E2 /* ThreadDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadDetail.m; sourceTree = "<group>"; };
 		BB0F8C6E1DF0852D006D11E2 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataManager.h; path = RuiSi/Section/Model/DataManager.h; sourceTree = SOURCE_ROOT; };
 		BB0F8C6F1DF0852D006D11E2 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataManager.m; path = RuiSi/Section/Model/DataManager.m; sourceTree = SOURCE_ROOT; };
+		BB1577751E8A1B540013F4A0 /* TREmotionKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TREmotionKeyboard.h; sourceTree = "<group>"; };
+		BB1577761E8A1B540013F4A0 /* TREmotionKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TREmotionKeyboard.m; sourceTree = "<group>"; };
+		BB1577781E8A1B750013F4A0 /* TREmotionAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TREmotionAttachment.h; sourceTree = "<group>"; };
+		BB1577791E8A1B750013F4A0 /* TREmotionAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TREmotionAttachment.m; sourceTree = "<group>"; };
+		BB15777B1E8A1BBF0013F4A0 /* TREmotionMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TREmotionMap.h; sourceTree = "<group>"; };
+		BB15777C1E8A1BBF0013F4A0 /* TREmotionMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TREmotionMap.m; sourceTree = "<group>"; };
+		BB15777E1E8A1C890013F4A0 /* TRInputAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRInputAccessoryView.h; sourceTree = "<group>"; };
+		BB15777F1E8A1C890013F4A0 /* TRInputAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRInputAccessoryView.m; sourceTree = "<group>"; };
 		BB17BB821DE0A85600315E4D /* SectionHeaderViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionHeaderViewCell.xib; sourceTree = "<group>"; };
 		BB1DD7E71E54791D00A58E89 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		BB1DD7E81E54791D00A58E89 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
@@ -471,6 +483,7 @@
 		7AB4ACBA1DDD7DCA00842D6C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BB1577741E8A1B300013F4A0 /* Keyboard */,
 				BB0A95D11DF709F3009B6F7D /* Section */,
 				BB0A95D21DF70A08009B6F7D /* ThreadList */,
 				BB0A95D31DF70A12009B6F7D /* AboutMe */,
@@ -548,6 +561,21 @@
 				BBF31B0C1E33A0C3002C22BD /* ThreadDetailDTCell.m */,
 			);
 			name = Detail;
+			sourceTree = "<group>";
+		};
+		BB1577741E8A1B300013F4A0 /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				BB1577751E8A1B540013F4A0 /* TREmotionKeyboard.h */,
+				BB1577761E8A1B540013F4A0 /* TREmotionKeyboard.m */,
+				BB1577781E8A1B750013F4A0 /* TREmotionAttachment.h */,
+				BB1577791E8A1B750013F4A0 /* TREmotionAttachment.m */,
+				BB15777B1E8A1BBF0013F4A0 /* TREmotionMap.h */,
+				BB15777C1E8A1BBF0013F4A0 /* TREmotionMap.m */,
+				BB15777E1E8A1C890013F4A0 /* TRInputAccessoryView.h */,
+				BB15777F1E8A1C890013F4A0 /* TRInputAccessoryView.m */,
+			);
+			name = Keyboard;
 			sourceTree = "<group>";
 		};
 		BBF8D7541E01AFD00015D568 /* SCMentionTextView */ = {
@@ -824,6 +852,7 @@
 				BB3713631DE9163200F0A179 /* AboutMeTableView.m in Sources */,
 				BBF3BFC11DF1B24F0014F20D /* ThreadDetailViewController.m in Sources */,
 				BB0F8C6A1DF07C68006D11E2 /* ThreadDetail.m in Sources */,
+				BB15777D1E8A1BBF0013F4A0 /* TREmotionMap.m in Sources */,
 				BB1DD7EA1E54791D00A58E89 /* SettingsViewController.m in Sources */,
 				BBD04CC01E2D05C9008466FC /* MessageListTableViewCell.m in Sources */,
 				7A6A80711DEABD2E00B81583 /* OCGumbo.m in Sources */,
@@ -833,10 +862,12 @@
 				BBF8D7531E01AFC80015D568 /* SCQuote.m in Sources */,
 				7AB4ACBE1DDD7DCA00842D6C /* AppDelegate.m in Sources */,
 				7AB4ACC31DDD9C6000842D6C /* SectionViewController.m in Sources */,
+				BB1577771E8A1B540013F4A0 /* TREmotionKeyboard.m in Sources */,
 				BB31CCED1DE8B41300FB70A6 /* AboutMeHeaderViewCell.m in Sources */,
 				7A6563FB1DE719B300E3E1B5 /* Thread.m in Sources */,
 				BB9C7EFF1DF853C200CC30AB /* ProfileViewController.m in Sources */,
 				BBD04CC41E2D1826008466FC /* MessageDetailViewController.m in Sources */,
+				BB1577801E8A1C890013F4A0 /* TRInputAccessoryView.m in Sources */,
 				BB3713601DE915AC00F0A179 /* AboutMeViewController.m in Sources */,
 				7A6A80961DEABD4800B81583 /* parser.c in Sources */,
 				7A6A809B1DEABD4800B81583 /* tokenizer.c in Sources */,
@@ -856,6 +887,7 @@
 				7A6A80951DEABD4800B81583 /* error.c in Sources */,
 				7A6A80931DEABD4800B81583 /* char_ref.c in Sources */,
 				7A6A80971DEABD4800B81583 /* string_buffer.c in Sources */,
+				BB15777A1E8A1B750013F4A0 /* TREmotionAttachment.m in Sources */,
 				BB72A3351DDF68C8007192FE /* SectionHeaderViewCell.m in Sources */,
 				BB0F8C701DF0852D006D11E2 /* DataManager.m in Sources */,
 				BB3713661DE9230900F0A179 /* AboutMeTableViewCell.m in Sources */,
