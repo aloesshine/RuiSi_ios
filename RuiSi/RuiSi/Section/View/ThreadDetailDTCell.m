@@ -131,16 +131,6 @@ static CGFloat const kAvatarHeight = 32.0f;
     [self setNeedsLayout];
 }
 
-//
-//- (void)configureDetail:(ThreadDetail *)detail {
-//    self.detail = detail;
-//    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:detail.threadCreator.memberAvatarSmall] placeholderImage:[UIImage imageNamed:@"default_avatar_small"]];
-//    [self.nameLabel setText:detail.threadCreator.memberName];
-//    [self.nameLabel sizeToFit];
-//    [self.timeLabel setText:detail.createTime];
-//    [self.timeLabel sizeToFit];
-//    [self setHTMLString:detail.content];
-//}
 
 - (void)didMoveToSuperview
 {
@@ -340,18 +330,18 @@ static CGFloat const kAvatarHeight = 32.0f;
 
 - (UIView *) attributedTextContentView:(DTAttributedTextContentView *)attributedTextContentView viewForLink:(NSURL *)url identifier:(NSString *)identifier frame:(CGRect)frame {
     NSString *urlString = url.absoluteString;
+    NSString *fixedUrlString = [urlString stringByAppendingString:@"&mobile=2"];
+    NSURL *fixedUrl = [NSURL URLWithString:fixedUrlString];
     if ([urlString containsString:@"mod=space&uid="]) {
         DTLinkButton *showUserInfoButton = [[DTLinkButton alloc] initWithFrame:frame];
         [showUserInfoButton addTarget:self action:@selector(showUserInfo:) forControlEvents:UIControlEventTouchUpInside];
-        NSString *fixedUrlString = [urlString stringByAppendingString:@"do=profile&mobile=2"];
-        NSURL *fixedUrl = [NSURL URLWithString:fixedUrlString];
         showUserInfoButton.URL = fixedUrl;
         return showUserInfoButton;
     } else {
-        DTLinkButton *linkButton = [[DTLinkButton alloc] initWithFrame:frame];
-        linkButton.URL = url;
-        [linkButton addTarget:self action:@selector(linkButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        return linkButton;
+        DTLinkButton *openUrlInSafariButton = [[DTLinkButton alloc] initWithFrame:frame];
+        openUrlInSafariButton.URL = fixedUrl;
+        [openUrlInSafariButton addTarget:self action:@selector(openUrlInSafari:) forControlEvents:UIControlEventTouchUpInside];
+        return openUrlInSafariButton;
     }
 }
 
@@ -362,7 +352,7 @@ static CGFloat const kAvatarHeight = 32.0f;
     [controller.navigationController pushViewController:profileViewController animated:YES];
 }
 
-- (void) linkButtonClicked:(DTLinkButton *)sender {
+- (void) openUrlInSafari:(DTLinkButton *)sender {
     [[UIApplication sharedApplication] openURL:sender.URL];
 }
 

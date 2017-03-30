@@ -11,4 +11,5 @@ target 'RuiSi' do
     pod 'libextobjc','~> 0.4.1'
 	pod 'Objective-C-HMTL-Parser'
     pod 'Masonry'
+    pod 'IDMPhotoBrowser'
 end

@@ -50,9 +50,9 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 - (void) initializeUI {
     self.navigationController.navigationBar.translucent = NO;
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    UIBarButtonItem *favorButton = [[UIBarButtonItem alloc] initWithTitle:@"收藏" style:UIBarButtonItemStylePlain target:self action:@selector(favorThread)];
-    UIBarButtonItem *creatorOnlyButton = [[UIBarButtonItem alloc] initWithTitle:@"只看楼主" style:UIBarButtonItemStylePlain target:self action:@selector(creatorOnly)];
-    self.navigationItem.rightBarButtonItems = @[favorButton,creatorOnlyButton];
+//    UIBarButtonItem *favorButton = [[UIBarButtonItem alloc] initWithTitle:@"收藏" style:UIBarButtonItemStylePlain target:self action:@selector(favorThread)];
+//    UIBarButtonItem *creatorOnlyButton = [[UIBarButtonItem alloc] initWithTitle:@"只看楼主" style:UIBarButtonItemStylePlain target:self action:@selector(creatorOnly)];
+//    self.navigationItem.rightBarButtonItems = @[favorButton,creatorOnlyButton];
 }
 
 - (void) takeActionBlock:(void (^)())block {
@@ -82,32 +82,35 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     }];
 }
 
+
+// TODO: 解决只看楼主模式下下拉刷新获得的仍是原始数据的问题
 - (void) creatorOnly {
     [SVProgressHUD showSuccessWithStatus:@"只看楼主"];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         self.getCreatorOnlyDetailListBlock(1);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            //[SVProgressHUD dismissWithDelay:1.2];
-            [self.tableView reloadData];
-        });
+        [self reloadVisibleCells];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            //[SVProgressHUD dismissWithDelay:1.2];
+//            [self.tableView reloadData];
+//        });
     });
 }
 
 - (void) loadMoreData {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         self.getMoreThreadDetailBlock(self.currentPage);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.tableView reloadData];
+//        });
     });
 }
 
 - (void) loadData {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         self.getThreadDetailListBlock(1);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.tableView reloadData];
+//        });
     });
 }
 
@@ -119,13 +122,13 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
         }
     } ];
     
-    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        self.currentPage = self.currentPage+1;
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        self.currentPage = self.currentPage + 1;
         [self loadMoreData];
         if (self.detailList) {
             [self.tableView.mj_footer endRefreshing];
         }
-    } ];
+    }];
 }
 - (void) configueBlocks {
     @weakify(self);
@@ -149,6 +152,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
             NSMutableArray *detailLists = [[NSMutableArray alloc] initWithArray:self.detailList.list];
             [detailLists addObjectsFromArray:threadDetailList.list];
             self.detailList.list = [NSArray arrayWithArray:detailLists];
+            [self.tableView reloadData];
         } failure:^(NSError *error) {
             ;
         }];
@@ -171,6 +175,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
         self.currentPage = page;
         return [[DataManager manager] getCreatorOnlyThreadDetailListWithTid:self.thread.tid page:self.currentPage authorid:uid success:^(ThreadDetailList *threadDetailList) {
             self.detailList = threadDetailList;
+            [self.tableView reloadData];
         } failure:^(NSError *error) {
             ;
         }];
@@ -260,8 +265,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
             replyViewController.postUrlString = detail.replyUrlString;
         }
         replyViewController.formhash = self.formhash;
-//        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:replyViewController];
-//        [self presentViewController:navController animated:YES completion:nil];
+
         
         CATransition* transition = [CATransition animation];
         transition.duration = 0.5f;
@@ -289,14 +293,15 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 
 
 #pragma mark - UIScrollViewDelegate
-
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    //[self reloadVisibleCells];
+}
 
 
 #pragma mark - ReplyViewControllerDelegate
 - (void)replyViewControllerDidCancel:(ReplyViewController *)replyViewController {
     [replyViewController.replyTextField resignFirstResponder];
     [self.navigationController popViewControllerAnimated:YES];
-    //[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)replyViewController:(ReplyViewController *)replyViewController didPublishThreadDetail:(ThreadDetail *)threadDetail {

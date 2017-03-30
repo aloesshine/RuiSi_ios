@@ -29,6 +29,7 @@ PODS:
   - BlocksKit/UIKit (2.2.5):
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
+  - DACircularProgress (2.3.1)
   - DTCoreText (1.6.19):
     - DTCoreText/Core (= 1.6.19)
     - DTFoundation/Core (~> 1.7.5)
@@ -46,6 +47,10 @@ PODS:
     - DTFoundation/Core
   - DTFoundation/UIKit (1.7.11):
     - DTFoundation/Core
+  - IDMPhotoBrowser (1.10.2):
+    - DACircularProgress
+    - pop
+    - SDWebImage
   - libextobjc (0.4.1):
     - libextobjc/EXTADT (= 0.4.1)
     - libextobjc/EXTConcreteProtocol (= 0.4.1)
@@ -84,6 +89,7 @@ PODS:
   - Masonry (1.0.2)
   - MJRefresh (3.1.12)
   - Objective-C-HMTL-Parser (0.0.1)
+  - pop (1.0.9)
   - RegexKitLite (4.0)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
@@ -95,6 +101,7 @@ DEPENDENCIES:
   - AFNetworking
   - BlocksKit (~> 2.2.5)
   - DTCoreText (~> 1.6.19)
+  - IDMPhotoBrowser
   - libextobjc (~> 0.4.1)
   - Masonry
   - MJRefresh (~> 3.1.12)
@@ -107,17 +114,20 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
+  DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   DTCoreText: 184cc2f460c2177108e8700dfb0eb1b1cb72c99d
   DTFoundation: 0ef29c70a9814e15518694862bd739347abe2a50
+  IDMPhotoBrowser: 4bb459b1faffc228e92bccdf7c54ad6d6b7e8c37
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   Objective-C-HMTL-Parser: cc468311d0ae434646c56aae3b62426977f19ca0
+  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 1ebaf1ee7b57cb688c602e8c39e239a01c5c3d98
+PODFILE CHECKSUM: f7d9bbaa027ca5afe9e379b108d6feaab22148d1
 
-COCOAPODS: 1.0.0
+COCOAPODS: 1.2.1.beta.1
