@@ -201,7 +201,7 @@
                    @"mobile":@"2"
                    };
     return [self requestWithMethod:RequestMethodHTTPGet urlString:@"home.php" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-        ThreadList *list = [ThreadList getThreadListFromResponseObject:responseObject];
+        ThreadList *list = [ThreadList getThreadListForFavoritesFromResponseObject:responseObject];
         success(list);
     } failure:^(NSError *error) {
         
@@ -341,7 +341,7 @@
 //            NSLog(@"发布成功");
 //            success(@"发布成功");
 //        }
-        success(@"发布成功");
+        success(kPostIsSuccessful);
     } failure:^(NSError *error) {
         ;
     }];
@@ -362,7 +362,7 @@
         NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         if ([htmlString rangeOfString:@"信息收藏成功"].location != NSNotFound) {
             NSLog(@"收藏成功！");
-            success(@"收藏成功");
+            success(kFavoriteIsSuccessful);
         }
     } failure:^(NSError *error) {
         ;
@@ -475,7 +475,5 @@
     }
     return result;
 }
-
-
 
 @end

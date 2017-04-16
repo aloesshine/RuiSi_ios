@@ -71,7 +71,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     [self takeActionBlock:^{
        [[DataManager manager] favorThreadWithTid:self.thread.tid formhash:self.formhash success:^(NSString *message) {
            NSLog(@"message is %@",message);
-           if ([message isEqualToString:@"收藏成功"]) {
+           if ([message isEqualToString:kFavoriteIsSuccessful]) {
                [SVProgressHUD showSuccessWithStatus:message];
            } else {
                [SVProgressHUD showErrorWithStatus:@"操作失败"];
@@ -307,7 +307,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 - (void)replyViewController:(ReplyViewController *)replyViewController didPublishThreadDetail:(ThreadDetail *)threadDetail {
         [self takeActionBlock:^{
             [[DataManager manager] createReplyWithUrlString:replyViewController.postUrlString formhash:replyViewController.formhash message:replyViewController.replyTextField.text success:^(NSString *message) {
-                if ([message isEqualToString:@"发布成功"]) {
+                if ([message isEqualToString:kPostIsSuccessful]) {
                     
                     [self.navigationController popViewControllerAnimated:YES];
                     [SVProgressHUD showSuccessWithStatus:@"回复成功！"];

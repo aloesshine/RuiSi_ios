@@ -185,31 +185,5 @@ NSString *kshowThreadListSegue = @"showThreadList";
     [self.navigationController pushViewController:destViewController animated:YES];
 }
 
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-//{
-//    if ([segue.identifier isEqualToString:kshowThreadListSegue])
-//    {
-//        NSIndexPath *indexPath = (NSIndexPath *)sender;
-//        
-//        NSDictionary *titleDict = _itemArray[indexPath.section][indexPath.row];
-//        
-//        ThreadListViewController *destViewController = segue.destinationViewController;
-//        destViewController.hidesBottomBarWhenPushed = YES;
-//        destViewController.url = titleDict[@"url"];
-//        destViewController.name = titleDict[@"name"];
-//        destViewController.fid = titleDict[@"fid"];
-//        destViewController.needToGetMore = YES;
-//        __weak ThreadListViewController *destViewController_ = destViewController;
-//        destViewController.getThreadListBlock = ^(NSInteger page){
-//            return [[DataManager manager] getThreadListWithFid:destViewController_.fid page:page success:^(ThreadList *threadList) {
-//                destViewController_.threadList = threadList;
-//                [destViewController_.tableView reloadData];
-//            } failure:^(NSError *error) {
-//                ;
-//            }];
-//        };
-//    }
-//    
-//}
 
 @end

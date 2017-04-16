@@ -27,6 +27,11 @@
 
 - (instancetype) initWithArray:(NSArray *)array;
 
+// 普通的获取帖子列表
 + (ThreadList *)getThreadListFromResponseObject:(id) responseObject;
+
+// 用于我的收藏中的获取列表
++ (ThreadList *)getThreadListForFavoritesFromResponseObject:(id) responseObject;
+
 - (NSInteger) countOfList;
 @end

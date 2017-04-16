@@ -22,7 +22,9 @@
 
 static NSString * const kLoginSuccessNotification = @"LoginSuccessNotification";
 static NSString * const kLogoutSuccessNotification = @"LogoutSuccessNotification";
-static NSString * const kPublicNetURL = @"http://bbs.rs.xidian.me";
+static NSString * const kPublicNetURL = @"http://bbs.rs.xidian.me/";
 static NSString * const kSchoolNetURL = @"http://rs.xidian.edu.cn/";
 
+static NSString * const kFavoriteIsSuccessful = @"FavoriteIsSuccessful";
+static NSString * const kPostIsSuccessful = @"PostIsSuccessful";
 #endif /* Constants_h */
