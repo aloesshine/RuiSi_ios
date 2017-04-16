@@ -90,6 +90,7 @@ PODS:
   - MJRefresh (3.1.12)
   - Objective-C-HMTL-Parser (0.0.1)
   - pop (1.0.9)
+  - PureLayout (3.0.2)
   - RegexKitLite (4.0)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
@@ -106,6 +107,7 @@ DEPENDENCIES:
   - Masonry
   - MJRefresh (~> 3.1.12)
   - Objective-C-HMTL-Parser
+  - PureLayout
   - RegexKitLite (~> 4.0)
   - SDWebImage (~> 3.8.2)
   - SVProgressHUD
@@ -123,11 +125,12 @@ SPEC CHECKSUMS:
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   Objective-C-HMTL-Parser: cc468311d0ae434646c56aae3b62426977f19ca0
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
   RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: f7d9bbaa027ca5afe9e379b108d6feaab22148d1
+PODFILE CHECKSUM: a9647dcd7c995134a720120249e2c08cd7969446
 
 COCOAPODS: 1.2.1.beta.1
