@@ -11,10 +11,6 @@
 #import "SectionHeaderViewCell.h"
 #import "ThreadListViewController.h"
 
-//#import "HTMLNode.h"
-//#import "HTMLParser.h"
-//#import "Constants.h"
-//#import "DataManager.h"
 NSString *kSectionCollectionViewCell = @"SectionCollectionViewCell";
 NSString *kSectionHeaderViewCell = @"SectionHeaderViewCell";
 NSString *kshowThreadListSegue = @"showThreadList";
@@ -45,8 +41,6 @@ NSString *kshowThreadListSegue = @"showThreadList";
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.extendedLayoutIncludesOpaqueBars = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
-    
     
     self.collectionView.backgroundColor = [UIColor colorWithRed:0.91 green:0.93 blue:0.93 alpha:1];
     
@@ -179,11 +173,11 @@ NSString *kshowThreadListSegue = @"showThreadList";
     destViewController.name = titleDict[@"name"];
     destViewController.fid = titleDict[@"fid"];
     destViewController.needToGetMore = YES;
-    __weak ThreadListViewController *destViewController_ = destViewController;
+    __weak ThreadListViewController *wdestViewController = destViewController;
     destViewController.getThreadListBlock = ^(NSInteger page){
-        return [[DataManager manager] getThreadListWithFid:destViewController_.fid page:page success:^(ThreadList *threadList) {
-            destViewController_.threadList = threadList;
-            [destViewController_.tableView reloadData];
+        return [[DataManager manager] getThreadListWithFid:wdestViewController.fid page:page success:^(ThreadList *threadList) {
+            wdestViewController.threadList = threadList;
+            [wdestViewController.tableView reloadData];
         } failure:^(NSError *error) {
             ;
         }];
@@ -191,31 +185,31 @@ NSString *kshowThreadListSegue = @"showThreadList";
     [self.navigationController pushViewController:destViewController animated:YES];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:kshowThreadListSegue])
-    {
-        NSIndexPath *indexPath = (NSIndexPath *)sender;
-        
-        NSDictionary *titleDict = _itemArray[indexPath.section][indexPath.row];
-        
-        ThreadListViewController *destViewController = segue.destinationViewController;
-        destViewController.hidesBottomBarWhenPushed = YES;
-        destViewController.url = titleDict[@"url"];
-        destViewController.name = titleDict[@"name"];
-        destViewController.fid = titleDict[@"fid"];
-        destViewController.needToGetMore = YES;
-        __weak ThreadListViewController *destViewController_ = destViewController;
-        destViewController.getThreadListBlock = ^(NSInteger page){
-            return [[DataManager manager] getThreadListWithFid:destViewController_.fid page:page success:^(ThreadList *threadList) {
-                destViewController_.threadList = threadList;
-                [destViewController_.tableView reloadData];
-            } failure:^(NSError *error) {
-                ;
-            }];
-        };
-    }
-    
-}
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    if ([segue.identifier isEqualToString:kshowThreadListSegue])
+//    {
+//        NSIndexPath *indexPath = (NSIndexPath *)sender;
+//        
+//        NSDictionary *titleDict = _itemArray[indexPath.section][indexPath.row];
+//        
+//        ThreadListViewController *destViewController = segue.destinationViewController;
+//        destViewController.hidesBottomBarWhenPushed = YES;
+//        destViewController.url = titleDict[@"url"];
+//        destViewController.name = titleDict[@"name"];
+//        destViewController.fid = titleDict[@"fid"];
+//        destViewController.needToGetMore = YES;
+//        __weak ThreadListViewController *destViewController_ = destViewController;
+//        destViewController.getThreadListBlock = ^(NSInteger page){
+//            return [[DataManager manager] getThreadListWithFid:destViewController_.fid page:page success:^(ThreadList *threadList) {
+//                destViewController_.threadList = threadList;
+//                [destViewController_.tableView reloadData];
+//            } failure:^(NSError *error) {
+//                ;
+//            }];
+//        };
+//    }
+//    
+//}
 
 @end

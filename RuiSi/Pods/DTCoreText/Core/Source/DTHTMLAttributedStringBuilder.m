@@ -8,6 +8,7 @@
 
 #import <DTFoundation/DTLog.h>
 #import <DTFoundation/DTHTMLParser.h>
+#import <DTFoundation/NSString+DTURLEncoding.h>
 
 #import "DTHTMLAttributedStringBuilder.h"
 
@@ -420,6 +421,9 @@
 		}
 		
 		NSURL *link = [NSURL URLWithString:cleanString];
+        if (link == nil) {
+            link = [NSURL URLWithString:[cleanString stringByURLEncoding]];
+        }
 		
 		// deal with relative URL
 		if (![link scheme])

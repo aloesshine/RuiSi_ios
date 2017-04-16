@@ -7,7 +7,7 @@
 //
 
 #import "ThreadDetail.h"
-#import "NSString+SCMention.h"
+//#import "NSString+SCMention.h"
 #import "OCGumbo.h"
 #import "OCGumbo+Query.h"
 #import "DataManager.h"
@@ -117,36 +117,36 @@
 @end
 
 
-@implementation RSContentBaseModel
+//@implementation RSContentBaseModel
+//
+//- (instancetype) init {
+//    if (self = [super init]) {
+//        
+//    }
+//    return self;
+//}
+//
+//@end
+//
+//@implementation RSContentStringModel
+//
+//- (instancetype) init {
+//    if (self = [super init]) {
+//        self.contentType = RSContentTypeString;
+//    }
+//    return self;
+//}
+//
+//@end
+//
+//
+//@implementation RSContentImageModel
+//
+//- (instancetype) init {
+//    if (self = [super init]) {
+//        self.contentType = RSContentTypeImage;
+//    }
+//    return self;
+//}
 
-- (instancetype) init {
-    if (self = [super init]) {
-        
-    }
-    return self;
-}
-
-@end
-
-@implementation RSContentStringModel
-
-- (instancetype) init {
-    if (self = [super init]) {
-        self.contentType = RSContentTypeString;
-    }
-    return self;
-}
-
-@end
-
-
-@implementation RSContentImageModel
-
-- (instancetype) init {
-    if (self = [super init]) {
-        self.contentType = RSContentTypeImage;
-    }
-    return self;
-}
-
-@end
+//@end

@@ -1026,6 +1026,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = aloes.RuiSi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
+				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;
 		};
@@ -1044,6 +1045,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = aloes.RuiSi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
+				WARNING_CFLAGS = "-Wall";
 			};
 			name = Release;
 		};
