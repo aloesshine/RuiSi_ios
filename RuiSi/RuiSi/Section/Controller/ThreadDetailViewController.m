@@ -14,8 +14,10 @@
 #import "DTTextAttachment.h"
 #import "ProfileViewController.h"
 #import "ReplyViewController.h"
+
 static NSString *kThreadDetailDTCell = @"ThreadDetailDTCell";
 static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
+
 @interface ThreadDetailViewController () <ReplyViewControllerDelegate>
 @property (nonatomic,strong) ThreadDetailList *detailList;
 @property (nonatomic,copy) NSURLSessionDataTask* (^getThreadDetailListBlock)(NSInteger page);
@@ -34,16 +36,16 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     [super viewDidLoad];
     [self.tableView registerClass:[ThreadDetailTitleCell class] forCellReuseIdentifier:kThreadDetailTitleCell];
     [self.tableView registerClass:[ThreadDetailDTCell class] forCellReuseIdentifier:kThreadDetailDTCell];
-
+    self.navigationController.navigationBar.translucent = NO;
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    
     self.currentPage = 1;
-    
-    [self configureRefresh];
+
     [self configueBlocks];
-    [self initializeUI];
-    
     self.getLinksBlock();
-    
-    [self loadData];
+    [self configureRefresh];
+    [self.tableView.mj_header beginRefreshing];
     [self reloadVisibleCells];
 }
 
@@ -67,6 +69,8 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     [self.tableView endUpdates];
 }
 
+
+
 - (void) favorThread {
     [self takeActionBlock:^{
        [[DataManager manager] favorThreadWithTid:self.thread.tid formhash:self.formhash success:^(NSString *message) {
@@ -89,51 +93,51 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         self.getCreatorOnlyDetailListBlock(1);
         [self reloadVisibleCells];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            //[SVProgressHUD dismissWithDelay:1.2];
-//            [self.tableView reloadData];
-//        });
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
     });
 }
 
-- (void) loadMoreData {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+- (void) loadNextPage {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self readyForNextPage];
         self.getMoreThreadDetailBlock(self.currentPage);
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.tableView reloadData];
-//        });
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView.mj_footer endRefreshing];
+        });
     });
 }
 
-- (void) loadData {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+- (void) loadCurrentPage {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         self.getThreadDetailListBlock(1);
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.tableView reloadData];
-//        });
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView.mj_header endRefreshing];
+        });
     });
+}
+
+- (void) readyForNextPage {
+    self.currentPage = self.currentPage + 1;
 }
 
 - (void) configureRefresh {
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self loadData];
-        if (self.detailList) {
-            [self.tableView.mj_header endRefreshing];
-        }
-    } ];
+    __weak typeof(self) wself = self;
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadCurrentPage)];
+    [self.tableView.mj_header setEndRefreshingCompletionBlock:^{
+        [wself.tableView reloadData];
+    }];
     
-    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        self.currentPage = self.currentPage + 1;
-        [self loadMoreData];
-        if (self.detailList) {
-            [self.tableView.mj_footer endRefreshing];
-        }
+    
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadNextPage)];
+    [self.tableView.mj_footer setEndRefreshingCompletionBlock:^{
+        [wself.tableView reloadData];
     }];
 }
 - (void) configueBlocks {
     @weakify(self);
     self.getThreadDetailListBlock = ^(NSInteger page){
-        
         @strongify(self);
         self.currentPage = page;
         return [[DataManager manager] getThreadDetailListWithTid:self.thread.tid page:page success:^(ThreadDetailList *threadDetailList) {
@@ -151,7 +155,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
         return [[DataManager manager] getThreadDetailListWithTid:self.thread.tid page:self.currentPage success:^(ThreadDetailList *threadDetailList) {
             NSMutableArray *detailLists = [[NSMutableArray alloc] initWithArray:self.detailList.list];
             [detailLists addObjectsFromArray:threadDetailList.list];
-            self.detailList.list = [NSArray arrayWithArray:detailLists];
+            self.detailList.list = [detailLists copy];
             [self.tableView reloadData];
         } failure:^(NSError *error) {
             ;
@@ -181,12 +185,6 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
         }];
     };
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 #pragma mark - Table view data source
 
@@ -221,8 +219,6 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 }
 
 #pragma mark - Configure TableViewCell
-
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         return [ThreadDetailTitleCell getCellHeightWithThread:self.thread];
@@ -291,13 +287,6 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 }
 
 
-
-#pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    //[self reloadVisibleCells];
-}
-
-
 #pragma mark - ReplyViewControllerDelegate
 - (void)replyViewControllerDidCancel:(ReplyViewController *)replyViewController {
     [replyViewController.replyTextField resignFirstResponder];
@@ -308,15 +297,14 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
         [self takeActionBlock:^{
             [[DataManager manager] createReplyWithUrlString:replyViewController.postUrlString formhash:replyViewController.formhash message:replyViewController.replyTextField.text success:^(NSString *message) {
                 if ([message isEqualToString:kPostIsSuccessful]) {
-                    
                     [self.navigationController popViewControllerAnimated:YES];
                     [SVProgressHUD showSuccessWithStatus:@"回复成功！"];
-                    NSInteger newRowIndex = [self.detailList countOfList];
-                    NSMutableArray *list = [[NSMutableArray alloc] initWithArray:self.detailList.list];
-                    [list addObject:threadDetail];
-                    self.detailList.list = [NSArray arrayWithArray:list];
-                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:newRowIndex inSection:1];
-                    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//                    NSInteger newRowIndex = [self.detailList countOfList];
+//                    NSMutableArray *list = [[NSMutableArray alloc] initWithArray:self.detailList.list];
+//                    [list addObject:threadDetail];
+//                    self.detailList.list = [NSArray arrayWithArray:list];
+//                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:newRowIndex inSection:1];
+//                    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                 }
             } failure:^(NSError *error) {
                 ;

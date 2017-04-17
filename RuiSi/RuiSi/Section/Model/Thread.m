@@ -49,8 +49,8 @@
         {
 
             Thread *thread = [[Thread alloc] init];
-            if(ele.Query(@"span").first().text()) {
-                thread.reviewCount = ele.Query(@"span").first().text();
+            if(ele.Query(@"span")) {
+                thread.reviewCount = ele.Query(@"span").last().text();
             }
             thread.titleURL = (NSString *)ele.Query(@"a").first().attr(@"href");
             

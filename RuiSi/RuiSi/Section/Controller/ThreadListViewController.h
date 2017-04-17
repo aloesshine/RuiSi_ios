@@ -16,4 +16,6 @@
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic,copy) NSString *fid;
 @property (nonatomic,assign) BOOL needToGetMore;
+
+- (void) readyForNextPage;
 @end

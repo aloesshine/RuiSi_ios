@@ -10,11 +10,7 @@
 #import "ThreadDetailViewController.h"
 #import "Thread.h"
 #import "ThreadListCell.h"
-//#import "OCGumbo.h"
-//#import "OCGumbo+Query.h"
-//#import "EXTScope.h"
-//#import "DataManager.h"
-//#import "MJRefresh.h"
+
 NSString *kThreadListCell = @"ThreadListCell";
 NSString *kShowThreadDetail = @"showThreadDetail";
 @interface ThreadListViewController ()
@@ -26,76 +22,85 @@ NSString *kShowThreadDetail = @"showThreadDetail";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.currentPage = 1;
-    
-    
-    // 设置标题
+
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    [self.tableView registerNib:[UINib nibWithNibName:kThreadListCell bundle:[NSBundle mainBundle]] forCellReuseIdentifier:kThreadListCell];
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.85 green:0.13 blue:0.16 alpha:1.0];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     self.navigationItem.title = self.name;
     
-    
     [self configureRefresh];
-    [self configureBlocks];
-    [self.tableView registerNib:[UINib nibWithNibName:kThreadListCell bundle:[NSBundle mainBundle]] forCellReuseIdentifier:kThreadListCell];
+    [self.tableView.mj_header beginRefreshing];
+}
+
+- (void) loadCurrentPage {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         self.getThreadListBlock(1);
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
+            [self.tableView.mj_header endRefreshing];
         });
     });
 }
 
+- (void) loadNextPage {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self readyForNextPage];
+        self.getMoreListBlock(self.currentPage);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView.mj_footer endRefreshing];
+        });
+    });
+}
+
+// TODO:需要知道当前帖子的最大页数是多少
+- (void)readyForNextPage {
+    self.currentPage = self.currentPage + 1;
+}
 - (void) configureRefresh {
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        
-        self.getThreadListBlock(self.currentPage);
-        if (self.threadList) {
-            [self.tableView.mj_header endRefreshing];
-            
-        }
+    __weak typeof(self) wself = self;
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadCurrentPage)];
+    [self.tableView.mj_header setEndRefreshingCompletionBlock:^{
+        [wself.tableView reloadData];
     }];
     
-    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        self.currentPage = self.currentPage+1;
-        self.getMoreListBlock(self.currentPage);
-        if (self.threadList) {
-            [self.tableView.mj_footer endRefreshing];
-        }
-    }];
+    if (self.needToGetMore) {
+        self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadNextPage)];
+        [self.tableView.mj_footer setEndRefreshingCompletionBlock:^{
+            [wself.tableView reloadData];
+        }];
+    }
 }
 
 
-
 - (void) configureBlocks {
-    @weakify(self);
+    //@weakify(self);
     
     if (! self.getThreadListBlock) {
-        self.getThreadListBlock = ^(NSInteger page){
-            @strongify(self);
-            self.currentPage = page;
-            return [[DataManager manager] getHotThreadListWithPage:page success:^(ThreadList *threadList) {
-                @strongify(self);
-                self.threadList = threadList;
-            } failure:^(NSError *error) {
-                ;
-            }];
-        };
+//        self.getThreadListBlock = ^(NSInteger page){
+//            @strongify(self);
+//            self.currentPage = page;
+//            return [[DataManager manager] getHotThreadListWithPage:page success:^(ThreadList *threadList) {
+//                @strongify(self);
+//                self.threadList = threadList;
+//            } failure:^(NSError *error) {
+//                ;
+//            }];
+//        };
     }
     
     if (! self.getMoreListBlock && self.needToGetMore) {
-        self.getMoreListBlock = ^(NSInteger page) {
-            @strongify(self);
-            self.currentPage = page;
-            return [[DataManager manager] getHotThreadListWithPage:page success:^(ThreadList *threadList) {
-                @strongify(self);
-                NSMutableArray *threadLists = [[NSMutableArray alloc] initWithArray:self.threadList.list];
-                [threadLists addObjectsFromArray:threadList.list];
-                self.threadList.list = [NSArray arrayWithArray:threadLists];
-            } failure:^(NSError *error) {
-                ;
-            }];
-        };
+//        self.getMoreListBlock = ^(NSInteger page) {
+//            @strongify(self);
+//            self.currentPage = page;
+//            return [[DataManager manager] getHotThreadListWithPage:page success:^(ThreadList *threadList) {
+//                @strongify(self);
+//                NSMutableArray *threadLists = [[NSMutableArray alloc] initWithArray:self.threadList.list];
+//                [threadLists addObjectsFromArray:threadList.list];
+//                self.threadList.list = [NSArray arrayWithArray:threadLists];
+//            } failure:^(NSError *error) {
+//                ;
+//            }];
+//        };
     }
 }
 
@@ -127,19 +132,8 @@ NSString *kShowThreadDetail = @"showThreadDetail";
     return cell;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:kShowThreadDetail]) {
-        ThreadDetailViewController *threadDetailViewController =  segue.destinationViewController;
-        NSIndexPath *index = (NSIndexPath *)sender;
-        Thread *thread = [self.threadList.list objectAtIndex:[index row]];
-        threadDetailViewController.thread = thread;
-    }
-}
-
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    //[self performSegueWithIdentifier:kShowThreadDetail sender:indexPath];
     ThreadDetailViewController *threadDetailViewController = [[ThreadDetailViewController alloc] init];
     threadDetailViewController.hidesBottomBarWhenPushed = YES;
     Thread *thread = [self.threadList.list objectAtIndex:indexPath.row];

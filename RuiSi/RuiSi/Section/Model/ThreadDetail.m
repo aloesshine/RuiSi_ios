@@ -115,38 +115,3 @@
     return nil;
 }
 @end
-
-
-//@implementation RSContentBaseModel
-//
-//- (instancetype) init {
-//    if (self = [super init]) {
-//        
-//    }
-//    return self;
-//}
-//
-//@end
-//
-//@implementation RSContentStringModel
-//
-//- (instancetype) init {
-//    if (self = [super init]) {
-//        self.contentType = RSContentTypeString;
-//    }
-//    return self;
-//}
-//
-//@end
-//
-//
-//@implementation RSContentImageModel
-//
-//- (instancetype) init {
-//    if (self = [super init]) {
-//        self.contentType = RSContentTypeImage;
-//    }
-//    return self;
-//}
-
-//@end

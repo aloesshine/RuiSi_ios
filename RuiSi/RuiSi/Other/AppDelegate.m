@@ -28,10 +28,30 @@
     AboutMeViewController *aboutMeViewController = [[AboutMeViewController alloc] init];
     ThreadListViewController *hotThreadListViewController = [[ThreadListViewController alloc] init];
     
-    
-    
     hotThreadListViewController.needToGetMore = YES;
     hotThreadListViewController.name = @"精彩热帖";
+    __weak typeof(hotThreadListViewController) whotThreadListViewController = hotThreadListViewController;
+    hotThreadListViewController.getThreadListBlock = ^(NSInteger page){
+      return [[DataManager manager] getHotThreadListWithPage:page success:^(ThreadList *threadList) {
+          whotThreadListViewController.threadList = threadList;
+          [whotThreadListViewController.tableView reloadData];
+      } failure:^(NSError *error) {
+          ;
+      }];
+    };
+    
+    hotThreadListViewController.getMoreListBlock = ^(NSInteger page) {
+        return [[DataManager manager] getHotThreadListWithPage:page success:^(ThreadList *threadList) {
+            NSMutableArray *threadLists = [[NSMutableArray alloc] initWithArray:whotThreadListViewController.threadList.list];
+            [threadLists addObjectsFromArray:threadList.list];
+            whotThreadListViewController.threadList.list = [threadLists copy];
+            [whotThreadListViewController.tableView reloadData];
+        } failure:^(NSError *error) {
+            ;
+        }];
+    };
+    
+    
     UINavigationController *nav1 = [[UINavigationController alloc] initWithRootViewController:sectionViewController];
     UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:hotThreadListViewController];
     UINavigationController *nav3 = [[UINavigationController alloc] initWithRootViewController:aboutMeViewController];

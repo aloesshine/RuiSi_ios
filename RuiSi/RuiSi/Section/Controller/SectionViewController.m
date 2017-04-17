@@ -164,7 +164,6 @@ NSString *kshowThreadListSegue = @"showThreadList";
 // 点击某个cell时
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //[self performSegueWithIdentifier:kshowThreadListSegue sender:indexPath];
     NSDictionary *titleDict = _itemArray[indexPath.section][indexPath.row];
     
     ThreadListViewController *destViewController = [[ThreadListViewController alloc] init];
@@ -177,6 +176,16 @@ NSString *kshowThreadListSegue = @"showThreadList";
     destViewController.getThreadListBlock = ^(NSInteger page){
         return [[DataManager manager] getThreadListWithFid:wdestViewController.fid page:page success:^(ThreadList *threadList) {
             wdestViewController.threadList = threadList;
+            [wdestViewController.tableView reloadData];
+        } failure:^(NSError *error) {
+            ;
+        }];
+    };
+    destViewController.getMoreListBlock = ^(NSInteger page) {
+        return [[DataManager manager] getThreadListWithFid:wdestViewController.fid page:page success:^(ThreadList *threadList) {
+            NSMutableArray *threadLists = [[NSMutableArray alloc] initWithArray:wdestViewController.threadList.list];
+            [threadLists addObjectsFromArray:threadList.list];
+            wdestViewController.threadList.list = [threadLists copy];
             [wdestViewController.tableView reloadData];
         } failure:^(NSError *error) {
             ;
