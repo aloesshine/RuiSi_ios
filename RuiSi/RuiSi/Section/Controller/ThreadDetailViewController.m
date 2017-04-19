@@ -39,6 +39,8 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     self.navigationController.navigationBar.translucent = NO;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 100;
     
     self.currentPage = 1;
 
@@ -243,6 +245,8 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     }
     ThreadDetail *detail = self.detailList.list[indexPath.row];
     cell.detail = detail;
+    [cell setNeedsLayout];
+    [cell layoutIfNeeded];
     return cell;
 }
 
