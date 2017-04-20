@@ -76,6 +76,11 @@ failure:(void (^)(NSError *error))failure;
                                               success:(void (^)(ThreadDetailList *threadDetailList))success
                                               failure:(void (^)(NSError *error))failure;
 
+- (NSURLSessionDataTask *) getThreadDetailListAndPageCountWithTid:(NSString *)tid
+                                                 page:(NSInteger)page
+                                              success:(void (^)(ThreadDetailList *threadDetailList, NSString *pageCount)) success
+                                              failure:(void (^)(NSError *error))failure;
+
 - (NSURLSessionDataTask *) getCreatorOnlyThreadDetailListWithTid:(NSString *)tid
                                                             page:(NSInteger )page
                                                         authorid:(NSString *)authorid

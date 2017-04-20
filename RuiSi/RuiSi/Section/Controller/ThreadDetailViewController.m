@@ -28,6 +28,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 @property (nonatomic,strong) NSDictionary *linksDict;
 @property (nonatomic,strong) NSCache *cellCache;
 @property (nonatomic,copy) NSString *formhash;
+@property (nonatomic,assign) NSInteger pageCount;
 @end
 
 @implementation ThreadDetailViewController
@@ -103,11 +104,17 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 
 - (void) loadNextPage {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self readyForNextPage];
-        self.getMoreThreadDetailBlock(self.currentPage);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView.mj_footer endRefreshing];
-        });
+        if (self.currentPage <= self.pageCount) {
+            [self readyForNextPage];
+            self.getMoreThreadDetailBlock(self.currentPage);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView.mj_footer endRefreshing];
+            });
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            });
+        }
     });
 }
 
@@ -142,11 +149,18 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     self.getThreadDetailListBlock = ^(NSInteger page){
         @strongify(self);
         self.currentPage = page;
-        return [[DataManager manager] getThreadDetailListWithTid:self.thread.tid page:page success:^(ThreadDetailList *threadDetailList) {
+//        return [[DataManager manager] getThreadDetailListWithTid:self.thread.tid page:page success:^(ThreadDetailList *threadDetailList) {
+//            self.detailList = threadDetailList;
+//            [self.tableView reloadData];
+//        } failure:^(NSError *error) {
+//            NSLog(@"an error occurs at:%s",__func__);
+//        }];
+        return [[DataManager manager] getThreadDetailListAndPageCountWithTid:self.thread.tid page:page success:^(ThreadDetailList *threadDetailList, NSString *pageCount) {
             self.detailList = threadDetailList;
+            self.pageCount = [pageCount integerValue];
             [self.tableView reloadData];
         } failure:^(NSError *error) {
-            NSLog(@"an error occurs at:%s",__func__);
+            ;
         }];
     };
     

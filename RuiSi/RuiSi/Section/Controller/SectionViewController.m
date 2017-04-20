@@ -180,6 +180,7 @@ NSString *kshowThreadListSegue = @"showThreadList";
         } failure:^(NSError *error) {
             ;
         }];
+        
     };
     destViewController.getMoreListBlock = ^(NSInteger page) {
         return [[DataManager manager] getThreadListWithFid:wdestViewController.fid page:page success:^(ThreadList *threadList) {

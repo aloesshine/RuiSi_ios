@@ -32,20 +32,7 @@ typedef NS_ENUM(NSInteger,RSContentType) {
 - (instancetype) initWithArray:(NSArray *)array;
 - (NSInteger) countOfList;
 + (ThreadDetailList *)getThreadDetailListFromResponseObject:(id) responseObject;
++ (NSString *) getPageCountFromResponseObject:(id) responseObject;
 + (NSDictionary *) getLinkDictionaryFromResponseObject:(id) responseObject;
 @end
 
-//
-//@interface RSContentBaseModel : NSObject
-//@property (nonatomic,assign) RSContentType contentType;
-//@end
-//
-//@interface RSContentStringModel : RSContentBaseModel
-//@property (nonatomic,copy) NSAttributedString *attributedString;
-//@property (nonatomic,strong) NSArray *quoteArray;
-//@end
-//
-//
-//@interface RSContentImageModel : RSContentBaseModel
-//@property (nonatomic,strong) SCQuote *imageQuote;
-//@end
