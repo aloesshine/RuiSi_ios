@@ -107,7 +107,8 @@
         if ([document.Query(@"body").find(@".pg") count] > 0) {
             OCQueryObject *elementArray = document.Query(@"body").find(@".pg").first().Query(@"span");
             NSString *countString = (NSString *)elementArray.first().attr(@"title");
-            pageCount = [countString substringWithRange:NSMakeRange(2, countString.length - 4)];
+            //pageCount = [countString substringWithRange:NSMakeRange(2, countString.length - 4)];
+            pageCount = [countString substringWithRange:NSMakeRange(3, countString.length - 6)];
         } else {
             pageCount = @"1";
         }

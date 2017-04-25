@@ -292,7 +292,6 @@ static CGFloat const kAvatarHeight = 32.0f;
         _attributedTextContentView.layoutFrameHeightIsConstrainedByBounds = _hasFixedRowHeight;
         _attributedTextContentView.delegate = _textDelegate;
         _attributedTextContentView.shouldDrawImages = YES;
-        
         [self.contentView addSubview:_attributedTextContentView];
     }
     
