@@ -37,7 +37,7 @@ static CGFloat const kAvatarHeight = 32.0f;
         self.textDelegate = self;
         
         self.hasFixedRowHeight = NO;
-        self.attributedTextContextView.edgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+        self.attributedTextContextView.edgeInsets = UIEdgeInsetsMake(5, 50, 5, 50);
         self.clipsToBounds = YES;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.avatarImageView = [[UIImageView alloc] init];
@@ -81,10 +81,9 @@ static CGFloat const kAvatarHeight = 32.0f;
     {
         return;
     }
-    self.avatarImageView.frame = (CGRect){10,10,kAvatarHeight,kAvatarHeight};
-    self.nameLabel.frame = (CGRect){50,8,kScreen_Width-50,16};
-    self.timeLabel.frame = (CGRect){50,32,kScreen_Width-50,10};
-    
+    self.avatarImageView.frame = CGRectMake(10, 10, kAvatarHeight, kAvatarHeight);
+    self.nameLabel.frame = CGRectMake(50, 8, kScreen_Width-50, 16);
+    self.timeLabel.frame = CGRectMake(50, 32, kScreen_Width-50, 10);
     
     if (_hasFixedRowHeight)
     {

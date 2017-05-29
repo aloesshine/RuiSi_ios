@@ -68,8 +68,8 @@ NSString *kshowThreadListSegue = @"showThreadList";
         NSString *path = [[NSBundle mainBundle] pathForResource:@"sectionNotLogging" ofType:@"plist"];
         _itemArray = [NSArray arrayWithContentsOfFile:path];
         _sectionArray = @[@"西电生活",@"学术交流",@"休闲娱乐",@"社团风采专区",@"站务管理"];
-        
-        
+    
+    
         NSMutableArray *countMutableArray = [[NSMutableArray alloc] init];
         NSURL *url = [NSURL URLWithString:@"http://bbs.rs.xidian.me/forum.php?forumlist=1&mobile=2"];
         NSError *error = nil;
@@ -109,7 +109,6 @@ NSString *kshowThreadListSegue = @"showThreadList";
             }
             [countMutableArray addObject:numMutableArray];
         }
-        
         _countArray = [NSArray arrayWithArray:countMutableArray];
     }
 }

@@ -61,18 +61,12 @@
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:nav1,nav2,nav3, nil];
     
     
+    [self setupGlobalNavigationAndTabBar];
+    
+    
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     
-    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
-    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName, nil]];
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setTranslucent:NO];
-    
-    [[UITabBar appearance] setBackgroundImage:[UIImage new]];
-    [[UITabBar appearance] setTranslucent:NO];
-    [[UITabBar appearance] setTintColor:[UIColor blackColor]];
     return YES;
 }
 
@@ -103,6 +97,18 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+
+- (void) setupGlobalNavigationAndTabBar {
+    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
+    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName, nil]];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTranslucent:NO];
+    
+    [[UITabBar appearance] setBackgroundImage:[UIImage new]];
+    [[UITabBar appearance] setTranslucent:NO];
+    [[UITabBar appearance] setTintColor:[UIColor blackColor]];
+}
 
 
 @end
