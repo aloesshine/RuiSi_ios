@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
 #import "Thread.h"
 @interface ThreadDetailViewController : UITableViewController
 @property (nonatomic,strong) Thread *thread;

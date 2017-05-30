@@ -26,6 +26,7 @@
 #import "UIView+BlocksKit.h"
 #import "UIImageView+WebCache.h"
 #import "PureLayout.h"
+#import "Masonry.h"
 #endif
 #define RGB(c,a)    [UIColor colorWithRed:((c>>16)&0xFF)/256.0  green:((c>>8)&0xFF)/256.0   blue:((c)&0xFF)/256.0   alpha:a]
 

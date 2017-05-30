@@ -29,6 +29,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 @property (nonatomic,strong) NSCache *cellCache;
 @property (nonatomic,copy) NSString *formhash;
 @property (nonatomic,assign) NSInteger pageCount;
+
 @end
 
 @implementation ThreadDetailViewController
