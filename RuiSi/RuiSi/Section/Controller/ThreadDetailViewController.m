@@ -30,7 +30,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 @property (nonatomic,copy) NSString *formhash;
 @property (nonatomic,assign) NSInteger pageCount;
 
-@property (nonatomic,strong) RSPopUpInputView *inputView;
+
 @end
 
 @implementation ThreadDetailViewController
@@ -48,8 +48,6 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     [self.tableView registerClass:[ThreadDetailDTCell class] forCellReuseIdentifier:kThreadDetailDTCell];
     
     
-    [self configureInputView];
-    
     self.currentPage = 1;
     
     [self configueBlocks];
@@ -59,22 +57,6 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     [self reloadVisibleCells];
     
     
-//#ifdef DEBUG
-//#pragma clang diagnostic push
-//#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-//    id debugClass = NSClassFromString(@"UIDebuggingInformationOverlay");
-//    [debugClass performSelector:NSSelectorFromString(@"prepareDebuggingOverlay")];
-//    
-//    id debugOverlayInstance = [debugClass performSelector:NSSelectorFromString(@"overlay")];
-//    [debugOverlayInstance performSelector:NSSelectorFromString(@"toggleVisibility")];
-//#pragma clang diagnostic pop
-//#endif
-}
-
-- (void) initializeUI {
-//    UIBarButtonItem *favorButton = [[UIBarButtonItem alloc] initWithTitle:@"收藏" style:UIBarButtonItemStylePlain target:self action:@selector(favorThread)];
-//    UIBarButtonItem *creatorOnlyButton = [[UIBarButtonItem alloc] initWithTitle:@"只看楼主" style:UIBarButtonItemStylePlain target:self action:@selector(creatorOnly)];
-//    self.navigationItem.rightBarButtonItems = @[favorButton,creatorOnlyButton];
 }
 
 - (void) takeActionBlock:(void (^)())block {
@@ -166,12 +148,6 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     self.getThreadDetailListBlock = ^(NSInteger page){
         @strongify(self);
         self.currentPage = page;
-//        return [[DataManager manager] getThreadDetailListWithTid:self.thread.tid page:page success:^(ThreadDetailList *threadDetailList) {
-//            self.detailList = threadDetailList;
-//            [self.tableView reloadData];
-//        } failure:^(NSError *error) {
-//            NSLog(@"an error occurs at:%s",__func__);
-//        }];
         return [[DataManager manager] getThreadDetailListAndPageCountWithTid:self.thread.tid page:page success:^(ThreadDetailList *threadDetailList, NSString *pageCount) {
             self.detailList = threadDetailList;
             self.pageCount = [pageCount integerValue];
@@ -334,12 +310,6 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
                 if ([message isEqualToString:kPostIsSuccessful]) {
                     [self.navigationController popViewControllerAnimated:YES];
                     [SVProgressHUD showSuccessWithStatus:@"回复成功！"];
-//                    NSInteger newRowIndex = [self.detailList countOfList];
-//                    NSMutableArray *list = [[NSMutableArray alloc] initWithArray:self.detailList.list];
-//                    [list addObject:threadDetail];
-//                    self.detailList.list = [NSArray arrayWithArray:list];
-//                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:newRowIndex inSection:1];
-//                    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                 }
             } failure:^(NSError *error) {
                 ;
@@ -353,34 +323,5 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 }
 
 
-- (void ) configureInputView {
-    self.inputView =(RSPopUpInputView *)  [[[NSBundle mainBundle] loadNibNamed:@"RSPopUpInputView" owner:self options:nil] firstObject];
-
-    
-    self.inputView.frame = CGRectMake(0, kScreen_Height-50, kScreen_Width, 50);
-    [self.navigationController.view addSubview:self.inputView];
-    
-    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTouches:)];
-    tapGestureRecognizer.cancelsTouchesInView = NO;
-    [self.inputView addGestureRecognizer:tapGestureRecognizer];
-    
-    
-    [self.inputView.avatarImageview sd_setImageWithURL:[NSURL URLWithString:[DataManager manager].user.member.memberAvatarSmall] placeholderImage:[UIImage imageNamed:@"default_avatar_small"]];
-    self.inputView.avatarImageview.contentMode = UIViewContentModeScaleAspectFill;
-    
-}
-
-- (void) handleTouches:(UITapGestureRecognizer *)sender {
-    if ([sender locationInView:self.navigationController.view].y < self.navigationController.view.bounds.size.height - 250) {
-        [self.inputView.replyTextView resignFirstResponder];
-    } else {
-        [self.inputView.replyTextView becomeFirstResponder];
-    }
-}
-
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [self.inputView removeFromSuperview];
-}
 
 @end
