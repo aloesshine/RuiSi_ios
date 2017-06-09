@@ -37,11 +37,11 @@
 
 - (void) keyboardWillShow:(NSNotification *)notification {
     self.isShowing = YES;
-    [CATransaction begin];
-    [CATransaction setDisableActions:YES];
-    [self.superview insertSubview:self.containerView belowSubview:self];
-    self.containerView.frame = self.superview.bounds;
-    [CATransaction commit];
+//    [CATransaction begin];
+//    [CATransaction setDisableActions:YES];
+//    [self.superview insertSubview:self.containerView belowSubview:self];
+//    self.containerView.frame = self.superview.bounds;
+//    [CATransaction commit];
     
     NSDictionary *userInfo = notification.userInfo;
     CGRect keyboardBounds = [(NSValue *)userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];

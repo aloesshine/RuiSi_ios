@@ -16,7 +16,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="replyToLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJT-6s-gKK">
-                    <rect key="frame" x="48" y="10" width="304" height="0.0"/>
+                    <rect key="frame" x="44" y="10" width="318" height="0.0"/>
                     <constraints>
                         <constraint firstAttribute="height" id="yZM-Im-99f"/>
                     </constraints>
@@ -25,18 +25,18 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Vz-03-Xbj">
-                    <rect key="frame" x="376" y="6.5" width="36" height="36"/>
+                    <rect key="frame" x="387" y="12" width="25" height="25"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="36" id="HFD-ic-J58"/>
-                        <constraint firstAttribute="width" constant="36" id="KGT-g2-pHV"/>
+                        <constraint firstAttribute="height" constant="25" id="HFD-ic-J58"/>
+                        <constraint firstAttribute="width" constant="25" id="KGT-g2-pHV"/>
                     </constraints>
                     <state key="normal" title="replyButton" image="send"/>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9d7-ym-kAu">
-                    <rect key="frame" x="344" y="6.5" width="36" height="36"/>
+                    <rect key="frame" x="358" y="12" width="25" height="25"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="36" id="nC1-VJ-gow"/>
-                        <constraint firstAttribute="width" constant="36" id="q4S-2c-fch"/>
+                        <constraint firstAttribute="height" constant="25" id="nC1-VJ-gow"/>
+                        <constraint firstAttribute="width" constant="25" id="q4S-2c-fch"/>
                     </constraints>
                     <state key="normal" title="showEmotionButton" image="happy"/>
                 </button>
@@ -48,7 +48,7 @@
                     </constraints>
                 </imageView>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="replyTextView" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Y5D-WR-GMY">
-                    <rect key="frame" x="44" y="14" width="304" height="26"/>
+                    <rect key="frame" x="44" y="14" width="310" height="26"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -62,15 +62,15 @@
                 <constraint firstItem="9Vz-03-Xbj" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="31H-U3-Kdj"/>
                 <constraint firstItem="jJT-6s-gKK" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="4fw-5d-pAH"/>
                 <constraint firstItem="Y5D-WR-GMY" firstAttribute="top" secondItem="jJT-6s-gKK" secondAttribute="bottom" constant="4" id="92B-ft-cFv"/>
-                <constraint firstItem="9d7-ym-kAu" firstAttribute="trailing" secondItem="9Vz-03-Xbj" secondAttribute="leading" constant="4" id="BYR-n5-cVP"/>
+                <constraint firstItem="9d7-ym-kAu" firstAttribute="trailing" secondItem="9Vz-03-Xbj" secondAttribute="leading" constant="-4" id="BYR-n5-cVP"/>
                 <constraint firstAttribute="bottom" secondItem="IYH-Nk-O4Q" secondAttribute="bottom" constant="8" id="Bnx-RX-ysG"/>
-                <constraint firstItem="Y5D-WR-GMY" firstAttribute="trailing" secondItem="9d7-ym-kAu" secondAttribute="leading" constant="4" id="HPH-Ga-i86"/>
+                <constraint firstItem="Y5D-WR-GMY" firstAttribute="trailing" secondItem="9d7-ym-kAu" secondAttribute="leading" constant="-4" id="HPH-Ga-i86"/>
                 <constraint firstAttribute="trailing" secondItem="9Vz-03-Xbj" secondAttribute="trailing" constant="8" id="Jm7-in-wq3"/>
                 <constraint firstItem="IYH-Nk-O4Q" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="OG6-N2-INn"/>
                 <constraint firstItem="Y5D-WR-GMY" firstAttribute="leading" secondItem="IYH-Nk-O4Q" secondAttribute="trailing" constant="4" id="Sqs-Lx-JDB"/>
-                <constraint firstItem="jJT-6s-gKK" firstAttribute="leading" secondItem="IYH-Nk-O4Q" secondAttribute="trailing" constant="8" id="XQ3-U9-dCY"/>
+                <constraint firstItem="jJT-6s-gKK" firstAttribute="leading" secondItem="IYH-Nk-O4Q" secondAttribute="trailing" constant="4" id="XQ3-U9-dCY"/>
                 <constraint firstItem="IYH-Nk-O4Q" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="XRz-la-EpQ"/>
-                <constraint firstItem="jJT-6s-gKK" firstAttribute="trailing" secondItem="9d7-ym-kAu" secondAttribute="leading" constant="8" id="gKS-22-GgP"/>
+                <constraint firstItem="jJT-6s-gKK" firstAttribute="trailing" secondItem="9d7-ym-kAu" secondAttribute="leading" constant="4" id="gKS-22-GgP"/>
                 <constraint firstItem="9d7-ym-kAu" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="uxh-eq-qEm"/>
                 <constraint firstAttribute="bottom" secondItem="Y5D-WR-GMY" secondAttribute="bottom" constant="8" id="xV6-0u-kiS"/>
             </constraints>

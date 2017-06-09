@@ -14,7 +14,7 @@
 #import "DTTextAttachment.h"
 #import "ProfileViewController.h"
 #import "ReplyViewController.h"
-
+#import "RSPopUpInputView.h"
 static NSString *kThreadDetailDTCell = @"ThreadDetailDTCell";
 static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 
@@ -30,32 +30,48 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 @property (nonatomic,copy) NSString *formhash;
 @property (nonatomic,assign) NSInteger pageCount;
 
+@property (nonatomic,strong) RSPopUpInputView *inputView;
 @end
 
 @implementation ThreadDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.tableView registerClass:[ThreadDetailTitleCell class] forCellReuseIdentifier:kThreadDetailTitleCell];
-    [self.tableView registerClass:[ThreadDetailDTCell class] forCellReuseIdentifier:kThreadDetailDTCell];
+    
     self.navigationController.navigationBar.translucent = NO;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 100;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.tableView registerClass:[ThreadDetailTitleCell class] forCellReuseIdentifier:kThreadDetailTitleCell];
+    [self.tableView registerClass:[ThreadDetailDTCell class] forCellReuseIdentifier:kThreadDetailDTCell];
+    
+    
+    [self configureInputView];
     
     self.currentPage = 1;
-
+    
     [self configueBlocks];
     self.getLinksBlock();
     [self configureRefresh];
     [self.tableView.mj_header beginRefreshing];
     [self reloadVisibleCells];
+    
+    
+//#ifdef DEBUG
+//#pragma clang diagnostic push
+//#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+//    id debugClass = NSClassFromString(@"UIDebuggingInformationOverlay");
+//    [debugClass performSelector:NSSelectorFromString(@"prepareDebuggingOverlay")];
+//    
+//    id debugOverlayInstance = [debugClass performSelector:NSSelectorFromString(@"overlay")];
+//    [debugOverlayInstance performSelector:NSSelectorFromString(@"toggleVisibility")];
+//#pragma clang diagnostic pop
+//#endif
 }
 
 - (void) initializeUI {
-    self.navigationController.navigationBar.translucent = NO;
-    self.edgesForExtendedLayout = UIRectEdgeNone;
 //    UIBarButtonItem *favorButton = [[UIBarButtonItem alloc] initWithTitle:@"收藏" style:UIBarButtonItemStylePlain target:self action:@selector(favorThread)];
 //    UIBarButtonItem *creatorOnlyButton = [[UIBarButtonItem alloc] initWithTitle:@"只看楼主" style:UIBarButtonItemStylePlain target:self action:@selector(creatorOnly)];
 //    self.navigationItem.rightBarButtonItems = @[favorButton,creatorOnlyButton];
@@ -335,4 +351,36 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     [self.navigationController popViewControllerAnimated:YES];
     [SVProgressHUD showErrorWithStatus:@"请登陆后再试！"];
 }
+
+
+- (void ) configureInputView {
+    self.inputView =(RSPopUpInputView *)  [[[NSBundle mainBundle] loadNibNamed:@"RSPopUpInputView" owner:self options:nil] firstObject];
+
+    
+    self.inputView.frame = CGRectMake(0, kScreen_Height-50, kScreen_Width, 50);
+    [self.navigationController.view addSubview:self.inputView];
+    
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTouches:)];
+    tapGestureRecognizer.cancelsTouchesInView = NO;
+    [self.inputView addGestureRecognizer:tapGestureRecognizer];
+    
+    
+    [self.inputView.avatarImageview sd_setImageWithURL:[NSURL URLWithString:[DataManager manager].user.member.memberAvatarSmall] placeholderImage:[UIImage imageNamed:@"default_avatar_small"]];
+    self.inputView.avatarImageview.contentMode = UIViewContentModeScaleAspectFill;
+    
+}
+
+- (void) handleTouches:(UITapGestureRecognizer *)sender {
+    if ([sender locationInView:self.navigationController.view].y < self.navigationController.view.bounds.size.height - 250) {
+        [self.inputView.replyTextView resignFirstResponder];
+    } else {
+        [self.inputView.replyTextView becomeFirstResponder];
+    }
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.inputView removeFromSuperview];
+}
+
 @end
