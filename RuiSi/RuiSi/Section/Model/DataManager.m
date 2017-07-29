@@ -264,7 +264,7 @@
     NSDictionary *parameters = @{
                                  @"mod":@"viewthread",
                                  @"tid":tid,
-                                 @"extra":@"page%3D1",
+                                 //@"extra":@"page%3D1",
                                  @"page":@(page),
                                  @"mobile":@"2"
                                  };

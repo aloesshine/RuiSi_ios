@@ -24,6 +24,7 @@
     [super loadView];
     [self congifureNavigationBarItems];
     [self configureTextViews];
+    [self configureKeyboard];
 }
 
 - (void) configureTextViews {
@@ -41,6 +42,31 @@
     
 }
 
+
+- (void) configureKeyboard {
+    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 30)];
+    toolbar.barStyle = UIBarStyleDefault;
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelItemClicked)];
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    UIBarButtonItem *emotionItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"happy"] style:UIBarButtonItemStylePlain target:self action:@selector(emotionItemClicked)];
+    UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(doneItemClicked)];
+    toolbar.items = [NSArray arrayWithObjects:cancelItem,spaceItem,emotionItem,spaceItem,doneItem, nil];
+    [toolbar sizeToFit];
+    self.replyTextField.inputAccessoryView = toolbar;
+}
+
+- (void) cancelItemClicked {
+    
+}
+
+- (void) doneItemClicked {
+    [self.replyTextField resignFirstResponder];
+}
+
+- (void) emotionItemClicked {
+    
+}
+
 - (void) takeActionBlock:(void (^)())block {
     block();
 }
@@ -53,8 +79,6 @@
 }
 
 - (void) cancel {
-//    [self.replyTextField resignFirstResponder];
-//    [self.navigationController popViewControllerAnimated:YES];
     [self.delegate replyViewControllerDidCancel:self];
 }
 - (void) publish {
