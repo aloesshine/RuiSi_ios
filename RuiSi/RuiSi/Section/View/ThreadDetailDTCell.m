@@ -37,7 +37,7 @@ static CGFloat const kAvatarHeight = 32.0f;
         self.textDelegate = self;
         
         self.hasFixedRowHeight = NO;
-        self.attributedTextContextView.edgeInsets = UIEdgeInsetsMake(5, 50, 5, 50);
+        self.attributedTextContextView.edgeInsets = UIEdgeInsetsMake(5, 50, 5, 10);
         self.clipsToBounds = YES;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.avatarImageView = [[UIImageView alloc] init];
@@ -288,7 +288,7 @@ static CGFloat const kAvatarHeight = 32.0f;
         // don't know size because there's no string in it
         
         _attributedTextContentView = [[DTAttributedTextContentView alloc] initWithFrame:self.contentView.bounds];
-        _attributedTextContentView.edgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+        _attributedTextContentView.edgeInsets = UIEdgeInsetsMake(5, 5, 5, 2);
         _attributedTextContentView.layoutFrameHeightIsConstrainedByBounds = _hasFixedRowHeight;
         _attributedTextContentView.delegate = _textDelegate;
         _attributedTextContentView.shouldDrawImages = YES;

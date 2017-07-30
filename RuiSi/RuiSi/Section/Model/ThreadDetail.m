@@ -66,13 +66,13 @@
     @autoreleasepool {
         NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         OCGumboDocument *document = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
-        OCQueryObject *elementArray = document.Query(@"body").find(@".postlist").find(@".cl");
+        OCQueryObject *elementArray = document.Query(@"body").find(@".postlist").find(@".plc");
         NSInteger countOfArray = [elementArray count];
         for (int i = 0; i < countOfArray-1;i++)
         {
             OCGumboNode *node = [elementArray objectAtIndex:i];
             ThreadDetail *detail = [[ThreadDetail alloc] init];
-            NSString *idString = (NSString *)node.attr(@"id");
+            NSString *idString = node.attr(@"id");
             detail.threadID = [idString substringFromIndex:3];
             detail.creatorName = (NSString *)node.Query(@".blue").first().text();
             detail.homepage = (NSString *)node.Query(@".blue").first().attr(@"href");

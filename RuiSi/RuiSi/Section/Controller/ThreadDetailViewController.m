@@ -102,7 +102,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 
 - (void) loadNextPage {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        if (self.currentPage <= self.pageCount) {
+        if (self.currentPage < self.pageCount) {
             [self readyForNextPage];
             self.getMoreThreadDetailBlock(self.currentPage);
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -144,6 +144,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     [((MJRefreshAutoNormalFooter *)self.tableView.mj_footer) setTitle:@"点击或上拉以加载更多" forState:MJRefreshStateIdle];
     [((MJRefreshAutoNormalFooter *)self.tableView.mj_footer) setTitle:@"正在加载..." forState:MJRefreshStateRefreshing];
     [((MJRefreshAutoNormalFooter *)self.tableView.mj_footer) setTitle:@"没有更多数据啦..." forState:MJRefreshStateNoMoreData];
+    ((MJRefreshAutoNormalFooter *)self.tableView.mj_footer).stateLabel.textColor = [UIColor darkGrayColor];
     [self.tableView.mj_footer setEndRefreshingCompletionBlock:^{
         [wself.tableView reloadData];
     }];
