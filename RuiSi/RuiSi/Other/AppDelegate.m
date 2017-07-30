@@ -56,8 +56,12 @@
     UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:hotThreadListViewController];
     UINavigationController *nav3 = [[UINavigationController alloc] initWithRootViewController:aboutMeViewController];
     nav1.tabBarItem.title = @"板块";
+    nav1.tabBarItem.image = [UIImage imageNamed:@"sections"];
     nav2.tabBarItem.title = @"热帖";
+    nav2.tabBarItem.image = [UIImage imageNamed:@"hot"];
     nav3.tabBarItem.title = @"我";
+    nav3.tabBarItem.image = [UIImage imageNamed:@"user"];
+   
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:nav1,nav2,nav3, nil];
     
     

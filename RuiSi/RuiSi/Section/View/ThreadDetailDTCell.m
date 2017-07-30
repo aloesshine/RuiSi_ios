@@ -50,7 +50,7 @@ static CGFloat const kAvatarHeight = 32.0f;
         self.nameLabel = [[UILabel alloc] init];
         self.nameLabel.backgroundColor = [UIColor clearColor];
         self.nameLabel.textColor = [UIColor blackColor];
-        self.nameLabel.font = [UIFont systemFontOfSize:12.0];
+        self.nameLabel.font = [UIFont systemFontOfSize:14.0];
         self.nameLabel.textAlignment = NSTextAlignmentLeft;
         self.nameLabel.clipsToBounds = YES;
         [self.contentView addSubview:self.nameLabel];
@@ -58,7 +58,7 @@ static CGFloat const kAvatarHeight = 32.0f;
         self.timeLabel = [[UILabel alloc] init];
         self.timeLabel.backgroundColor = [UIColor clearColor];
         self.timeLabel.textColor = [UIColor blackColor];
-        self.timeLabel.font = [UIFont systemFontOfSize:10.0];
+        self.timeLabel.font = [UIFont systemFontOfSize:12.0];
         self.timeLabel.textAlignment = NSTextAlignmentLeft;
         self.timeLabel.clipsToBounds = YES;
         [self.contentView addSubview:self.timeLabel];
@@ -245,6 +245,7 @@ static CGFloat const kAvatarHeight = 32.0f;
 - (void)setHTMLString:(NSString *)html
 {
     NSMutableDictionary *options = [[NSMutableDictionary alloc] init];
+    [options setObject:[NSNumber numberWithFloat:16.0] forKey:DTDefaultFontSize];
     [options setObject:[NSURL URLWithString:kPublicNetURL] forKey:NSBaseURLDocumentOption];
     [self setHTMLString:html options:options];
 }

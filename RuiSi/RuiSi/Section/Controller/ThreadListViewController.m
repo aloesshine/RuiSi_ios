@@ -62,12 +62,19 @@ NSString *kShowThreadDetail = @"showThreadDetail";
     [self.tableView.mj_header setEndRefreshingCompletionBlock:^{
         [wself.tableView reloadData];
     }];
+    ((MJRefreshNormalHeader *)self.tableView.mj_header).lastUpdatedTimeLabel.hidden = YES;
+    [((MJRefreshNormalHeader *)self.tableView.mj_header) setTitle:@"下拉刷新" forState:MJRefreshStateIdle];
+    [((MJRefreshNormalHeader *)self.tableView.mj_header) setTitle:@"正在加载..." forState:MJRefreshStateRefreshing];
     
     if (self.needToGetMore) {
         self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadNextPage)];
         [self.tableView.mj_footer setEndRefreshingCompletionBlock:^{
             [wself.tableView reloadData];
         }];
+        
+        [((MJRefreshAutoNormalFooter *)self.tableView.mj_footer) setTitle:@"点击或上拉以加载更多" forState:MJRefreshStateIdle];
+        [((MJRefreshAutoNormalFooter *)self.tableView.mj_footer) setTitle:@"正在加载..." forState:MJRefreshStateRefreshing];
+        [((MJRefreshAutoNormalFooter *)self.tableView.mj_footer) setTitle:@"没有更多数据啦..." forState:MJRefreshStateNoMoreData];
     }
 }
 

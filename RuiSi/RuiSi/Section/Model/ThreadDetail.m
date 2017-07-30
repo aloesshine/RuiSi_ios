@@ -104,10 +104,6 @@
         NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         OCGumboDocument *document = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
         if ([document.Query(@"body").find(@".page") count] > 0) {
-//            OCQueryObject *elementArray = document.Query(@"body").find(@".page").first().Query(@"span");
-//            NSString *countString = (NSString *)elementArray.first().attr(@"title");
-//            //pageCount = [countString substringWithRange:NSMakeRange(2, countString.length - 4)];
-//            pageCount = [countString substringWithRange:NSMakeRange(3, countString.length - 6)];
             OCQueryObject *elements = document.Query(@"body").find(@".page").first().Query(@"option");
             pageCount = [NSString stringWithFormat:@"%lu",(unsigned long)elements.count];
         } else {

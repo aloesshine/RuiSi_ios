@@ -51,15 +51,19 @@ NSString *kAboutMeTableViewCell = @"AboutMeTableViewCell";
         switch (indexPath.row) {
             case 0:
                 cell.titleLabel.text = @"签到中心";
+                cell.iconImageView.image = [UIImage imageNamed:@"check"];
                 break;
             case 1:
                 cell.titleLabel.text = @"设置";
+                cell.iconImageView.image = [UIImage imageNamed:@"settings"];
                 break;
             case 2:
                 cell.titleLabel.text = @"关于本程序";
+                cell.iconImageView.image = [UIImage imageNamed:@"about"];
                 break;
             case 3:
                 cell.titleLabel.text = @"睿思帮助";
+                cell.iconImageView.image = [UIImage imageNamed:@"help"];
                 break;
             default:
                 break;

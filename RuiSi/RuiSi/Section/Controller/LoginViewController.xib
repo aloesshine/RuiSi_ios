@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController">
             <connections>
+                <outlet property="cancelButton" destination="RVw-rB-D8v" id="YML-Qv-dcO"/>
                 <outlet property="loginButton" destination="FXV-2f-jEs" id="3sX-8Q-C7A"/>
                 <outlet property="passwordField" destination="xBr-vC-ClP" id="OS5-MQ-sKu"/>
                 <outlet property="usernameField" destination="LFg-eD-qOA" id="Vjz-Qa-w45"/>
@@ -89,7 +90,8 @@
                 <constraint firstItem="xBr-vC-ClP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="saa-0q-oTG"/>
                 <constraint firstAttribute="trailing" secondItem="LFg-eD-qOA" secondAttribute="trailing" constant="40" id="wWD-6Q-TYP"/>
             </constraints>
-            <point key="canvasLocation" x="29" y="42"/>
+            <nil key="simulatedStatusBarMetrics"/>
+            <point key="canvasLocation" x="80" y="42"/>
         </view>
     </objects>
 </document>

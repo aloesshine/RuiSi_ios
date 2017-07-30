@@ -25,7 +25,6 @@
 		7A6A809C1DEABD4800B81583 /* utf8.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A6A808C1DEABD4800B81583 /* utf8.c */; };
 		7A6A809D1DEABD4800B81583 /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A6A808E1DEABD4800B81583 /* util.c */; };
 		7A6A809E1DEABD4800B81583 /* vector.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A6A80901DEABD4800B81583 /* vector.c */; };
-		7A997B811DDD74DC00D383B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A997B801DDD74DC00D383B5 /* Assets.xcassets */; };
 		7A997B841DDD74DC00D383B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A997B821DDD74DC00D383B5 /* LaunchScreen.storyboard */; };
 		7A997B8F1DDD74DC00D383B5 /* RuiSiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A997B8E1DDD74DC00D383B5 /* RuiSiTests.m */; };
 		7A997B9A1DDD74DC00D383B5 /* RuiSiUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A997B991DDD74DC00D383B5 /* RuiSiUITests.m */; };
@@ -59,6 +58,7 @@
 		BB3713631DE9163200F0A179 /* AboutMeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3713621DE9163200F0A179 /* AboutMeTableView.m */; };
 		BB3713661DE9230900F0A179 /* AboutMeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3713651DE9230900F0A179 /* AboutMeTableViewCell.m */; };
 		BB3713681DE9247000F0A179 /* AboutMeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB3713671DE9247000F0A179 /* AboutMeTableViewCell.xib */; };
+		BB3FE8881F2D9C090000E505 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB3FE8871F2D9C090000E505 /* Assets.xcassets */; };
 		BB72A3321DDF55F1007192FE /* SectionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB72A3311DDF55F1007192FE /* SectionCollectionViewCell.xib */; };
 		BB72A3351DDF68C8007192FE /* SectionHeaderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */; };
 		BB77FC881DF4629A00610731 /* Reply.m in Sources */ = {isa = PBXBuildFile; fileRef = BB77FC871DF4629A00610731 /* Reply.m */; };
@@ -134,7 +134,6 @@
 		7A6A80901DEABD4800B81583 /* vector.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vector.c; sourceTree = "<group>"; };
 		7A6A80911DEABD4800B81583 /* vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector.h; sourceTree = "<group>"; };
 		7A997B711DDD74DC00D383B5 /* RuiSi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RuiSi.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A997B801DDD74DC00D383B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7A997B831DDD74DC00D383B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7A997B8A1DDD74DC00D383B5 /* RuiSiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RuiSiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A997B8E1DDD74DC00D383B5 /* RuiSiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RuiSiTests.m; sourceTree = "<group>"; };
@@ -195,6 +194,7 @@
 		BB3713641DE9230900F0A179 /* AboutMeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMeTableViewCell.h; sourceTree = "<group>"; };
 		BB3713651DE9230900F0A179 /* AboutMeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMeTableViewCell.m; sourceTree = "<group>"; };
 		BB3713671DE9247000F0A179 /* AboutMeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutMeTableViewCell.xib; sourceTree = "<group>"; };
+		BB3FE8871F2D9C090000E505 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BB72A3311DDF55F1007192FE /* SectionCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionCollectionViewCell.xib; sourceTree = "<group>"; };
 		BB72A3331DDF68C8007192FE /* SectionHeaderViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionHeaderViewCell.h; sourceTree = "<group>"; };
 		BB72A3341DDF68C8007192FE /* SectionHeaderViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionHeaderViewCell.m; sourceTree = "<group>"; };
@@ -203,7 +203,7 @@
 		BB928E891DEC62FC00855274 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		BB9C7EFD1DF853C200CC30AB /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		BB9C7EFE1DF853C200CC30AB /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
-		BBC1E4061E08333D00199BAF /* RuiSi-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RuiSi-Prefix.pch"; sourceTree = "<group>"; };
+		BBC1E4061E08333D00199BAF /* RuiSi-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "RuiSi-Prefix.pch"; path = "../RuiSi-Prefix.pch"; sourceTree = "<group>"; };
 		BBCC06691DE312DE0003A6B5 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = ../../../../../../usr/lib/libxml2.2.dylib; sourceTree = "<group>"; };
 		BBD04CB71E2CFD63008466FC /* MessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageListViewController.h; sourceTree = "<group>"; };
 		BBD04CB81E2CFD63008466FC /* MessageListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageListViewController.m; sourceTree = "<group>"; };
@@ -323,12 +323,11 @@
 		7A997B731DDD74DC00D383B5 /* RuiSi */ = {
 			isa = PBXGroup;
 			children = (
-				BBC1E4061E08333D00199BAF /* RuiSi-Prefix.pch */,
+				BB3FE8871F2D9C090000E505 /* Assets.xcassets */,
 				7AB4ACA91DDD7DCA00842D6C /* Other */,
 				7AB4ACB21DDD7DCA00842D6C /* Resource */,
 				7AB4ACB61DDD7DCA00842D6C /* Section */,
 				7AB4ACBB1DDD7DCA00842D6C /* Vender */,
-				7A997B801DDD74DC00D383B5 /* Assets.xcassets */,
 				7A997B821DDD74DC00D383B5 /* LaunchScreen.storyboard */,
 				BB928E891DEC62FC00855274 /* Main.storyboard */,
 			);
@@ -356,6 +355,7 @@
 		7AB4ACA91DDD7DCA00842D6C /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				BBC1E4061E08333D00199BAF /* RuiSi-Prefix.pch */,
 				7AB4ACAA1DDD7DCA00842D6C /* AppDelegate.h */,
 				7AB4ACAB1DDD7DCA00842D6C /* AppDelegate.m */,
 				7AB4ACAC1DDD7DCA00842D6C /* main.m */,
@@ -687,11 +687,11 @@
 				7A997B841DDD74DC00D383B5 /* LaunchScreen.storyboard in Resources */,
 				BB72A3321DDF55F1007192FE /* SectionCollectionViewCell.xib in Resources */,
 				BB20FD101DE1FA57000CFB0E /* sectionLogging.plist in Resources */,
+				BB3FE8881F2D9C090000E505 /* Assets.xcassets in Resources */,
 				BB928E8A1DEC62FC00855274 /* Main.storyboard in Resources */,
 				7A6A80941DEABD4800B81583 /* char_ref.rl in Resources */,
 				7A6A809A1DEABD4800B81583 /* tag.in in Resources */,
 				BB17BB831DE0A85600315E4D /* SectionHeaderViewCell.xib in Resources */,
-				7A997B811DDD74DC00D383B5 /* Assets.xcassets in Resources */,
 				BB1A60D01EDC17760018A107 /* RSPopUpInputView.xib in Resources */,
 				BB31CCEF1DE8B47A00FB70A6 /* AboutMeHeaderViewCell.xib in Resources */,
 				7AE6E73F1E2E3E7B00F65DBE /* LoginViewController.xib in Resources */,

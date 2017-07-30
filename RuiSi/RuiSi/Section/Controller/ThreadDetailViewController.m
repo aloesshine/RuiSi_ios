@@ -43,7 +43,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 100;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     [self.tableView registerClass:[ThreadDetailTitleCell class] forCellReuseIdentifier:kThreadDetailTitleCell];
     [self.tableView registerClass:[ThreadDetailDTCell class] forCellReuseIdentifier:kThreadDetailDTCell];
     
@@ -55,7 +55,6 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     [self configureRefresh];
     [self.tableView.mj_header beginRefreshing];
     [self reloadVisibleCells];
-    
     
 }
 
@@ -133,15 +132,22 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 - (void) configureRefresh {
     __weak typeof(self) wself = self;
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadCurrentPage)];
+    ((MJRefreshNormalHeader *)self.tableView.mj_header).lastUpdatedTimeLabel.hidden = YES;
+    [((MJRefreshNormalHeader *)self.tableView.mj_header) setTitle:@"下拉刷新" forState:MJRefreshStateIdle];
+    [((MJRefreshNormalHeader *)self.tableView.mj_header) setTitle:@"正在加载..." forState:MJRefreshStateRefreshing];
     [self.tableView.mj_header setEndRefreshingCompletionBlock:^{
         [wself.tableView reloadData];
     }];
     
     
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadNextPage)];
+    [((MJRefreshAutoNormalFooter *)self.tableView.mj_footer) setTitle:@"点击或上拉以加载更多" forState:MJRefreshStateIdle];
+    [((MJRefreshAutoNormalFooter *)self.tableView.mj_footer) setTitle:@"正在加载..." forState:MJRefreshStateRefreshing];
+    [((MJRefreshAutoNormalFooter *)self.tableView.mj_footer) setTitle:@"没有更多数据啦..." forState:MJRefreshStateNoMoreData];
     [self.tableView.mj_footer setEndRefreshingCompletionBlock:^{
         [wself.tableView reloadData];
     }];
+    
 }
 - (void) configueBlocks {
     @weakify(self);
@@ -253,7 +259,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     ThreadDetail *detail = self.detailList.list[indexPath.row];
     cell.detail = detail;
     [cell setNeedsLayout];
-    [cell layoutIfNeeded];
+    //[cell layoutIfNeeded];
     return cell;
 }
 

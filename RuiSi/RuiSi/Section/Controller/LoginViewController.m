@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak,nonatomic) IBOutlet UIButton *loginButton;
+@property (weak,nonatomic) IBOutlet UIButton *cancelButton;
 @property (nonatomic,strong) NSTimer *loginTimer;
 @end
 
@@ -135,6 +136,7 @@
     }
 
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

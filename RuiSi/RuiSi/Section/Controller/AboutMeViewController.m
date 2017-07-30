@@ -43,7 +43,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     @weakify(self);
     [[NSNotificationCenter defaultCenter] addObserverForName:kLoginSuccessNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
         @strongify(self);
-        [self.avatarImage sd_setImageWithURL:[NSURL URLWithString:[DataManager manager].user.member.memberAvatarMiddle] placeholderImage:[UIImage imageNamed:@"default_avatar_middle"]];
+        [self.avatarImage sd_setImageWithURL:[NSURL URLWithString:[DataManager manager].user.member.memberAvatarMiddle] placeholderImage:[UIImage imageNamed:@"defaultAvatar"]];
         self.nameLabel.hidden = NO;
         self.isLogged = YES;
         self.nameLabel.text = [userDefaults objectForKey:kUserName];
@@ -51,7 +51,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     
     [[NSNotificationCenter defaultCenter] addObserverForName:kLogoutSuccessNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
         @strongify(self);
-        self.avatarImage.image = [UIImage imageNamed:@"default_avatar_middle"];
+        self.avatarImage.image = [UIImage imageNamed:@"defaultAvatar"];
         self.isLogged =  NO;
         self.nameLabel.text = @"请点击头像登录";
     }];
@@ -106,10 +106,10 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     
     
     if (self.isLogged) {
-        [self.avatarImage sd_setImageWithURL:[NSURL URLWithString: [userDefaults objectForKey:kUserAvatarURL]] placeholderImage:[UIImage imageNamed:@"default_avatar_middle"]];
+        [self.avatarImage sd_setImageWithURL:[NSURL URLWithString: [userDefaults objectForKey:kUserAvatarURL]] placeholderImage:[UIImage imageNamed:@"defaultAvatar"]];
         self.nameLabel.text = [userDefaults objectForKey:kUserName];
     } else {
-        self.avatarImage.image = [UIImage imageNamed:@"default_avatar_middle"];
+        self.avatarImage.image = [UIImage imageNamed:@"defaultAvatar"];
         self.nameLabel.text = @"请点击头像登录";
     }
 }
@@ -127,7 +127,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     myMessagesCell.introLabel.textAlignment = NSTextAlignmentCenter;
     myMessagesCell.introLabel.font = [UIFont systemFontOfSize:16];
     [myMessagesCell.introLabel sizeToFit];
-    myMessagesCell.iconImageView.image = [UIImage imageNamed:@"icon_mine_history"];
+    myMessagesCell.iconImageView.image = [UIImage imageNamed:@"messages"];
     [myMessagesCell bk_whenTapped:^{
         if (self.isLogged) {
             MessageListViewController *messageListViewController = [[MessageListViewController alloc] init];
@@ -145,7 +145,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     myCollectionsCell.introLabel.textAlignment = NSTextAlignmentCenter;
     myCollectionsCell.introLabel.font = [UIFont systemFontOfSize:16];
     [myCollectionsCell.introLabel sizeToFit];
-    myCollectionsCell.iconImageView.image = [UIImage imageNamed:@"icon_mine_collect"];
+    myCollectionsCell.iconImageView.image = [UIImage imageNamed:@"favorite"];
     [myCollectionsCell  bk_whenTapped:^{
         if (self.isLogged) {
             ThreadListViewController *threadListViewController = [[ThreadListViewController alloc] init];
@@ -175,7 +175,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     myPostsCell.introLabel.textAlignment = NSTextAlignmentCenter;
     myPostsCell.introLabel.font = [UIFont systemFontOfSize:16];
     [myPostsCell.introLabel sizeToFit];
-    myPostsCell.iconImageView.image = [UIImage imageNamed:@"icon_mine_friend"];
+    myPostsCell.iconImageView.image = [UIImage imageNamed:@"posts"];
     [myPostsCell bk_whenTapped:^{
         if (self.isLogged) {
             ThreadListViewController *threadListViewController = [[ThreadListViewController alloc] init];
@@ -205,7 +205,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     myProfileCell.introLabel.textAlignment = NSTextAlignmentCenter;
     myProfileCell.introLabel.font = [UIFont systemFontOfSize:16];
     [myProfileCell.introLabel sizeToFit];
-    myProfileCell.iconImageView.image = [UIImage imageNamed:@"icon_mine_info"];
+    myProfileCell.iconImageView.image = [UIImage imageNamed:@"info"];
     [myProfileCell bk_whenTapped:^{
         if (self.isLogged) {
             ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
@@ -226,8 +226,11 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
 - (void) setupTableView {
     self.view.backgroundColor = [UIColor colorWithRed:0.91 green:0.93 blue:0.93 alpha:1.0];
     self.tableView = [[AboutMeTableView alloc] initWithFrame:CGRectMake(0, 300, kScreen_Width, 44*4)];
+    
     __weak typeof(self) weakSelf = self;
     self.tableView.selectCellHandler = ^(AboutMeTableViewCell *cell,NSIndexPath *indexPath) {
+
+        [weakSelf.tableView deselectRowAtIndexPath:indexPath animated:YES];
         if (indexPath.row == 1) {
             SettingsViewController *settingsViewController = [[SettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
             settingsViewController.hidesBottomBarWhenPushed = YES;
