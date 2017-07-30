@@ -72,7 +72,7 @@ static CGFloat const kAvatarHeight = 16.0f;
     self.timeLabel.text = threadDetail.createTime;
     [self.timeLabel sizeToFit];
     NSURL *avatarURL = [NSURL URLWithString:threadDetail.threadCreator.memberAvatarSmall];
-    [self.avatarImageView sd_setImageWithURL:avatarURL placeholderImage:[UIImage imageNamed:@"noavatar_small"]];
+    [self.avatarImageView sd_setImageWithURL:avatarURL placeholderImage:[UIImage imageNamed:@"defaultAvatar"]];
 }
 
 + (CGFloat)getCellHeightWithThreadDetail:(ThreadDetail *)threadDetail {

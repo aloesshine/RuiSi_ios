@@ -139,8 +139,11 @@ NSString *kshowThreadListSegue = @"showThreadList";
     collectionCell.titleLabel.text = titleDict[@"name"];
     collectionCell.countLabel.text = _countArray[indexPath.section][indexPath.row];
     
-    
-    [collectionCell setUpIconImageAtIndexPath:indexPath];
+    if([titleDict valueForKey:@"image"] != nil) {
+        collectionCell.iconImageView.image = [UIImage imageNamed:(NSString *)[titleDict valueForKey:@"image"]];
+    } else {
+        [collectionCell setUpIconImageAtIndexPath:indexPath];
+    }
     [collectionCell setUpFont];
 }
 

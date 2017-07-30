@@ -4,6 +4,8 @@
 <array>
 	<array>
 		<dict>
+			<key>image</key>
+			<string>wztd</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=549&amp;mobile=2</string>
 			<key>name</key>
@@ -12,6 +14,8 @@
 			<string>549</string>
 		</dict>
 		<dict>
+			<key>image</key>
+			<string>xlhy</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=550&amp;mobile=2</string>
 			<key>name</key>
@@ -20,6 +24,8 @@
 			<string>550</string>
 		</dict>
 		<dict>
+			<key>image</key>
+			<string>xyjy</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=106&amp;mobile=2</string>
 			<key>name</key>
@@ -28,6 +34,8 @@
 			<string>110</string>
 		</dict>
 		<dict>
+			<key>image</key>
+			<string>wsns</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=108&amp;mobile=2</string>
 			<key>name</key>
@@ -36,6 +44,8 @@
 			<string>108</string>
 		</dict>
 		<dict>
+			<key>image</key>
+			<string>blzq</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=115&amp;mobile=2</string>
 			<key>name</key>
@@ -44,6 +54,8 @@
 			<string>115</string>
 		</dict>
 		<dict>
+			<key>image</key>
+			<string>yjrs</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=217&amp;mobile=2</string>
 			<key>name</key>
@@ -52,6 +64,8 @@
 			<string>217</string>
 		</dict>
 		<dict>
+			<key>image</key>
+			<string>swzl</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=142&amp;mobile=2</string>
 			<key>name</key>
@@ -60,6 +74,8 @@
 			<string>142</string>
 		</dict>
 		<dict>
+			<key>image</key>
+			<string>xdwd</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=551&amp;mobile=2</string>
 			<key>name</key>
@@ -68,6 +84,8 @@
 			<string>551</string>
 		</dict>
 		<dict>
+			<key>image</key>
+			<string>xyhd</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=157&amp;mobile=2</string>
 			<key>name</key>
@@ -76,6 +94,8 @@
 			<string>157</string>
 		</dict>
 		<dict>
+			<key>image</key>
+			<string>wybyl</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=552&amp;mobile=2</string>
 			<key>name</key>
@@ -84,6 +104,8 @@
 			<string>552</string>
 		</dict>
 		<dict>
+			<key>image</key>
+			<string>jyzp</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=553&amp;mobile=2</string>
 			<key>name</key>
@@ -94,6 +116,8 @@
 	</array>
 	<array>
 		<dict>
+			<key>image</key>
+			<string>jsbk</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=560&amp;mobile=2</string>
 			<key>name</key>
@@ -102,6 +126,8 @@
 			<string>560</string>
 		</dict>
 		<dict>
+			<key>image</key>
+			<string>xxjl</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=548&amp;mobile=2</string>
 			<key>name</key>
@@ -110,6 +136,8 @@
 			<string>548</string>
 		</dict>
 		<dict>
+			<key>image</key>
+			<string>rjjsjlq</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=145&amp;mobile=2</string>
 			<key>name</key>
@@ -118,6 +146,8 @@
 			<string>145</string>
 		</dict>
 		<dict>
+			<key>image</key>
+			<string>qrsjsjlq</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=144&amp;mobile=2</string>
 			<key>name</key>
@@ -126,6 +156,8 @@
 			<string>144</string>
 		</dict>
 		<dict>
+			<key>image</key>
+			<string>kyjl</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=91&amp;mobile=2</string>
 			<key>name</key>
@@ -134,6 +166,8 @@
 			<string>91</string>
 		</dict>
 		<dict>
+			<key>image</key>
+			<string>jsjl</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=152&amp;mobile=2</string>
 			<key>name</key>
@@ -142,6 +176,8 @@
 			<string>152</string>
 		</dict>
 		<dict>
+			<key>image</key>
+			<string>english</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=134&amp;mobile=2</string>
 			<key>name</key>
@@ -152,6 +188,8 @@
 	</array>
 	<array>
 		<dict>
+			<key>image</key>
+			<string>gszq</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=72&amp;mobile=2</string>
 			<key>name</key>
@@ -160,6 +198,8 @@
 			<string>72</string>
 		</dict>
 		<dict>
+			<key>image</key>
+			<string>sytd</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=561&amp;mobile=2</string>
 			<key>name</key>
@@ -168,6 +208,8 @@
 			<string>561</string>
 		</dict>
 		<dict>
+			<key>image</key>
+			<string>xdhj</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=215&amp;mobile=2</string>
 			<key>name</key>
@@ -176,6 +218,8 @@
 			<string>215</string>
 		</dict>
 		<dict>
+			<key>image</key>
+			<string>wayd</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=216&amp;mobile=2</string>
 			<key>name</key>
@@ -184,6 +228,8 @@
 			<string>216</string>
 		</dict>
 		<dict>
+			<key>image</key>
+			<string>yqzq</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=563&amp;mobile=2</string>
 			<key>name</key>
@@ -194,6 +240,8 @@
 	</array>
 	<array>
 		<dict>
+			<key>image</key>
+			<string>txcxjlb</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=138&amp;mobile=2</string>
 			<key>name</key>
@@ -202,6 +250,8 @@
 			<string>138</string>
 		</dict>
 		<dict>
+			<key>image</key>
+			<string>hwcxjlb</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=150&amp;mobile=2</string>
 			<key>name</key>
@@ -212,6 +262,8 @@
 	</array>
 	<array>
 		<dict>
+			<key>image</key>
+			<string>bzzq</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=2&amp;mobile=2</string>
 			<key>name</key>
@@ -220,6 +272,8 @@
 			<string>2</string>
 		</dict>
 		<dict>
+			<key>image</key>
+			<string>fzjyzq</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=141&amp;mobile=2</string>
 			<key>name</key>
@@ -230,12 +284,16 @@
 		<dict>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=137&amp;mobile=2</string>
+			<key>image</key>
+			<string>yqmsqzq</string>
 			<key>name</key>
 			<string>邀请码申请专区</string>
 			<key>fid</key>
 			<string>137</string>
 		</dict>
 		<dict>
+			<key>image</key>
+			<string>gghdzq</string>
 			<key>url</key>
 			<string>http://bbs.rs.xidian.me/forum.php?mod=forumdisplay&amp;fid=94&amp;mobile=2</string>
 			<key>name</key>
