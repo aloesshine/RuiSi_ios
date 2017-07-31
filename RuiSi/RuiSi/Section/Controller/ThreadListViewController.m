@@ -30,16 +30,29 @@ NSString *kShowThreadDetail = @"showThreadDetail";
     self.navigationItem.title = self.name;
     
     [self configureRefresh];
-    [self.tableView.mj_header beginRefreshing];
+    if(! [[AFNetworkReachabilityManager sharedManager] isReachable]) {
+        
+    } else {
+        [self.tableView.mj_header beginRefreshing];
+    }
 }
 
 - (void) loadCurrentPage {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        self.getThreadListBlock(1);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView.mj_header endRefreshing];
+    if(! [[AFNetworkReachabilityManager sharedManager] isReachable]) {
+        [self.tableView.mj_header endRefreshing];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"哎呀，似乎丢失了网络连接～" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okayAction = [UIAlertAction actionWithTitle:@"好的～" style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction:okayAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+    else {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            self.getThreadListBlock(1);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView.mj_header endRefreshing];
+            });
         });
-    });
+    }
 }
 
 - (void) loadNextPage {
@@ -65,6 +78,7 @@ NSString *kShowThreadDetail = @"showThreadDetail";
     ((MJRefreshNormalHeader *)self.tableView.mj_header).lastUpdatedTimeLabel.hidden = YES;
     [((MJRefreshNormalHeader *)self.tableView.mj_header) setTitle:@"下拉刷新" forState:MJRefreshStateIdle];
     [((MJRefreshNormalHeader *)self.tableView.mj_header) setTitle:@"正在加载..." forState:MJRefreshStateRefreshing];
+    [((MJRefreshNormalHeader *)self.tableView.mj_header) setTitle:@"释放以加载" forState:MJRefreshStatePulling];
     
     if (self.needToGetMore) {
         self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadNextPage)];

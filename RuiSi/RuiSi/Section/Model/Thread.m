@@ -80,9 +80,6 @@
             }
         }
         }
-        
-        
-        
     
     if (elements.count) {
         ThreadList *list = [[ThreadList alloc] init];

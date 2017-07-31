@@ -19,7 +19,6 @@ NSString *kshowThreadListSegue = @"showThreadList";
 @property (nonatomic,strong) NSArray *itemArray;
 @property (nonatomic,strong) NSArray *sectionArray;
 @property (nonatomic,strong) NSArray *countArray;
-@property (nonatomic,assign) BOOL isLogin;
 @end
 
 @implementation SectionViewController
@@ -31,7 +30,8 @@ NSString *kshowThreadListSegue = @"showThreadList";
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.85 green:0.13 blue:0.16 alpha:1.0];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     self.navigationItem.title = @"手机睿思";
-    self.isLogin = [userDefaults objectForKey:kUserIsLogin];
+    
+    
     [self setupArray];
     
     [self.collectionView registerNib:[UINib nibWithNibName:kSectionCollectionViewCell bundle:nil] forCellWithReuseIdentifier:kSectionCollectionViewCell];
@@ -43,7 +43,6 @@ NSString *kshowThreadListSegue = @"showThreadList";
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.collectionView.backgroundColor = [UIColor colorWithRed:0.91 green:0.93 blue:0.93 alpha:1];
-    
     UICollectionViewLayout *layout = self.collectionView.collectionViewLayout;
     UICollectionViewFlowLayout *flow = (UICollectionViewFlowLayout *)layout;
     flow.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
@@ -117,34 +116,23 @@ NSString *kshowThreadListSegue = @"showThreadList";
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return _itemArray.count;
+    return self.itemArray.count;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSArray *sectionArray = [_itemArray objectAtIndex:section];
-    return sectionArray.count;
+    return ((NSArray *)[self.itemArray objectAtIndex:section]).count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SectionCollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:kSectionCollectionViewCell forIndexPath:indexPath];
-    [self configureCell:cell forItemAtIndexPath:indexPath];
+    NSDictionary *dict = self.itemArray[indexPath.section][indexPath.row];
+    cell.titleLabel.text = dict[@"name"];
+    cell.countLabel.hidden = YES;
+    cell.iconImageView.image = [UIImage imageNamed:(NSString *)[dict valueForKey:@"image"]];
+    [cell setUpFont];
     return cell;
-}
-
-
-- (void) configureCell:(SectionCollectionViewCell *)collectionCell forItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *titleDict = _itemArray[indexPath.section][indexPath.row];
-    collectionCell.titleLabel.text = titleDict[@"name"];
-    collectionCell.countLabel.text = _countArray[indexPath.section][indexPath.row];
-    
-    if([titleDict valueForKey:@"image"] != nil) {
-        collectionCell.iconImageView.image = [UIImage imageNamed:(NSString *)[titleDict valueForKey:@"image"]];
-    } else {
-        [collectionCell setUpIconImageAtIndexPath:indexPath];
-    }
-    [collectionCell setUpFont];
 }
 
 - (CGSize) collectionView :(UICollectionView *)collectionView layout:(nonnull UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {

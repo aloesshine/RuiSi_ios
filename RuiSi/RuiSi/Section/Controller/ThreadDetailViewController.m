@@ -51,9 +51,13 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     self.currentPage = 1;
     
     [self configueBlocks];
-    self.getLinksBlock();
+    if(! [AFNetworkReachabilityManager sharedManager].isReachable) {
+        
+    } else {
+        self.getLinksBlock();
+        [self.tableView.mj_header beginRefreshing];
+    }
     [self configureRefresh];
-    [self.tableView.mj_header beginRefreshing];
     [self reloadVisibleCells];
     
 }
@@ -117,12 +121,20 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 }
 
 - (void) loadCurrentPage {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        self.getThreadDetailListBlock(1);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView.mj_header endRefreshing];
+    if(! [[AFNetworkReachabilityManager sharedManager] isReachable]) {
+        [self.tableView.mj_header endRefreshing];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"哎呀，似乎丢失了网络连接～" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okayAction = [UIAlertAction actionWithTitle:@"好的～" style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction:okayAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+    } else {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            self.getThreadDetailListBlock(1);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView.mj_header endRefreshing];
+            });
         });
-    });
+    }
 }
 
 - (void) readyForNextPage {
@@ -134,6 +146,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadCurrentPage)];
     ((MJRefreshNormalHeader *)self.tableView.mj_header).lastUpdatedTimeLabel.hidden = YES;
     [((MJRefreshNormalHeader *)self.tableView.mj_header) setTitle:@"下拉刷新" forState:MJRefreshStateIdle];
+    [((MJRefreshNormalHeader *)self.tableView.mj_header) setTitle:@"释放以加载" forState:MJRefreshStatePulling];
     [((MJRefreshNormalHeader *)self.tableView.mj_header) setTitle:@"正在加载..." forState:MJRefreshStateRefreshing];
     [self.tableView.mj_header setEndRefreshingCompletionBlock:^{
         [wself.tableView reloadData];
