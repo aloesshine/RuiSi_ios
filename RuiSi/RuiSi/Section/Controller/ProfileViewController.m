@@ -27,9 +27,7 @@
     [super viewDidLoad];
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.85 green:0.13 blue:0.16 alpha:1.0];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        self.user = [Member getMemberWithHomepage:_homepage];
-    });
+    self.user = [Member getMemberWithHomepage:_homepage];
     [self setupSubviews];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

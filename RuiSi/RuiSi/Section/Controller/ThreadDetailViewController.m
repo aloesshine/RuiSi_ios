@@ -51,15 +51,15 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     self.currentPage = 1;
     
     [self configueBlocks];
+    [self configureRefresh];
     if(! [AFNetworkReachabilityManager sharedManager].isReachable) {
         
     } else {
         self.getLinksBlock();
         [self.tableView.mj_header beginRefreshing];
     }
-    [self configureRefresh];
-    [self reloadVisibleCells];
     
+    [self reloadVisibleCells];
 }
 
 - (void) takeActionBlock:(void (^)())block {

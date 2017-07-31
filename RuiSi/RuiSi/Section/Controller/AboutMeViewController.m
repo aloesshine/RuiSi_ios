@@ -114,6 +114,151 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     }
 }
 
+- (void) setupTopViewUsingPureLayout {
+    [self.topView autoPinEdgeToSuperviewEdge:ALEdgeLeft];
+    [self.topView autoPinEdgeToSuperviewEdge:ALEdgeRight];
+    [self.topView autoPinEdgeToSuperviewEdge:ALEdgeTop];
+    [self.topView autoSetDimension:ALDimensionHeight toSize:200];
+    
+    self.avatarImage = [[UIImageView alloc] init];
+    self.nameLabel = [[UILabel alloc] init];
+    self.avatarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.topView addSubview:self.avatarButton];
+    [self.topView addSubview:self.nameLabel];
+    
+    [self.avatarButton autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:40];
+    [self.avatarButton autoAlignAxisToSuperviewMarginAxis:ALAxisVertical];
+    [self.avatarButton autoSetDimensionsToSize:CGSizeMake(100, 100)];
+    self.avatarButton.imageView.layer.cornerRadius = 50;
+    self.avatarButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.avatarButton.clipsToBounds = YES;
+    [self.avatarButton addTarget:self action:@selector(avatarButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.nameLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft];
+    [self.nameLabel autoPinEdgeToSuperviewEdge:ALEdgeRight];
+    [self.nameLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.avatarButton withOffset:20];
+    self.nameLabel.textAlignment = NSTextAlignmentCenter;
+    self.nameLabel.font = [UIFont systemFontOfSize:18];
+    self.nameLabel.textColor = [UIColor whiteColor];
+    
+    if ([DataManager isUserLogined]) {
+        [self.avatarButton.imageView sd_setImageWithURL:[NSURL URLWithString:[userDefaults objectForKey:kUserAvatarURL]] placeholderImage:[UIImage imageNamed:@"defaultAvatar"]];
+        self.nameLabel.text = [userDefaults objectForKey:kUserName];
+    } else {
+        self.avatarButton.imageView.image = [UIImage imageNamed:@"defaultAvatar"];
+        self.nameLabel.text = @"请点击头像登陆";
+    }
+}
+
+
+- (void) setupSecondViewUsingPureLayout {
+    self.secondView = [[UIStackView alloc] init];
+    self.secondView.backgroundColor = [UIColor whiteColor];
+    [self.secondView autoPinEdgeToSuperviewEdge:ALEdgeLeft];
+    [self.secondView autoPinEdgeToSuperviewEdge:ALEdgeRight];
+    [self.secondView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.topView];
+    [self.secondView autoSetDimension:ALDimensionHeight toSize:90];
+    
+    NSArray *nibs1 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
+    AboutMeHeaderViewCell *messageCell = [nibs1 lastObject];
+    messageCell.introLabel.text = @"我的消息";
+    messageCell.introLabel.textAlignment = NSTextAlignmentCenter;
+    messageCell.introLabel.font = [UIFont systemFontOfSize:16];
+    [messageCell.introLabel sizeToFit];
+    messageCell.iconImageView.image = [UIImage imageNamed:@"messages"];
+    [messageCell bk_whenTapped:^{
+        if (self.isLogged) {
+            MessageListViewController *messageListViewController = [[MessageListViewController alloc] init];
+            [self.navigationController pushViewController:messageListViewController animated:YES];
+        } else {
+            [self showUnloggedMessage];
+        }
+    }];
+
+    
+    NSArray *nibs2 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
+    AboutMeHeaderViewCell *collectionsCell = [nibs2 lastObject];
+    collectionsCell.introLabel.text = @"我的收藏";
+    collectionsCell.introLabel.textAlignment = NSTextAlignmentCenter;
+    collectionsCell.introLabel.font = [UIFont systemFontOfSize:16];
+    [collectionsCell.introLabel sizeToFit];
+    collectionsCell.iconImageView.image = [UIImage imageNamed:@"favorite"];
+    [collectionsCell  bk_whenTapped:^{
+        if (self.isLogged) {
+            ThreadListViewController *threadListViewController = [[ThreadListViewController alloc] init];
+            threadListViewController.hidesBottomBarWhenPushed = YES;
+            __weak ThreadListViewController *threadListViewController_ = threadListViewController;
+            threadListViewController.needToGetMore = NO;
+            threadListViewController.name = @"我的收藏";
+            threadListViewController.getThreadListBlock = ^(NSInteger page) {
+                return [[DataManager manager] getFavoriteThreadListWithUid:[userDefaults objectForKey:kUserID] success:^(ThreadList *threadList) {
+                    threadListViewController_.threadList = threadList;
+                    [threadListViewController_.tableView reloadData];
+                } failure:^(NSError *error) {
+                    
+                }];
+            };
+            [self.navigationController pushViewController:threadListViewController animated:YES];
+        } else {
+            [self showUnloggedMessage];
+        }
+    }];
+
+    
+    NSArray *nibs3 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
+    AboutMeHeaderViewCell *postsCell = [nibs3 lastObject];
+    postsCell.introLabel.text = @"我的帖子";
+    postsCell.introLabel.textAlignment = NSTextAlignmentCenter;
+    postsCell.introLabel.font = [UIFont systemFontOfSize:16];
+    [postsCell.introLabel sizeToFit];
+    postsCell.iconImageView.image = [UIImage imageNamed:@"posts"];
+    [postsCell bk_whenTapped:^{
+        if (self.isLogged) {
+            ThreadListViewController *threadListViewController = [[ThreadListViewController alloc] init];
+            threadListViewController.hidesBottomBarWhenPushed = YES;
+            __weak ThreadListViewController *threadListViewController_ = threadListViewController;
+            threadListViewController.needToGetMore = NO;
+            threadListViewController_.name = @"我的帖子";
+            threadListViewController.getThreadListBlock = ^(NSInteger page) {
+                return [[DataManager manager] getThreadListWithUid:[userDefaults objectForKey:kUserID] success:^(ThreadList *threadList) {
+                    threadListViewController_.threadList = threadList;
+                    [threadListViewController_.tableView reloadData];
+                } failure:^(NSError *error) {
+                    
+                }];
+            };
+            [self.navigationController pushViewController:threadListViewController animated:YES];
+        } else {
+            [self showUnloggedMessage];
+            
+        }
+    }];
+    
+    NSArray *nibs4 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
+    AboutMeHeaderViewCell *profileCell = [nibs4 lastObject];
+    profileCell.introLabel.text = @"我的资料";
+    profileCell.introLabel.textAlignment = NSTextAlignmentCenter;
+    profileCell.introLabel.font = [UIFont systemFontOfSize:16];
+    [profileCell.introLabel sizeToFit];
+    profileCell.iconImageView.image = [UIImage imageNamed:@"info"];
+    [profileCell bk_whenTapped:^{
+        if (self.isLogged) {
+            ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
+            profileViewController.hidesBottomBarWhenPushed = YES;
+            profileViewController.homepage = [userDefaults objectForKey:kUserHomepage];
+            [self.navigationController pushViewController:profileViewController animated:YES];
+        } else {
+            [self showUnloggedMessage];
+        }
+    }];
+    
+    
+    [(UIStackView *)self.secondView addArrangedSubview:messageCell];
+    [(UIStackView *)self.secondView addArrangedSubview:collectionsCell];
+    [(UIStackView *)self.secondView addArrangedSubview:postsCell];
+    [(UIStackView *)self.secondView addArrangedSubview:profileCell];
+    
+}
+
 - (void) setupSecondView {
     self.secondView = [[UIView alloc] initWithFrame:CGRectMake(0, 200, kScreen_Width, 90)];
     self.secondView.backgroundColor = [UIColor whiteColor];
@@ -121,14 +266,14 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     
     NSInteger spaceWidth = (kScreen_Width-200)/5;
     NSArray *nibContents1 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
-    AboutMeHeaderViewCell *myMessagesCell = [nibContents1 lastObject];
-    myMessagesCell.frame = CGRectMake(spaceWidth, 5, 50, 80);
-    myMessagesCell.introLabel.text = @"我的消息";
-    myMessagesCell.introLabel.textAlignment = NSTextAlignmentCenter;
-    myMessagesCell.introLabel.font = [UIFont systemFontOfSize:16];
-    [myMessagesCell.introLabel sizeToFit];
-    myMessagesCell.iconImageView.image = [UIImage imageNamed:@"messages"];
-    [myMessagesCell bk_whenTapped:^{
+    AboutMeHeaderViewCell *messageCell = [nibContents1 lastObject];
+    messageCell.frame = CGRectMake(spaceWidth, 5, 50, 80);
+    messageCell.introLabel.text = @"我的消息";
+    messageCell.introLabel.textAlignment = NSTextAlignmentCenter;
+    messageCell.introLabel.font = [UIFont systemFontOfSize:16];
+    [messageCell.introLabel sizeToFit];
+    messageCell.iconImageView.image = [UIImage imageNamed:@"messages"];
+    [messageCell bk_whenTapped:^{
         if (self.isLogged) {
             MessageListViewController *messageListViewController = [[MessageListViewController alloc] init];
             [self.navigationController pushViewController:messageListViewController animated:YES];
@@ -139,14 +284,14 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     
     
     NSArray *nibContents2 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
-    AboutMeHeaderViewCell *myCollectionsCell = [nibContents2 lastObject];
-    myCollectionsCell.frame = CGRectMake(spaceWidth*2+50, 5, 50, 80);
-    myCollectionsCell.introLabel.text = @"我的收藏";
-    myCollectionsCell.introLabel.textAlignment = NSTextAlignmentCenter;
-    myCollectionsCell.introLabel.font = [UIFont systemFontOfSize:16];
-    [myCollectionsCell.introLabel sizeToFit];
-    myCollectionsCell.iconImageView.image = [UIImage imageNamed:@"favorite"];
-    [myCollectionsCell  bk_whenTapped:^{
+    AboutMeHeaderViewCell *collectionsCell = [nibContents2 lastObject];
+    collectionsCell.frame = CGRectMake(spaceWidth*2+50, 5, 50, 80);
+    collectionsCell.introLabel.text = @"我的收藏";
+    collectionsCell.introLabel.textAlignment = NSTextAlignmentCenter;
+    collectionsCell.introLabel.font = [UIFont systemFontOfSize:16];
+    [collectionsCell.introLabel sizeToFit];
+    collectionsCell.iconImageView.image = [UIImage imageNamed:@"favorite"];
+    [collectionsCell  bk_whenTapped:^{
         if (self.isLogged) {
             ThreadListViewController *threadListViewController = [[ThreadListViewController alloc] init];
             threadListViewController.hidesBottomBarWhenPushed = YES;
@@ -169,14 +314,14 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     
     
     NSArray *nibContents3 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
-    AboutMeHeaderViewCell *myPostsCell = [nibContents3 lastObject];
-    myPostsCell.frame = CGRectMake(spaceWidth*3+2*50, 5, 50, 80);
-    myPostsCell.introLabel.text = @"我的帖子";
-    myPostsCell.introLabel.textAlignment = NSTextAlignmentCenter;
-    myPostsCell.introLabel.font = [UIFont systemFontOfSize:16];
-    [myPostsCell.introLabel sizeToFit];
-    myPostsCell.iconImageView.image = [UIImage imageNamed:@"posts"];
-    [myPostsCell bk_whenTapped:^{
+    AboutMeHeaderViewCell *postsCell = [nibContents3 lastObject];
+    postsCell.frame = CGRectMake(spaceWidth*3+2*50, 5, 50, 80);
+    postsCell.introLabel.text = @"我的帖子";
+    postsCell.introLabel.textAlignment = NSTextAlignmentCenter;
+    postsCell.introLabel.font = [UIFont systemFontOfSize:16];
+    [postsCell.introLabel sizeToFit];
+    postsCell.iconImageView.image = [UIImage imageNamed:@"posts"];
+    [postsCell bk_whenTapped:^{
         if (self.isLogged) {
             ThreadListViewController *threadListViewController = [[ThreadListViewController alloc] init];
             threadListViewController.hidesBottomBarWhenPushed = YES;
@@ -199,14 +344,14 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     }];
     
     NSArray *nibContents4 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
-    AboutMeHeaderViewCell *myProfileCell = [nibContents4 lastObject];
-    myProfileCell.frame = CGRectMake(spaceWidth*4+3*50, 5, 50, 80);
-    myProfileCell.introLabel.text = @"我的资料";
-    myProfileCell.introLabel.textAlignment = NSTextAlignmentCenter;
-    myProfileCell.introLabel.font = [UIFont systemFontOfSize:16];
-    [myProfileCell.introLabel sizeToFit];
-    myProfileCell.iconImageView.image = [UIImage imageNamed:@"info"];
-    [myProfileCell bk_whenTapped:^{
+    AboutMeHeaderViewCell *profileCell = [nibContents4 lastObject];
+    profileCell.frame = CGRectMake(spaceWidth*4+3*50, 5, 50, 80);
+    profileCell.introLabel.text = @"我的资料";
+    profileCell.introLabel.textAlignment = NSTextAlignmentCenter;
+    profileCell.introLabel.font = [UIFont systemFontOfSize:16];
+    [profileCell.introLabel sizeToFit];
+    profileCell.iconImageView.image = [UIImage imageNamed:@"info"];
+    [profileCell bk_whenTapped:^{
         if (self.isLogged) {
             ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
             profileViewController.hidesBottomBarWhenPushed = YES;
@@ -217,10 +362,10 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
         }
     }];
     
-    [self.secondView addSubview:myMessagesCell];
-    [self.secondView addSubview:myCollectionsCell];
-    [self.secondView addSubview:myPostsCell];
-    [self.secondView addSubview:myProfileCell];
+    [self.secondView addSubview:messageCell];
+    [self.secondView addSubview:collectionsCell];
+    [self.secondView addSubview:postsCell];
+    [self.secondView addSubview:profileCell];
 }
 
 - (void) setupTableView {
@@ -247,6 +392,21 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     [self.view addSubview:self.secondView];
     [self.view addSubview:self.tableView];
 }
+
+- (void) setupSubViewsUsingPureLayout {
+    self.topView = [[UIView alloc] init];
+    self.secondView = [[UIView alloc] init];
+    self.tableView = [[UITableView alloc] init];
+    
+    [self.view addSubview:self.topView];
+    [self.view addSubview:self.secondView];
+    [self.view addSubview:self.tableView];
+    
+}
+
+
+
+
 
 - (void) avatarButtonTapped:(id) sender {
     if (self.isLogged) {
