@@ -115,58 +115,66 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
 }
 
 - (void) setupTopViewUsingPureLayout {
+    self.topView.backgroundColor = [UIColor colorWithRed:0.85 green:0.13 blue:0.16 alpha:1.0];
     [self.topView autoPinEdgeToSuperviewEdge:ALEdgeLeft];
     [self.topView autoPinEdgeToSuperviewEdge:ALEdgeRight];
     [self.topView autoPinEdgeToSuperviewEdge:ALEdgeTop];
     [self.topView autoSetDimension:ALDimensionHeight toSize:200];
     
-    self.avatarImage = [[UIImageView alloc] init];
     self.nameLabel = [[UILabel alloc] init];
+    self.avatarImage = [[UIImageView alloc] init];
     self.avatarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.topView addSubview:self.avatarImage];
     [self.topView addSubview:self.avatarButton];
     [self.topView addSubview:self.nameLabel];
     
-    [self.avatarButton autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:40];
-    [self.avatarButton autoAlignAxisToSuperviewMarginAxis:ALAxisVertical];
-    [self.avatarButton autoSetDimensionsToSize:CGSizeMake(100, 100)];
-    self.avatarButton.imageView.layer.cornerRadius = 50;
-    self.avatarButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    self.avatarButton.clipsToBounds = YES;
+    [self.avatarImage autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:40];
+    [self.avatarImage autoAlignAxisToSuperviewMarginAxis:ALAxisVertical];
+    [self.avatarImage autoSetDimensionsToSize:CGSizeMake(100, 100)];
+    self.avatarImage.layer.cornerRadius = 50;
+    self.avatarImage.contentMode = UIViewContentModeScaleAspectFill;
+    self.avatarImage.clipsToBounds = YES;
+    
+    self.avatarButton = [[UIButton alloc] initWithFrame:self.avatarImage.frame];
+    self.avatarButton.backgroundColor = [UIColor clearColor];
     [self.avatarButton addTarget:self action:@selector(avatarButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [self.nameLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft];
     [self.nameLabel autoPinEdgeToSuperviewEdge:ALEdgeRight];
-    [self.nameLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.avatarButton withOffset:20];
+    [self.nameLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.avatarImage withOffset:20];
     self.nameLabel.textAlignment = NSTextAlignmentCenter;
     self.nameLabel.font = [UIFont systemFontOfSize:18];
     self.nameLabel.textColor = [UIColor whiteColor];
     
-    if ([DataManager isUserLogined]) {
-        [self.avatarButton.imageView sd_setImageWithURL:[NSURL URLWithString:[userDefaults objectForKey:kUserAvatarURL]] placeholderImage:[UIImage imageNamed:@"defaultAvatar"]];
+    if (self.isLogged) {
+        [self.avatarImage sd_setImageWithURL:[NSURL URLWithString:[userDefaults objectForKey:kUserAvatarURL]] placeholderImage:[UIImage imageNamed:@"defaultAvatar"]];
         self.nameLabel.text = [userDefaults objectForKey:kUserName];
     } else {
-        self.avatarButton.imageView.image = [UIImage imageNamed:@"defaultAvatar"];
+        self.avatarImage.image = [UIImage imageNamed:@"defaultAvatar"];
         self.nameLabel.text = @"请点击头像登陆";
     }
 }
 
 
 - (void) setupSecondViewUsingPureLayout {
-    self.secondView = [[UIStackView alloc] init];
+    
     self.secondView.backgroundColor = [UIColor whiteColor];
     [self.secondView autoPinEdgeToSuperviewEdge:ALEdgeLeft];
     [self.secondView autoPinEdgeToSuperviewEdge:ALEdgeRight];
     [self.secondView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.topView];
     [self.secondView autoSetDimension:ALDimensionHeight toSize:90];
     
+    UIStackView *stackView = [[UIStackView alloc] initWithFrame:self.secondView.frame];
+    //[self.secondView addSubview:self.stackView];
     NSArray *nibs1 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
     AboutMeHeaderViewCell *messageCell = [nibs1 lastObject];
+    [messageCell autoSetDimensionsToSize:CGSizeMake(50, 80)];
     messageCell.introLabel.text = @"我的消息";
     messageCell.introLabel.textAlignment = NSTextAlignmentCenter;
     messageCell.introLabel.font = [UIFont systemFontOfSize:16];
     [messageCell.introLabel sizeToFit];
     messageCell.iconImageView.image = [UIImage imageNamed:@"messages"];
     [messageCell bk_whenTapped:^{
-        if (self.isLogged) {
+        if ([DataManager isUserLogined]) {
             MessageListViewController *messageListViewController = [[MessageListViewController alloc] init];
             [self.navigationController pushViewController:messageListViewController animated:YES];
         } else {
@@ -177,6 +185,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     
     NSArray *nibs2 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
     AboutMeHeaderViewCell *collectionsCell = [nibs2 lastObject];
+    [collectionsCell autoSetDimensionsToSize:CGSizeMake(50, 80)];
     collectionsCell.introLabel.text = @"我的收藏";
     collectionsCell.introLabel.textAlignment = NSTextAlignmentCenter;
     collectionsCell.introLabel.font = [UIFont systemFontOfSize:16];
@@ -206,6 +215,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     
     NSArray *nibs3 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
     AboutMeHeaderViewCell *postsCell = [nibs3 lastObject];
+    [postsCell autoSetDimensionsToSize:CGSizeMake(50, 80)];
     postsCell.introLabel.text = @"我的帖子";
     postsCell.introLabel.textAlignment = NSTextAlignmentCenter;
     postsCell.introLabel.font = [UIFont systemFontOfSize:16];
@@ -235,6 +245,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     
     NSArray *nibs4 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
     AboutMeHeaderViewCell *profileCell = [nibs4 lastObject];
+    [profileCell autoSetDimensionsToSize:CGSizeMake(50, 80)];
     profileCell.introLabel.text = @"我的资料";
     profileCell.introLabel.textAlignment = NSTextAlignmentCenter;
     profileCell.introLabel.font = [UIFont systemFontOfSize:16];
@@ -251,19 +262,19 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
         }
     }];
     
-    
-    [(UIStackView *)self.secondView addArrangedSubview:messageCell];
-    [(UIStackView *)self.secondView addArrangedSubview:collectionsCell];
-    [(UIStackView *)self.secondView addArrangedSubview:postsCell];
-    [(UIStackView *)self.secondView addArrangedSubview:profileCell];
+    stackView.distribution = UIStackViewDistributionEqualSpacing;
+    stackView.alignment = UIStackViewAlignmentCenter;
+    [stackView addArrangedSubview:messageCell];
+    [stackView addArrangedSubview:collectionsCell];
+    [stackView addArrangedSubview:postsCell];
+    [stackView addArrangedSubview:profileCell];
+    [self.secondView addSubview:stackView];
     
 }
 
 - (void) setupSecondView {
     self.secondView = [[UIView alloc] initWithFrame:CGRectMake(0, 200, kScreen_Width, 90)];
     self.secondView.backgroundColor = [UIColor whiteColor];
-    
-    
     NSInteger spaceWidth = (kScreen_Width-200)/5;
     NSArray *nibContents1 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
     AboutMeHeaderViewCell *messageCell = [nibContents1 lastObject];
@@ -384,6 +395,23 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     };
 }
 
+- (void) setupTableViewUsingPureLayout {
+    [self.tableView autoPinEdgeToSuperviewEdge:ALEdgeLeft];
+    [self.tableView autoPinEdgeToSuperviewEdge:ALEdgeRight];
+    [self.tableView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.secondView withOffset:50.0];
+    [self.tableView autoSetDimension:ALDimensionHeight toSize:4*44];
+    __weak typeof(self) weakSelf = self;
+    self.tableView.selectCellHandler = ^(AboutMeTableViewCell *cell,NSIndexPath *indexPath) {
+        
+        [weakSelf.tableView deselectRowAtIndexPath:indexPath animated:YES];
+        if (indexPath.row == 1) {
+            SettingsViewController *settingsViewController = [[SettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            settingsViewController.hidesBottomBarWhenPushed = YES;
+            [weakSelf.navigationController pushViewController:settingsViewController animated:YES];
+        }
+    };
+}
+
 - (void) setupSubviews {
     [self setupTopView];
     [self setupSecondView];
@@ -394,14 +422,16 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
 }
 
 - (void) setupSubViewsUsingPureLayout {
+    self.view.backgroundColor = [UIColor colorWithRed:0.91 green:0.93 blue:0.93 alpha:1.0];
     self.topView = [[UIView alloc] init];
+    self.tableView = [[AboutMeTableView alloc] initWithFrame:CGRectZero];
     self.secondView = [[UIView alloc] init];
-    self.tableView = [[UITableView alloc] init];
-    
     [self.view addSubview:self.topView];
     [self.view addSubview:self.secondView];
     [self.view addSubview:self.tableView];
-    
+    [self setupTopViewUsingPureLayout];
+    [self setupSecondViewUsingPureLayout];
+    [self setupTableViewUsingPureLayout];
 }
 
 
