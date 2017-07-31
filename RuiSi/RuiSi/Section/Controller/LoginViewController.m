@@ -9,8 +9,6 @@
 #import "LoginViewController.h"
 #import "Member.h"
 #import "User.h"
-//#import "DataManager.h"
-//#import "SVProgressHUD.h"
 @interface LoginViewController ()
 @property (nonatomic,assign) BOOL isLogining;
 @property (nonatomic,assign) BOOL isKeyboardShowing;
@@ -35,12 +33,7 @@
 
 - (IBAction)back:(UIButton *)sender
 {
-    CATransition *transition = [CATransition animation];
-    transition.duration = 0.4f;
-    transition.type = kCATransitionReveal;
-    transition.subtype = kCATransitionFromBottom;
-    [self.navigationController.view.layer addAnimation:transition forKey:kCATransition];
-    [self.navigationController popViewControllerAnimated:NO];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -87,16 +80,7 @@
     if (self.isKeyboardShowing) {
         self.isKeyboardShowing = NO;
         [[UIApplication sharedApplication].keyWindow endEditing:YES];
-//        [UIView animateWithDuration:0.3 animations:^{
-//            self.containView.y      = kContainViewYNormal;
-//            self.descriptionLabel.y += 5;
-//            self.usernameField.y    += 10;
-//            self.passwordField.y    += 12;
-//            self.loginButton.y      += 14;
-//        } completion:^(BOOL finished) {
-//        }];
     }
-
 }
 
 - (IBAction)login:(UIButton *)sender

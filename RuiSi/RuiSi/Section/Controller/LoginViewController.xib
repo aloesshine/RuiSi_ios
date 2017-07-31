@@ -75,7 +75,7 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="RVw-rB-D8v" firstAttribute="top" secondItem="FXV-2f-jEs" secondAttribute="bottom" constant="12" id="0CC-xZ-LMp"/>
                 <constraint firstItem="LFg-eD-qOA" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="150" id="8yl-io-Dpm"/>
@@ -90,7 +90,6 @@
                 <constraint firstItem="xBr-vC-ClP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="saa-0q-oTG"/>
                 <constraint firstAttribute="trailing" secondItem="LFg-eD-qOA" secondAttribute="trailing" constant="40" id="wWD-6Q-TYP"/>
             </constraints>
-            <nil key="simulatedStatusBarMetrics"/>
             <point key="canvasLocation" x="80" y="42"/>
         </view>
     </objects>

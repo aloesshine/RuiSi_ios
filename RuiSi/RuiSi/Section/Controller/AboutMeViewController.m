@@ -38,7 +38,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     [self setupNotifications];
 }
 
-
+# pragma mark - Initial configurations
 - (void) setupNotifications {
     @weakify(self);
     [[NSNotificationCenter defaultCenter] addObserverForName:kLoginSuccessNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
@@ -55,9 +55,9 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
         self.isLogged =  NO;
         self.nameLabel.text = @"请点击头像登录";
     }];
-    
-    
 }
+
+#pragma mark - Helper methods
 - (void) showUnloggedMessage {
     if (self.isLogged) {
         
@@ -72,7 +72,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     UIAlertAction *gotoLogin = [UIAlertAction actionWithTitle:@"前往登陆" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         LoginViewController *loginViewController = [[LoginViewController alloc] init];
         loginViewController.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:loginViewController animated:YES];
+        [self presentViewController:loginViewController animated:YES completion:nil];
     }];
     UIAlertAction *cancelLogin = [UIAlertAction actionWithTitle:@"暂时不登陆" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         ;
@@ -81,6 +81,30 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     [alertController addAction:cancelLogin];
     [self presentViewController:alertController animated:YES completion:nil];
 }
+
+
+- (void) avatarButtonTapped:(id) sender {
+    if (self.isLogged) {
+        ProfileViewController *profileVC = [[ProfileViewController alloc] init];
+        profileVC.homepage = [userDefaults objectForKey:kUserHomepage];
+        [self.navigationController pushViewController:profileVC animated:YES];
+    } else {
+        LoginViewController *loginViewController = [[LoginViewController alloc] init];
+        [self presentViewController:loginViewController animated:YES completion:nil];
+    }
+}
+
+
+#pragma mark - Setup Subviews without PureLayout
+- (void) setupSubviews {
+    [self setupTopView];
+    [self setupSecondView];
+    [self setupTableView];
+    [self.view addSubview:self.topView];
+    [self.view addSubview:self.secondView];
+    [self.view addSubview:self.tableView];
+}
+
 
 - (void) setupTopView {
     self.topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 200)];
@@ -112,6 +136,144 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
         self.avatarImage.image = [UIImage imageNamed:@"defaultAvatar"];
         self.nameLabel.text = @"请点击头像登录";
     }
+}
+
+- (void) setupSecondView {
+    self.secondView = [[UIView alloc] initWithFrame:CGRectMake(0, 200, kScreen_Width, 90)];
+    self.secondView.backgroundColor = [UIColor whiteColor];
+    NSInteger spaceWidth = (kScreen_Width-200)/5;
+    NSArray *nibContents1 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
+    AboutMeHeaderViewCell *messageCell = [nibContents1 lastObject];
+    messageCell.frame = CGRectMake(spaceWidth, 5, 50, 80);
+    messageCell.introLabel.text = @"我的消息";
+    messageCell.introLabel.textAlignment = NSTextAlignmentCenter;
+    messageCell.introLabel.font = [UIFont systemFontOfSize:16];
+    [messageCell.introLabel sizeToFit];
+    messageCell.iconImageView.image = [UIImage imageNamed:@"messages"];
+    [messageCell bk_whenTapped:^{
+        if (self.isLogged) {
+            MessageListViewController *messageListViewController = [[MessageListViewController alloc] init];
+            [self.navigationController pushViewController:messageListViewController animated:YES];
+        } else {
+            [self showUnloggedMessage];
+        }
+    }];
+    
+    
+    NSArray *nibContents2 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
+    AboutMeHeaderViewCell *collectionsCell = [nibContents2 lastObject];
+    collectionsCell.frame = CGRectMake(spaceWidth*2+50, 5, 50, 80);
+    collectionsCell.introLabel.text = @"我的收藏";
+    collectionsCell.introLabel.textAlignment = NSTextAlignmentCenter;
+    collectionsCell.introLabel.font = [UIFont systemFontOfSize:16];
+    [collectionsCell.introLabel sizeToFit];
+    collectionsCell.iconImageView.image = [UIImage imageNamed:@"favorite"];
+    [collectionsCell  bk_whenTapped:^{
+        if (self.isLogged) {
+            ThreadListViewController *threadListViewController = [[ThreadListViewController alloc] init];
+            threadListViewController.hidesBottomBarWhenPushed = YES;
+            __weak ThreadListViewController *threadListViewController_ = threadListViewController;
+            threadListViewController.needToGetMore = NO;
+            threadListViewController.name = @"我的收藏";
+            threadListViewController.getThreadListBlock = ^(NSInteger page) {
+                return [[DataManager manager] getFavoriteThreadListWithUid:[userDefaults objectForKey:kUserID] success:^(ThreadList *threadList) {
+                    threadListViewController_.threadList = threadList;
+                    [threadListViewController_.tableView reloadData];
+                } failure:^(NSError *error) {
+                    
+                }];
+            };
+            [self.navigationController pushViewController:threadListViewController animated:YES];
+        } else {
+            [self showUnloggedMessage];
+        }
+    }];
+    
+    
+    NSArray *nibContents3 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
+    AboutMeHeaderViewCell *postsCell = [nibContents3 lastObject];
+    postsCell.frame = CGRectMake(spaceWidth*3+2*50, 5, 50, 80);
+    postsCell.introLabel.text = @"我的帖子";
+    postsCell.introLabel.textAlignment = NSTextAlignmentCenter;
+    postsCell.introLabel.font = [UIFont systemFontOfSize:16];
+    [postsCell.introLabel sizeToFit];
+    postsCell.iconImageView.image = [UIImage imageNamed:@"posts"];
+    [postsCell bk_whenTapped:^{
+        if (self.isLogged) {
+            ThreadListViewController *threadListViewController = [[ThreadListViewController alloc] init];
+            threadListViewController.hidesBottomBarWhenPushed = YES;
+            __weak ThreadListViewController *threadListViewController_ = threadListViewController;
+            threadListViewController.needToGetMore = NO;
+            threadListViewController_.name = @"我的帖子";
+            threadListViewController.getThreadListBlock = ^(NSInteger page) {
+                return [[DataManager manager] getThreadListWithUid:[userDefaults objectForKey:kUserID] success:^(ThreadList *threadList) {
+                    threadListViewController_.threadList = threadList;
+                    [threadListViewController_.tableView reloadData];
+                } failure:^(NSError *error) {
+                    
+                }];
+            };
+            [self.navigationController pushViewController:threadListViewController animated:YES];
+        } else {
+            [self showUnloggedMessage];
+            
+        }
+    }];
+    
+    NSArray *nibContents4 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
+    AboutMeHeaderViewCell *profileCell = [nibContents4 lastObject];
+    profileCell.frame = CGRectMake(spaceWidth*4+3*50, 5, 50, 80);
+    profileCell.introLabel.text = @"我的资料";
+    profileCell.introLabel.textAlignment = NSTextAlignmentCenter;
+    profileCell.introLabel.font = [UIFont systemFontOfSize:16];
+    [profileCell.introLabel sizeToFit];
+    profileCell.iconImageView.image = [UIImage imageNamed:@"info"];
+    [profileCell bk_whenTapped:^{
+        if (self.isLogged) {
+            ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
+            profileViewController.hidesBottomBarWhenPushed = YES;
+            profileViewController.homepage = [userDefaults objectForKey:kUserHomepage];
+            [self.navigationController pushViewController:profileViewController animated:YES];
+        } else {
+            [self showUnloggedMessage];
+        }
+    }];
+    
+    [self.secondView addSubview:messageCell];
+    [self.secondView addSubview:collectionsCell];
+    [self.secondView addSubview:postsCell];
+    [self.secondView addSubview:profileCell];
+}
+
+- (void) setupTableView {
+    self.view.backgroundColor = [UIColor colorWithRed:0.91 green:0.93 blue:0.93 alpha:1.0];
+    self.tableView = [[AboutMeTableView alloc] initWithFrame:CGRectMake(0, 300, kScreen_Width, 44*4)];
+    
+    __weak typeof(self) weakSelf = self;
+    self.tableView.selectCellHandler = ^(AboutMeTableViewCell *cell,NSIndexPath *indexPath) {
+        
+        [weakSelf.tableView deselectRowAtIndexPath:indexPath animated:YES];
+        if (indexPath.row == 1) {
+            SettingsViewController *settingsViewController = [[SettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            settingsViewController.hidesBottomBarWhenPushed = YES;
+            [weakSelf.navigationController pushViewController:settingsViewController animated:YES];
+        }
+    };
+}
+
+
+#pragma mark - Setup Subviews with PureLayout
+- (void) setupSubViewsUsingPureLayout {
+    self.view.backgroundColor = [UIColor colorWithRed:0.91 green:0.93 blue:0.93 alpha:1.0];
+    self.topView = [[UIView alloc] init];
+    self.tableView = [[AboutMeTableView alloc] initWithFrame:CGRectZero];
+    self.secondView = [[UIView alloc] init];
+    [self.view addSubview:self.topView];
+    [self.view addSubview:self.secondView];
+    [self.view addSubview:self.tableView];
+    [self setupTopViewUsingPureLayout];
+    [self setupSecondViewUsingPureLayout];
+    [self setupTableViewUsingPureLayout];
 }
 
 - (void) setupTopViewUsingPureLayout {
@@ -272,129 +434,6 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     
 }
 
-- (void) setupSecondView {
-    self.secondView = [[UIView alloc] initWithFrame:CGRectMake(0, 200, kScreen_Width, 90)];
-    self.secondView.backgroundColor = [UIColor whiteColor];
-    NSInteger spaceWidth = (kScreen_Width-200)/5;
-    NSArray *nibContents1 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
-    AboutMeHeaderViewCell *messageCell = [nibContents1 lastObject];
-    messageCell.frame = CGRectMake(spaceWidth, 5, 50, 80);
-    messageCell.introLabel.text = @"我的消息";
-    messageCell.introLabel.textAlignment = NSTextAlignmentCenter;
-    messageCell.introLabel.font = [UIFont systemFontOfSize:16];
-    [messageCell.introLabel sizeToFit];
-    messageCell.iconImageView.image = [UIImage imageNamed:@"messages"];
-    [messageCell bk_whenTapped:^{
-        if (self.isLogged) {
-            MessageListViewController *messageListViewController = [[MessageListViewController alloc] init];
-            [self.navigationController pushViewController:messageListViewController animated:YES];
-        } else {
-            [self showUnloggedMessage];
-        }
-    }];
-    
-    
-    NSArray *nibContents2 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
-    AboutMeHeaderViewCell *collectionsCell = [nibContents2 lastObject];
-    collectionsCell.frame = CGRectMake(spaceWidth*2+50, 5, 50, 80);
-    collectionsCell.introLabel.text = @"我的收藏";
-    collectionsCell.introLabel.textAlignment = NSTextAlignmentCenter;
-    collectionsCell.introLabel.font = [UIFont systemFontOfSize:16];
-    [collectionsCell.introLabel sizeToFit];
-    collectionsCell.iconImageView.image = [UIImage imageNamed:@"favorite"];
-    [collectionsCell  bk_whenTapped:^{
-        if (self.isLogged) {
-            ThreadListViewController *threadListViewController = [[ThreadListViewController alloc] init];
-            threadListViewController.hidesBottomBarWhenPushed = YES;
-            __weak ThreadListViewController *threadListViewController_ = threadListViewController;
-            threadListViewController.needToGetMore = NO;
-            threadListViewController.name = @"我的收藏";
-            threadListViewController.getThreadListBlock = ^(NSInteger page) {
-                return [[DataManager manager] getFavoriteThreadListWithUid:[userDefaults objectForKey:kUserID] success:^(ThreadList *threadList) {
-                    threadListViewController_.threadList = threadList;
-                    [threadListViewController_.tableView reloadData];
-                } failure:^(NSError *error) {
-                    
-                }];
-            };
-            [self.navigationController pushViewController:threadListViewController animated:YES];
-        } else {
-            [self showUnloggedMessage];
-        }
-    }];
-    
-    
-    NSArray *nibContents3 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
-    AboutMeHeaderViewCell *postsCell = [nibContents3 lastObject];
-    postsCell.frame = CGRectMake(spaceWidth*3+2*50, 5, 50, 80);
-    postsCell.introLabel.text = @"我的帖子";
-    postsCell.introLabel.textAlignment = NSTextAlignmentCenter;
-    postsCell.introLabel.font = [UIFont systemFontOfSize:16];
-    [postsCell.introLabel sizeToFit];
-    postsCell.iconImageView.image = [UIImage imageNamed:@"posts"];
-    [postsCell bk_whenTapped:^{
-        if (self.isLogged) {
-            ThreadListViewController *threadListViewController = [[ThreadListViewController alloc] init];
-            threadListViewController.hidesBottomBarWhenPushed = YES;
-            __weak ThreadListViewController *threadListViewController_ = threadListViewController;
-            threadListViewController.needToGetMore = NO;
-            threadListViewController_.name = @"我的帖子";
-            threadListViewController.getThreadListBlock = ^(NSInteger page) {
-                return [[DataManager manager] getThreadListWithUid:[userDefaults objectForKey:kUserID] success:^(ThreadList *threadList) {
-                    threadListViewController_.threadList = threadList;
-                    [threadListViewController_.tableView reloadData];
-                } failure:^(NSError *error) {
-                    
-                }];
-            };
-            [self.navigationController pushViewController:threadListViewController animated:YES];
-        } else {
-            [self showUnloggedMessage];
-            
-        }
-    }];
-    
-    NSArray *nibContents4 = [[NSBundle mainBundle] loadNibNamed:kAboutMeHeaderViewCell owner:self options:nil];
-    AboutMeHeaderViewCell *profileCell = [nibContents4 lastObject];
-    profileCell.frame = CGRectMake(spaceWidth*4+3*50, 5, 50, 80);
-    profileCell.introLabel.text = @"我的资料";
-    profileCell.introLabel.textAlignment = NSTextAlignmentCenter;
-    profileCell.introLabel.font = [UIFont systemFontOfSize:16];
-    [profileCell.introLabel sizeToFit];
-    profileCell.iconImageView.image = [UIImage imageNamed:@"info"];
-    [profileCell bk_whenTapped:^{
-        if (self.isLogged) {
-            ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
-            profileViewController.hidesBottomBarWhenPushed = YES;
-            profileViewController.homepage = [userDefaults objectForKey:kUserHomepage];
-            [self.navigationController pushViewController:profileViewController animated:YES];
-        } else {
-            [self showUnloggedMessage];
-        }
-    }];
-    
-    [self.secondView addSubview:messageCell];
-    [self.secondView addSubview:collectionsCell];
-    [self.secondView addSubview:postsCell];
-    [self.secondView addSubview:profileCell];
-}
-
-- (void) setupTableView {
-    self.view.backgroundColor = [UIColor colorWithRed:0.91 green:0.93 blue:0.93 alpha:1.0];
-    self.tableView = [[AboutMeTableView alloc] initWithFrame:CGRectMake(0, 300, kScreen_Width, 44*4)];
-    
-    __weak typeof(self) weakSelf = self;
-    self.tableView.selectCellHandler = ^(AboutMeTableViewCell *cell,NSIndexPath *indexPath) {
-
-        [weakSelf.tableView deselectRowAtIndexPath:indexPath animated:YES];
-        if (indexPath.row == 1) {
-            SettingsViewController *settingsViewController = [[SettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
-            settingsViewController.hidesBottomBarWhenPushed = YES;
-            [weakSelf.navigationController pushViewController:settingsViewController animated:YES];
-        }
-    };
-}
-
 - (void) setupTableViewUsingPureLayout {
     [self.tableView autoPinEdgeToSuperviewEdge:ALEdgeLeft];
     [self.tableView autoPinEdgeToSuperviewEdge:ALEdgeRight];
@@ -412,43 +451,12 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     };
 }
 
-- (void) setupSubviews {
-    [self setupTopView];
-    [self setupSecondView];
-    [self setupTableView];
-    [self.view addSubview:self.topView];
-    [self.view addSubview:self.secondView];
-    [self.view addSubview:self.tableView];
-}
-
-- (void) setupSubViewsUsingPureLayout {
-    self.view.backgroundColor = [UIColor colorWithRed:0.91 green:0.93 blue:0.93 alpha:1.0];
-    self.topView = [[UIView alloc] init];
-    self.tableView = [[AboutMeTableView alloc] initWithFrame:CGRectZero];
-    self.secondView = [[UIView alloc] init];
-    [self.view addSubview:self.topView];
-    [self.view addSubview:self.secondView];
-    [self.view addSubview:self.tableView];
-    [self setupTopViewUsingPureLayout];
-    [self setupSecondViewUsingPureLayout];
-    [self setupTableViewUsingPureLayout];
-}
 
 
 
 
 
-- (void) avatarButtonTapped:(id) sender {
-    if (self.isLogged) {
-        ProfileViewController *profileVC = [[ProfileViewController alloc] init];
-        profileVC.homepage = [userDefaults objectForKey:kUserHomepage];
-        [self.navigationController pushViewController:profileVC animated:YES];
-    } else {
-        LoginViewController *loginViewController = [[LoginViewController alloc] init];
-        [self presentViewController:loginViewController animated:YES completion:nil];
-        
-    }
-}
+
 
 
 @end
