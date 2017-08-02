@@ -19,6 +19,9 @@ NSString *kShowThreadDetail = @"showThreadDetail";
 
 @implementation ThreadListViewController
 
+
+#pragma mark - Lifecylce Methods
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.currentPage = 1;
@@ -37,61 +40,20 @@ NSString *kShowThreadDetail = @"showThreadDetail";
     }
 }
 
-- (void) loadCurrentPage {
-    if(! [[AFNetworkReachabilityManager sharedManager] isReachable]) {
-        [self.tableView.mj_header endRefreshing];
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"哎呀，似乎丢失了网络连接～" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okayAction = [UIAlertAction actionWithTitle:@"好的～" style:UIAlertActionStyleDefault handler:nil];
-        [alertController addAction:okayAction];
-        [self presentViewController:alertController animated:YES completion:nil];
-    }
-    else {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            self.getThreadListBlock(1);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView.mj_header endRefreshing];
-            });
-        });
-    }
-}
-
-- (void) loadNextPage {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self readyForNextPage];
-        self.getMoreListBlock(self.currentPage);
-        dispatch_async(dispatch_get_main_queue(), ^{
+- (void) viewWillDisappear:(BOOL)animated {
+    if([self.navigationController.viewControllers indexOfObject:self] == NSNotFound) {
+        if(self.tableView.mj_header.isRefreshing) {
+            [self.tableView.mj_header endRefreshing];
+        }
+        if(self.tableView.mj_footer.isRefreshing) {
             [self.tableView.mj_footer endRefreshing];
-        });
-    });
-}
-
-// TODO:需要知道当前帖子的最大页数是多少
-- (void)readyForNextPage {
-    self.currentPage = self.currentPage + 1;
-}
-- (void) configureRefresh {
-    __weak typeof(self) wself = self;
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadCurrentPage)];
-    [self.tableView.mj_header setEndRefreshingCompletionBlock:^{
-        [wself.tableView reloadData];
-    }];
-    ((MJRefreshNormalHeader *)self.tableView.mj_header).lastUpdatedTimeLabel.hidden = YES;
-    [((MJRefreshNormalHeader *)self.tableView.mj_header) setTitle:@"下拉刷新" forState:MJRefreshStateIdle];
-    [((MJRefreshNormalHeader *)self.tableView.mj_header) setTitle:@"正在加载..." forState:MJRefreshStateRefreshing];
-    [((MJRefreshNormalHeader *)self.tableView.mj_header) setTitle:@"释放以加载" forState:MJRefreshStatePulling];
-    
-    if (self.needToGetMore) {
-        self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadNextPage)];
-        [self.tableView.mj_footer setEndRefreshingCompletionBlock:^{
-            [wself.tableView reloadData];
-        }];
-        
-        [((MJRefreshAutoNormalFooter *)self.tableView.mj_footer) setTitle:@"点击或上拉以加载更多" forState:MJRefreshStateIdle];
-        [((MJRefreshAutoNormalFooter *)self.tableView.mj_footer) setTitle:@"正在加载..." forState:MJRefreshStateRefreshing];
-        [((MJRefreshAutoNormalFooter *)self.tableView.mj_footer) setTitle:@"没有更多数据啦..." forState:MJRefreshStateNoMoreData];
+        }
     }
+    [super viewWillDisappear:animated];
 }
 
+
+#pragma mark - Configurations
 
 - (void) configureBlocks {
     //@weakify(self);
@@ -125,9 +87,64 @@ NSString *kShowThreadDetail = @"showThreadDetail";
     }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void) configureRefresh {
+    __weak typeof(self) wself = self;
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadCurrentPage)];
+    [self.tableView.mj_header setEndRefreshingCompletionBlock:^{
+        [wself.tableView reloadData];
+    }];
+    ((MJRefreshNormalHeader *)self.tableView.mj_header).lastUpdatedTimeLabel.hidden = YES;
+    [((MJRefreshNormalHeader *)self.tableView.mj_header) setTitle:@"下拉刷新" forState:MJRefreshStateIdle];
+    [((MJRefreshNormalHeader *)self.tableView.mj_header) setTitle:@"正在加载..." forState:MJRefreshStateRefreshing];
+    [((MJRefreshNormalHeader *)self.tableView.mj_header) setTitle:@"释放以加载" forState:MJRefreshStatePulling];
+    [((MJRefreshNormalHeader *)self.tableView.mj_header).stateLabel setTextColor:[UIColor darkGrayColor]];
+    
+    if (self.needToGetMore) {
+        self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadNextPage)];
+        [self.tableView.mj_footer setEndRefreshingCompletionBlock:^{
+            [wself.tableView reloadData];
+        }];
+        
+        [((MJRefreshAutoNormalFooter *)self.tableView.mj_footer) setTitle:@"点击或上拉以加载更多" forState:MJRefreshStateIdle];
+        [((MJRefreshAutoNormalFooter *)self.tableView.mj_footer) setTitle:@"正在加载..." forState:MJRefreshStateRefreshing];
+        [((MJRefreshAutoNormalFooter *)self.tableView.mj_footer) setTitle:@"没有更多数据啦..." forState:MJRefreshStateNoMoreData];
+        [((MJRefreshAutoNormalFooter *)self.tableView.mj_footer).stateLabel setTextColor:[UIColor darkGrayColor]];
+    }
+}
+
+#pragma mark - Helper Methods
+
+- (void) loadCurrentPage {
+    if(! [[AFNetworkReachabilityManager sharedManager] isReachable]) {
+        [self.tableView.mj_header endRefreshing];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"哎呀，似乎丢失了网络连接～" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okayAction = [UIAlertAction actionWithTitle:@"好的～" style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction:okayAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+    else {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            self.getThreadListBlock(1);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView.mj_header endRefreshing];
+            });
+        });
+    }
+}
+
+- (void) loadNextPage {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self readyForNextPage];
+        self.getMoreListBlock(self.currentPage);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView.mj_footer endRefreshing];
+        });
+    });
+}
+
+// TODO:需要知道当前帖子的最大页数是多少
+- (void)readyForNextPage {
+    self.currentPage = self.currentPage + 1;
 }
 
 #pragma mark - Table view data source

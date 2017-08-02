@@ -7,15 +7,23 @@
 //
 
 #import "ReplyViewController.h"
-@interface ReplyViewController () <UITextFieldDelegate>
+#import "RSEmotionInputView.h"
+@interface ReplyViewController () <UITextFieldDelegate,RSEmotionInputViewDelegate>
 @property (nonatomic,strong) UIBarButtonItem *publishBarButtonItem;
 @property (nonatomic,strong) UIBarButtonItem *cancelBarButtonItem;
+@property (nonatomic,strong) RSEmotionInputView *inputView;
+@property (nonatomic,strong) NSMutableArray *addedEmojiTexts;
+@property (nonatomic,assign) BOOL isInputingEmotion;
+@property (nonatomic,strong) UIToolbar *toolBar;
 @end
 
 @implementation ReplyViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.isInputingEmotion = false;
+    self.inputView = [[RSEmotionInputView alloc] initWithTextField:self.replyTextField delegate:self];
+    
     self.replyTextField.delegate = self;
     [self.replyTextField becomeFirstResponder];
 }
@@ -44,19 +52,20 @@
 
 
 - (void) configureKeyboard {
-    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 30)];
-    toolbar.barStyle = UIBarStyleDefault;
+    self.toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 30)];
+    self.toolBar.barStyle = UIBarStyleDefault;
     UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelItemClicked)];
     UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    UIBarButtonItem *emotionItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"happy"] style:UIBarButtonItemStylePlain target:self action:@selector(emotionItemClicked)];
+    UIBarButtonItem *emotionItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"emotion"] style:UIBarButtonItemStylePlain target:self action:@selector(emotionItemClicked)];
     UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(doneItemClicked)];
-    toolbar.items = [NSArray arrayWithObjects:cancelItem,spaceItem,emotionItem,spaceItem,doneItem, nil];
-    [toolbar sizeToFit];
-    self.replyTextField.inputAccessoryView = toolbar;
+    self.toolBar.items = [NSArray arrayWithObjects:cancelItem,spaceItem,emotionItem,spaceItem,doneItem, nil];
+    [self.toolBar sizeToFit];
+    self.replyTextField.inputAccessoryView = self.toolBar;
 }
 
 - (void) cancelItemClicked {
-    
+    [self.replyTextField resignFirstResponder];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void) doneItemClicked {
@@ -64,8 +73,34 @@
 }
 
 - (void) emotionItemClicked {
-    
+    self.isInputingEmotion = !self.isInputingEmotion;
+    UIBarButtonItem *thisEmotionButton = [self.toolBar.items objectAtIndex:2];
+    if(self.isInputingEmotion == YES) {
+        thisEmotionButton.image = [UIImage imageNamed:@"keyboard"];
+        [self.replyTextField resignFirstResponder];
+        self.replyTextField.inputView = self.inputView;
+        [self.replyTextField becomeFirstResponder];
+    } else {
+        thisEmotionButton.image = [UIImage imageNamed:@"emotion"];
+        [self.replyTextField resignFirstResponder];
+        self.replyTextField.inputView = nil;
+        //[self.replyTextField reloadInputViews];
+        [self.replyTextField becomeFirstResponder];
+    }
 }
+
+
+- (void) emojiInputView:(RSEmotionInputView *)emojiInputView didSelectEmoji:(NSString *)emojiString {
+    [self.addedEmojiTexts addObject:emojiString];
+    self.replyTextField.text = [self.replyTextField.text stringByAppendingString:emojiString];
+}
+
+- (void) emojiInputView:(RSEmotionInputView *)emojiInputView didPressDeleteButton:(UIButton *)deleteButton {
+    NSString *deletedString = [self.addedEmojiTexts lastObject];
+    [self.addedEmojiTexts removeLastObject];
+    self.replyTextField.text = [self.replyTextField.text substringWithRange:NSMakeRange(0, self.replyTextField.text.length - deletedString.length)];
+}
+
 
 - (void) takeActionBlock:(void (^)())block {
     block();

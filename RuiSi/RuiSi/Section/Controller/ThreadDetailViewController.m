@@ -14,7 +14,6 @@
 #import "DTTextAttachment.h"
 #import "ProfileViewController.h"
 #import "ReplyViewController.h"
-#import "RSPopUpInputView.h"
 static NSString *kThreadDetailDTCell = @"ThreadDetailDTCell";
 static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 
@@ -35,6 +34,8 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 
 @implementation ThreadDetailViewController
 
+
+#pragma mark - Lifecycle Methods
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -62,84 +63,19 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     [self reloadVisibleCells];
 }
 
-- (void) takeActionBlock:(void (^)())block {
-    block();
-}
-
-
-- (void) reloadVisibleCells {
-    NSArray *indexPaths = [self.tableView indexPathsForVisibleRows];
-    [self.tableView beginUpdates];
-    [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-    [self.tableView endUpdates];
-}
-
-
-
-- (void) favorThread {
-    [self takeActionBlock:^{
-       [[DataManager manager] favorThreadWithTid:self.thread.tid formhash:self.formhash success:^(NSString *message) {
-           NSLog(@"message is %@",message);
-           if ([message isEqualToString:kFavoriteIsSuccessful]) {
-               [SVProgressHUD showSuccessWithStatus:message];
-           } else {
-               [SVProgressHUD showErrorWithStatus:@"操作失败"];
-           }
-       } failure:^(NSError *error) {
-           ;
-       }];
-    }];
-}
-
-
-// TODO: 解决只看楼主模式下下拉刷新获得的仍是原始数据的问题
-- (void) creatorOnly {
-    [SVProgressHUD showSuccessWithStatus:@"只看楼主"];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        self.getCreatorOnlyDetailListBlock(1);
-        [self reloadVisibleCells];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
-    });
-}
-
-- (void) loadNextPage {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        if (self.currentPage < self.pageCount) {
-            [self readyForNextPage];
-            self.getMoreThreadDetailBlock(self.currentPage);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView.mj_footer endRefreshing];
-            });
-        } else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            });
+- (void) viewWillDisappear:(BOOL)animated {
+    if([self.navigationController.viewControllers indexOfObject:self] == NSNotFound) {
+        if(self.tableView.mj_header.isRefreshing) {
+            [self.tableView.mj_header endRefreshing];
         }
-    });
-}
-
-- (void) loadCurrentPage {
-    if(! [[AFNetworkReachabilityManager sharedManager] isReachable]) {
-        [self.tableView.mj_header endRefreshing];
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"哎呀，似乎丢失了网络连接～" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okayAction = [UIAlertAction actionWithTitle:@"好的～" style:UIAlertActionStyleDefault handler:nil];
-        [alertController addAction:okayAction];
-        [self presentViewController:alertController animated:YES completion:nil];
-    } else {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            self.getThreadDetailListBlock(1);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView.mj_header endRefreshing];
-            });
-        });
+        if(self.tableView.mj_footer.isRefreshing) {
+            [self.tableView.mj_footer endRefreshing];
+        }
     }
+    [super viewWillDisappear:animated];
 }
 
-- (void) readyForNextPage {
-    self.currentPage = self.currentPage + 1;
-}
+#pragma mark - Configurations
 
 - (void) configureRefresh {
     __weak typeof(self) wself = self;
@@ -148,6 +84,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     [((MJRefreshNormalHeader *)self.tableView.mj_header) setTitle:@"下拉刷新" forState:MJRefreshStateIdle];
     [((MJRefreshNormalHeader *)self.tableView.mj_header) setTitle:@"释放以加载" forState:MJRefreshStatePulling];
     [((MJRefreshNormalHeader *)self.tableView.mj_header) setTitle:@"正在加载..." forState:MJRefreshStateRefreshing];
+    [((MJRefreshNormalHeader *)self.tableView.mj_header).stateLabel setTextColor:[UIColor darkGrayColor]];
     [self.tableView.mj_header setEndRefreshingCompletionBlock:^{
         [wself.tableView reloadData];
     }];
@@ -214,6 +151,86 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
         }];
     };
 }
+
+#pragma mark - Helper Method
+- (void) takeActionBlock:(void (^)())block {
+    block();
+}
+
+
+- (void) reloadVisibleCells {
+    NSArray *indexPaths = [self.tableView indexPathsForVisibleRows];
+    [self.tableView beginUpdates];
+    [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView endUpdates];
+}
+
+
+- (void) favorThread {
+    [self takeActionBlock:^{
+        [[DataManager manager] favorThreadWithTid:self.thread.tid formhash:self.formhash success:^(NSString *message) {
+            NSLog(@"message is %@",message);
+            if ([message isEqualToString:kFavoriteIsSuccessful]) {
+                [SVProgressHUD showSuccessWithStatus:message];
+            } else {
+                [SVProgressHUD showErrorWithStatus:@"操作失败"];
+            }
+        } failure:^(NSError *error) {
+            ;
+        }];
+    }];
+}
+
+
+// TODO: 解决只看楼主模式下下拉刷新获得的仍是原始数据的问题
+- (void) creatorOnly {
+    [SVProgressHUD showSuccessWithStatus:@"只看楼主"];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        self.getCreatorOnlyDetailListBlock(1);
+        [self reloadVisibleCells];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    });
+}
+
+- (void) loadNextPage {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        if (self.currentPage < self.pageCount) {
+            [self readyForNextPage];
+            self.getMoreThreadDetailBlock(self.currentPage);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView.mj_footer endRefreshing];
+            });
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            });
+        }
+    });
+}
+
+- (void) loadCurrentPage {
+    if(! [[AFNetworkReachabilityManager sharedManager] isReachable]) {
+        [self.tableView.mj_header endRefreshing];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"哎呀，似乎丢失了网络连接～" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okayAction = [UIAlertAction actionWithTitle:@"好的～" style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction:okayAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+    } else {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            self.getThreadDetailListBlock(1);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView.mj_header endRefreshing];
+            });
+        });
+    }
+}
+
+- (void) readyForNextPage {
+    self.currentPage = self.currentPage + 1;
+}
+
 
 #pragma mark - Table view data source
 
