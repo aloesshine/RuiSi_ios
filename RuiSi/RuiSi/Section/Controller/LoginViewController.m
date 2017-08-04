@@ -33,6 +33,12 @@
 
 - (IBAction)back:(UIButton *)sender
 {
+    if([self.usernameField isFirstResponder]) {
+        [self.usernameField resignFirstResponder];
+    }
+    if([self.passwordField isFirstResponder]) {
+        [self.passwordField resignFirstResponder];
+    }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

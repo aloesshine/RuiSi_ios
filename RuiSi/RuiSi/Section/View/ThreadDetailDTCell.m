@@ -121,12 +121,12 @@ static CGFloat const kAvatarHeight = 32.0f;
     _detail = threadDetail;
     [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:self.detail.threadCreator.memberAvatarSmall] placeholderImage:[UIImage imageNamed:@"default_avatar_small"]];
     [self.nameLabel setText:threadDetail.threadCreator.memberName];
-    [self.nameLabel sizeToFit];
     [self.timeLabel setText:threadDetail.createTime];
+    [self.nameLabel sizeToFit];
     [self.timeLabel sizeToFit];
+    
+    
     [self setHTMLString:threadDetail.content];
-    self.attributedTextContentView.shouldDrawLinks = YES;
-    self.attributedTextContentView.shouldDrawImages = YES;
     [self setNeedsLayout];
 }
 
@@ -233,7 +233,7 @@ static CGFloat const kAvatarHeight = 32.0f;
     return neededSize.height + 45;
 }
 
-#pragma mark Properties
+#pragma mark Setters
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
@@ -291,6 +291,7 @@ static CGFloat const kAvatarHeight = 32.0f;
         _attributedTextContentView.edgeInsets = UIEdgeInsetsMake(5, 5, 5, 2);
         _attributedTextContentView.layoutFrameHeightIsConstrainedByBounds = _hasFixedRowHeight;
         _attributedTextContentView.delegate = _textDelegate;
+        _attributedTextContentView.shouldDrawLinks = YES;
         _attributedTextContentView.shouldDrawImages = YES;
         [self.contentView addSubview:_attributedTextContentView];
     }
@@ -320,8 +321,15 @@ static CGFloat const kAvatarHeight = 32.0f;
         imageView.delegate = self;
         imageView.image = [(DTImageTextAttachment *)attachment image];
         imageView.url = attachment.contentURL;
+        if(attachment.hyperLinkURL) {
+//            imageView.userInteractionEnabled = YES;
+//            DTLinkButton *button = [[DTLinkButton alloc] initWithFrame:imageView.bounds];
+//            button.URL = attachment.hyperLinkURL;
+//            button.minimumHitSize = CGSizeMake(25, 25);
+//            button.GUID = attachment.hyperLinkGUID;
+//            [button addTarget:self action:@selector(linkPushed:) forControlEvents:UIControlEventTouchUpInside];
+        }
         imageView.contentMode = UIViewContentModeScaleAspectFit;
-        self.attributedTextContentView.layouter = nil;
         return imageView;
     }
     return nil;
@@ -355,17 +363,29 @@ static CGFloat const kAvatarHeight = 32.0f;
     [[UIApplication sharedApplication] openURL:sender.URL];
 }
 
+
+
+#pragma mark - DTLazyImageViewDelegate
+
 - (void)lazyImageView:(DTLazyImageView *)lazyImageView didChangeImageSize:(CGSize)size {
     NSURL *url = lazyImageView.url;
     CGSize imageSize = size;
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"contentURL == %@",url];
+    BOOL didUpdate = NO;
+    
     for (DTTextAttachment *oneAttachment in [self.attributedTextContentView.layoutFrame textAttachmentsWithPredicate:pred]) {
-        oneAttachment.originalSize = imageSize;
+        //oneAttachment.originalSize = imageSize;
         if ( CGSizeEqualToSize(oneAttachment.originalSize , CGSizeZero)) {
             oneAttachment.originalSize = imageSize;
+            oneAttachment.displaySize = imageSize;
+            didUpdate = YES;
         }
     }
-    [self.attributedTextContentView relayoutText];
+    if(didUpdate) {
+        self.attributedTextContentView.layouter = nil;
+        [self.attributedTextContentView relayoutText];
+    }
+    
 }
 
 

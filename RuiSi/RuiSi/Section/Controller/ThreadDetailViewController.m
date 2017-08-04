@@ -232,7 +232,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 }
 
 
-#pragma mark - Table view data source
+#pragma mark - TableviewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
