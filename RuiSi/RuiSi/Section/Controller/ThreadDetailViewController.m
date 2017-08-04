@@ -14,10 +14,11 @@
 #import "DTTextAttachment.h"
 #import "ProfileViewController.h"
 #import "ReplyViewController.h"
+#import <SafariServices/SafariServices.h>
 static NSString *kThreadDetailDTCell = @"ThreadDetailDTCell";
 static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 
-@interface ThreadDetailViewController () <ReplyViewControllerDelegate>
+@interface ThreadDetailViewController () <ReplyViewControllerDelegate,ThreadDetailCellProtocol,SFSafariViewControllerDelegate>
 @property (nonatomic,strong) ThreadDetailList *detailList;
 @property (nonatomic,copy) NSURLSessionDataTask* (^getThreadDetailListBlock)(NSInteger page);
 @property (nonatomic,copy) NSURLSessionDataTask* (^getMoreThreadDetailBlock)(NSInteger page);
@@ -334,6 +335,17 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+#pragma mark - ThreadDetailCellDelegate
+- (void)WillOpenInSafariViewControllerWithURL:(NSURL *)url {
+    SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:url];
+    safari.delegate = self;
+    [self presentViewController:safari animated:YES completion:nil];
+}
+
+#pragma mark - SFSafariViewControllDelegate
+- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
+    [controller dismissViewControllerAnimated:YES completion:nil];
+}
 
 #pragma mark - ReplyViewControllerDelegate
 - (void)replyViewControllerDidCancel:(ReplyViewController *)replyViewController {

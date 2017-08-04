@@ -11,13 +11,23 @@
 #import "DTAttributedTextContentView.h"
 #import "DTLazyImageView.h"
 #import <DTFoundation/DTWeakSupport.h>
+
+
+@protocol ThreadDetailCellProtocol <NSObject>
+
+- (void) WillOpenInSafariViewControllerWithURL:(NSURL *)url;
+
+@end
+
+
+
 @interface ThreadDetailDTCell : UITableViewCell <DTAttributedTextContentViewDelegate,DTLazyImageViewDelegate>
 @property (nonatomic,strong) ThreadDetail *detail;
 @property (nonatomic,strong) UINavigationController *navi;
 @property (nonatomic,strong) UILabel *nameLabel;
 @property (nonatomic,strong) UILabel *timeLabel;
 @property (nonatomic,strong) UIImageView *avatarImageView;
-
+@property (nonatomic,weak) id<ThreadDetailCellProtocol> delegate;
 @property (nonatomic,strong) NSAttributedString *attributedString;
 @property (nonatomic,assign) BOOL hasFixedRowHeight;
 @property (nonatomic,DT_WEAK_PROPERTY) id<DTAttributedTextContentViewDelegate> textDelegate;

@@ -20,6 +20,7 @@
 #import "DTLazyImageView.h"
 #import "ProfileViewController.h"
 
+
 static CGFloat const kAvatarHeight = 32.0f;
 
 @implementation ThreadDetailDTCell
@@ -360,10 +361,10 @@ static CGFloat const kAvatarHeight = 32.0f;
 }
 
 - (void) openUrlInSafari:(DTLinkButton *)sender {
-    [[UIApplication sharedApplication] openURL:sender.URL];
+    if(sender.URL) {
+        [self.delegate WillOpenInSafariViewControllerWithURL:sender.URL];
+    }
 }
-
-
 
 #pragma mark - DTLazyImageViewDelegate
 
