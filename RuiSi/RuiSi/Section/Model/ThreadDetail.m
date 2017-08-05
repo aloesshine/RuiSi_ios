@@ -102,13 +102,17 @@
     NSString *pageCount = [[NSString alloc] init];
     @autoreleasepool {
         NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        OCGumboDocument *document = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
-        if ([document.Query(@"body").find(@".page") count] > 0) {
-            OCQueryObject *elements = document.Query(@"body").find(@".page").first().Query(@"option");
-            pageCount = [NSString stringWithFormat:@"%lu",(unsigned long)elements.count];
+        NSError *error = nil;
+        NSRegularExpression *regular = [NSRegularExpression regularExpressionWithPattern:@"page=[0-9]{1,}" options:NSRegularExpressionCaseInsensitive error:&error];
+        NSArray *matches = [regular matchesInString:htmlString options:0 range:NSMakeRange(0, htmlString.length)];
+        if(matches) {
+            NSTextCheckingResult *match = [matches objectAtIndex:matches.count-2];
+            NSRange range = NSMakeRange([match range].location+5, [match range].length-5);
+            pageCount = [htmlString substringWithRange:range];
         } else {
             pageCount = @"1";
         }
+        
     }
     return pageCount;
 }
