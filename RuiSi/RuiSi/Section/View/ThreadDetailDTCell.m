@@ -118,6 +118,12 @@ static CGFloat const kAvatarHeight = 32.0f;
     return nil;
 }
 
+- (NSMutableArray *)photoURLs {
+    _photoURLs = [[NSMutableArray alloc] init];
+    return _photoURLs;
+}
+
+
 - (void) setDetail:(ThreadDetail *)threadDetail {
     _detail = threadDetail;
     [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:self.detail.threadCreator.memberAvatarSmall] placeholderImage:[UIImage imageNamed:@"default_avatar_small"]];
@@ -322,18 +328,27 @@ static CGFloat const kAvatarHeight = 32.0f;
         imageView.delegate = self;
         imageView.image = [(DTImageTextAttachment *)attachment image];
         imageView.url = attachment.contentURL;
+        NSURL *url = attachment.contentURL;
+        [self.photoURLs addObject:url];
         if(attachment.hyperLinkURL) {
-//            imageView.userInteractionEnabled = YES;
-//            DTLinkButton *button = [[DTLinkButton alloc] initWithFrame:imageView.bounds];
-//            button.URL = attachment.hyperLinkURL;
-//            button.minimumHitSize = CGSizeMake(25, 25);
-//            button.GUID = attachment.hyperLinkGUID;
-//            [button addTarget:self action:@selector(linkPushed:) forControlEvents:UIControlEventTouchUpInside];
+            imageView.userInteractionEnabled = YES;
+            DTLinkButton *button = [[DTLinkButton alloc] initWithFrame:imageView.bounds];
+            button.URL = attachment.hyperLinkURL;
+            button.minimumHitSize = CGSizeMake(25, 25);
+            //button.GUID = attachment.hyperLinkGUID;
+            [button addTarget:self action:@selector(linkPushed:) forControlEvents:UIControlEventTouchUpInside];
         }
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         return imageView;
     }
     return nil;
+}
+
+
+- (void) linkPushed: (UIButton *)sender {
+    self.photoBrowser = [[IDMPhotoBrowser alloc] initWithPhotos:self.photoURLs animatedFromView:sender];
+    UITableViewController *tableViewController = (UITableViewController *)_containingTableView.dataSource;
+    [tableViewController presentViewController:self.photoBrowser animated:YES completion:nil];
 }
 
 - (UIView *) attributedTextContentView:(DTAttributedTextContentView *)attributedTextContentView viewForLink:(NSURL *)url identifier:(NSString *)identifier frame:(CGRect)frame {
@@ -396,5 +411,4 @@ static CGFloat const kAvatarHeight = 32.0f;
 @synthesize nameLabel;
 @synthesize timeLabel;
 @synthesize avatarImageView;
-
 @end

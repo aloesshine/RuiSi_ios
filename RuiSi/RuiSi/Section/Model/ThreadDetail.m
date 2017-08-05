@@ -112,7 +112,6 @@
         } else {
             pageCount = @"1";
         }
-        
     }
     return pageCount;
 }

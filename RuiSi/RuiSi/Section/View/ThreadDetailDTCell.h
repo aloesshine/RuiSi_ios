@@ -11,7 +11,7 @@
 #import "DTAttributedTextContentView.h"
 #import "DTLazyImageView.h"
 #import <DTFoundation/DTWeakSupport.h>
-
+#import "IDMPhotoBrowser.h"
 
 @protocol ThreadDetailCellProtocol <NSObject>
 
@@ -32,7 +32,8 @@
 @property (nonatomic,assign) BOOL hasFixedRowHeight;
 @property (nonatomic,DT_WEAK_PROPERTY) id<DTAttributedTextContentViewDelegate> textDelegate;
 @property (nonatomic,readonly) DTAttributedTextContentView *attributedTextContentView;
-
+@property (nonatomic,strong) IDMPhotoBrowser *photoBrowser;
+@property (nonatomic,copy) NSMutableArray *photoURLs;
 
 - (id) initWithReuseIdentifier:(NSString *)reuseIdentifier accessoryType:(UITableViewCellAccessoryType)accessoryType;
 - (void) setHTMLString:(NSString *)html;

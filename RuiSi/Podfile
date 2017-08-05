@@ -11,4 +11,5 @@ target 'RuiSi' do
 	pod 'Objective-C-HMTL-Parser'
     pod 'Masonry'
     pod 'PureLayout'
+    pod 'IDMPhotoBrowser'
 end
