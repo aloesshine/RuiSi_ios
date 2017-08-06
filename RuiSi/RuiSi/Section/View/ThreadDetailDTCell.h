@@ -17,7 +17,7 @@
 @protocol ThreadDetailCellProtocol <NSObject>
 - (void) willOpenInSafariViewControllerWithURL:(NSURL *)url;
 @optional
-- (void) didClickInCell:(ThreadDetailDTCell *) threadCell withView:(UIView *)view;
+- (void) didClickImageView:(UIImageView *)imageView ofIndex:(NSUInteger) index inCell:(ThreadDetailDTCell *)cell;
 @end
 
 
@@ -33,7 +33,7 @@
 @property (nonatomic,assign) BOOL hasFixedRowHeight;
 @property (nonatomic,DT_WEAK_PROPERTY) id<DTAttributedTextContentViewDelegate> textDelegate;
 @property (nonatomic,readonly) DTAttributedTextContentView *attributedTextContentView;
-@property (nonatomic,copy) NSMutableArray *photos;
+@property (nonatomic,copy) NSMutableArray *photoURLs;
 
 - (id) initWithReuseIdentifier:(NSString *)reuseIdentifier accessoryType:(UITableViewCellAccessoryType)accessoryType;
 - (void) setHTMLString:(NSString *)html;

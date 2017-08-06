@@ -23,6 +23,10 @@
 
 static CGFloat const kAvatarHeight = 32.0f;
 
+@interface ThreadDetailDTCell ()
+@property (nonatomic,strong) NSMutableDictionary *dict;
+@end
+
 @implementation ThreadDetailDTCell
 {
     //DTAttributedTextContentView * _attributedTextContextView;
@@ -119,14 +123,19 @@ static CGFloat const kAvatarHeight = 32.0f;
     return nil;
 }
 
-- (NSMutableArray *)photos {
-    if(_photos == nil) {
-        _photos = [[NSMutableArray alloc] init];
+- (NSMutableArray *)photoURLs {
+    if(_photoURLs == nil) {
+        _photoURLs = [[NSMutableArray alloc] init];
     }
-    return _photos;
+    return _photoURLs;
 }
 
-
+- (NSMutableDictionary *)dict {
+    if (_dict == nil) {
+        _dict = [[NSMutableDictionary alloc] init];
+    }
+    return _dict;
+}
 - (void) setDetail:(ThreadDetail *)threadDetail {
     _detail = threadDetail;
     [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:self.detail.threadCreator.memberAvatarSmall] placeholderImage:[UIImage imageNamed:@"default_avatar_small"]];
@@ -326,24 +335,26 @@ static CGFloat const kAvatarHeight = 32.0f;
 }
 
 - (UIView *)attributedTextContentView:(DTAttributedTextContentView *)attributedTextContentView viewForAttachment:(DTTextAttachment *)attachment frame:(CGRect)frame {
+    static NSUInteger index = 0;
     if ([attachment isKindOfClass:[DTImageTextAttachment class]]) {
         DTLazyImageView *imageView = [[DTLazyImageView alloc] initWithFrame:frame];
         imageView.delegate = self;
         imageView.image = [(DTImageTextAttachment *)attachment image];
         imageView.url = attachment.contentURL;
-        if(attachment.contentURL) {
-            imageView.url = attachment.contentURL;
-            IDMPhoto *photo = [[IDMPhoto alloc] initWithURL:attachment.contentURL];
-            [self.photos addObject:photo];
-        }
-        if(attachment.hyperLinkURL) {
-            imageView.userInteractionEnabled = YES;
-            [imageView bk_whenTapped:^{
-                NSLog(@"imageView was touched");
-                if([_delegate respondsToSelector:@selector(didClickInCell:withView:)]) {
-                    [_delegate didClickInCell:self withView:imageView];
-                }
-            }];
+        
+        if([attachment.attributes valueForKey:@"smilieid"]) {
+        } else {
+            if(attachment.hyperLinkURL) {
+                [self.photoURLs addObject:attachment.contentURL];
+                imageView.userInteractionEnabled = YES;
+                [self.dict setObject:[NSNumber numberWithUnsignedInteger:index] forKey:attachment.contentURL.absoluteString];
+                [imageView bk_whenTapped:^{
+                    if([_delegate respondsToSelector:@selector(didClickImageView:ofIndex:inCell:)]) {
+                        [_delegate didClickImageView:imageView ofIndex:[[self.dict objectForKey:attachment.contentURL.absoluteString] unsignedIntegerValue] inCell:self];
+                    }
+                }];
+                index = index+1;
+            }
         }
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         return imageView;
@@ -379,7 +390,9 @@ static CGFloat const kAvatarHeight = 32.0f;
 
 - (void) openUrlInSafari:(DTLinkButton *)sender {
     if(sender.URL) {
-        [self.delegate willOpenInSafariViewControllerWithURL:sender.URL];
+        if([self.delegate respondsToSelector:@selector(willOpenInSafariViewControllerWithURL:)]) {
+            [self.delegate willOpenInSafariViewControllerWithURL:sender.URL];
+        }
     }
 }
 

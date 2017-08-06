@@ -338,16 +338,25 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 }
 
 #pragma mark - ThreadDetailCellDelegate
-- (void)WillOpenInSafariViewControllerWithURL:(NSURL *)url {
+- (void)willOpenInSafariViewControllerWithURL:(NSURL *)url {
     SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:url];
     safari.delegate = self;
     [self presentViewController:safari animated:YES completion:nil];
 }
 
-
-- (void)didClickInCell:(ThreadDetailDTCell *)threadCell withView:(UIView *)view {
-    IDMPhotoBrowser *photoBrowser = [[IDMPhotoBrowser alloc] initWithPhotos:threadCell.photos animatedFromView:view];
-    photoBrowser.scaleImage = ((UIImageView *)view).image;
+- (void)didClickImageView:(UIImageView *)imageView ofIndex:(NSUInteger)index inCell:(ThreadDetailDTCell *)cell {
+    //    NSMutableArray *scaledPhotoURLs = [[NSMutableArray alloc] init];
+    //    for(NSURL *url in threadCell.photoURLs) {
+    //        NSString *urlString = url.absoluteString;
+    //        NSRange range1 = [urlString rangeOfString:@"size="];
+    //        NSRange range2 = [urlString rangeOfString:@"&key="];
+    //        NSRange range = NSMakeRange(range1.location+range1.length, range2.location-range1.location-range1.length);
+    //        NSString *newString = [urlString stringByReplacingCharactersInRange:range withString:@"2000x550"];
+    //        NSURL *newURL = [NSURL URLWithString:newString];
+    //        [scaledPhotoURLs addObject:newURL];
+    //    }
+    IDMPhotoBrowser *photoBrowser = [[IDMPhotoBrowser alloc] initWithPhotoURLs:cell.photoURLs animatedFromView:imageView];
+    [photoBrowser setInitialPageIndex:index];
     photoBrowser.dismissOnTouch = YES;
     [self presentViewController:photoBrowser animated:YES completion:nil];
 }
