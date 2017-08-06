@@ -72,6 +72,7 @@ static CGFloat const kAvatarHeight = 32.0f;
 {
     _textDelegate = nil;
     _containingTableView = nil;
+    _delegate = nil;
 }
 
 - (void)layoutSubviews
@@ -118,9 +119,11 @@ static CGFloat const kAvatarHeight = 32.0f;
     return nil;
 }
 
-- (NSMutableArray *)photoURLs {
-    _photoURLs = [[NSMutableArray alloc] init];
-    return _photoURLs;
+- (NSMutableArray *)photos {
+    if(_photos == nil) {
+        _photos = [[NSMutableArray alloc] init];
+    }
+    return _photos;
 }
 
 
@@ -328,15 +331,19 @@ static CGFloat const kAvatarHeight = 32.0f;
         imageView.delegate = self;
         imageView.image = [(DTImageTextAttachment *)attachment image];
         imageView.url = attachment.contentURL;
-        NSURL *url = attachment.contentURL;
-        [self.photoURLs addObject:url];
+        if(attachment.contentURL) {
+            imageView.url = attachment.contentURL;
+            IDMPhoto *photo = [[IDMPhoto alloc] initWithURL:attachment.contentURL];
+            [self.photos addObject:photo];
+        }
         if(attachment.hyperLinkURL) {
             imageView.userInteractionEnabled = YES;
-            DTLinkButton *button = [[DTLinkButton alloc] initWithFrame:imageView.bounds];
-            button.URL = attachment.hyperLinkURL;
-            button.minimumHitSize = CGSizeMake(25, 25);
-            //button.GUID = attachment.hyperLinkGUID;
-            [button addTarget:self action:@selector(linkPushed:) forControlEvents:UIControlEventTouchUpInside];
+            [imageView bk_whenTapped:^{
+                NSLog(@"imageView was touched");
+                if([_delegate respondsToSelector:@selector(didClickInCell:withView:)]) {
+                    [_delegate didClickInCell:self withView:imageView];
+                }
+            }];
         }
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         return imageView;
@@ -345,11 +352,6 @@ static CGFloat const kAvatarHeight = 32.0f;
 }
 
 
-- (void) linkPushed: (UIButton *)sender {
-    self.photoBrowser = [[IDMPhotoBrowser alloc] initWithPhotos:self.photoURLs animatedFromView:sender];
-    UITableViewController *tableViewController = (UITableViewController *)_containingTableView.dataSource;
-    [tableViewController presentViewController:self.photoBrowser animated:YES completion:nil];
-}
 
 - (UIView *) attributedTextContentView:(DTAttributedTextContentView *)attributedTextContentView viewForLink:(NSURL *)url identifier:(NSString *)identifier frame:(CGRect)frame {
     NSString *urlString = url.absoluteString;
@@ -377,7 +379,7 @@ static CGFloat const kAvatarHeight = 32.0f;
 
 - (void) openUrlInSafari:(DTLinkButton *)sender {
     if(sender.URL) {
-        [self.delegate WillOpenInSafariViewControllerWithURL:sender.URL];
+        [self.delegate willOpenInSafariViewControllerWithURL:sender.URL];
     }
 }
 
@@ -388,9 +390,7 @@ static CGFloat const kAvatarHeight = 32.0f;
     CGSize imageSize = size;
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"contentURL == %@",url];
     BOOL didUpdate = NO;
-    
     for (DTTextAttachment *oneAttachment in [self.attributedTextContentView.layoutFrame textAttachmentsWithPredicate:pred]) {
-        //oneAttachment.originalSize = imageSize;
         if ( CGSizeEqualToSize(oneAttachment.originalSize , CGSizeZero)) {
             oneAttachment.originalSize = imageSize;
             oneAttachment.displaySize = imageSize;
@@ -403,8 +403,6 @@ static CGFloat const kAvatarHeight = 32.0f;
     }
     
 }
-
-
 @synthesize attributedTextContentView = _attributedTextContentView;
 @synthesize hasFixedRowHeight = _hasFixedRowHeight;
 @synthesize textDelegate = _textDelegate;

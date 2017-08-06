@@ -196,7 +196,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 }
 
 - (void) loadNextPage {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         if (self.currentPage < self.pageCount) {
             [self readyForNextPage];
             self.getMoreThreadDetailBlock(self.currentPage);
@@ -219,7 +219,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
         [alertController addAction:okayAction];
         [self presentViewController:alertController animated:YES completion:nil];
     } else {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             self.getThreadDetailListBlock(1);
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView.mj_header endRefreshing];
@@ -260,6 +260,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
         return titleCell;
     } else if (indexPath.section == 1) {
         ThreadDetailDTCell *cell = [self tableView:tableView preparedCellForIndexPath:indexPath];
+        cell.userInteractionEnabled = YES;
         return cell;
     }
     return [UITableViewCell new];
@@ -286,6 +287,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     ThreadDetailDTCell *cell = [_cellCache objectForKey:key];
     if (! cell) {
         cell = [[ThreadDetailDTCell alloc] initWithReuseIdentifier:kThreadDetailDTCell accessoryType:UITableViewCellAccessoryNone];
+        cell.delegate = self;
         [_cellCache setObject:cell forKey:key];
     }
     ThreadDetail *detail = self.detailList.list[indexPath.row];
@@ -342,10 +344,21 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     [self presentViewController:safari animated:YES completion:nil];
 }
 
+
+- (void)didClickInCell:(ThreadDetailDTCell *)threadCell withView:(UIView *)view {
+    IDMPhotoBrowser *photoBrowser = [[IDMPhotoBrowser alloc] initWithPhotos:threadCell.photos animatedFromView:view];
+    photoBrowser.scaleImage = ((UIImageView *)view).image;
+    photoBrowser.dismissOnTouch = YES;
+    [self presentViewController:photoBrowser animated:YES completion:nil];
+}
+
+
 #pragma mark - SFSafariViewControllDelegate
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
     [controller dismissViewControllerAnimated:YES completion:nil];
 }
+
+
 
 #pragma mark - ReplyViewControllerDelegate
 - (void)replyViewControllerDidCancel:(ReplyViewController *)replyViewController {

@@ -13,10 +13,11 @@
 #import <DTFoundation/DTWeakSupport.h>
 #import "IDMPhotoBrowser.h"
 
+@class ThreadDetailDTCell;
 @protocol ThreadDetailCellProtocol <NSObject>
-
-- (void) WillOpenInSafariViewControllerWithURL:(NSURL *)url;
-
+- (void) willOpenInSafariViewControllerWithURL:(NSURL *)url;
+@optional
+- (void) didClickInCell:(ThreadDetailDTCell *) threadCell withView:(UIView *)view;
 @end
 
 
@@ -32,8 +33,7 @@
 @property (nonatomic,assign) BOOL hasFixedRowHeight;
 @property (nonatomic,DT_WEAK_PROPERTY) id<DTAttributedTextContentViewDelegate> textDelegate;
 @property (nonatomic,readonly) DTAttributedTextContentView *attributedTextContentView;
-@property (nonatomic,strong) IDMPhotoBrowser *photoBrowser;
-@property (nonatomic,copy) NSMutableArray *photoURLs;
+@property (nonatomic,copy) NSMutableArray *photos;
 
 - (id) initWithReuseIdentifier:(NSString *)reuseIdentifier accessoryType:(UITableViewCellAccessoryType)accessoryType;
 - (void) setHTMLString:(NSString *)html;
