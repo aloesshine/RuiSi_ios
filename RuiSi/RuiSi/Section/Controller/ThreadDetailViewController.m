@@ -48,7 +48,9 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     [self.tableView registerClass:[ThreadDetailTitleCell class] forCellReuseIdentifier:kThreadDetailTitleCell];
     [self.tableView registerClass:[ThreadDetailDTCell class] forCellReuseIdentifier:kThreadDetailDTCell];
-    
+    self.tableView.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.tableView.bounds].CGPath;
+    self.tableView.layer.shouldRasterize = YES;
+    self.tableView.layer.rasterizationScale = [UIScreen mainScreen].scale;
     
     self.currentPage = 1;
     
@@ -153,7 +155,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     };
 }
 
-#pragma mark - Helper Method
+#pragma mark - Private Methods
 - (void) takeActionBlock:(void (^)())block {
     block();
 }
@@ -273,6 +275,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     }
     if (indexPath.section == 1) {
         ThreadDetailDTCell *cell = (ThreadDetailDTCell *)[self tableView:tableView preparedCellForIndexPath:indexPath];
+        [cell layoutIfNeeded];
         return [cell requiredRowHeightInTableView:tableView];
     }
     return 0;
@@ -367,8 +370,6 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
-
-
 #pragma mark - ReplyViewControllerDelegate
 - (void)replyViewControllerDidCancel:(ReplyViewController *)replyViewController {
     [replyViewController.replyTextField resignFirstResponder];
@@ -392,7 +393,6 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     [self.navigationController popViewControllerAnimated:YES];
     [SVProgressHUD showErrorWithStatus:@"请登陆后再试！"];
 }
-
 
 
 @end

@@ -19,7 +19,7 @@
 #import "UIImageView+WebCache.h"
 #import "DTLazyImageView.h"
 #import "ProfileViewController.h"
-
+#import "DTTiledLayerWithoutFade.h"
 
 static CGFloat const kAvatarHeight = 32.0f;
 
@@ -36,6 +36,7 @@ static CGFloat const kAvatarHeight = 32.0f;
     DT_WEAK_VARIABLE UITableView *_containingTableView;
 }
 - (id)initWithReuseIdentifier:(NSString *)reuseIdentifier accessoryType:(UITableViewCellAccessoryType)accessoryType {
+    [DTAttributedTextContentView setLayerClass:[DTTiledLayerWithoutFade class]];
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     if (self) {
         
@@ -264,8 +265,19 @@ static CGFloat const kAvatarHeight = 32.0f;
 - (void)setHTMLString:(NSString *)html
 {
     NSMutableDictionary *options = [[NSMutableDictionary alloc] init];
+    void (^callBackBlock)(DTHTMLElement *element) = ^(DTHTMLElement *element) {
+        for(DTHTMLElement *oneChildElement in element.childNodes) {
+            if(oneChildElement.displayStyle == DTHTMLElementDisplayStyleInline && oneChildElement.textAttachment.displaySize.height > 2.0 * oneChildElement.fontDescriptor.pointSize) {
+                oneChildElement.displayStyle = DTHTMLElementDisplayStyleBlock;
+                oneChildElement.paragraphStyle.minimumLineHeight = element.textAttachment.displaySize.height;
+                oneChildElement.paragraphStyle.maximumLineHeight = element.textAttachment.displaySize.height;
+            }
+        }
+    };
+    
     [options setObject:[NSNumber numberWithFloat:16.0] forKey:DTDefaultFontSize];
     [options setObject:[NSURL URLWithString:kPublicNetURL] forKey:NSBaseURLDocumentOption];
+    [options setObject:callBackBlock forKey:DTWillFlushBlockCallBack];
     [self setHTMLString:html options:options];
 }
 
@@ -279,6 +291,8 @@ static CGFloat const kAvatarHeight = 32.0f;
     }
     
     _htmlHash = newHash;
+    
+    
     
     NSData *data = [html dataUsingEncoding:NSUTF8StringEncoding];
     NSAttributedString *string = [[NSAttributedString alloc] initWithHTMLData:data options:options documentAttributes:NULL];
