@@ -10,7 +10,7 @@
 #define Constants_h
 
 //#define kPublicNetURL @"http://bbs.rs.xidian.me/"
-//#define kSchoolNetURL @"http://rs.xidian.edu.cn/"
+//#define kSchoolNetURL @"http://rsbbs.xidian.edu.cn/"
 #define kDevice_Is_iPhone4 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 960), [[UIScreen mainScreen] currentMode].size) : NO)
 #define kDevice_Is_iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
 #define kDevice_Is_iPhone6 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) : NO)
@@ -22,7 +22,7 @@
 
 static NSString * const kLoginSuccessNotification = @"LoginSuccessNotification";
 static NSString * const kLogoutSuccessNotification = @"LogoutSuccessNotification";
-static NSString * const kPublicNetURL = @"http://bbs.rs.xidian.me/";
+static NSString * const kPublicNetURL = @"http://rsbbs.xidian.edu.cn/";
 static NSString * const kSchoolNetURL = @"http://rs.xidian.edu.cn/";
 
 static NSString * const kFavoriteIsSuccessful = @"FavoriteIsSuccessful";

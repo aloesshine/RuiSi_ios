@@ -105,7 +105,10 @@
                                  parameters:(NSDictionary *)parameters
                                     success:(void (^)(NSURLSessionDataTask *task,id responseObject))success
                                     failure:(void (^)(NSError *error)) failure {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    });
+    //[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     void (^responseHandleBlock) (NSURLSessionDataTask *task, id responseObject) = ^(NSURLSessionDataTask *task, id responseObject){
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         success(task,responseObject);
