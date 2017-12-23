@@ -56,49 +56,39 @@ NSString *kshowThreadListSegue = @"showThreadList";
 
 - (void)setupArray {
     
-    if ([DataManager isUserLogined])
-    {
+    if ([DataManager isUserLogined]) {
         NSString *path = [[NSBundle mainBundle] pathForResource:@"sectionLogging" ofType:@"plist"];
-        _itemArray = [NSArray arrayWithContentsOfFile:path];
-        _sectionArray = @[@"西电生活",@"学术交流",@"休闲娱乐",@"社团风采专区",@"BT资源",@"站务管理"];
-    }
-    else
-    {
+        self.itemArray = [NSArray arrayWithContentsOfFile:path];
+        self.sectionArray = @[@"西电生活",@"学术交流",@"休闲娱乐",@"社团风采专区",@"BT资源",@"站务管理"];
+    } else {
         NSString *path = [[NSBundle mainBundle] pathForResource:@"sectionNotLogging" ofType:@"plist"];
-        _itemArray = [NSArray arrayWithContentsOfFile:path];
-        _sectionArray = @[@"西电生活",@"学术交流",@"休闲娱乐",@"社团风采专区",@"站务管理"];
-    
+        self.itemArray = [NSArray arrayWithContentsOfFile:path];
+        self.sectionArray = @[@"西电生活",@"学术交流",@"休闲娱乐",@"社团风采专区",@"站务管理"];
     
         NSMutableArray *countMutableArray = [[NSMutableArray alloc] init];
-        NSURL *url = [NSURL URLWithString:@"http://bbs.rs.xidian.me/forum.php?forumlist=1&mobile=2"];
+        NSString *urlString = [kPublicNetURL stringByAppendingString:@"/forum.php?forumlist=1&mobile=2"];
+        NSURL *url = [NSURL URLWithString:urlString];
         NSError *error = nil;
         NSString *html = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
         
-        if (error)
-        {
+        if (error) {
             NSLog(@"Error is %@",error);
             return;
         }
         HTMLParser *parser = [[HTMLParser alloc] initWithString:html error:&error];
-        if (error)
-        {
+        if (error) {
             NSLog(@"Error is %@",error);
         }
         HTMLNode *bodyNode = [parser body];
         NSArray *divNodes = [bodyNode findChildrenWithAttribute:@"class" matchingName:@"sub_forum bm_c" allowPartial:NO];
         
-        for(HTMLNode *divNode in divNodes)
-        {
+        for(HTMLNode *divNode in divNodes) {
             NSArray *listNodes = [divNode findChildTags:@"li"];
             NSMutableArray *numMutableArray = [[NSMutableArray alloc] init];
-            for (HTMLNode *listNode in listNodes)
-            {
-                if ( [listNode findChildTag:@"span"] == NULL)
-                {
+            for (HTMLNode *listNode in listNodes) {
+                if ( [listNode findChildTag:@"span"] == NULL) {
                     [numMutableArray addObject:@"0"];
-                }
-                else
-                {
+                } else {
                     HTMLNode *node = [listNode findChildTag:@"span"];
                     if ([[node getAttributeNamed:@"class"] isEqualToString:@"num"])
                     {
@@ -108,7 +98,7 @@ NSString *kshowThreadListSegue = @"showThreadList";
             }
             [countMutableArray addObject:numMutableArray];
         }
-        _countArray = [NSArray arrayWithArray:countMutableArray];
+        self.countArray = [countMutableArray copy];
     }
 }
 

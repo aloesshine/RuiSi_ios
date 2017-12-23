@@ -121,8 +121,7 @@ NSString *kShowThreadDetail = @"showThreadDetail";
         UIAlertAction *okayAction = [UIAlertAction actionWithTitle:@"好的～" style:UIAlertActionStyleDefault handler:nil];
         [alertController addAction:okayAction];
         [self presentViewController:alertController animated:YES completion:nil];
-    }
-    else {
+    } else {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             self.getThreadListBlock(1);
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -183,8 +182,5 @@ NSString *kShowThreadDetail = @"showThreadDetail";
 {
     return 60;
 }
-
-
-
 
 @end

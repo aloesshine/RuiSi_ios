@@ -22,7 +22,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 @property (nonatomic,strong) ThreadDetailList *detailList;
 @property (nonatomic,copy) NSURLSessionDataTask* (^getThreadDetailListBlock)(NSInteger page);
 @property (nonatomic,copy) NSURLSessionDataTask* (^getMoreThreadDetailBlock)(NSInteger page);
-@property (nonatomic,copy) NSURLSessionDataTask* (^getLinksBlock)();
+@property (nonatomic,copy) NSURLSessionDataTask* (^getLinksBlock)(void);
 @property (nonatomic,copy) NSURLSessionDataTask* (^getCreatorOnlyDetailListBlock)(NSInteger page);
 @property (nonatomic,assign) NSInteger currentPage;
 @property (nonatomic,strong) NSDictionary *linksDict;

@@ -251,7 +251,6 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     
     __weak typeof(self) weakSelf = self;
     self.tableView.selectCellHandler = ^(AboutMeTableViewCell *cell,NSIndexPath *indexPath) {
-        
         [weakSelf.tableView deselectRowAtIndexPath:indexPath animated:YES];
         if (indexPath.row == 1) {
             SettingsViewController *settingsViewController = [[SettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
@@ -450,13 +449,6 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
         }
     };
 }
-
-
-
-
-
-
-
 
 
 @end
