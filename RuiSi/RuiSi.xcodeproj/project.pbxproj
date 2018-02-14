@@ -431,7 +431,6 @@
 			children = (
 				7A6563F91DE719B300E3E1B5 /* Thread.h */,
 				7A6563FA1DE719B300E3E1B5 /* Thread.m */,
-				BB0BDE841DEC8017001B2A89 /* Constants.h */,
 				BB0BDE891DEC8A36001B2A89 /* User.h */,
 				BB0BDE8A1DEC8A36001B2A89 /* User.m */,
 				BB0F8C621DF06E29006D11E2 /* BaseModel.h */,
@@ -451,6 +450,7 @@
 		7AB4ACB91DDD7DCA00842D6C /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				BB0BDE841DEC8017001B2A89 /* Constants.h */,
 				BB0F8C6E1DF0852D006D11E2 /* DataManager.h */,
 				BB0F8C6F1DF0852D006D11E2 /* DataManager.m */,
 				BB0A95D81DF71F84009B6F7D /* Helper.h */,
@@ -734,13 +734,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RuiSi-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8DC237EA0024040658A4D11D /* [CP] Check Pods Manifest.lock */ = {
@@ -779,9 +782,15 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-RuiSi/Pods-RuiSi-resources.sh",
+				"${PODS_ROOT}/IDMPhotoBrowser/Classes/IDMPhotoBrowser.bundle",
+				"${PODS_ROOT}/IDMPhotoBrowser/Classes/IDMPBLocalizations.bundle",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

@@ -19,7 +19,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
     self.tabBarController = [[UITabBarController alloc] init];

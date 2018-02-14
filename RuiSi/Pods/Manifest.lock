@@ -47,6 +47,7 @@ PODS:
     - DTFoundation/Core
   - DTFoundation/UIKit (1.7.12):
     - DTFoundation/Core
+  - FLAnimatedImage (1.0.12)
   - IDMPhotoBrowser (1.11.3):
     - DACircularProgress
     - pop
@@ -95,6 +96,9 @@ PODS:
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
+  - SDWebImage/GIF (4.0.0):
+    - FLAnimatedImage (~> 1.0)
+    - SDWebImage/Core
   - SVProgressHUD (2.1.2)
 
 DEPENDENCIES:
@@ -109,6 +113,7 @@ DEPENDENCIES:
   - PureLayout
   - RegexKitLite (~> 4.0)
   - SDWebImage (~> 4.0)
+  - SDWebImage/GIF
   - SVProgressHUD
 
 SPEC CHECKSUMS:
@@ -117,6 +122,7 @@ SPEC CHECKSUMS:
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   DTCoreText: 51904f2374af443e0d270d6fdc76035ab6f9ef8a
   DTFoundation: 26a164ef510877387906fb92bff524a792db4bf8
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   IDMPhotoBrowser: b96159fe4adb991a844068eb17dab9c0b7d7e51a
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
@@ -128,6 +134,6 @@ SPEC CHECKSUMS:
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
 
-PODFILE CHECKSUM: fde08b1b28349999a380ca53343e00986e620463
+PODFILE CHECKSUM: 63bf4498af94adc23d59d110e4a7a45f8b6f6591
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.3.1

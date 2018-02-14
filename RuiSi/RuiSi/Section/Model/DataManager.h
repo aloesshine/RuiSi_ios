@@ -51,7 +51,7 @@ typedef NS_ENUM(NSInteger, RSErrorType) {
 
 
 - (NSURLSessionDataTask *) getMessageListSuccess:(void (^)(MessageList *messageList))success
-failure:(void (^)(NSError *error))failure;
+                                         failure:(void (^)(NSError *error))failure;
 
 - (NSURLSessionDataTask *) getThreadListWithFid:(NSString *)fid
                                            page:(NSInteger )page
@@ -64,11 +64,11 @@ failure:(void (^)(NSError *error))failure;
 
 - (NSURLSessionDataTask *) getFavoriteThreadListWithUid:(NSString *)uid
                                                 success:(void (^)(ThreadList *threadList))success
-                                                         failure:(void (^)(NSError *error)) failure;
+                                                failure:(void (^)(NSError *error)) failure;
 
 - (NSURLSessionDataTask *) getHotThreadListWithPage:(NSInteger )page
                                             success:(void (^)(ThreadList *threadList))success
-                                               failure:(void (^)(NSError *error)) failure;
+                                            failure:(void (^)(NSError *error)) failure;
 
 
 - (NSURLSessionDataTask *) getThreadDetailListWithTid:(NSString *)tid
@@ -93,9 +93,9 @@ failure:(void (^)(NSError *error))failure;
                                       failure:(void (^)(NSError *error)) failure;
 
 - (NSURLSessionDataTask *) getLinkDictionaryWithTid:(NSString *)tid
-                                      page:(NSInteger )page
-                                   success:(void (^)(NSDictionary *links))success
-                                   failure:(void (^)(NSError *error))failure;
+                                               page:(NSInteger )page
+                                            success:(void (^)(NSDictionary *links))success
+                                            failure:(void (^)(NSError *error))failure;
 
 - (NSURLSessionDataTask *) getMemberWithUid:(NSString *)uid
                                     success:(void (^)(Member *member))success
@@ -103,12 +103,12 @@ failure:(void (^)(NSError *error))failure;
 
 
 - (NSURLSessionDataTask *) createReplyWithfid:(NSString *)fid
-                                     tid:(NSString *)tid
-                                    pid:(NSString *)pid
+                                          tid:(NSString *)tid
+                                          pid:(NSString *)pid
                                          page:(NSInteger )page
-                                           content:(NSString *)content
-                                           success:(void (^)(ThreadDetail *detail))success
-                                           failure:(void (^)(NSError *error)) failure;
+                                      content:(NSString *)content
+                                      success:(void (^)(ThreadDetail *detail))success
+                                      failure:(void (^)(NSError *error)) failure;
 
 
 - (NSURLSessionDataTask *) createReplyWithUrlString:(NSString *)urlString
@@ -119,10 +119,15 @@ failure:(void (^)(NSError *error))failure;
 
 - (NSURLSessionDataTask *) userLoginWithUserName:(NSString *)username
                                         password:(NSString *)password
+                                      verifycode:(NSString *)verifyCode
+                            htmlFieldsDictionary:(NSDictionary *)infoDictionary
                                          success:(void (^)(NSString *message))success
                                          failure:(void (^)(NSError *error)) failure;
 
+- (NSURLSessionDataTask *) requestOnceWithString:(NSString *) urlString
+                                         success:(void (^)(NSDictionary *dictionary)) success
+                                         failure:(void (^)(NSError *error)) failure;
 
-- (void) UserLogout;
+- (void)  userLogOut;
 
 @end

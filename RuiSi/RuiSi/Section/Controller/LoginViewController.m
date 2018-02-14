@@ -5,18 +5,22 @@
 //  Created by aloes on 2017/1/17.
 //  Copyright © 2017年 aloes. All rights reserved.
 //
-
 #import "LoginViewController.h"
 #import "Member.h"
 #import "User.h"
+#import "FLAnimatedImage.h"
 @interface LoginViewController ()
 @property (nonatomic,assign) BOOL isLogining;
 @property (nonatomic,assign) BOOL isKeyboardShowing;
-@property (weak, nonatomic) IBOutlet UITextField *usernameField;
-@property (weak, nonatomic) IBOutlet UITextField *passwordField;
-@property (weak,nonatomic) IBOutlet UIButton *loginButton;
-@property (weak,nonatomic) IBOutlet UIButton *cancelButton;
+@property (nonatomic,weak) IBOutlet UITextField *usernameField;
+@property (nonatomic,weak) IBOutlet UITextField *passwordField;
+@property (nonatomic,weak) IBOutlet UIButton *loginButton;
+@property (nonatomic,weak) IBOutlet UIButton *cancelButton;
+@property (nonatomic,weak) IBOutlet UITextField *verifycodeField;
+@property (nonatomic,weak) IBOutlet FLAnimatedImageView *verifyImageView;
+@property (nonatomic,strong) NSDictionary *htmlFieldsDictionary;
 @property (nonatomic,strong) NSTimer *loginTimer;
+@property (nonatomic,copy) NSURLSessionDataTask* (^requestOnceBlock)(void);
 @end
 
 @implementation LoginViewController
@@ -29,6 +33,29 @@
     self.isLogining = NO;
     self.isKeyboardShowing = NO;
     [self.usernameField becomeFirstResponder];
+    [self configureBlocks];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        self.requestOnceBlock();
+    });
+}
+
+- (void) configureBlocks {
+    @weakify(self);
+    self.requestOnceBlock = ^(void) {
+        @strongify(self);
+        return [[DataManager manager] requestOnceWithString:@"member.php" success:^(NSDictionary *dictionary) {
+            self.htmlFieldsDictionary = [dictionary copy];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                SDWebImageDownloader *downloader = [SDWebImageManager sharedManager].imageDownloader;
+                NSString *referer = (NSString *)[self.htmlFieldsDictionary valueForKey:@"referer"];
+                [downloader setValue:referer forHTTPHeaderField:@"Referer"];
+                NSString *imageUrlString = (NSString *)[self.htmlFieldsDictionary valueForKey:@"verifyImageUrlString"];
+                [self.verifyImageView sd_setImageWithURL:[NSURL URLWithString:imageUrlString]];
+            });
+        } failure:^(NSError *error) {
+            ;
+        }];
+    };
 }
 
 - (IBAction)back:(UIButton *)sender
@@ -39,14 +66,17 @@
     if([self.passwordField isFirstResponder]) {
         [self.passwordField resignFirstResponder];
     }
+    if ([self.verifycodeField isFirstResponder]) {
+        [self.verifycodeField resignFirstResponder];
+    }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
 
 - (void) beginLogin {
     self.isLogining = YES;
     self.usernameField.enabled = NO;
     self.passwordField.enabled = NO;
+    self.verifycodeField.enabled = NO;
     static NSUInteger dotCount = 0;
     dotCount = 1;
     [self.loginButton setTitle:@"登录." forState:UIControlStateNormal];
@@ -65,7 +95,6 @@
         dotCount ++;
         
         [self.loginButton setTitle:loginString forState:UIControlStateNormal];
-        
     } repeats:YES];
 
 }
@@ -73,7 +102,7 @@
 - (void) endLogin {
     self.usernameField.enabled = YES;
     self.passwordField.enabled = YES;
-    
+    self.verifycodeField.enabled = YES;
     [self.loginButton setTitle:@"登录" forState:UIControlStateNormal];
     
     self.isLogining = NO;
@@ -92,10 +121,11 @@
 - (IBAction)login:(UIButton *)sender
 {
     if (!self.isLogining) {
-        
-        if (self.usernameField.text.length && self.passwordField.text.length) {
+        if (self.usernameField.text.length > 0 && self.passwordField.text.length > 0 && self.verifycodeField.text.length > 0) {
             [self hideKeyboard];
-            [[DataManager manager] userLoginWithUserName:self.usernameField.text password:self.passwordField.text success:^(NSString *uid) {
+            [[DataManager manager] userLoginWithUserName:self.usernameField.text password:self.passwordField.text verifycode:self.verifycodeField.text
+                htmlFieldsDictionary:self.htmlFieldsDictionary
+                success:^(NSString *uid) {
                 [[DataManager manager] getMemberWithUid:uid success:^(Member *member) {
                     User *user = [[User alloc] init];
                     user.member = member;
@@ -120,11 +150,8 @@
             }];
             
             [self beginLogin];
-            
         }
-        
     }
-
 }
 
 

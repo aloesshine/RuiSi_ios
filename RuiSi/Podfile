@@ -6,6 +6,7 @@ target 'RuiSi' do
 	pod 'SVProgressHUD'
     pod 'SDWebImage','~> 4.0'
     pod 'BlocksKit','~> 2.2.5'
+    pod 'SDWebImage/GIF'
     pod 'MJRefresh','~> 3.1.12'
     pod 'libextobjc','~> 0.4.1'
 	pod 'Objective-C-HMTL-Parser'

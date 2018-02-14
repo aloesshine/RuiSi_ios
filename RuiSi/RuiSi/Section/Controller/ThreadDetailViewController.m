@@ -156,7 +156,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 }
 
 #pragma mark - Private Methods
-- (void) takeActionBlock:(void (^)())block {
+- (void) takeActionBlock:(void (^)(void))block {
     block();
 }
 
