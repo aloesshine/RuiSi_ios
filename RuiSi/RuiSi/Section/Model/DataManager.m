@@ -109,7 +109,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     });
-    //[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
     void (^responseHandleBlock) (NSURLSessionDataTask *task, id responseObject) = ^(NSURLSessionDataTask *task, id responseObject){
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         success(task,responseObject);
@@ -118,10 +118,11 @@
     
     NSURLSessionDataTask *task = nil;
     [self.sessionManager.requestSerializer setValue:self.userAgentMobile forHTTPHeaderField:@"User-Agent"];
-    NSString *cookie = (NSString *)[[NSUserDefaults standardUserDefaults] objectForKey:@"cookie"];
-    if (cookie != nil) {
-        [self.sessionManager.requestSerializer setValue:cookie forHTTPHeaderField:@"cookie"];
-    }
+    [self.sessionManager.requestSerializer setValue:@"keep-alive" forHTTPHeaderField:@"Connection"];
+//    NSString *cookie = (NSString *)[[NSUserDefaults standardUserDefaults] objectForKey:@"cookie"];
+//    if (cookie != nil) {
+//        [self.sessionManager.requestSerializer setValue:cookie forHTTPHeaderField:@"cookie"];
+//    }
     
     if (method == RequestMethodHTTPGet) {
         AFHTTPResponseSerializer *responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -129,13 +130,13 @@
         task = [self.sessionManager GET:urlString parameters:parameters progress:^(NSProgress *  downloadProgress) {
             ;
         } success:^(NSURLSessionDataTask *task, id responseObject) {
-            NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-            NSDictionary *allHeaderFieldsDict = response.allHeaderFields;
-            NSString *setCookie = allHeaderFieldsDict[@"Set-Cookie"];
-            if (setCookie != nil) {
-                NSString *cookie = [[setCookie componentsSeparatedByString:@";"] objectAtIndex:0];
-                [[NSUserDefaults standardUserDefaults] setObject:cookie forKey:@"cookie"];
-            }
+//            NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+//            NSDictionary *allHeaderFieldsDict = response.allHeaderFields;
+//            NSString *setCookie = allHeaderFieldsDict[@"Set-Cookie"];
+//            if (setCookie != nil) {
+//                NSString *cookie = [[setCookie componentsSeparatedByString:@";"] objectAtIndex:0];
+//                [[NSUserDefaults standardUserDefaults] setObject:cookie forKey:@"cookie"];
+//            }
             responseHandleBlock(task,responseObject);
         }failure:^(NSURLSessionDataTask *task,NSError *error) {
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -149,13 +150,13 @@
         task = [self.sessionManager POST:urlString parameters:parameters progress:^(NSProgress *  uploadProgress) {
             ;
         }  success:^(NSURLSessionDataTask *  task, id  responseObject) {
-            NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-            NSDictionary *allHeaderFieldsDict = response.allHeaderFields;
-            NSString *setCookie = allHeaderFieldsDict[@"Set-Cookie"];
-            if (setCookie != nil) {
-                NSString *cookie = [[setCookie componentsSeparatedByString:@";"] objectAtIndex:0];
-                [[NSUserDefaults standardUserDefaults] setObject:cookie forKey:@"cookie"];
-            }
+//            NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+//            NSDictionary *allHeaderFieldsDict = response.allHeaderFields;
+//            NSString *setCookie = allHeaderFieldsDict[@"Set-Cookie"];
+//            if (setCookie != nil) {
+//                NSString *cookie = [[setCookie componentsSeparatedByString:@";"] objectAtIndex:0];
+//                [[NSUserDefaults standardUserDefaults] setObject:cookie forKey:@"cookie"];
+//            }
             responseHandleBlock(task,responseObject);
         } failure:^(NSURLSessionDataTask *  task, NSError *  error) {
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -452,9 +453,13 @@
                                         success:(void (^)(NSString *))success
                                         failure:(void (^)(NSError *error))failure {
     NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSString *cookieName = @"";
     for (NSHTTPCookie *cookie in [storage cookies]) {
-        [storage deleteCookie:cookie];
+        //[storage deleteCookie:cookie];
+        NSString *item = [NSString stringWithFormat:@"%@:%@;",cookie.name, cookie.value];
+        cookieName = [cookieName stringByAppendingString:item];
     }
+    
     NSDictionary *parameters = @{
                    @"formhash":[infoDictionary objectForKey:@"formhash"],
                    @"referer": [self.baseURLString stringByAppendingString:@"/forum.php?mod=guide&view=hot&mobile=2"],
@@ -470,6 +475,7 @@
     [self.sessionManager.requestSerializer setValue: [self.baseURLString stringByAppendingString:@"/member.php?mod=logging&action=login&mobile=2"] forHTTPHeaderField:@"Referer"];
     return [self requestWithMethod:RequestMethodHTTPPost urlString:postUrlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         NSString *htmlString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        
         if ([htmlString rangeOfString:@"欢迎您回来"].location != NSNotFound) {
             NSRange range1 = [htmlString rangeOfString:@"uid="];
             NSRange range2 = [htmlString rangeOfString:@"&do=profile"];

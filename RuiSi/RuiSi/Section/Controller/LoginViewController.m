@@ -50,7 +50,8 @@
                 NSString *referer = (NSString *)[self.htmlFieldsDictionary valueForKey:@"referer"];
                 [downloader setValue:referer forHTTPHeaderField:@"Referer"];
                 NSString *imageUrlString = (NSString *)[self.htmlFieldsDictionary valueForKey:@"verifyImageUrlString"];
-                [self.verifyImageView sd_setImageWithURL:[NSURL URLWithString:imageUrlString]];
+                //[self.verifyImageView sd_setImageWithURL:[NSURL URLWithString:imageUrlString]];
+                [self.verifyImageView sd_setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:nil options:SDWebImageHandleCookies];
             });
         } failure:^(NSError *error) {
             ;
