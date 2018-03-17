@@ -8,9 +8,17 @@
 4. 在项目文件夹中运行`pod install`.
 5. 打开生成的.xcworkspace文件，构建并运行.
 
-## 暂时做不了的功能
-1. 对帖子内容的复制、剪贴
-2. 非链接类型的网址的识别
-3. 点开查看大图。由于本程序是从睿思手机版的网页中提取内容的，因此获得的图片的url都是适合手机版的。
+## 已完成效果
+点击以下各链接即可查看目前已完成的界面的效果图。
+### 主界面
+[main](http://7xnyik.com1.z0.glb.clouddn.com/rs_main.jpg)
+### 我
+[me](http://7xnyik.com1.z0.glb.clouddn.com/rs_me.png)
+### 帖子列表
+[list](http://7xnyik.com1.z0.glb.clouddn.com/rs_list.png)
+### 帖子正文
+[content](http://7xnyik.com1.z0.glb.clouddn.com/rs_content.png)
+### 帖子评论
+[comment](http://7xnyik.com1.z0.glb.clouddn.com/rs_comment.png)
 
 
