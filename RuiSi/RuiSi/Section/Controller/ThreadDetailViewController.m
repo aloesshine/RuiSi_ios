@@ -358,10 +358,6 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
     //        NSURL *newURL = [NSURL URLWithString:newString];
     //        [scaledPhotoURLs addObject:newURL];
     //    }
-    IDMPhotoBrowser *photoBrowser = [[IDMPhotoBrowser alloc] initWithPhotoURLs:cell.photoURLs animatedFromView:imageView];
-    [photoBrowser setInitialPageIndex:index];
-    photoBrowser.dismissOnTouch = YES;
-    [self presentViewController:photoBrowser animated:YES completion:nil];
 }
 
 

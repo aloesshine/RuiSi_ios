@@ -11,7 +11,6 @@
 #import "DTAttributedTextContentView.h"
 #import "DTLazyImageView.h"
 #import <DTFoundation/DTWeakSupport.h>
-#import "IDMPhotoBrowser.h"
 
 @class ThreadDetailDTCell;
 @protocol ThreadDetailCellProtocol <NSObject>
