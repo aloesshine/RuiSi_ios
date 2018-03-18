@@ -386,7 +386,10 @@ NSDictionary *_classesForNames = nil;
 	
 	[_attributes enumerateKeysAndObjectsUsingBlock:^(NSString *key, id value, BOOL *stop) {
 		
+		// Ignore attributes on global ignore list
 		if ([attributesToIgnore containsObject:key]) return;
+		// Ignore Apple-converted-space helper CSS class
+		if ([@"class" isEqualToString:key] && [@"Apple-converted-space" isEqualToString:value]) return;
 
 		if (_CSSClassNamesToIgnoreForCustomAttributes && [key isEqualToString:@"class"])
 		{
@@ -1328,6 +1331,12 @@ NSDictionary *_classesForNames = nil;
 		_backgroundCornerRadius = 0.0f;
 	}
 	
+	NSString *textIndentStr = [styles objectForKey:@"text-indent"];
+	if (textIndentStr && [textIndentStr isCSSLengthValue])
+	{
+		_pTextIndent = [textIndentStr pixelSizeOfCSSMeasureRelativeToCurrentTextSize:_currentTextSize textScale:_textScale];
+	}
+	
 	BOOL needsTextBlock = (_backgroundColor!=nil || _backgroundStrokeColor!=nil || _backgroundCornerRadius > 0 || _backgroundStrokeWidth > 0);
 	
 	BOOL hasMargins = NO;
@@ -1727,6 +1736,7 @@ NSDictionary *_classesForNames = nil;
 @synthesize backgroundStrokeWidth = _backgroundStrokeWidth;
 @synthesize backgroundCornerRadius = _backgroundCornerRadius;
 @synthesize letterSpacing = _letterSpacing;
+@synthesize pTextIndent = _pTextIndent;
 
 @end
 

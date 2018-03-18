@@ -165,6 +165,12 @@ static Class _layerClassToUseForDTAttributedTextContentView = nil;
 
 - (void)dealloc
 {
+	if (_isTiling)
+	{
+		self.layer.contents = nil;
+		self.layer.delegate = nil;
+	}
+
 	[self removeAllCustomViews];
 }
 
@@ -341,7 +347,8 @@ static Class _layerClassToUseForDTAttributedTextContentView = nil;
 						}
 						else if (_delegateFlags.delegateSupportsGenericCustomViews)
 						{
-							NSAttributedString *string = [layoutString attributedSubstringFromRange:runRange];
+							NSMutableAttributedString *string = [layoutString attributedSubstringFromRange:runRange].mutableCopy;
+							[string addAttributes:oneRun.attributes range:NSMakeRange(0, string.length)];
 							newCustomAttachmentView = [_delegate attributedTextContentView:self viewForAttributedString:string frame:frameForSubview];
 						}
 						
@@ -398,7 +405,8 @@ static Class _layerClassToUseForDTAttributedTextContentView = nil;
 						}
 						else if (_delegateFlags.delegateSupportsGenericCustomViews)
 						{
-							NSAttributedString *string = [layoutString attributedSubstringFromRange:runRange];
+							NSMutableAttributedString *string = [layoutString attributedSubstringFromRange:runRange].mutableCopy;
+							[string addAttributes:oneRun.attributes range:NSMakeRange(0, string.length)];
 							newCustomLinkView = [_delegate attributedTextContentView:self viewForAttributedString:string frame:frameForSubview];
 						}
 						

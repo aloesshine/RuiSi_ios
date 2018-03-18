@@ -323,10 +323,10 @@
 				BB3FE8871F2D9C090000E505 /* Assets.xcassets */,
 				7AB4ACA91DDD7DCA00842D6C /* Other */,
 				7AB4ACB21DDD7DCA00842D6C /* Resource */,
+				BB928E891DEC62FC00855274 /* Main.storyboard */,
 				7AB4ACB61DDD7DCA00842D6C /* Section */,
 				7AB4ACBB1DDD7DCA00842D6C /* Vender */,
 				7A997B821DDD74DC00D383B5 /* LaunchScreen.storyboard */,
-				BB928E891DEC62FC00855274 /* Main.storyboard */,
 			);
 			path = RuiSi;
 			sourceTree = "<group>";
@@ -783,8 +783,6 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-RuiSi/Pods-RuiSi-resources.sh",
-				"${PODS_ROOT}/IDMPhotoBrowser/Classes/IDMPhotoBrowser.bundle",
-				"${PODS_ROOT}/IDMPhotoBrowser/Classes/IDMPBLocalizations.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
 			);
