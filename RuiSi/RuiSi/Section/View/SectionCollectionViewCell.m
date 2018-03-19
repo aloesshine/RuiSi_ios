@@ -8,19 +8,54 @@
 
 #import "SectionCollectionViewCell.h"
 
+@interface SectionCollectionViewCell ()
+
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *countLabel;
+@property (nonatomic, strong) UIImageView *iconImageView;
+
+@end
+
 @implementation SectionCollectionViewCell
 
-- (void)setUpFont
+- (instancetype)initWithFrame:(CGRect)frame
 {
-//        self.titleLabel.font = [UIFont systemFontOfSize:12];
-//        self.countLabel.font = [UIFont systemFontOfSize:10];
-    [self.titleLabel sizeToFit];
-    [self.countLabel sizeToFit];
-    self.backgroundColor = [UIColor colorWithRed:1.0 green:1.0  blue:1.0 alpha:1];
+    if (self = [super initWithFrame:frame]) {
+        [self setupUI];
+    }
+    return self;
 }
 
-- (void)setUpIconImageAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *fileName = [NSString stringWithFormat:@"%ld_%ld",(indexPath.section+1),(indexPath.row+1)];
-    self.iconImageView.image = [UIImage imageNamed:fileName];
+- (void)setupUI
+{
+    self.backgroundColor = [UIColor whiteColor];
+    
+    self.iconImageView = [[UIImageView alloc] init];
+    [self.contentView addSubview:self.iconImageView];
+    [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(@(-15));
+        make.centerX.equalTo(@0);
+        make.width.height.equalTo(@30);
+    }];
+    
+    self.titleLabel = [[UILabel alloc] init];
+    self.titleLabel.numberOfLines = 2;
+    self.titleLabel.textColor = [UIColor blackColor];
+    self.titleLabel.font = [UIFont systemFontOfSize:12];
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [self.contentView addSubview:self.titleLabel];
+    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.iconImageView.mas_bottom).offset(5);
+        make.left.equalTo(@5);
+        make.right.equalTo(@(-5));
+        make.bottom.equalTo(@(-5));
+    }];
 }
+
+- (void)configWithTitle:(NSString *)title image:(UIImage *)image
+{
+    self.titleLabel.text = title;
+    self.iconImageView.image = image;
+}
+
 @end

@@ -10,8 +10,11 @@
 #import "SectionViewController.h"
 #import "AboutMeViewController.h"
 #import "ThreadListViewController.h"
+
 @interface AppDelegate ()
+
 @property (nonatomic,strong) UITabBarController *tabBarController;
+
 @end
 
 @implementation AppDelegate
@@ -21,52 +24,9 @@
 
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
-    self.tabBarController = [[UITabBarController alloc] init];
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    SectionViewController *sectionViewController = [[SectionViewController alloc] initWithCollectionViewLayout:layout];
-    AboutMeViewController *aboutMeViewController = [[AboutMeViewController alloc] init];
-    ThreadListViewController *hotThreadListViewController = [[ThreadListViewController alloc] init];
-    
-    hotThreadListViewController.needToGetMore = YES;
-    hotThreadListViewController.name = @"精彩热帖";
-    __weak typeof(hotThreadListViewController) whotThreadListViewController = hotThreadListViewController;
-    hotThreadListViewController.getThreadListBlock = ^(NSInteger page){
-      return [[DataManager manager] getHotThreadListWithPage:page success:^(ThreadList *threadList) {
-          whotThreadListViewController.threadList = threadList;
-          [whotThreadListViewController.tableView reloadData];
-      } failure:^(NSError *error) {
-          ;
-      }];
-    };
-    
-    hotThreadListViewController.getMoreListBlock = ^(NSInteger page) {
-        return [[DataManager manager] getHotThreadListWithPage:page success:^(ThreadList *threadList) {
-            NSMutableArray *threadLists = [[NSMutableArray alloc] initWithArray:whotThreadListViewController.threadList.list];
-            [threadLists addObjectsFromArray:threadList.list];
-            whotThreadListViewController.threadList.list = [threadLists copy];
-            [whotThreadListViewController.tableView reloadData];
-        } failure:^(NSError *error) {
-            ;
-        }];
-    };
-    
-    
-    UINavigationController *nav1 = [[UINavigationController alloc] initWithRootViewController:sectionViewController];
-    UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:hotThreadListViewController];
-    UINavigationController *nav3 = [[UINavigationController alloc] initWithRootViewController:aboutMeViewController];
-    nav1.tabBarItem.title = @"板块";
-    nav1.tabBarItem.image = [UIImage imageNamed:@"sections"];
-    nav2.tabBarItem.title = @"热帖";
-    nav2.tabBarItem.image = [UIImage imageNamed:@"hot"];
-    nav3.tabBarItem.title = @"我";
-    nav3.tabBarItem.image = [UIImage imageNamed:@"user"];
-   
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:nav1,nav2,nav3, nil];
-    
-    
     [self setupGlobalNavigationAndTabBar];
     
-    
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     
@@ -100,8 +60,55 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (UITabBarController *)tabBarController
+{
+    if (!_tabBarController) {
+        _tabBarController = [[UITabBarController alloc] init];
+        
+        SectionViewController *sectionViewController = [[SectionViewController alloc] init];
+        AboutMeViewController *aboutMeViewController = [[AboutMeViewController alloc] init];
+        ThreadListViewController *hotThreadListViewController = [[ThreadListViewController alloc] init];
+        
+        hotThreadListViewController.needToGetMore = YES;
+        hotThreadListViewController.name = @"精彩热帖";
+        __weak typeof(hotThreadListViewController) whotThreadListViewController = hotThreadListViewController;
+        hotThreadListViewController.getThreadListBlock = ^(NSInteger page){
+            return [[DataManager manager] getHotThreadListWithPage:page success:^(ThreadList *threadList) {
+                whotThreadListViewController.threadList = threadList;
+                [whotThreadListViewController.tableView reloadData];
+            } failure:^(NSError *error) {
+                ;
+            }];
+        };
+        
+        hotThreadListViewController.getMoreListBlock = ^(NSInteger page) {
+            return [[DataManager manager] getHotThreadListWithPage:page success:^(ThreadList *threadList) {
+                NSMutableArray *threadLists = [[NSMutableArray alloc] initWithArray:whotThreadListViewController.threadList.list];
+                [threadLists addObjectsFromArray:threadList.list];
+                whotThreadListViewController.threadList.list = [threadLists copy];
+                [whotThreadListViewController.tableView reloadData];
+            } failure:^(NSError *error) {
+                ;
+            }];
+        };
+        
+        UINavigationController *nav1 = [[UINavigationController alloc] initWithRootViewController:hotThreadListViewController];
+        UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:sectionViewController];
+        UINavigationController *nav3 = [[UINavigationController alloc] initWithRootViewController:aboutMeViewController];
+        nav1.tabBarItem.title = @"热帖";
+        nav1.tabBarItem.image = [UIImage imageNamed:@"hot"];
+        nav2.tabBarItem.title = @"板块";
+        nav2.tabBarItem.image = [UIImage imageNamed:@"sections"];
+        nav3.tabBarItem.title = @"我";
+        nav3.tabBarItem.image = [UIImage imageNamed:@"user"];
+        
+        _tabBarController.viewControllers = [NSArray arrayWithObjects:nav1,nav2,nav3, nil];
+    }
+    return _tabBarController;
+}
 
-- (void) setupGlobalNavigationAndTabBar {
+- (void)setupGlobalNavigationAndTabBar
+{
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
     [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName, nil]];
@@ -110,8 +117,7 @@
     
     [[UITabBar appearance] setBackgroundImage:[UIImage new]];
     [[UITabBar appearance] setTranslucent:NO];
-    [[UITabBar appearance] setTintColor:[UIColor blackColor]];
+    [[UITabBar appearance] setTintColor:RSMainColor];
 }
-
 
 @end

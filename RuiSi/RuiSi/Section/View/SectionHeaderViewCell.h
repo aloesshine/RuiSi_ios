@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface SectionHeaderViewCell : UICollectionViewCell
-@property (nonatomic,weak) IBOutlet UILabel *headerTitleLabel;
 
-- (void) setUpFontAndBackground;
+- (void)configWithTitle:(NSString *)title;
+
 @end

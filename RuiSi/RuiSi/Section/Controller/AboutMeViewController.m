@@ -30,7 +30,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.85 green:0.13 blue:0.16 alpha:1.0];
+    self.navigationController.navigationBar.barTintColor = RSMainColor;
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
     self.isLogged = [DataManager isUserLogined];
@@ -108,7 +108,7 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
 
 - (void) setupTopView {
     self.topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 200)];
-    self.topView.backgroundColor = [UIColor colorWithRed:0.85 green:0.13 blue:0.16 alpha:1.0];
+    self.topView.backgroundColor = RSMainColor;
     
     self.avatarImage = [[UIImageView alloc] initWithFrame:CGRectMake(kScreen_Width/2-50,40, 100, 100)];
     self.avatarImage.contentMode = UIViewContentModeScaleAspectFill;

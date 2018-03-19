@@ -13,12 +13,15 @@
 
 NSString *kSectionCollectionViewCell = @"SectionCollectionViewCell";
 NSString *kSectionHeaderViewCell = @"SectionHeaderViewCell";
-NSString *kshowThreadListSegue = @"showThreadList";
 
-@interface SectionViewController()
-@property (nonatomic,strong) NSArray *itemArray;
-@property (nonatomic,strong) NSArray *sectionArray;
-@property (nonatomic,strong) NSArray *countArray;
+@interface SectionViewController() <UICollectionViewDelegate, UICollectionViewDataSource>
+
+@property (nonatomic, strong) UICollectionView *collectionView;
+
+@property (nonatomic, strong) NSArray *itemArray;
+@property (nonatomic, strong) NSArray *sectionArray;
+@property (nonatomic, strong) NSArray *countArray;
+
 @end
 
 @implementation SectionViewController
@@ -27,35 +30,45 @@ NSString *kshowThreadListSegue = @"showThreadList";
 {
     [super viewDidLoad];
     
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.85 green:0.13 blue:0.16 alpha:1.0];
+    self.navigationController.navigationBar.barTintColor = RSMainColor;
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    self.navigationItem.title = @"手机睿思";
-    
+    self.navigationItem.title = @"板块";
     
     [self setupArray];
     
-    [self.collectionView registerNib:[UINib nibWithNibName:kSectionCollectionViewCell bundle:nil] forCellWithReuseIdentifier:kSectionCollectionViewCell];
-    [self.collectionView registerNib:[UINib nibWithNibName:kSectionHeaderViewCell bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kSectionHeaderViewCell];
+    [self.view addSubview:self.collectionView];
+    [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.bottom.equalTo(self.view);
+    }];
     
     // 这三行代码可以解决ScrollView被Tab Bar遮挡的问题
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.extendedLayoutIncludesOpaqueBars = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
-    self.collectionView.backgroundColor = [UIColor colorWithRed:0.91 green:0.93 blue:0.93 alpha:1];
-    UICollectionViewLayout *layout = self.collectionView.collectionViewLayout;
-    UICollectionViewFlowLayout *flow = (UICollectionViewFlowLayout *)layout;
-    flow.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    flow.headerReferenceSize = CGSizeMake(100, 35);
-    flow.minimumLineSpacing = 1.0;
-    flow.minimumInteritemSpacing = 1.0;
-    [self.collectionView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
-    
 }
 
+- (UICollectionView *)collectionView
+{
+    if (!_collectionView) {
+        UICollectionViewFlowLayout *flow = [[UICollectionViewFlowLayout alloc] init];
+        flow.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        flow.headerReferenceSize = CGSizeMake(100, 35);
+        flow.minimumLineSpacing = 1.0;
+        flow.minimumInteritemSpacing = 1.0;
+        
+        _collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:flow];
+        _collectionView.backgroundColor = RSRGBColor(0.91,0.93,0.93,1);
+        _collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        _collectionView.delegate = self;
+        _collectionView.dataSource = self;
+        [_collectionView registerClass:[SectionCollectionViewCell class] forCellWithReuseIdentifier:kSectionCollectionViewCell];
+        [_collectionView registerClass:[SectionHeaderViewCell class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kSectionHeaderViewCell];
+    }
+    return _collectionView;
+}
 
-- (void)setupArray {
-    
+- (void)setupArray
+{
     if ([DataManager isUserLogined]) {
         NSString *path = [[NSBundle mainBundle] pathForResource:@"sectionLogging" ofType:@"plist"];
         self.itemArray = [NSArray arrayWithContentsOfFile:path];
@@ -102,7 +115,7 @@ NSString *kshowThreadListSegue = @"showThreadList";
     }
 }
 
-
+#pragma mark - UICollectionView
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -116,26 +129,24 @@ NSString *kshowThreadListSegue = @"showThreadList";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    SectionCollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:kSectionCollectionViewCell forIndexPath:indexPath];
+    SectionCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kSectionCollectionViewCell forIndexPath:indexPath];
     NSDictionary *dict = self.itemArray[indexPath.section][indexPath.row];
-    cell.titleLabel.text = dict[@"name"];
-    cell.countLabel.hidden = YES;
-    cell.iconImageView.image = [UIImage imageNamed:(NSString *)[dict valueForKey:@"image"]];
-    [cell setUpFont];
+    [cell configWithTitle:dict[@"name"] image:[UIImage imageNamed:(NSString *)[dict valueForKey:@"image"]]];
     return cell;
 }
 
-- (CGSize) collectionView :(UICollectionView *)collectionView layout:(nonnull UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+- (CGSize)collectionView :(UICollectionView *)collectionView layout:(nonnull UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
     CGFloat width = (self.collectionView.frame.size.width - 3) /4.0;
     CGSize size = CGSizeMake(width, width);
     return size;
 }
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
     if ([kind isEqual:UICollectionElementKindSectionHeader]) {
-        SectionHeaderViewCell *header = [self.collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:kSectionHeaderViewCell forIndexPath:indexPath];
-        header.headerTitleLabel.text = _sectionArray[indexPath.section];
-        [header setUpFontAndBackground];
+        SectionHeaderViewCell *header = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:kSectionHeaderViewCell forIndexPath:indexPath];
+        [header configWithTitle:_sectionArray[indexPath.section]];
         return header;
     }
     return nil;

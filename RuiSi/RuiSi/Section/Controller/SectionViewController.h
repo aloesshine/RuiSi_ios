@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SectionViewController : UICollectionViewController 
+@interface SectionViewController : UIViewController
 
 @end
