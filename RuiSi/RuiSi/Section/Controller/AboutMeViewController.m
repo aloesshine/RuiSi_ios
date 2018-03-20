@@ -62,19 +62,19 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
     if (self.isLogged) {
         
     } else {
-        [SVProgressHUD showErrorWithStatus:@"您还未登录，请登陆后再使用"];
+        [SVProgressHUD showErrorWithStatus:@"您还未登录，请登录后再使用"];
         [SVProgressHUD dismissWithDelay:1];
     }
 }
 
 - (void) askIfWillLogin {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"您尚未登陆" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *gotoLogin = [UIAlertAction actionWithTitle:@"前往登陆" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"您尚未登录" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *gotoLogin = [UIAlertAction actionWithTitle:@"前往登录" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         LoginViewController *loginViewController = [[LoginViewController alloc] init];
         loginViewController.hidesBottomBarWhenPushed = YES;
         [self presentViewController:loginViewController animated:YES completion:nil];
     }];
-    UIAlertAction *cancelLogin = [UIAlertAction actionWithTitle:@"暂时不登陆" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *cancelLogin = [UIAlertAction actionWithTitle:@"暂时不登录" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         ;
     }];
     [alertController addAction:gotoLogin];
@@ -311,13 +311,13 @@ NSString *kAboutMeHeaderViewCell = @"AboutMeHeaderViewCell";
         self.nameLabel.text = [userDefaults objectForKey:kUserName];
     } else {
         self.avatarImage.image = [UIImage imageNamed:@"defaultAvatar"];
-        self.nameLabel.text = @"请点击头像登陆";
+        self.nameLabel.text = @"请点击头像登录";
     }
 }
 
 
-- (void) setupSecondViewUsingPureLayout {
-    
+- (void)setupSecondViewUsingPureLayout
+{
     self.secondView.backgroundColor = [UIColor whiteColor];
     [self.secondView autoPinEdgeToSuperviewEdge:ALEdgeLeft];
     [self.secondView autoPinEdgeToSuperviewEdge:ALEdgeRight];

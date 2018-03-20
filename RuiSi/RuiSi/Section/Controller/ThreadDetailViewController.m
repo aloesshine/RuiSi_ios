@@ -387,7 +387,7 @@ static NSString *kThreadDetailTitleCell = @"ThreadDetailTitleCell";
 
 - (void)replyViewControllerHaveNotLogin:(ReplyViewController *)replyViewController {
     [self.navigationController popViewControllerAnimated:YES];
-    [SVProgressHUD showErrorWithStatus:@"请登陆后再试！"];
+    [SVProgressHUD showErrorWithStatus:@"请登录后再试！"];
 }
 
 

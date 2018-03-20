@@ -35,7 +35,6 @@
 		7ADE05B61DE56F4B00B7ABA5 /* ThreadListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ADE05B51DE56F4B00B7ABA5 /* ThreadListViewController.m */; };
 		7AE0918C1DE580210042D92E /* sectionNotLogging.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7AE0918B1DE580210042D92E /* sectionNotLogging.plist */; };
 		7AE6E73E1E2E3E7B00F65DBE /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE6E73C1E2E3E7B00F65DBE /* LoginViewController.m */; };
-		7AE6E73F1E2E3E7B00F65DBE /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AE6E73D1E2E3E7B00F65DBE /* LoginViewController.xib */; };
 		906B3FCCEFAB9F0902D662E8 /* libPods-RuiSi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7D095EC90ED6A2807A21590 /* libPods-RuiSi.a */; };
 		BB0A95D71DF70A5E009B6F7D /* ThreadDetailTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0A95D61DF70A5E009B6F7D /* ThreadDetailTitleCell.m */; };
 		BB0A95DA1DF71F84009B6F7D /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0A95D91DF71F84009B6F7D /* Helper.m */; };
@@ -150,7 +149,6 @@
 		7AE0918B1DE580210042D92E /* sectionNotLogging.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sectionNotLogging.plist; sourceTree = "<group>"; };
 		7AE6E73B1E2E3E7B00F65DBE /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		7AE6E73C1E2E3E7B00F65DBE /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		7AE6E73D1E2E3E7B00F65DBE /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		B6EE0C2ED2D7690ED42DA80B /* Pods-RuiSi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RuiSi.release.xcconfig"; path = "Pods/Target Support Files/Pods-RuiSi/Pods-RuiSi.release.xcconfig"; sourceTree = "<group>"; };
 		BB0A95D51DF70A5E009B6F7D /* ThreadDetailTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadDetailTitleCell.h; sourceTree = "<group>"; };
 		BB0A95D61DF70A5E009B6F7D /* ThreadDetailTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadDetailTitleCell.m; sourceTree = "<group>"; };
@@ -398,7 +396,6 @@
 				BB9C7EFE1DF853C200CC30AB /* ProfileViewController.m */,
 				7AE6E73B1E2E3E7B00F65DBE /* LoginViewController.h */,
 				7AE6E73C1E2E3E7B00F65DBE /* LoginViewController.m */,
-				7AE6E73D1E2E3E7B00F65DBE /* LoginViewController.xib */,
 				BBD04CB71E2CFD63008466FC /* MessageListViewController.h */,
 				BBD04CB81E2CFD63008466FC /* MessageListViewController.m */,
 				BBD04CC21E2D1826008466FC /* MessageDetailViewController.h */,
@@ -669,7 +666,6 @@
 				7A6A80941DEABD4800B81583 /* char_ref.rl in Resources */,
 				7A6A809A1DEABD4800B81583 /* tag.in in Resources */,
 				BB31CCEF1DE8B47A00FB70A6 /* AboutMeHeaderViewCell.xib in Resources */,
-				7AE6E73F1E2E3E7B00F65DBE /* LoginViewController.xib in Resources */,
 				7AE0918C1DE580210042D92E /* sectionNotLogging.plist in Resources */,
 				7A6564001DE719D500E3E1B5 /* ThreadListCell.xib in Resources */,
 				BB3713681DE9247000F0A179 /* AboutMeTableViewCell.xib in Resources */,
